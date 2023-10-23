@@ -1,0 +1,98 @@
+﻿@using BJ.Contract.Product;
+@model UserProductDto
+
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+<style>
+
+</style>
+
+<div class="og-expander-inner">
+    <span class="og-close" data-proId="@Model.Id"></span>
+    <div class="drink-info-box" style="display: block;">
+        <div class="quick-overview">
+            <h2>@Model.ProductName</h2>
+            <p class="shortdesc">@Model.ShortDesc</p>
+
+            <ul class="nutriimage">
+                @foreach (var subCat in Model.UserSubCategorySpecificProductDto.Where(x => x.ActiveProduct == true))
+                {
+                    <li><span><img src='@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath'></span>@subCat.SubCatName</li>
+                }
+            </ul>
+            <p class="description"></p>
+        </div>
+        <div class="large-image">
+            <img src='@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients'>
+
+        </div>
+        <div class="nutrition-info">
+            <h3>Serving size</h3>
+            <div class="tabs-nav">
+                @foreach (var size in Model.SizeSpecificProducts.Where(x => x.ActiveSize == true))
+                {
+                    string id = size.SizeId + "_" + size.ProductId;
+                    <a class="tablinks" onclick="openNutri(event,'@id')">@size.SizeName</a>
+
+
+                }
+            </div>
+            @foreach (var size in Model.SizeSpecificProducts.Where(x => x.ActiveSize == true))
+            {
+                string id = size.SizeId + "_" + size.ProductId;
+                <div class="info-table" style="display:none" id="@id">
+                    <ul>
+                        <li><strong>@size.Energy kJ</strong> (@size.Cal cal) Energy</li>
+                        <li><strong>@size.Fat g</strong> Fat, total</li>
+                        <li><strong>@size.Carbonhydrate g</strong> Carbohydrate</li>
+                        <li><strong>@size.DietaryFibre g</strong> Dietary fibre, total</li>
+                        <li><strong>@size.Protein g</strong> Protein</li>
+                        <li><strong>@size.FatSaturated g</strong> Fat - saturated</li>
+                        <li><strong>@size.CarbonhydrateSugar g</strong> Carbohydrate - sugars</li>
+                        <li><strong>@size.Sodium mg</strong> Sodium</li>
+                    </ul>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(".tablinks:nth-of-type(1)").addClass("active");
+    $(".info-table:nth-of-type(2)").css("display", "block");
+
+    $('.og-expander-inner > .og-close').on("click", function () {
+        var namePro = $(this).attr("data-proName");
+        var catName = $(this).attr("data-catName");
+        var idPro = $(this).attr("data-proId");
+        console.log(idPro);
+        $("#li_" + idPro).removeClass(" og-expanded");
+        $("#li_" + idPro).css("height", "380px");
+        $("#grid_" + idPro).attr("clicked", false);
+        $("#" + idPro).css("height", "");
+        $("#" + idPro).css("display", "none");
+
+    });
+    function openNutri(evt, sizeId) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+        console.log(sizeId);
+        // Get all elements with class="tabcontent" and hide them
+        
+
+        $(".info-table").css("display", "none");
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(sizeId).style.display = "block";
+
+        evt.currentTarget.className += " active";
+    }
+
+</script>

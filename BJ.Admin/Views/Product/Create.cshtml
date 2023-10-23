@@ -1,0 +1,279 @@
+﻿@using BJ.Contract.ViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@model CreateProductAdminView
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Tạo mới sản phẩm</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-san-pham.html " class="breadcrumb-item">Tất cả sản phẩm</a>
+
+                <span class="breadcrumb-item active">Tạo mới sản phẩm</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                    <img src="assets/images/others/thumb-16.jpg" alt="">
+                </div>
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: </h4>
+                    <p class="text-muted m-b-0">Code: </p>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                    </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Ảnh</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Mô tả</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-config">Cấu hình</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" asp-for="@Model.CreateProduct.ProductName">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productPrice">Giá giảm</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="Giá giảm" asp-for="@Model.CreateProduct.Discount">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
+                        <select class="select2" asp-for="@Model.CreateProduct.CategoryId" asp-items="ViewBag.CategoryId">
+                        </select>
+                    </div>
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-1" value="true" asp-for="@Model.CreateProduct.HomeTag">
+                            <label for="switch-1"></label>
+                        </div>
+                        <label>HomeTag</label>
+                    </div>
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-2" value="true" asp-for="@Model.CreateProduct.BestSeller">
+                            <label for="switch-2"></label>
+                        </div>
+                        <label>Bán chạy</label>
+                    </div>
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-3" value="true" asp-for="@Model.CreateProduct.Active">
+                            <label for="switch-3"></label>
+                        </div>
+                        <label>Kích hoạt</label>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6" id="sizeproduct">
+
+                            <label class="font-weight-semibold" for="productName">Kích cỡ ly</label>
+                            <div>
+                                <input id="checkbox-size_all" type="checkbox" name="SizeAll" />
+
+                                <label for="checkbox-size_all">Chọn tất cả</label>
+                            </div>
+                            @foreach (var size in ViewBag.SizeDtos)
+                            {
+                                <div>
+                                    <input id="checkbox-size_@size.Id" type="checkbox" name="Size" value="@size.Id">
+                                    <label for="checkbox-size_@size.Id">@size.Name</label>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-6" id="subcatproduct">
+
+                            <label class="font-weight-semibold" for="productName">Loại dinh dưỡng</label>
+                            <div>
+                                <input id="checkbox-subcat_all" type="checkbox" name="SubCatAll" />
+
+                                <label for="checkbox-subcat_all">Chọn tất cả</label>
+                            </div>
+                            @foreach (var subCat in ViewBag.SubCategoryDtos)
+                            {
+                                <div>
+                                    <input id="checkbox-subcat_@subCat.Id" type="checkbox" name="SubCat" value="@subCat.Id">
+                                    <label for="checkbox-subcat_@subCat.Id">@subCat.SubCatName</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh đại diện *</label>
+
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.ImageIngredients">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+
+                            <label class="control-label">Ảnh hiệu ứng (cái ly)</label>
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.ImageCup">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh hiệu ứng (trái cây) *</label>
+
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.ImageHero">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-description">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" asp-for="@Model.CreateProduct.ShortDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Mô tả</label>
+                        <textarea class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProduct.Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-config">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Tags</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="Tags" asp-for="@Model.CreateProduct.Tags">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProduct.MetaDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">MetaKey</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.CreateProduct.MetaKey">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script>
+        $('.select2').select2();
+        $("#checkbox-size_all").on("click", function () {
+            $("#sizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
+        })
+        $("#checkbox-subcat_all").on("click", function () {
+            $("#subcatproduct input[type=checkbox]").not(this).prop('checked', this.checked);
+        })
+    </script>
+    <script>
+        document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+            const dropZoneElement = inputElement.closest(".drop-zone");
+
+            dropZoneElement.addEventListener("click", (e) => {
+                inputElement.click();
+            });
+
+            inputElement.addEventListener("change", (e) => {
+                if (inputElement.files.length) {
+                    updateThumbnail(dropZoneElement, inputElement.files[0]);
+                }
+            });
+
+            dropZoneElement.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZoneElement.classList.add("drop-zone--over");
+            });
+
+            ["dragleave", "dragend"].forEach((type) => {
+                dropZoneElement.addEventListener(type, (e) => {
+                    dropZoneElement.classList.remove("drop-zone--over");
+                });
+            });
+
+            dropZoneElement.addEventListener("drop", (e) => {
+                e.preventDefault();
+
+                if (e.dataTransfer.files.length) {
+                    inputElement.files = e.dataTransfer.files;
+                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+                }
+
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+
+        function updateThumbnail(dropZoneElement, file) {
+            let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+            // First time - remove the prompt
+            if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+                dropZoneElement.querySelector(".drop-zone__prompt").remove();
+            }
+
+            // First time - there is no thumbnail element, so lets create it
+            if (!thumbnailElement) {
+                thumbnailElement = document.createElement("div");
+                thumbnailElement.classList.add("drop-zone__thumb");
+                dropZoneElement.appendChild(thumbnailElement);
+            }
+            //Chèn tên dưới hình----------
+            //thumbnailElement.dataset.label = file.name;
+            //------------
+            // Show thumbnail for image files
+            if (file.type.startsWith("image/")) {
+                const reader = new FileReader();
+
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+                };
+            } else {
+                thumbnailElement.style.backgroundImage = null;
+            }
+        }
+
+    </script>
+}

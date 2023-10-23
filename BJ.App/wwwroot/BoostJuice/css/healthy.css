@@ -1,0 +1,173 @@
+﻿.boost-home .sub-navi li a, .is-fixed .sub-navi li a {
+    color: #fff;
+}
+
+.is-fixed .sub-navi li a {
+    color: #846042;
+}
+
+.boost-nav-trigger span {
+    background-color: #fff;
+}
+
+.boost-home .boost-nav-trigger span::before, .boost-home .boost-nav-trigger span::after {
+    background-color: #fff !important;
+}
+
+.bg-image {
+    background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-desktop.jpg');
+}
+
+.main-fold-angle {
+    background-repeat: no-repeat;
+    background-position: center top;
+    min-height: 25vw;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.main-fold-angle {
+    background-size: 100%;
+}
+
+.main-fold-angle:after {
+    position: absolute;
+    content: "";
+    background-color: #fff;
+    width: 116%;
+    left: -5%;
+    bottom: -40px;
+    height: 60px;
+    -webkit-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+#blog-posts {
+    margin: 0px auto 80px auto;
+}
+#blog-posts .row {
+    margin-bottom: 60px;
+}
+.columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+#blog-posts .row .six {
+    float: right;
+    margin-left: 4%;
+}
+#blog-posts .row .six + .six {
+    float: left;
+    margin-left: 0;
+}
+#blog-posts p {
+    margin-bottom: 25px;
+}
+#blog-posts a {
+    color: #7ac142;
+    text-decoration: underline;
+}
+#blog-posts p img {
+    width: auto;
+    max-width: 100%;
+}
+#blog-posts h2 {
+    font-size: 30px;
+    line-height: 32px;
+    color: #7ac142;
+    margin: 30px 0 15px;
+    font-weight: 600;
+}
+#blog-posts .row h2 {
+    margin-top: 8px;
+}
+#blog-posts img {
+    height: auto;
+}
+.container:after, .row:after, .u-cf {
+    content: "";
+    display: table;
+    clear: both;
+}
+@media (max-width: 1440px) {
+    .bg-image {
+        background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-desktop-small-1.jpg');
+    }
+
+    .main-fold-angle {
+        min-height: 35vw;
+    }
+}
+
+@media (max-width: 1024px) {
+    .bg-image {
+        background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-tablet.jpg');
+    }
+    .main-fold-angle {
+        min-height: 40vw;
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        width: 90%;
+    }
+    .columns {
+        margin-left: 4%;
+    }
+    .columns:first-child {
+        margin-left: 0;
+    }
+    .six.columns {
+        width: 48%;
+    }
+
+}
+@media(max-width: 768px){
+    .main-fold-angle {
+        margin-bottom: 20px;
+    }
+    #blog-posts {
+        margin-bottom: 0px;
+    }
+    .container .row {
+        margin-bottom: 40px;
+    }
+}
+
+
+@media (max-width: 660px) {
+    .bg-image {
+        background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-mobile.jpg');
+    }
+    .main-fold-angle {
+        min-height: 56vw;
+    }
+    .container {
+        padding: 0px 20px;
+    }
+}
+@media (max-width: 280px) {
+
+    .nav-is-visible .boost-nav-trigger {
+        transform: translateX(0px);
+    }
+
+    .boost-main-nav .my-vibe {
+        font-size: 16px;
+    }
+}
+@media(min-width:400px) {
+    .container {
+        padding: 0;
+    }
+}

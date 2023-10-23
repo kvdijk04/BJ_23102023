@@ -1,0 +1,293 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/BoostJuice/css/about.css">
+
+    <link rel="stylesheet" href="~/BoostJuice/css/login.css">
+    <link rel="stylesheet" href="~/BoostJuice/css/owl-carousel.css">
+
+}
+
+<div class="boost-main-content">
+    <div class="main-fold bg-image vibe-banner-bkg">
+    </div>
+    <div class="preloader" style="display: none;">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <div class="sub-fold fix-content-large" id="vibe-welcome">
+        <div class="container">
+            <div class="row fix-content">
+                <div class="columns text-center">
+                    <img src="../../images/vibe-club.png">
+                    <p>
+                    <p><localize>Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register.</localize></p>
+                    </p>
+                    <div class="row">
+                        <div class="columns six"><a href="https://order.boostjuice.com.vn/customer/account/login/" class="button"><localize>Sign In</localize></a></div>
+                        <div class="columns six"><a href="https://order.boostjuice.com.vn/customer/account/create/" class="button button-primary"><localize>Register</localize></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="my-vibe" style="display: block">
+        <div class="sides-off" id="my-vibe-inner">
+            <div class="boost-carousel owl-carousel owl-theme boost-carousel-vibe">
+                <div class="slide-1" style="background-image: url('../../images/slider-slide-5.jpg')">
+                    <img src="../../images/slider-shape-5.png" class="slider-icon-1" />
+                </div>
+                <div class="slide-2" style="background-image: url('../../images/slider-slide-4.jpg')">
+                    <img src="../../images/slider-shape-4.png" class="slider-icon-1" />
+                </div>
+                <div class="slide-3" style="background-image: url('../../images/slider-slide-3.jpg')">
+                    <img src="../../images/slider-shape-3.png" class="slider-icon-1" />
+                </div>
+            </div>
+
+        </div>
+        <div class="vibe-options">
+            <div class="container">
+                <div class="row">
+                    <div class="six columns">
+                        <div>
+                            <p class="sub-title">
+                                <localize>
+                                    OPTION 1
+                                </localize>
+                            </p>
+                            <h3><localize>Download the<br>Boost Juice App</localize></h3>
+                            <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
+                            <p>
+                                <a href="http://bit.ly/1yqA2a2" target="_blank">
+                                    <img src="~/images/ios.png"
+                                         width="160">
+                                </a>
+                                <a href="http://bit.ly/USKKXP" target="_blank">
+                                    <img src="~/images/ggplay.png"
+                                         width="160">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="six columns">
+                        <div>
+                            <p class="sub-title">
+                                <localize>
+                                    OPTION 2
+                                </localize>
+                            </p>
+                            <h3><localize>Get yourself<br> a Vibe Card</localize></h3>
+                            <p>
+                                <localize>
+                                    Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream.
+                                </localize>
+                            </p>
+                            <a href="https://order.boostjuice.com.vncustomer/account/create/" class="button"><localize>Register</localize></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-jobs" id="available-opportunities">
+            <div class="row">
+                <div class="columns text-center">
+                    <div class="fix-content">
+                        <h2>Cảm nhận của Khách hàng</h2>
+                        <p class="hide-mobile">&quot;Một ngày nọ, tôi cảm thấy không được khoẻ, vì vậy tôi đã đến khám tại văn phòng bác sĩ. Bác sĩ bảo tôi download ngay ứng dụng Boost Juice và bây giờ tôi cảm thấy thật tuyệt. Ứng dụng này đích thực là dược liệu!&quot;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="vibe-learn-more">
+        <div class="container">
+            <div class="row">
+                <ul id="vibe-learn-more-triggers">
+                    <li id="trigget-faq" clicked="false">các câu hỏi thường gặp</li>
+                    <li id="trigger-terms" clicked="false">Điều khoản sử dụng thẻ Vibe</li>
+                </ul>
+                <div id="faq" class="">
+                    <h3>Các câu hỏi thường gặp</h3>
+                    <ul class="expander">
+                        <li class="" clicked="false">
+                            Tại sao phải đăng ký?
+                            <div>
+                                <p>
+                                <p>
+                                    À, thì bởi vì thành viên Vibe rất là tuyệt? Cập nhật thông báo về những thử thách, quà tặng và ưu đãi (bởi vì chúng tôi rất là rộng lượng và hào phóng) và sẽ là công cụ đắc lực giúp bạn không cần phải chờ đợi xếp hàng và nhận ngay ly Boost bạn đã đặt trước với chức năng &#8220;Order Ngay&#8221;.<br />
+                                    Và rất nhiều ưu đãi hay ho khác đang chờ bạn:<br />
+                                    &#8211; Trò chơi tên của bạn &#8211; Chúng tôi gọi tên bạn và bạn sẽ nhận được ngay 1 ly Boost miễn phí! Bạn hãy cảm ơn Ba Mẹ bạn nhé :).<br />
+                                    &#8211; Điểm Boost của tôi &#8211; Thu thập điểm mỗi khi bạn mua Boost, 10 điểm và bạn nhận được 1 ly miễn phí.<br />
+                                    &#8211; CÒN NỮA! NGÀY SINH NHẬT của bạn, bạn sẽ nhận được ngay 1 ly BOOST MIỄN PHÍ. Một lần nữa, cảm ơn Ba Mẹ mình nào!<br />
+                                    Vẫn không chắc chắn chuyện gì đang xảy ra? Chúng tôi đã có tất cả câu trả lời cho bạn ngay dưới đây.
+                                </p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Điểm Boost của tôi là gì?
+                            <div>
+                                <p>
+                                <p>Mua một ly, được một điểm. Mua hai ly, được hai điểm. Dễ dàng như vắt chanh! Áp dụng cho cả ly Small, Medium và Original, miễn sao bạn chỉ cần mua một ly. Điểm Boost chỉ áp dụng cho nguyên giá của thức uống (vì vậy không áp dụng tích điểm khi đang có chương trình ưu đãi hoặc giảm giá) và chỉ ở những nơi có chương trình thành viên Vibe.</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Tôi đã có ly Boost miễn phí chưa?
+                            <div>
+                                <p>
+                                <p>Bạn có 10 điểm hoặc hơn? Vậy hãy nhảy ngay điệu nhảy vui vẻ nào vì bạn đã có một ly Boost miễn phí! Bạn chỉ cần có 10 điểm để có được ly Boost miễn phí! Ly Boost free dành cho bất kỳ size ly nào và không bao gồm sữa đậu nành, trái cây thêm hoặc extra thêm nào!</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Điểm có mức giới hạn và chúng có hết hạn không?
+                            <div>
+                                <p>
+                                <p>Bạn có thể thu thập bao nhiêu điểm tuỳ thích và điểm của bạn không có thời hạn hết hạn, vì vậy hãy thu thập và cuối cùng bạn có thể lấp đầy bồn tắm của bạn với Mango Magic!</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Khi nào thẻ của tôi được cập nhật điểm?
+                            <div>
+                                <p>
+                                <p>Nếu như điểm của bạn không được tự động cập nhật, hãy refresh lại trang web hoặc ứng dụng. Vẫn không được ư? Đừng ném điện thoại của bạn vào người lạ, hãy gửi email cho chúng tôi tại info@boostjuice.com.vn và chúng tôi sẽ điều chỉnh ngay cho bạn!</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Sự khác biệt giữa thẻ thành viên tôi được phát và thẻ trong Ứng dụng?
+                            <div>
+                                <p>
+                                <p>Ứng dụng thì hấp dẫn, đẹp và hơn rất nhiều so với một chiếc thẻ! Ứng dụng này vẫn làm tất cả những việc tương tự như thẻ của bạn nhưng còn nhiều hơn thế nữa!</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Khi tôi đăng ký làm thành viên với lựa chọn "không có thẻ", tôi có nhận được thẻ thành viên không?
+                            <div>
+                                <p>
+                                <p>Không nhé! Tất cả mọi thứ bạn cần là ở ngay trong ứng dụng tiện lợi này!</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Khi tôi đăng ký làm thành viên và sử dụng thẻ thành viên mà tôi được phát, tôi có cần giữ lại thẻ không hay thẻ trong ứng dụng của tôi là đủ?
+                            <div>
+                                <p>
+                                <p>Ứng dụng của bạn sẽ thay thế cho thẻ của bạn nhưng nếu như bạn thích tích trữ hoặc không thích nói lời tạm biệt thì hãy giữ lại thẻ nhé</p>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="" clicked="false">
+                            Tôi sẽ phải làm gì khi thông tin cá nhân của tôi có sự thay đổi?
+                            <div>
+                                <p>
+                                <p>Bạn chuyển nhà? Kết hôn? Đừng lo lắng! Tất cả các chi tiết bạn nhập khi bạn đăng ký có thể được thay đổi bất cứ khi nào bạn muốn. Chỉ cần đăng nhập vào ứng dụng, đến phần Hồ sơ của tôi, thay đổi các thông tin và lưu lại!</p>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="vibe-terms" class="">
+                    <div>
+                        <h3>Điều khoản sử dụng thẻ Vibe</h3>
+                        <ol>
+                            <li>
+                                Bằng việc đăng ký và/hoặc sử dụng thẻ thành viên VIBE, bạn đã đồng ý với các điều khoản thỏa thuận này.
+                            </li>
+                            <li>
+                                Điểm VIBE sẽ được tích cho khách hàng khi mua Boost nguyên giá dòng Smoothies, Crushes hoặc Nước ép trái cây, trừ khi có quy định khác. Điểm sẽ không được áp dụng khi đang sử dụng các chương trình ưu đãi hoặc giảm giá khác. Số dư điểm không được chuyển nhượng cho thành viên khác hoặc quy đổi thành tiền mặt.
+                            </li>
+                            <li>
+                                Mặc dù mọi nỗ lực sẽ được thực hiện ở cửa hàng để đảm bảo điểm VIBE được bảo lưu chính xác, Boost Juice Vietnam không chịu trách nhiệm đối với các lỗi kỹ thuật liên quan đến việc tích điểm vào thẻ VIBE.
+                            </li>
+                            <li>
+                                Thẻ VIBE của BOOST nên được coi như là tiền mặt. Trừ khi có quy định khác của pháp luật hoặc được cho phép theo thỏa thuận này, mọi điểm trong Thẻ VIBE sẽ không được hoàn trả và không được quy đổi thành tiền mặt. Không có lãi suất hoặc bất kỳ khoản thu nhập nào khác đối với các loại điểm được gửi vào Thẻ VIBE sẽ được tích lũy, thanh toán hoặc được ghi có cho bạn bởi Boost Juice Vietnam.
+                            </li>
+                            <li>
+                                Trong trường hợp Thẻ VIBE bị mất hoặc bị đánh cắp; Thành viên VIBE nên liên hệ Boost Juice Vietnam và yêu cầu Thẻ VIBE mới. Các thành viên có thể đăng nhập vào phần thành viên đã đăng ký của Trang web Boost để Chuyển thông tin thẻ hiện tại của mình bao gồm Điểm Vibe, bằng cách gửi thông tin chi tiết. Mọi nỗ lực sẽ được thực hiện để đảm bảo rằng số dư điểm đầy đủ cũng được chuyển sang thẻ mới; tuy nhiên Boost Juice Vietnam sẽ không chịu trách nhiệm cho bất kỳ điểm tích lũy nào bị mất trong quá trình chuyển đổi. Thẻ được báo cáo là bị mất hoặc bị đánh cắp sẽ ngay lập tức bị hủy và sẽ không được sử dụng nữa. Nếu Thẻ VIBE bị mất hoặc bị đánh cắp, Thành viên VIBE có trách nhiệm đăng nhập vào trang website của Boost để thực hiện quy trình thẻ bị mất và chuyển tất cả tín dụng Vibe Points hiện tại sang Thẻ Vibe mới. Một thẻ VIBE mới có thể được lấy từ bất kỳ cửa hàng Boost Juice nào ở Vietnam.
+                            </li>
+                            <li>
+                                Chúng tôi có quyền không chấp nhận Thẻ VIBE nếu chúng tôi tin rằng việc sử dụng là trái phép, lừa đảo hoặc trái pháp luật.
+                            </li>
+                            <li>
+                                Thành viên VIBE được tặng miễn phí một ly Boost Juice vào ngày sinh nhật của họ sau khi xuất trình Thẻ VIBE xác nhận ngày sinh của họ được đăng ký trên thẻ phù hợp với ngày ghé thăm cửa hàng. Ly Boost Juice miễn phí vào ngày sinh nhật này không thể được đổi vào bất kỳ ngày nào khác bất kể hoàn cảnh bao gồm nhưng không giới hạn vào các ngày lễ, ngày cửa hàng đóng cửa... Ly Boost Juice Sinh nhật miễn phí này không thể chuyển nhượng và không thể đổi thành tiền mặt. Boost Juice không chịu trách nhiệm về ngày sinh không chính xác trong quá trình đăng ký.
+                            </li>
+                            <li>
+                                Thẻ VIBE được cấp cho bạn bởi Boost Juice Vietnam.
+                            </li>
+                            <li>
+                                Thành viên sẽ không bị tính phí bởi Boost Juice Vietnam khi đăng ký, kích hoạt hay sử dụng thẻ VIBE.
+                            </li>
+                            <li>
+                                Nếu bạn bị mất hoặc quên mật khẩu, các thành viên VIBE nên vào phần thành viên đã đăng ký của trang website Boost Juice để nhập địa chỉ email của mình và nhấp vào 'mật khẩu bị mất'. Mật khẩu mới của bạn sau đó sẽ được gửi đến địa chỉ email được chỉ định.
+                            </li>
+                            <li>
+                                Boost Juice Vietnam có quyền thay đổi các điều khoản và điều kiện của chương trình Thành viên VIBE bất cứ lúc nào bằng cách thông báo cho các thành viên qua email hoặc trang website.
+                            </li>
+                            <li>
+                                Thông tin được thu thập từ các thành viên tại thời điểm đăng ký chương trình Thành viên VIBE phải tuân theo Chính Sách Bảo Mật được liệt kê tại <a href="https://boostjuice.com.vn/chinh-sach-bao-mat/" target=”_blank>boostjuice.com.vn/chinh-sach-bao-mat</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/owl.carousel.min.js"></script>
+<script>
+    jQuery(document).ready(function (e) {
+        var i = e(".owl-carousel");
+        i.owlCarousel({ items: 1, nav: !0, autoplay: !0, autoplayTimeout: 5e3, smartSpeed: 800, dots: !1, loop: !0 });
+    });
+    $("#vibe-learn-more-triggers li:first-child").on("click", function () {
+
+        if ($(this).attr("clicked") == "false") {
+            $("#faq").addClass("show");
+            $("#vibe-terms").removeClass("show");
+
+            $(this).attr("clicked", "true");
+            $("#vibe-learn-more-triggers li:last-child").attr("clicked", "false");
+        } else {
+            $("#faq").removeClass("show");
+            $(this).attr("clicked", "false");
+        }
+    });
+    $("#vibe-learn-more-triggers li:last-child").on("click", function () {
+        if ($(this).attr("clicked") == "false") {
+            $("#vibe-terms").addClass("show");
+            $("#faq").removeClass("show");
+
+            $(this).attr("clicked", "true");
+            $("#vibe-learn-more-triggers li:first-child").attr("clicked", "false");
+
+        } else {
+            $("#vibe-terms").removeClass("show");
+            $(this).attr("clicked", "false");
+        }
+    });
+    $(".expander li").on("click", function () {
+        var e = $(".expander li").index(this);
+
+
+        $('.expander li').not(':eq("' + e + '")').removeClass("show-details");
+        $('.expander li').not(':eq("' + e + '")').attr("clicked", "false");
+
+        if ($(this).attr("clicked") == "false") {
+            $(this).addClass("show-details");
+            $(this).attr("clicked", "true");
+        } else {
+            $(this).removeClass("show-details");
+            $(this).attr("clicked", "false");
+        }
+    });
+</script>

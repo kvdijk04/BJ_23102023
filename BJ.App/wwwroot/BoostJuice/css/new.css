@@ -1,0 +1,262 @@
+﻿a {
+    text-decoration: none;
+    color: #7ac142;
+    background-color: transparent;
+}
+h3 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    line-height: 38px;
+    color: #7ac142;
+}
+
+h2 {
+    font-size: 38px;
+    margin-bottom: 16px;
+    color: #7ac142;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+.boost-home .sub-navi li a, .is-fixed .sub-navi li a {
+    color: #fff;
+}
+
+.is-fixed .sub-navi li a {
+    color: #846042;
+}
+
+.boost-nav-trigger span {
+    background-color: #fff;
+}
+
+.boost-home .boost-nav-trigger span::before, .boost-home .boost-nav-trigger span::after {
+    background-color: #fff !important;
+}
+#blog-posts .row {
+    margin-bottom: 60px;
+}
+#blog-posts .row h2 {
+    margin-top: 8px;
+}
+#blog-posts h2 {
+    font-size: 26px;
+    line-height: 32px;
+    color: #7ac142;
+    margin: 30px 0 15px;
+    font-weight: 600;
+
+}
+#blog-posts.inner h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+#blog-posts .date {
+    text-align: right;
+    margin-bottom: 15px;
+}
+#blog-posts p {
+    margin-bottom: 25px;
+}
+p {
+    margin-bottom: 32px;
+    line-height: 28px;
+}
+#blog-posts a {
+    color: #7ac142;
+    text-decoration: underline;
+}
+#blog-posts img {
+    width: 100%;
+    height: auto;
+}
+
+#blog-posts {
+    margin: 0px auto 80px auto;
+}
+
+#blog-posts.inner {
+    margin-bottom: 180px;
+}
+.boost-main-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    background-color: #ffffff;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+    overflow: hidden;
+}
+.main-fold-angle {
+    background-image: url(../../images/main_fold.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    min-height: 25vw;
+    position: relative;
+    margin-bottom: 40px;
+}
+.main-fold-angle {
+    background-size: 100%;
+}
+.banner-news {
+    background-image: url(../../images/laying_grass_desktop.jpg);
+}
+.main-fold-angle:after {
+    position: absolute;
+    content: "";
+    background-color: #fff;
+    width: 116%;
+    left: -5%;
+    bottom: -40px;
+    height: 60px;
+    -webkit-transform: rotate(-1deg);
+    /* transform: rotate(-1deg); */
+}
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.column, .columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+
+#popular-posts {
+    padding-left: 20px;
+    margin-bottom: 80px;
+}
+
+
+#popular-posts img {
+    width: 100%;
+}
+
+#popular-posts p {
+    margin: 0 0 30px;
+    font-size: 15px;
+    line-height: 18px;
+}
+#popular-posts h2 {
+    font-size: 24px;
+    line-height: 28px;
+    color: #5dc1e6;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+    #popular-posts h3 {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 5px;
+        font-weight: 600;
+        margin-top:0;
+    }
+#popular-posts h3 a {
+    color: #7ac142;
+}
+#popular-posts .row {
+    margin-bottom: 20px;
+}
+
+.container:after, .row:after, .u-cf {
+    content: "";
+    display: table;
+    clear: both;
+}
+@media(min-width:400px) {
+    .container {
+        width: 85%;
+        padding: 0;
+    }
+}
+
+@media (max-width: 1440px) {
+    .banner-news {
+        background-image: url(../../images/laying_grass_desktop_small.jpg);
+    }
+    .main-fold-angle {
+        min-height: 35vw;
+    }
+ }
+
+}
+@media (max-width: 1024px) {
+    .banner-news {
+        background-image: url(../../images/laying_grass_tablet.jpg);
+    }
+    .main-fold-angle {
+        min-height: 40vw;
+    }
+}
+@media(min-width:769px) {
+    .container {
+        width: 90%;
+    }
+    .column, .columns {
+        margin-left: 4%;
+    }
+
+    .column:first-child, .columns:first-child {
+        margin-left: 0;
+    }
+
+    .eight.columns {
+        width: 65.3333333333%;
+    }
+
+    .four.columns {
+        width: 30.6666666667%;
+    }
+}
+
+@media(max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0px 40px;
+    }
+    #popular-posts {
+        padding: 0px;
+        margin: 20px 0px 0px;
+        padding-left: 0px;
+    }
+    .hide-mobile-small, img.hide-mobile-small {
+        display: none;
+    }
+    #blog-posts.inner {
+        margin-bottom: 60px;
+    }
+    .container .row {
+        margin-bottom: 40px;
+    }
+}
+
+@media(max-width: 760px) {
+    .container {
+        margin-bottom: 40px;
+    }
+}
+@media (max-width: 660px) {
+    .banner-news {
+        background-image: url("../../images/laying_grass_mobile.jpg");
+    }
+    #blog-posts.inner {
+        margin-bottom: 20px;
+    }
+    .main-fold-angle {
+        min-height: 56vw;
+    }
+    .container {
+        padding: 0px 20px;
+    }
+}
+
+
+

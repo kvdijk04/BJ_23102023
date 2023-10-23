@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Boost Juice - Admin Dashboard</title>
+
+    <!-- Favicon -->
+    <link href="~/assets/images/logo/favicon.png" rel="shortcut icon">
+    <link rel="icon" href="~/assets/images/logo/cropped-iconboostweb-32x32.png" sizes="32x32">
+    <link rel="icon" href="~/assets/images/logo/cropped-iconboostweb-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="~/assets/images/logo/cropped-iconboostweb-180x180.png">
+    <meta name="msapplication-TileImage" content="~/assets/images/logo/cropped-iconboostweb-270x270.png">
+    <link href="~/assets/vendors/select2/select2.css" rel="stylesheet">
+
+    <!-- page css -->
+    <!-- Core css -->
+    <link href="~/assets/css/app.min.css" rel="stylesheet">
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout">
+            <!-- Header START -->
+            <div class="header">
+                <div class="logo logo-dark">
+                    <a href="index.html">
+                        <img src="~/assets/images/logo/boost-juice-logo.png" width="50%" height="50%" alt="Logo">
+                        <img class="logo-fold" src="~/assets/images/logo/cropped-iconboostweb-270x270.png" width="85%" height="85%" alt="Logo">
+                    </a>
+                </div>
+                <div class="logo logo-white">
+                    <a href="index.html">
+                        <img src="~/assets/images/logo/boost-juice-logo.png" width="50%" height="50%" alt="Logo">
+                        <img class="logo-fold" src="~/assets/images/logo/cropped-iconboostweb-270x270.png" width="85%" height="85%" alt="Logo">
+                    </a>
+                </div>
+                <div class="nav-wrap">
+                    <ul class="nav-left">
+                        <li class="desktop-toggle">
+                            <a href="javascript:void(0);">
+                                <i class="anticon"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-toggle">
+                            <a href="javascript:void(0);">
+                                <i class="anticon"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Header END -->
+            <!-- Side Nav START -->
+            <div class="side-nav">
+                <div class="side-nav-inner">
+                    <ul class="side-nav-menu scrollable">
+                        <li class="nav-item dropdown open">
+                            <a class="dropdown-toggle" href="/tat-ca-loai.html">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-cluster"></i>
+                                </span>
+                                <span class="title">Loại</span>
+
+                            </a>
+                            <a class="dropdown-toggle" href="/tat-ca-danh-muc-con.html">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-branches"></i>
+                                </span>
+                                <span class="title">Danh mục con</span>
+
+                            </a>
+                            <a class="dropdown-toggle" href="/tat-ca-size.html">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-dashboard"></i>
+                                </span>
+                                <span class="title">Size</span>
+
+                            </a>
+                            <a class="dropdown-toggle" href="/tat-ca-san-pham.html">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-shop"></i>
+                                </span>
+                                <span class="title">Sản phẩm</span>
+
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Side Nav END -->
+            <!-- Page Container START -->
+            <div class="page-container">
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    @RenderBody()
+                </div>
+                
+
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+
+
+    <!-- Core Vendors JS -->
+    <script src="~/assets/js/vendors.min.js"></script>
+
+    <!-- page js -->
+
+    <!-- Core JS -->
+    <script src="~/assets/js/app.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

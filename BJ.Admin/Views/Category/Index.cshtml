@@ -1,0 +1,91 @@
+﻿@using BJ.Application.Ultities;
+@using BJ.Contract.Category;
+@model PagedViewModel<CategoryDto>
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<form asp-action="Index" asp-controller="C" method="get">
+    <div class="page-header">
+        <h2 class="header-title">Danh sách loại</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+
+                <span class="breadcrumb-item active">Tất cả loại</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-b-30">
+                <div class="col-lg-12 text-right">
+                    <button type="button" class="btn btn-primary" onclick="location.href='/tao-moi-loai.html'">
+                        <i class="anticon anticon-plus-circle m-r-5"></i>
+                        <span>Tạo mới</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover e-commerce-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th style="width:120px">Ảnh</th>
+                            <th>Loại</th>
+                            <th>Hoạt động</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Code
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center" style="background-color:gray;align-items:center" >
+                                        <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageCategory/@item.ImagePath" style="max-width: 120px" alt="" >
+                                    </div>
+                                </td>
+                                <td>@item.CatName</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        @if (item.Active == true)
+                                        {
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Có</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                                            <div>Khóa</div>
+                                        }
+
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-loai/@item.Id'">
+                                        <i class="anticon anticon-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-loai/@item.Id'">
+                                        <i class="anticon anticon-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager" , Model)
+
+        </div>
+    </div>
+</form>
+@section Scripts{
+}
+

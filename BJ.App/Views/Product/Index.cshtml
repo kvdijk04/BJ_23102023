@@ -1,0 +1,201 @@
+﻿@using BJ.Application.Ultities;
+@using BJ.Contract.Category;
+@model IEnumerable<UserCategoryDto>
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@section Styles{
+    <link rel="stylesheet" href="~/BoostJuice/css/product.css">
+
+}
+
+
+<div class="page-wrapper">
+    <div id="maincontent" class="main_content_page">
+        <div class="banner"></div><a id="contentarea" tabindex="-1"></a>
+        <div class="columns">
+            <div class="column main">
+                <div class="main-filter-wrapper">
+                    <div class="main-filter__section-row">
+                        <div class="main-filter-section__tab main-filter-section__tab--active" popular="true">
+                            <a href="#" class="main-filter-section__tab-link"><localize>Choose drink type</localize></a>
+                        </div>
+
+                    </div>
+                    <div class="main-filter__set-row">
+                        <div class="main-filter__set  popular" popular="true">
+                            <span class="main-filter__set-info">
+                                <img class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/popular.png" src="@Configuration["BaseAddress"]/ImageCategory/popular.png">
+                            </span>
+                            MOST POPULAR
+                        </div>
+                        @foreach (var cat in Model.Where(x => x.Active == true))
+                        {
+                            <div data-category-id="@cat.Id" class="main-filter__set" popular="false" data-catId="@cat.Id">
+                                <span class="main-filter__set-info">
+                                    <img class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath" asp-append-version="true" src="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath">
+                                </span>
+                                @cat.CatName
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="view-all-sidebar"><localize>View All</localize></div>
+    <div class="drinks-container">
+
+        <div class="main">
+            <ul id="og-grid" class="og-grid">
+               
+                @foreach (var item in Model)
+                {
+
+                    @foreach (var product in item.UserProductDtos.Where(x => x.Active == true))
+                    {
+                        <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;">
+                            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-catName="@item.CatName" data-masp="@product.Id" data-proName="@product.ProductName" @* onclick="openTab('@product.Id');" *@>
+                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" />
+                                <img src="https://www.boostjuice.com.au/img/cup_shadow.png" />
+                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" />
+                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" />
+                                <ul>
+                                    @foreach (var subCat in product.UserSubCategorySpecificProductDto.Where(x => x.ActiveProduct == true))
+                                    {
+                                        <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@subCat.SubCatName</li>
+                                    }
+                                </ul>
+                                <span>@product.ProductName</span>
+                            </a>
+                            <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
+                                <div class="preloader" style="display:none"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
+                            </div>
+
+                        </li>
+
+                    }
+
+                }
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+
+    $(".drink-block .grid_item").on("click", function (i) {
+
+        var nameCat = $(this).attr("data-catName");
+        var idPro = $(this).attr("data-masp");
+        var namePro = $(this).attr("data-proName");
+
+        var alias = $(this).attr("data-alias");
+        var e = $(".drink-block .grid_item").index(this);
+
+        if ($(this).attr("clicked") == "false") {
+
+            $(".drink-block .og-expander:eq( " + e + " )").css("height", "1140px");
+            $(".drink-block:eq( " + e + " )").css("height", "1530");
+            $(".drink-block:eq( " + e + " )").addClass(" og-expanded");
+            $(".drink-block .grid_item:eq( " + e + " )").attr("clicked", "true");
+
+            $('.drink-block .og-expander').not(':eq("' + e + '")').css("height", "");
+            $('.drink-block .og-expander').not(':eq("' + e + '")').css("display", "none");
+
+            $('.drink-block').not(':eq("' + e + '")').css("height", "380px");
+            $('.drink-block').not(':eq("' + e + '")').removeClass(" og-expanded");
+            $('.drink-block .grid_item').not(':eq("' + e + '")').attr("clicked", "false");
+
+            document.getElementById(idPro).style.display = "block";
+            $("#li_" + idPro).css("height", "1530px");
+            $.ajax({
+                url: '/singleproduct',
+                datatype: "json",
+                type: "get",
+                data: { proId: idPro },
+
+                async: true,
+                success: function (results) {
+                    jQuery("#" + idPro).fadeOut(250, function () {
+                        $("#" + idPro).html();
+                        $("#" + idPro).html(results);
+                    }).fadeIn(500);
+
+
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+            $("#li_" + idPro).addClass(" og-expanded");
+            $(this).attr("clicked", "true");
+
+        }
+        else {
+
+            document.getElementById(idPro).style.display = "none";
+
+            $("#li_" + idPro).removeClass(" og-expanded");
+            $("#li_" + idPro).css("height", "380px");
+            $(this).attr("clicked", "false");
+            $("#li_" + namePro).css("display", "none");
+            $("#" + idPro).css("height", "");
+        }
+        i.preventDefault()
+
+
+
+    });
+
+
+</script>
+<script>
+    $('.main-filter__set-row > .main-filter__set').on("click", function () {
+        var idCat = $(this).attr("data-catId");
+        var popular = $(this).attr("popular");
+
+        for (var i = 0; i < $('.main-filter__set-row > .main-filter__set').length; i++) {
+            $('.main-filter__set-row > .main-filter__set')[i].className = $('.main-filter__set-row > .main-filter__set')[i].className.replace("main-filter__set--active", "");
+        }
+        $(this).addClass("main-filter__set--active");
+        $("#view-all-sidebar").addClass("active");
+        $("#view-all-sidebar").css("display","block");
+
+        var e = $(this).attr("popular");
+        console.log(e);
+        $.ajax({
+            url: '/filtercategory',
+            datatype: "json",
+            type: "GET",
+            data: { catId: idCat, popular: e },
+
+            async: true,
+            success: function (results) {
+                jQuery("#og-grid").fadeOut(250, function () {
+                    $("#og-grid").html("");
+                    $("#og-grid").html(results);
+                }).fadeIn(500);
+
+
+
+                return true;
+
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+
+    });
+    $("#og-grid").show(2000);
+    $("#view-all-sidebar").on("click", function () {
+        window.location.reload();
+    });
+</script>

@@ -1,0 +1,42 @@
+﻿@using BJ.Contract.Account;
+@model LoginDto
+@{
+    Layout = null;
+}
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="../../index2.html" class="h1"><b>Admin</b>Dashboard</a>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Vui lòng đăng nhập</p>
+
+            <form asp-action="LoginAccount" asp-controller="Login" method="post">
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" asp-for="UserName">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Password" asp-for="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-auth-links text-center mt-2 mb-3">
+                    <!-- /.col -->
+                    <input type="submit" class="btn btn-block btn-primary" value="Đăng nhập" />
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>

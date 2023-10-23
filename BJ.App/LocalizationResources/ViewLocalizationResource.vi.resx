@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A bit about Australia's favourite juice and smoothie bar" xml:space="preserve">
+    <value>Về Thương hiệu Smoothie và Nước ép trái cây&lt;br&gt;
+được ưa chuộng nhất tại Úc.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="A love for life infuses everything we do" xml:space="preserve">
+    <value>Một tình yêu cuộc sống truyền cảm hứng cho mọi ý tưởng của chúng tôi.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="About Boost Juice" xml:space="preserve">
+    <value>Về Boost Juice</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide." xml:space="preserve">
+    <value>Quay trở lại năm 2000, một người phụ nữ với không kinh nghiệm trong lĩnh vực kinh doanh – nhưng với niềm đam mê vô hạn và sự hỗ trợ từ gia đình – đã mở cửa hàng nước ép trái cây đầu tiên của cô ấy tại Adelaide.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Boost from the beginning." xml:space="preserve">
+    <value>Khởi đầu của Boost</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life." xml:space="preserve">
+    <value>Boost Juice đã đi một chặng đường dài từ những ngày khởi đầu khiêm tốn. Nhưng có một điều không bao giờ thay đổi đó chính là cam kết của chúng tôi cho một cuộc sống đầy sức khoẻ, niềm vui và yêu thương.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Boost Juice đã đi một chặng đường dài từ những ngày khởi đầu khiêm tốn. Nhưng có một điều không bao giờ thay đổi đó chính là cam kết của chúng tôi cho một cuộc sống đầy sức khoẻ, niềm vui và yêu thương." xml:space="preserve">
+    <value>Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="But hard work is often rewarded, and the success of the first King William St store allowed Janine and Jeff to open three new sites – including two in one day." xml:space="preserve">
+    <value>Nhưng sự nỗ lực, cần cù thường được đền đáp. Sự thành công của cửa hàng đầu tiên – King William St, đã tạo điều kiện cho Janine và Jeff mở thêm ba cửa hàng mới – với hai trong số đó được khai trương trong cùng một ngày. Tuy nhiên, công việc làm nước smoothies hoá ra không suôn sẻ như tưởng tượng – điển hình là một trường hợp: những máy ép trái cây sáng bóng từ chối làm việc.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="But there’s no elevator to success. You have to take the stairs." xml:space="preserve">
+    <value>Nhưng con đường dẫn đến thành công không dễ dàng như đi lên bằng thang máy. Bạn phải bước lên từng bậc thang một.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Choose drink type" xml:space="preserve">
+    <value>Chọn dòng sản phẩm</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>Liên hệ</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register." xml:space="preserve">
+    <value>Bạn có ghét việc chờ đợi? Bạn có thích mọi thứ thực sự nhanh chóng? Bạn đang trở nên thiếu kiên nhẫn chờ đợi khi chúng tôi vẫn chưa đưa ra quan điểm của chúng tôi? Thôi không cần chờ nữa! Khi bạn trở thành thành viên của Vibe, bạn không cần phải chờ xếp hàng nữa khi bạn đặt hàng qua Ứng dụng của chúng tôi! Thành viên Vibe sẽ nhận được rất nhiều quà tặng miễn phí và tất cả những gì bạn phải làm là Đăng ký.</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="Download the&lt;br&gt;Boost Juice App" xml:space="preserve">
+    <value>Download ngay ứng dụng&lt;br&gt;Boost Juice Vietnam</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
+    <value>Đối mặt với việc cửa hàng nước trái cây mà không thể bán nước trái cây, đội ngũ nhân viên đã phải gấp rút đến cửa hàng bách hoá bán lẻ Myer của Úc để mua những máy ép nội địa. Tất cả đều hư hỏng chỉ sau một ngày sử dụng, nhưng trước khi những thiết bị mới được nhập về, công việc cuối cùng cũng được hoàn thành. Những rào cản là để chúng ta vượt qua.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Find Us" xml:space="preserve">
+    <value>Cửa hàng</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Get yourself&lt;br&gt; a Vibe Card" xml:space="preserve">
+    <value>Lấy ngay cho bạn&lt;br&gt;một thẻ VIBE</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="Growing Strong" xml:space="preserve">
+    <value>Phát triển Mạnh mẽ</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and &quot;love of life&quot; through spontaneous experiences. at store." xml:space="preserve">
+    <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 500 stores worldwide." xml:space="preserve">
+    <value>Đây chính là triết lý đã đưa chúng tôi bay thật cao. Việc xây dựng một trong những thương hiệu được yêu thích nhất tại Úc thật sự là một điều không dễ dàng. Tuy nhiên nhờ vào niềm tin tích cực, lạc quan, sự chăm chỉ và sự giúp đỡ của những con người phi thường, Boost Juice đã có thể ăn mừng ngày khai trương cửa hàng thứ 250 tại Úc và hơn 500 cửa hàng trên toàn thế giới.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 580 stores worldwide." xml:space="preserve">
+    <value>Đây chính là triết lý đã đưa chúng tôi bay thật cao. Việc xây dựng một trong những thương hiệu được yêu thích nhất tại Úc thật sự là một điều không dễ dàng. Tuy nhiên nhờ vào niềm tin tích cực, lạc quan, sự chăm chỉ và sự giúp đỡ của những con người phi thường, Boost Juice đã có thể ăn mừng ngày khai trương cửa hàng thứ 250 tại Úc và hơn 500 cửa hàng trên toàn thế giới.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Janine and husband Jeff developed a retail concept different to anything the world had seen before. Founded on Janine's 'love life' philosophy, Boost Juice would offer a unique customer experience around happy, healthy living and delicious products." xml:space="preserve">
+    <value>Vì vậy, ngay khi trở về Melbourne, Janine và chồng –ông Jeff đã phát triển một khái niệm cửa hàng bán lẻ hoàn toàn khác biệt mà thế giới chưa từng có. Dựa trên triết lý “Tình yêu Cuộc sống” của Janine, Boost Juice sẽ mang đến một trải nghiệm độc đáo cùng với lối sống lành mạnh và hạnh phúc cho khách hàng.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Juices &amp;amp; Smoothies" xml:space="preserve">
+    <value>Nước ép &amp;amp; Smoothies</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Just one problem: the banks wouldn’t touch a business that just sold liquid. But as they say, when life hands you lemons, make lemonade. Or juices and smoothies, as the case may be." xml:space="preserve">
+    <value>Nhưng vấn đề duy nhất ở đây là: các ngân hàng sẽ không đầu tư vào một doanh nghiệp chỉ bán thức uống. Nhưng người ta thường có câu, khi cuộc đời ném cho bạn một quả chanh, hãy pha ngay một ly nước chanh. Hoặc trong trường hợp này, nước ép và smoothies.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Just three years later, Janine purchased rival chain Viva Juice and sold the rebranded stores to franchise partners." xml:space="preserve">
+    <value>Chỉ ba năm sau, Janine đã thu mua lại chuỗi cửa hàng đối thủ Viva Juice và bán các cửa hàng đã được thay đổi nhãn hiệu cho đối tác của mình. Các số liệu lúc bấy giờ là không thể tin được. Boost Juice trung bình cho ra đời một cửa hàng mới mỗi tuần; vào Tháng 09/2004, Boost Juice dường như khai trương một cửa hàng mới mỗi ngày.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Learn More" xml:space="preserve">
+    <value>Tìm hiểu thêm</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Tin tức</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream." xml:space="preserve">
+    <value>Oh cho những bạn ‘mù công nghệ’ của tôi!
+Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay cửa hàng Boost Juice gần nhất, lấy ngay cho bạn một thẻ VIBE và đăng ký thông tin của bạn ngay. Hãy nhanh chóng lên trước khi nó trở thành một trào lưu.</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="On a trip to the United States back in 1999, something caught Janine's attention. Everyone was into healthy smoothies and fresh juices - while in Australia, the fast food market was uninspiring and unhealthy. Janine had just had her third son and, like many young mothers, wanted more flexibility to run her own race.." xml:space="preserve">
+    <value>Trong chuyến đi đến Mỹ vào năm 1999, có một điều đã thu hút sự chú ý của Janine. Smoothies và nước ép trái cây tươi đang là xu hướng của tất cả mọi người – trong khi đó tại Úc, thị trường thức ăn nhanh cũng không lành mạnh và không thú vị. Janine vừa sinh con trai thứ ba và cũng như những bà mẹ trẻ khác, bận rộn và không có thời gian, cô muốn linh hoạt hơn để có thể hoàn thành cuộc đua của chính mình.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Operating from her kitchen table in Melbourne, Janine consulted nutritionists and naturopaths to create a menu free from preservatives and artificial colours and flavourings." xml:space="preserve">
+    <value>Bắt nguồn từ chính căn bếp của gia đình mình tại Melbourne, Janine, với sự tư vấn và ý kiến của những chuyên gia dinh dưỡng, đã áp dụng những liệu pháp thiên nhiên để sáng tạo nên một thực đơn không chứa chất bảo quản, chất tạo màu và chất tạo vị nhân tạo.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="OPTION 1" xml:space="preserve">
+    <value>LỰA CHỌN 1</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="OPTION 2" xml:space="preserve">
+    <value>LỰA CHỌN 2</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="Our Drinks" xml:space="preserve">
+    <value>Thức uống</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Our primary life requires energy. This philosophy inspires everything we do. And as we continually innovate and grow, it's not with the goal of changing the world, but just to make our customers feel “a little better.”" xml:space="preserve">
+    <value>Yêu cuộc sống chính là năng lượng của chúng tôi. Triết lý này truyền cảm hứng vào tất cả mọi việc chúng tôi làm. Và khi chúng tôi liên tục đổi mới và phát triển, không phải vì mục đích thay đổi thế giới, mà là chỉ để làm cho khách hàng của chúng tôi cảm thấy “tốt hơn một chút” mà thôi.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Popular posts" xml:space="preserve">
+    <value>Phổ biến</value>
+    <comment>Blog/Index</comment>
+  </data>
+  <data name="Read more" xml:space="preserve">
+    <value>Xem thêm</value>
+    <comment>Blog/Index</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Đăng Ký</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="Sign In" xml:space="preserve">
+    <value>Đăng Nhập</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="Sometimes, the best way to learn is to jump in at the deep end, and that’s exactly what happened next. Janine and Jeff signed on for 28 leases at Westfield Shopping Centres. It meant a personal liability of over $5 million and a deadline to open every store in just 18 months. Thanks to sheer determination and amazing franchise partners, it happened on time and on budget." xml:space="preserve">
+    <value>Đôi khi, cách tốt nhất để học là đẩy bản thân mình đến tận cùng khó khăn. Đó là những gì xảy ra tiếp theo. Janine và Jeff đã kí hợp đồng với chuỗi Trung tâm Mua sắm Westfield để mở thêm 28 cửa hàng tại đây. Điều này đồng nghĩa với một món nợ cá nhân hơn 5 triệu đô và thời hạn phải hoàn thành tất cả các cửa hàng này chỉ vỏn vẹn 18 tháng. Nhờ vào quyết tâm tuyệt đối cùng với những đối tác nhượng quyền tuyệt vời, các cửa hàng đã được hoàn thành đúng thời hạn và nằm trong ngân sách.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="The Boost Juice Story" xml:space="preserve">
+    <value>Câu chuyện Boost Juice</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="The idea was brilliantly simple: make healthy living tasty and fun." xml:space="preserve">
+    <value>Bắt nguồn từ một ý tưởng vô cùng đơn giản và tinh tế: xây dựng một cuộc sống lành mạnh vừa ngon và vừa thú vị.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="The list of awards is increasing day by day. In December 2015, Boost Juice achieved three awards with the Australian Franchise Council and Janine was inducted into the Hall of Fame. The brand also received awards for Australian Franchise of the Year, Outstanding International Franchise and NT/QLD Regional Franchise." xml:space="preserve">
+    <value>Danh sách giải thưởng tăng ngày một nhiều hơn. Vào tháng 12 năm 2015, Boost Juice đã đạt được ba giải thưởng với Hội đồng Nhượng quyền Úc và Janine được vinh danh vào Hall of Fame. Thương hiệu cũng nhận được giải thưởng Thương hiệu nhượng quyền Úc của năm, Thương hiệu Nhượng quyền Quốc tế xuất sắc và Thương hiệu nhượng quyền Khu vực NT/QLD.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="The woman was Australian adventurer and entrepreneur Janine Allis. The bar was Boost Juice – now one of the most popular and loved juice and smoothie brands across the globe, with over 500 stores across 13 different countries and counting." xml:space="preserve">
+    <value>Người phụ nữ thích phiêu lưu mạo hiểm ấy chính là doanh nhân khởi nghiệp người Úc – Bà Janine Allis. Và cửa hàng ấy chính là Boost Juice – một trong những thương hiệu smoothie và nước ép trái cây được ưa thích nhất và nổi tiếng nhất hiện nay của chúng tôi, với 500 cửa hàng tại 13 quốc gia… và đang ngày càng được mở rộng.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="They say success is 10% inspiration and 90% perspiration. And who’s going to argue with that? Little did Janine know that her plan to not work a 40-hour week would actually mean working a 100-hour week, with no money coming in for a good three years." xml:space="preserve">
+    <value>Người ta nói rằng sự thành công đến từ 10% cảm hứng và 90% nỗ lực bản thân. Và ai có thể không đồng tình với điều này? Ngay cả bản thân Janine cũng không ngờ rằng kế hoạch từ bỏ công việc 40 giờ một tuần giờ đây lại trở thành công việc 100 giờ một tuần, với không một xu mang về trong suốt ba năm liền.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app." xml:space="preserve">
+    <value>Đây chính là câu lạc bộ tuyệt vời nhất mà bạn đã từng tham gia. Nơi đây còn hào nhoáng hơn cuộc sống của Mariah Carey, với hàng trăm lợi ích tiềm ẩn hơn cả Illuminati và nếu bạn tải xuống ứng dụng BOOST của chúng tôi thì bạn sẽ “ngập” trong vô vàn quà tặng miễn phí và ưu đãi ngọt ngào cho quãng đời còn lại của bạn…. hoặc cho đến khi bạn làm mất thẻ hoặc xóa ứng dụng này.</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story." xml:space="preserve">
+    <value>Hiện nay, Boost Juice đang là xu hướng của thế giới nên đối với thế giới, Boost Juice không bao giờ là đủ. Sự kết hợp hương vị trái cây tươi, xay và ép thành những thức uống smoothies và nước ép ngon tuyệt là câu chuyện thành công mang dấu ấn rất đặc biệt.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Unsurprisingly, Boost Juice was voted one of the most admired franchises in Australia. Janine was named Telstra Businesswoman of the Year and, a year later, in 2005, Boost Juice received the American Express Franchisor of the Year award." xml:space="preserve">
+    <value>Không có gì đáng ngạc nhiên, Boost Juice được bình chọn là một trong những thương hiệu nhượng quyền đáng ngưỡng mộ nhất tại Úc. Janine được vinh danh là giải thưởng Telstra Nữ doanh nhân của năm và, một năm sau đó, vào năm 2005, Boost Juice nhận được giải thưởng American Express Franchisor của năm.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="View All" xml:space="preserve">
+    <value>Xóa lọc</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Wellbeing" xml:space="preserve">
+    <value>Sống khỏe</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="We’re not just here to give customers great tasting smoothies and juices. We want to share our energy, passion and ‘love life’ philosophy, and make sure every customer leaves feeling just that little bit better." xml:space="preserve">
+    <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever." xml:space="preserve">
+    <value>Điện thoại của bạn trở nên thông minh hơn! Từ sự tiện lợi của những ngón tay của bạn (hoặc ngón chân nếu bạn thật sự tài năng như thế), bạn có thể đặt hàng ly Boost của bạn từ Ứng dụng và không cần phải đứng xếp hàng chờ đợi. Nếu điều đó không đủ, chúng tôi sẽ cho bạn rất nhiều ưu đãi khi bạn nghĩ rằng chúng tôi sẽ có một đợt siêu giảm giá trước khi đóng cửa! Mà chúng tôi không có. Chúng tôi sẽ ở đây mãi mãi.</value>
+    <comment>Vibe/Index</comment>
+  </data>
+  <data name="“Boost has a can-do attitude. We don’t believe in the word ‘try’ because that means I’ll give myself permission to not succeed. You don’t try. You just do it.”&#xD;&#xA;Janine Allis“" xml:space="preserve">
+    <value>Boost có một quan niệm “can-do attitude” – có thể làm được. Chúng tôi không tin vào từ “thử” bởi vì điều đó đồng nghĩa với việc tôi sẽ cho phép mình không thành công. Bạn đừng thử, bạn hãy cứ làm đi.”
+Janine Allis</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="“Boost has a can-do attitude. We don’t believe in the word ‘try’ because that means I’ll give myself permission to not succeed. You don’t try. You just do it.”&lt;br/&gt;&#xA;                            – Janine Allis" xml:space="preserve">
+    <value>“Boost có một quan niệm “can-do attitude” – có thể làm được. Chúng tôi không tin vào từ “thử” bởi vì điều đó đồng nghĩa với việc tôi sẽ cho phép mình không thành công. Bạn đừng thử, bạn hãy cứ làm đi. ”&lt;br/&gt;
+– Janine Allis</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="“Boost has a can-do attitude. We don’t believe in the word ‘try’ because that means I’ll give myself permission to not succeed. You don’t try. You just do it.”&lt;br/&gt;&#xD;&#xA;Janine Allis" xml:space="preserve">
+    <value>“Boost có một quan niệm “can-do attitude” – có thể làm được. Chúng tôi không tin vào từ “thử” bởi vì điều đó đồng nghĩa với việc tôi sẽ cho phép mình không thành công. Bạn đừng thử, bạn hãy cứ làm đi.”&lt;br/&gt;
+Janine Allis</value>
+    <comment>Home/About</comment>
+  </data>
+  <data name="“The vision was simple: every customer will leave a Boost Juice store feeling just that little bit better.”" xml:space="preserve">
+    <value>“Tầm nhìn của tôi rất đơn giản: Mọi khách hàng khi rời khỏi cửa hàng Boost Juice sẽ cảm thấy tốt hơn một chút. ”</value>
+    <comment>Home/About</comment>
+  </data>
+</root>

@@ -1,0 +1,411 @@
+﻿@using BJ.Contract.Product;
+@model ProductDto
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="page-header">
+    <h2 class="header-title">Chi tiết sản phẩm</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-san-pham.html " class="breadcrumb-item">Tất cả sản phẩm</a>
+
+            <span class="breadcrumb-item active">Chi tiết sản phẩm</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="media align-items-center m-b-15">
+            <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients" alt="">
+            </div>
+            <div class="m-l-15">
+                <h4 class="m-b-0">@Model.ProductName</h4>
+                <p class="text-muted m-b-0">Code: @Model.Code</p>
+            </div>
+        </div>
+        <div class="m-b-15">
+            <button class="btn btn-warning" onclick="location.href='/cap-nhat-san-pham/@Model.Id'" type="button">
+                <i class="anticon anticon-edit"></i>
+                <span>Cập nhật</span>
+            </button>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-overview">Tổng quan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-images">Ảnh sản phẩm</a>
+        </li>
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-overview">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Giá giảm:</td>
+                                    <td class="text-dark font-weight-semibold">@Model.Discount</td>
+                                </tr>
+                                <tr>
+                                    <td>Loại:</td>
+                                    <td>	@Model.CategoryDto.CatName</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Home Tag:</td>
+                                    <td>
+                                        @if (Model.HomeTag == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bán chạy:</td>
+                                    <td>
+                                        @if (Model.BestSeller == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Hoạt động:</td>
+                                    <td>
+                                        @if (Model.Active == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin thêm</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Sizes:</td>
+                                    <td class="d-flex">
+                                        @foreach (var item in Model.SizeSpecificProducts.Where(x => x.ActiveSize == true))
+                                        {
+                                            <span class="d-flex align-items-center m-r-20">
+                                                <span>@item.SizeName</span>
+                                            </span>
+                                        }
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Danh mục con:</td>
+                                    <td class="d-flex" style="height:100px;text-align:center">
+                                        @foreach(var item in Model.SubCategorySpecificProductDtos.Where(x => x.Active == true))
+                                        {
+                                            <span class="d-flex align-items-center m-r-20">
+                                                <span class="badge  m-r-5">
+
+                                                    <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageSubCategory/@item.SubCategoryDto.ImagePath" style="max-width: 50px" alt="">
+
+                                                </span>
+                                                <span>@item.SubCategoryDto.SubCatName</span>
+                                            </span>
+                                        }
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mô tả ngắn:</td>
+                                    <td>@Model.ShortDesc</td>
+                                </tr>
+                                <tr>
+                                    <td>Tags:</td>
+                                    <td>@Model.Tags</td>
+                                </tr>
+                                <tr>
+                                    <td>Meta Desc</td>
+                                    <td>@Model.MetaDesc</td>
+                                </tr>
+                                <tr>
+                                    <td>Meta Key</td>
+                                    <td>@Model.MetaKey</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày tạo</td>
+                                    <td>@Model.DateCreated</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày cập nhật</td>
+                                    <td>@Model.DateModified</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Mô tả</h4>
+                </div>
+                <div class="card-body">
+                    <p>@Model.Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-images">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img class="img-fluid" src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients" alt="">
+                        </div>
+                        <div class="col-md-3">
+                            <img class="img-fluid" src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathCup" alt="">
+                        </div>
+                        <div class="col-md-3">
+                            <img class="img-fluid" src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathHero" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* <div class="page-header">
+    <h2 class="header-title">Chi tiết sản phẩm</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-san-pham.html "class="breadcrumb-item">Tất cả sản phẩm</a>
+
+            <span class="breadcrumb-item active">Chi tiết sản phẩm</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="media align-items-center m-b-15">
+            <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients" alt="">
+            </div>
+            <div class="m-l-15">
+                <h4 class="m-b-0">Tên: @Model.ProductName </h4>
+                <p class="text-muted m-b-0">Code: @Model.Code</p>
+            </div>
+        </div>
+        
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin sản phẩm</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-option">Ảnh</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-description">Mô tả</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-config">Cấu hình</a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content m-t-15">
+    <div class="tab-pane fade show active" id="product-edit-basic">
+        <div class="card">
+            <div class="card-body">
+ 
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
+                    <input type="text" class="form-control" id="productPrice" placeholder="Giá giảm"value="@Model.CategoryDto.CatName" readonly>
+
+                </div>
+                @if (Model.HomeTag == true)
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-1" checked="" value="true" disabled>
+                            <label for="switch-1"></label>
+                        </div>
+                        <label>Home tag</label>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-1" disabled>
+                            <label for="switch-1"></label>
+                        </div>
+                        <label>Home tag</label>
+                    </div>
+
+                }
+
+                @if (Model.BestSeller == true)
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" checked id="switch-2" disabled>
+                            <label for="switch-2"></label>
+                        </div>
+                        <label>Bán chạy</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-2" disabled>
+                            <label for="switch-2"></label>
+                        </div>
+                        <label>Bán chạy</label>
+                    </div>
+                }
+                @if(Model.Active == true)
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-3" checked="" value="true" disabled>
+                            <label for="switch-3"></label>
+                        </div>
+                        <label>Kích hoạt</label>
+                    </div>
+                }else{
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-3" value="true" disabled>
+                            <label for="switch-3"></label>
+                        </div>
+                        <label>Kích hoạt</label>
+                    </div>
+                }
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="font-weight-semibold" for="productName">Kích cỡ ly</label>
+
+                        @foreach (var size in Model.SizeSpecificProducts)
+                        {
+                            <div>
+                                <input id="checkbox-size_@size.Id" type="checkbox" name="Size" value="@size.Id" checked="" disabled>
+                                <label for="checkbox-size_@size.Id">@size.SizeName</label>
+                            </div>
+                        } 
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="font-weight-semibold" for="productName">Loại dinh dưỡng</label>
+
+                         @foreach (var subCat in Model.SubCategorySpecificProductDtos)
+                        {
+                            <div>
+                                <input id="checkbox-subcat_@subCat.Id" type="checkbox" checked="" disabled>
+                                <label for="checkbox-subcat_@subCat.Id">@subCat.SubCategoryDto.SubCatName</label>
+                            </div>
+                        } 
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="product-edit-option">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Ảnh đại diện *</label>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients" style="max-width: 200px" alt="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+
+                        <label class="control-label">Ảnh hiệu ứng (cái ly)</label>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathCup" style="max-width: 200px" alt="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Ảnh hiệu ứng (trái cây) *</label>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathHero" style="max-width: 200px" alt="">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="product-edit-description">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productBrand">Mô tả ngắn</label>
+                    <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" asp-for="@Model.ShortDesc" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productBrand">Mô tả</label>
+                    <textarea class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.Description" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="product-edit-config">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productBrand">Tags</label>
+                    <input type="text" class="form-control" id="productBrand" placeholder="Tags" asp-for="@Model.Tags" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
+                    <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.MetaDesc" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productBrand">MetaKey</label>
+                    <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.MetaKey" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> *@

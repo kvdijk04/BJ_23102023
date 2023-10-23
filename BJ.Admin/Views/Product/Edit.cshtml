@@ -1,0 +1,821 @@
+﻿@using BJ.Contract.ViewModel;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@model UpdateProductAdminView
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<form asp-action="Edit" method="post" enctype="multipart/form-data" >
+    <div class="page-header">
+        <h2 class="header-title">Cập nhật sản phẩm</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-san-pham.html " class="breadcrumb-item">Tất cả sản phẩm</a>
+
+                <span class="breadcrumb-item active">Cập nhật sản phẩm</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                    <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                </div> *@
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @Model.UpdateProductDto.ProductName </h4><a href="/chi-tiet-san-pham/@ViewBag.ProductId" style="text-decoration:underline">Xem chi tiết</a>
+@*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
+ *@                    
+            <span class="text-muted m-b-0 productId" hidden>@ViewBag.ProductId</span>
+                </div>
+            </div>
+            <div class="m-b-15">
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+
+            </div>
+
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Ảnh</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Mô tả</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-config">Trang</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                    <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.UpdateProductDto.ProductName" asp-for="@Model.UpdateProductDto.ProductName">
+                    </div> 
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
+                        <select class="select2" asp-for="@Model.UpdateProductDto.CategoryId" asp-items="ViewBag.CategoryId" value="@Model.UpdateProductDto.CategoryId">
+                        </select>
+                    </div>
+                    @if (Model.UpdateProductDto.HomeTag == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-1" checked="" value="true" asp-for="@Model.UpdateProductDto.HomeTag" >
+                                <label for="switch-1"></label>
+                            </div>
+                            <label>Home tag</label>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-1" value="true" asp-for="@Model.UpdateProductDto.HomeTag">
+                                <label for="switch-1"></label>
+                            </div>
+                            <label>Home tag</label>
+                        </div>
+
+                    }
+
+                    @if (Model.UpdateProductDto.BestSeller == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" checked id="switch-2" value="true" asp-for="@Model.UpdateProductDto.BestSeller">
+                                <label for="switch-2"></label>
+                            </div>
+                            <label>Bán chạy</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center" >
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-2" value="true" asp-for="@Model.UpdateProductDto.BestSeller">
+                                <label for="switch-2"></label>
+                            </div>
+                            <label>Bán chạy</label>
+                        </div>
+                    }
+                    @if (Model.UpdateProductDto.Active == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.UpdateProductDto.Active">
+                                <label for="switch-3"></label>
+                            </div>
+                            <label>Kích hoạt</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.UpdateProductDto.Active">
+                                <label for="switch-3"></label>
+                            </div>
+                            <label>Kích hoạt</label>
+                        </div>
+                    }
+                   
+                   
+                </div>
+               
+
+            </div>
+
+
+        </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Cập nhật ảnh</h2>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh đại diện *</label>
+
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.ImageIngredients" value="@Model.UpdateProductDto.ImagePathIngredients">
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-4">
+
+                            <label class="control-label">Ảnh hiệu ứng (cái ly)</label>
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.ImageCup" value="@Model.UpdateProductDto.ImagePathCup">
+                            </div>
+ 
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh hiệu ứng (trái cây) *</label>
+
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.ImageHero" value="@Model.UpdateProductDto.ImagePathHero">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <h2>Ảnh hiện tại</h2>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh đại diện *</label>
+
+                            
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients" asp-append-version="true" style="max-width: 200px" alt="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+
+                            <label class="control-label">Ảnh hiệu ứng (cái ly)</label>
+                           
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathCup" asp-append-version="true" style="max-width: 200px" alt="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh hiệu ứng (trái cây) *</label>
+
+                           
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathHero" asp-append-version="true" style="max-width: 200px" alt="">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-description">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" value="@Model.UpdateProductDto.ShortDesc" asp-for="@Model.UpdateProductDto.ShortDesc" >
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Mô tả</label>
+                        <textarea class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductDto.Description" asp-for="@Model.UpdateProductDto.Description" ></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-config">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Tags</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="Tags" value="@Model.UpdateProductDto.Tags" asp-for="@Model.UpdateProductDto.Tags" >
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductDto.MetaDesc" asp-for="@Model.UpdateProductDto.MetaDesc" >
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">MetaKey</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" value="@Model.UpdateProductDto.MetaKey" asp-for="@Model.UpdateProductDto.MetaKey" >
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                </div> *@
+@*                 <div class="m-l-15">
+                    <h4 class="m-b-0">Cấu hình ly</h4>
+                    <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
+                </div> *@
+            </div>
+            <div class="m-b-15">
+                <div class="btn btn-warning" id="configproductbutton" data-clicked="false">
+                    <i class="anticon anticon-edit"></i>
+                    <span id="configproductbutton_title">Sửa cấu hình</span>
+                </div>
+                <button type="button" class="btn btn-success" id="saveconfingbutton" disabled>
+                    <i class="anticon anticon-save"></i>
+                    <span id="saveconfingbutton_title">Lưu </span>
+                </button>
+            </div>
+
+        </div>
+        <form id="list_config">
+            <div class="form-row" id="configproduct">
+
+                <div class="form-group col-md-6" id="sizeproduct">
+                    <div>
+                        <input id="productId_txt" name="ProId" hidden />
+
+                    </div>
+
+                    <label class="font-weight-semibold" for="productName">Kích cỡ ly</label>
+                    <div>
+                        <input id="checkbox-size_all" type="checkbox" name="SizeAll" disabled />
+
+                        <label for="checkbox-size_all">Chọn tất cả</label>
+                    </div>
+                    @foreach (var size in ViewBag.SizeDtos)
+                    {
+                        <div>
+                            <input id="checkbox-size_@size.Id" class="sizeproduct_item" data-id="@size.Id" type="checkbox" name="Size" value="@size.Id"
+                            @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id && x.ActiveSize == true))
+                            {
+                                @:checked
+                            } disabled />
+                            <label for="checkbox-size_@size.Id">@size.Name - </label>
+                            @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id ))
+                                        {
+                                <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="confignutri">Xem chi tiết</label>
+                            }
+                            else
+                            {
+                                <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="createnutri" data-name="@size.Name">Tạo mới</label>
+
+                            }
+                        </div>
+                    }
+                   
+
+                </div>
+                <div class="form-group col-md-6" id="subcatproduct">
+                    <label class="font-weight-semibold" for="productName">Loại dinh dưỡng</label>
+                    <div>
+                        <input id="checkbox-subcat_all" type="checkbox" name="SubCatAll" disabled />
+
+                        <label for="checkbox-subcat_all">Chọn tất cả</label>
+                    </div>
+                    @foreach (var subCat in ViewBag.SubCategoryDtos)
+                    {
+                        <div>
+                            <input id="checkbox-subcat_@subCat.Id" type="checkbox" name="SubCat" value="@subCat.Id"
+                            @if (Model.SubCategorySpecificProductDtos.Any(x => x.SubCategoryId == subCat.Id && x.Active == true))
+                            {
+                                @:checked
+                            } disabled />
+                            
+                            <label for="checkbox-subcat_@subCat.Id">@subCat.SubCatName</label>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<form id="nutriFormEdit">
+    @foreach (var item in Model.SizeSpecificProductDto)
+    {
+@*         <input type="text" value="@item.SizeId" id="sizeId" />
+ *@        <div class="card nutri_container" id="card_nutri_edit-@item.SizeId" style="display:none">
+
+            <div class="card-body">
+                <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+                    <div class="media align-items-center m-b-15">
+                        @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                    <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                    </div> *@
+                        <div class="m-l-15">
+                            <h4 class="m-b-0">@item.SizeName</h4>
+
+                        </div>
+                    </div>
+                    <div class="m-b-15">
+                        <div class="icon-wrap" data-id="@item.SizeId" id="closebtn_editnutri"><i class="anticon anticon-close"></i></div>
+
+                    </div>
+
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-3">
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <label class="font-weight-semibold">Energy </label>
+
+                                <input type="text" class="form-control" id="Energy_@item.Id" value="@item.Energy" readonly name="Energy" />
+                            </div>
+                            <div class="col-md-6">
+
+                                <label class="font-weight-semibold">Cal </label>
+
+                                <input type="text" class="form-control" id="Cal_@item.Id" value="@item.Cal" readonly name="Cal" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">Fat </label>
+
+                        <input type="text" class="form-control" id="Fat_@item.Id" value="@item.Fat" readonly name="Fat" />
+                    </div>
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">Carbonhydrate </label>
+
+                        <input type="text" class="form-control" id="Carbonhydrate_@item.Id" value="@item.Carbonhydrate" readonly name="Carbonhydrate" />
+                    </div>
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">DietaryFibre </label>
+
+                        <input type="text" class="form-control" id="DietaryFibre_@item.Id" value="@item.DietaryFibre" readonly name="DietaryFibre" />
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">Protein </label>
+
+                        <input type="text" class="form-control" id="Protein_@item.Id" value="@item.Protein" readonly name="Protein" />
+                    </div>
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">FatSaturated </label>
+
+                        <input type="text" class="form-control" id="FatSaturated_@item.Id" value="@item.FatSaturated" readonly name="FatSaturated" />
+                    </div>
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">CarbonhydrateSugar </label>
+
+                        <input type="text" class="form-control" id="CarbonhydrateSugar_@item.Id" value="@item.CarbonhydrateSugar" readonly name="CarbonhydrateSugar" />
+                    </div>
+                    <div class="form-group col-md-3">
+
+                        <label class="font-weight-semibold">Sodium </label>
+
+                        <input type="text" class="form-control" id="Sodium_@item.Id" value="@item.Sodium" readonly name="Sodium" />
+                    </div>
+                </div>
+                @if (item.ActiveSize == true)
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="ActiveSize_switch-@item.Id" class="ActiveSize_@item.Id" checked="" value="true" asp-for="@item.ActiveSize" disabled>
+                            <label for="ActiveSize_switch-@item.Id"></label>
+                        </div>
+                        <label>Áp dụng cho sản phẩm</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="ActiveSize_switch-@item.Id" class="ActiveSize_@item.Id" value="true" asp-for="@item.ActiveSize" disabled>
+                            <label for="ActiveSize_switch-@item.Id"></label>
+                        </div>
+                        <label>Áp dụng cho sản phẩm</label>
+                    </div>
+                }
+                @if (item.ActiveNutri == true)
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" class="ActiveNutri_@item.Id" id="ActiveNutri_switch-@item.Id" checked="" value="true" asp-for="@item.ActiveNutri" disabled>
+                            <label for="ActiveNutri_switch-@item.Id"></label>
+                        </div>
+                        <label>Xem dinh dưỡng</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" class="ActiveNutri_@item.Id" id="ActiveNutri_switch-@item.Id" value="true" asp-for="@item.ActiveNutri" disabled>
+                            <label for="ActiveNutri_switch-@item.Id"></label>
+                        </div>
+                        <label>Xem dinh dưỡng</label>
+                    </div>
+                }
+                <button type="button" class="btn btn-warning"  data-id="@item.Id" data-sizeId="@item.SizeId" disabled id="save_nutri">
+                    <i class="anticon anticon-edit"></i>
+                    <span>Cập nhật</span>
+                </button>
+            </div>
+
+        </div>
+    }
+    
+</form>
+<form id="nutriFormCreate">
+    <div class="card nutri_container create" id="card_nutri_create" style="display:none">
+
+        <div class="card-body nutr_create">
+            <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+                <div class="media align-items-center m-b-15">
+                    @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                    <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                    </div> *@
+                    <div class="m-l-15">
+                        <h4 class="m-b-0" id="title_nutri_create"></h4>
+                        <input type='text' id='sizeId_nutri_create' hidden />
+                    </div>
+                </div>
+                <div class="m-b-15">
+                    <div class="icon-wrap" id="closebtn_createnutri"><i class="anticon anticon-close"></i></div>
+
+                </div>
+
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-3">
+
+
+                    <div class="form-row">
+                        <div class="col-md-6">
+
+                            <label class="font-weight-semibold">Energy </label>
+
+                            <input type="text" class="form-control" id="Energy"  />
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="font-weight-semibold">Cal </label>
+
+                            <input type="text" class="form-control" id="Cal" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">Fat </label>
+
+                    <input type="text" class="form-control" id="Fat" />
+                </div>
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">Carbonhydrate </label>
+
+                    <input type="text" class="form-control" id="Carbonhydrate" />
+                </div>
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">DietaryFibre </label>
+
+                    <input type="text" class="form-control" id="DietaryFibre" />
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">Protein </label>
+
+                    <input type="text" class="form-control" id="Protein"/>
+                </div>
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">FatSaturated </label>
+
+                    <input type="text" class="form-control" id="FatSaturated" />
+                </div>
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">CarbonhydrateSugar </label>
+
+                    <input type="text" class="form-control" id="CarbonhydrateSugar" />
+                </div>
+                <div class="form-group col-md-3">
+
+                    <label class="font-weight-semibold">Sodium </label>
+
+                    <input type="text" class="form-control" id="Sodium" />
+                </div>
+            </div>
+            <div class="form-group d-flex align-items-center">
+                <div class="switch m-r-10">
+                    <input type="checkbox" class="ActiveSize_create" id="ActiveSize_switch-create" checked="" value="true">
+                    <label for="ActiveSize_switch-create"></label>
+                </div>
+                <label>Áp dụng cho sản phẩm</label>
+            </div>
+            <div class="form-group d-flex align-items-center">
+                <div class="switch m-r-10">
+                    <input type="checkbox" class="ActiveNutri_create" id="ActiveNutri_switch-create" checked="" value="true">
+                    <label for="ActiveNutri_switch-create"></label>
+                </div>
+                <label>Xem dinh dưỡng</label>
+                
+            </div>
+            <button type="button" class="btn btn-primary" id="save_nutri" >
+                <i class="anticon anticon-save"></i>
+                <span>Lưu</span>
+            </button>
+        </div>
+
+    </div>
+
+</form>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script>
+        var clicked = null;
+        $("#checkbox-size_all").on("click", function () {
+            $("#sizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
+        })
+        $("#checkbox-subcat_all").on("click", function () {
+            $("#subcatproduct input[type=checkbox]").not(this).prop('checked', this.checked);
+        })
+        $("#configproductbutton").on("click", function () {
+
+            if (($(this).attr("data-clicked")) == "false") {
+                $(this).removeClass("btn-warning");
+                $(this).addClass("btn-danger");
+                $('#configproductbutton_title').text("Hủy thao tác");
+                
+                $('#configproduct  input[type=checkbox]').attr('disabled', false);
+                $('#nutriFormEdit input[type=checkbox]').attr('disabled', false);
+                $('#nutriFormCreate input[type=checkbox]').attr('disabled', false);
+                $('#saveconfingbutton').attr('disabled', false);
+                $('.nutri_container  input[type=text]').removeAttr('readonly', "readonly");
+                $('.nutri_container #save_nutri').removeAttr('disabled', "disabled");
+                $("#productId_txt").val((window.location.href).substring(window.location.href.lastIndexOf('/') + 1));
+
+                $(this).attr("data-clicked", "true");
+            } else {
+                $(this).removeClass("btn-danger");
+                $(this).addClass("btn-warning");
+                $('#configproduct  input[type=checkbox]').attr('disabled', true);
+                $('#nutriFormEdit  input[type=checkbox]').attr('disabled', true);
+                $('#nutriFormCreate input[type=checkbox]').attr('disabled', true);
+                $('#saveconfingbutton').attr('disabled', true);
+
+                $('#configproductbutton_title').text("Cấu hình ly");
+                $(this).attr("data-clicked", "false");
+                $('.nutri_container  input[type=text]').attr('readonly', "readonly");
+                $('.nutri_container #save_nutri').attr('disabled', "disabled");
+
+
+            }
+
+        });
+        $("#configproduct #confignutri").on("click", function () {
+            var id = $(this).attr("data-id");
+            if (($(this).attr("data-clicked")) == "false") {
+
+                $(this).attr("data-clicked", "true");
+                $("#card_nutri_edit-" + id).slideDown();
+            } else {
+                $(this).attr("data-clicked", "false");
+                $("#card_nutri_edit-" + id).slideUp();
+
+            }
+        });
+        $("#configproduct #createnutri").on("click", function () {
+            if (($(this).attr("data-clicked")) == "false") {
+
+                $(this).attr("data-clicked", "true");
+                $("#card_nutri_create").slideDown();
+                $("#sizeId_nutri_create").val($(this).attr("data-id"));
+                $("#title_nutri_create").text($(this).attr("data-name"));
+            } else {
+                $(this).attr("data-clicked", "false");
+                $("#card_nutri_create").slideUp();
+
+            }
+        });
+        $("#closebtn_createnutri").on("click", function () {
+            $("#card_nutri_create").slideUp();
+
+        });
+        $(".nutri_container #closebtn_editnutri").on("click", function () {
+            var id = $(this).attr("data-id");
+            $("#card_nutri_edit-" + id).slideUp();
+
+        });
+    </script>
+    <script>
+        $('.select2').select2();
+
+    </script>
+    <script>
+        document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+            const dropZoneElement = inputElement.closest(".drop-zone");
+
+            dropZoneElement.addEventListener("click", (e) => {
+                inputElement.click();
+            });
+
+            inputElement.addEventListener("change", (e) => {
+                if (inputElement.files.length) {
+                    updateThumbnail(dropZoneElement, inputElement.files[0]);
+                }
+            });
+
+            dropZoneElement.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZoneElement.classList.add("drop-zone--over");
+            });
+
+            ["dragleave", "dragend"].forEach((type) => {
+                dropZoneElement.addEventListener(type, (e) => {
+                    dropZoneElement.classList.remove("drop-zone--over");
+                });
+            });
+
+            dropZoneElement.addEventListener("drop", (e) => {
+                e.preventDefault();
+
+                if (e.dataTransfer.files.length) {
+                    inputElement.files = e.dataTransfer.files;
+                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+                }
+
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+
+        function updateThumbnail(dropZoneElement, file) {
+            let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+            // First time - remove the prompt
+            if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+                dropZoneElement.querySelector(".drop-zone__prompt").remove();
+            }
+
+            // First time - there is no thumbnail element, so lets create it
+            if (!thumbnailElement) {
+                thumbnailElement = document.createElement("div");
+                thumbnailElement.classList.add("drop-zone__thumb");
+                dropZoneElement.appendChild(thumbnailElement);
+            }
+            //Chèn tên dưới hình----------
+            //thumbnailElement.dataset.label = file.name;
+            //------------
+            // Show thumbnail for image files
+            if (file.type.startsWith("image/")) {
+                const reader = new FileReader();
+
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+                };
+            } else {
+                thumbnailElement.style.backgroundImage = null;
+            }
+        }
+
+    </script>
+    <script>
+        
+        $("#nutriFormEdit #save_nutri").on("click", function () {
+            var id = $(this).attr("data-id");
+            // var proId = $(".productId").text();
+            
+            var c = $("#Carbonhydrate_" + id).val();
+
+            let formData = {
+                energy: $("#nutriFormEdit #Energy_" + id).val(),
+                cal: $("#nutriFormEdit #Cal_" + id).val(),
+                fat: $("#nutriFormEdit #Fat_" + id).val(),
+                carbonhydrate: $("#nutriFormEdit #Carbonhydrate_" + id).val(),
+                dietaryFibre: $("#nutriFormEdit #DietaryFibre_" + id).val(),
+                protein: $("#nutriFormEdit #Protein_" + id).val(),
+                fatSaturated: $("#nutriFormEdit #FatSaturated_" + id).val(),
+                carbonhydrateSugar: $("#nutriFormEdit #CarbonhydrateSugar_" + id).val(),
+                sodium: $("#nutriFormEdit #Sodium_"+id).val(),
+                activeSize: $("#nutriFormEdit .ActiveSize_"+id).is(":checked"),
+                activeNutri: $("#nutriFormEdit .ActiveNutri_" + id).is(":checked"),
+            }
+            $.ajax({
+                url: "/cap-nhat-chi-tiet-size-cho-tung-san-pham",
+                type: "POST",
+                data: { id: id, updateSizeSpecificProductDto: formData, proId: (window.location.href).substring(window.location.href.lastIndexOf('/') + 1) },
+                success: function (response) {
+                    console.log("success");
+                    location.reload();
+
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                }
+            });
+        });
+        $("#nutriFormCreate #save_nutri").on("click", function () {
+            var sizeid = $("#nutriFormCreate #sizeId_nutri_create").val();
+            // var proId = $(".productId").text();
+            let formData = {
+                sizeId: sizeid,
+                productId: (window.location.href).substring(window.location.href.lastIndexOf('/') + 1),
+                energy: $("#nutriFormCreate #Energy").val(),
+                cal: $("#nutriFormCreate #Cal").val(),
+                fat: $("#nutriFormCreate #Fat").val(),
+                carbonhydrate: $("#nutriFormCreate #Carbonhydrate").val(),
+                dietaryFibre: $("#nutriFormCreate #DietaryFibre" ).val(),
+                protein: $("#nutriFormCreate #Protein" ).val(),
+                fatSaturated: $("#nutriFormCreate #FatSaturated").val(),
+                carbonhydrateSugar: $("#nutriFormCreate #CarbonhydrateSugar").val(),
+                sodium: $("#nutriFormCreate #Sodium").val(),
+                activeSize: $("#nutriFormCreate .ActiveSize_create").is(":checked"),
+                activeNutri: $("#nutriFormCreate .ActiveNutri_create").is(":checked"),
+            }
+            console.log(formData);
+            $.ajax({
+                url: "/tao-moi-chi-tiet-size-cho-tung-san-pham",
+                type: "POST",
+                data: { createSizeSpecificProductDto: formData, proId: (window.location.href).substring(window.location.href.lastIndexOf('/') + 1) },
+                success: function (response) {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                }
+            });
+        });
+        $("#saveconfingbutton").on("click", function () {
+            var formData = $("#list_config").serialize();
+            console.log(formData);
+            $.ajax({
+                url: "/cap-nhat-cau-hinh",
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                }
+            });
+        });
+    </script>
+
+}

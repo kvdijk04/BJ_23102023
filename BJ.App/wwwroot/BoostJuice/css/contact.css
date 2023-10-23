@@ -1,0 +1,439 @@
+﻿.boost-home .sub-navi li a, .is-fixed .sub-navi li a {
+    color: #fff;
+}
+
+.is-fixed .sub-navi li a {
+    color: #846042;
+}
+
+.boost-nav-trigger span {
+    background-color: #fff;
+}
+h3 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    line-height: 38px;
+    color: #7ac142;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    font-weight: 400;
+}
+p {
+    margin-bottom: 32px;
+    line-height: 28px;
+}
+
+pre, blockquote, dl, figure, table, p, ul, ol, form {
+    margin-bottom: 20px;
+}
+ol, ul {
+    padding-left: 0;
+    margin-top: 0;
+}
+#progressbar li {
+    list-style-type: none;
+    color: #666;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+
+li {
+    margin-bottom: 1rem;
+}
+.boost-home .boost-nav-trigger span::before, .boost-home .boost-nav-trigger span::after {
+    background-color: #fff !important;
+}
+.main-fold-angle {
+    background-repeat: no-repeat;
+    background-position: center top;
+    min-height: 25vw;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.main-fold-angle {
+    background-size: 100%;
+}
+
+.bg-image {
+    background-image: url('../../images/grass-girls-desktop.jpg');
+}
+
+.banner-contact {
+    background-image: url('../../images/grass-girls-desktop.jpg');
+}
+
+.main-fold-angle:after {
+    position: absolute;
+    content: "";
+    background-color: #fff;
+    width: 116%;
+    left: -5%;
+    bottom: -40px;
+    height: 60px;
+    -webkit-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+}
+.sub-container {
+    max-width: 1440px;
+    margin: 0px auto;
+}
+
+.sub-container.sides-off, .sub-container .sides-off {
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.column, .columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+.text-center {
+    text-align: center;
+}
+.boostform {
+    margin: 80px auto;
+    text-align: center;
+    position: relative;
+    height: 520px;
+}
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    counter-reset: step
+}
+
+    #progressbar li {
+        list-style-type: none;
+        color: #666;
+        width: 33.33%;
+        float: left;
+        position: relative
+    }
+
+
+#vibe-register-form #progressbar, #boost-apply-now-form #progressbar, #boost-mobeel-form #progressbar, #franchising #progressbar {
+    width: 60%;
+    margin: 0px auto
+}
+
+#vibe-register-form #progressbar li, #boost-apply-now-form #progressbar li, #boost-mobeel-form #progressbar li, #franchising #progressbar li {
+    width: 49.33%
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 30px;
+    line-height: 30px;
+    display: block;
+    font-size: 10px;
+    color: #dcdcdc;
+    background: #dcdcdc;
+    border-radius: 30px;
+    margin: 0 auto 5px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #dcdcdc;
+    position: absolute;
+    left: -50%;
+    top: 14px;
+    z-index: -1
+}
+
+#progressbar li:first-child:after {
+    content: none
+}
+
+#progressbar li.active:after, #progressbar li.active:before {
+    background: #78c148;
+    color: #78c148
+}
+.boostform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    max-width: 480px;
+    left: 0;
+    right: 0;
+}
+    .boostform fieldset:not(:first-of-type) {
+        display: none;
+    }
+input, textarea, select, fieldset {
+    margin-bottom: 20px;
+}
+
+fieldset {
+    padding: 0;
+    border-width: 0;
+}
+
+fieldset {
+    border: 1px solid silver;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+.custom-inputs {
+    overflow: hidden;
+}
+.icheckbox_lineblock-green, .iradio_lineblock-green {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 10px 15px;
+    font-size: 17px;
+    line-height: 22px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    margin-bottom: 15px;
+    border: 1px solid #bfbfbf;
+    width: 100%;
+    text-transform: uppercase;
+}
+.icheckbox_lineblock-green.checked, .iradio_lineblock-green.checked {
+    background: #78c148;
+    color: #fff;
+    border: 1px solid #78c148;
+}
+.boostform input, .boostform select, .boostform textarea {
+    padding: 0px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 18px;
+}
+label, legend {
+    color: #a4a4a4;
+    font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+    text-align: left;
+    display: block;
+    margin: 15px 0px 5px 0px;
+    font-style: italic;
+    font-weight: normal;
+}
+    label.error {
+        display: none !important;
+    }
+.custom-inputs {
+    overflow: hidden;
+}
+.form-step-2 .iradio_lineblock-green {
+    width: 47%;
+    float: left;
+    min-height: 66px;
+}
+    .form-step-2 .iradio_lineblock-green + .iradio_lineblock-green {
+        margin-left: 6%;
+    }
+.boostform .action-button {
+    width: 100px;
+    background: #fb7923;
+    color: #fff;
+    border: 0 none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 0px;
+    line-height: 20px;
+    border-radius: 5px;
+    width:30%;
+    text-align:center;
+}
+.hideMe {
+    display: none;
+}
+.contact-us-info {
+    background-color: #fafafa;
+    padding: 60px 20px;
+    position: relative;
+    min-height: 260px;
+}
+.contact-us-info:after {
+    content: "";
+    position: absolute;
+    width: 116%;
+    height: 60px;
+    margin-left: -10%;
+    background-color: #fafafa;
+    bottom: -20px;
+    -webkit-transform: rotate(1.4deg);
+    transform: rotate(1.4deg);
+    z-index: 0;
+}
+.contact-us-info .six {
+    text-align: right;
+    width: 50%;
+    padding-right: 40px;
+    z-index: 1;
+    line-height: 28px;
+}
+.column, .columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+.contact-us-info .six + .six {
+    padding-right: 0;
+    padding-left: 40px;
+    text-align: left;
+    margin: 0;
+    border-left: 1px solid #dcdcdc;
+}
+.sub-fold {
+    z-index: 8;
+    padding: 20px 0 0;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    background-color: #77C148;
+    -webkit-backface-visibility: hidden;
+}
+    .sub-fold:before {
+        content: "";
+        position: absolute;
+        top: -40px;
+        left: 0;
+        -webkit-transform: skewY(-2deg);
+        transform: skewY(-2deg);
+        background-color: #77C148;
+        width: 100%;
+        height: 90px;
+        z-index: 0;
+    }
+    .sub-fold .container {
+        z-index: 15;
+        position: relative;
+    }
+    .sub-fold.flat-bottom:after {
+        -webkit-transform: skewY(0deg);
+        transform: skewY(0deg);
+    }
+    .sub-fold:after {
+        content: "";
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        -webkit-transform: skewY(2deg);
+        transform: skewY(2deg);
+        background-color: #77C148;
+        width: 100%;
+        height: 70px;
+        z-index: 0;
+    }
+@media (max-width: 1440px) {
+    .bg-image {
+        background-image: url('../../images/grass-girls-desktop-small.jpg');
+    }
+    .main-fold-angle {
+        min-height: 35vw;
+    }
+}
+
+@media (max-width: 1024px) {
+    .bg-image {
+        background-image: url('../../images/grass-girls-tablet.jpg');
+    }
+    .main-fold-angle {
+        min-height: 40vw;
+    }
+    .sub-fold {
+        padding-top: 0px;
+        margin-bottom: 60px;
+    }
+}
+@media(max-width:768px){
+    .boostform {
+        margin-top: 40px;
+    }
+    #progressbar li {
+        font-size: 12px;
+    }
+    .boostform fieldset {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .contact-us-info {
+        min-height: 450px;
+    }
+        .contact-us-info .six {
+            width: 100%;
+            text-align: left;
+        }
+            .contact-us-info .six + .six {
+                padding: 0;
+                margin: 30px 0px 0px;
+                border-left: none;
+            }
+}
+@media(max-width:760px){
+    .sub-fold:after {
+        bottom: -50px;
+    }
+    .sub-fold.flat-bottom:after {
+        -webkit-transform: skewY(2deg);
+        transform: skewY(2deg);
+    }
+}
+@media (max-width: 660px) {
+    .bg-image {
+        background-image: url('../../images/grass-girls-mobile.jpg');
+    }
+    .main-fold-angle {
+        min-height: 56vw;
+    }
+}
+@media (min-width: 400px) {
+    .container {
+        width: 85%;
+        padding: 0;
+    }
+}
+@media (min-width: 769px) {
+    .container {
+        width: 90%;
+    }
+    .column, .columns {
+        margin-left: 4%;
+    }
+    .column:first-child, .columns:first-child {
+        margin-left: 0;
+    }
+    input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea, select {
+        min-width: 320px;
+    }
+    .column, .columns {
+        margin-left: 4%;
+    }
+    .column:first-child, .columns:first-child {
+        margin-left: 0;
+    }
+    .six.columns {
+        width: 48%;
+    }
+}

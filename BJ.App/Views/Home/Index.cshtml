@@ -1,0 +1,352 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .boost-nav-trigger span::before {
+
+        background-color: #846042;
+    }
+
+    #boost-stores {
+        max-width: 1200px;
+        margin: 0px auto;
+    }
+
+    #boostjuice-result-list {
+        float: left;
+        width: 49.5%;
+        margin-right: 0.5%;
+    }
+
+    .boostjuice-gmap-wrap {
+        position: relative;
+    }
+
+    #boostjuice-gmap {
+        float: left;
+        width: 50%;
+    }
+
+
+    #map {
+        height: 100%;
+    }
+
+        #boostjuice-result-list li.boostjuice-preloader {
+            border-bottom: none
+        }
+
+        #boost-store-locator {
+            position: relative;
+            overflow: hidden;
+            min-width: 100%;
+            float: left;
+            margin-top: -60px
+        }
+
+        #boost-store-locator.hide-stores {
+            height: 500px
+        }
+
+        #boost-store-locator.hide-stores #boost-stores {
+            visibility: hidden
+        }
+
+
+
+        .store-list h2 {
+            color: #79C339;
+            margin-bottom: 20px;
+            font-weight: 600
+        }
+
+        .store-list h3 {
+            margin: 0px 0px 10px 0px;
+            font-size: inherit;
+            font-weight: 600;
+            color: inherit
+        }
+
+        .store-list h3 em {
+            color: #79C339;
+            margin-left: 45px;
+            font-style: normal;
+            float: right
+        }
+
+        .store-list em {
+            color: #a4a4a4;
+            font-style: normal
+        }
+
+        .store-list h4 {
+            font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+            font-style: italic;
+            margin: 0;
+            font-weight: 400;
+            margin: 25px 0px 15px;
+            color: #a4a4a4;
+            font-size: 18px
+        }
+
+        .store-list span {
+            display: block;
+            margin: 0 0 5px
+        }
+
+        .store-list div {
+            max-height: 0;
+            margin-bottom: 30px;
+            overflow: hidden;
+            -webkit-transition: all 0.3s linear 0s;
+            transition: all 0.3s linear 0s
+        }
+
+        .store-list div.show {
+            max-height: 360px
+        }
+
+        .store-list div > em {
+            font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+            font-style: italic;
+            clear: both;
+            float: none;
+            display: block;
+            padding: 5px
+        }
+
+        .store-list ul li em {
+            font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+            font-style: italic;
+            display: inline-block;
+            min-width: 60px
+        }
+
+        .store-list div span {
+            background-color: #eee;
+            display: inline-block;
+            border-radius: 3px;
+            margin: 0 0 0 -5px;
+            padding: 0 5px
+        }
+
+        .boostjuice-store-details.boostjuice-store-listing {
+            position: relative;
+            padding-right: 20px
+        }
+
+        .boostjuice-store-details.boostjuice-store-listing:before, .boostjuice-store-details.boostjuice-store-listing.boostjuice-active-details:before {
+            position: absolute;
+            content: '';
+            bottom: 6px;
+            right: 0;
+            border-top: 5px solid #000000;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent
+        }
+
+        .boostjuice-store-details.boostjuice-store-listing.boostjuice-active-details:before {
+            border-bottom: 5px solid #000000;
+            border-top: none;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent
+        }
+
+        #boostjuice-result-list a {
+            outline: none;
+        }
+
+        button, .button {
+           margin-bottom: 1rem;
+        }
+
+    table.wpsl-opening-hours td {
+        vertical-align: top;
+        padding: 0 15px 0 0;
+        text-align: left;
+    }
+
+    #boost-stores-loading {
+        display: none;
+        background-color: rgba(255, 255, 255, 0.85);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+    }
+
+    .boost-store-finder .preloader {
+        -webkit-transform: skewY(1deg);
+        transform: skewY(1deg);
+        margin-top: -15px;
+    }
+
+    .boost-main-content .preloader {
+        background-color: #fff;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    .boost-store-finder .preloader .spinner {
+        -webkit-transform: skewY(-1deg);
+        transform: skewY(-1deg);
+    }
+
+    .spinner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .double-bounce1, .double-bounce2 {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #67b94c;
+        opacity: 0.6;
+        position: absolute;
+        top: 40%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+    @@-webkit-keyframes sk-bounce {
+        0%, 100% {
+            -webkit-transform: scale(0)
+        }
+        50% {
+            -webkit-transform: scale(1)
+        }
+    }
+</style>
+@section Styles{
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+}
+
+<div class="boost-main-content ">
+    <div class="main-fold welcome friends_backs">
+        <div class="container">
+            <div class="row">
+                <div class="six columns">
+                    <img src="https://www.boostjuice.vn/app/uploads/2019/02/titles-love-life.png" id="welcome-img">
+                    <span class="hide-mobile">
+                        <a href="https://www.boostjuice.vn/tim-chung-toi/" class="button"><localize>Juices &amp; Smoothies</localize></a>
+                        <a href="#boost-store-locator" class="button"><localize>Find Us</localize></a>
+                    </span>
+                    <span class="hide-desktop">
+                        <a href="https://www.boostjuice.vn/tim-chung-toi/" class="button"><localize>Juices &amp; Smoothies</localize></a>
+                        <a href="#boost-store-locator" class="button"><localize>Find Us</localize></a>
+                    </span>
+                </div>
+            </div>
+            <style>
+
+            </style>
+        </div>
+    </div>  
+    <div class="sub-container">
+        <div class="block block-green promo half-angle-container grey">
+            <div class="container">
+                <div class="row">
+                    <div class="six columns">
+                        <h2>𝗟𝗢𝗬𝗔𝗟𝗧𝗬 𝗔𝗪𝗔𝗥𝗗 THÁNG 10 – VUI LỄ HẾT MÌNH, TỰ TIN KHOE DÁNG</h2>
+                        <p></p><h5>👻 Tháng Halloween này, Boost mang đến phần thưởng “chất chơi” đó chính là Combo Thẻ tập gym 1 năm tại hệ thống <span style="color: #000080;"><strong>California Fitness &amp; Yoga Centers Vietnam</strong></span> và 30 ly smoothies miễn phí để bạn uống thỏa thích sau mỗi giờ tập luyện.</h5>
+                        <h5>🎃 Với hệ thống phòng tập hiện đại, trang thiết bị đa dạng, Boost tin rằng món quà sẽ giúp bạn duy trì lối sống khỏe mạnh khi vừa nạp Boost và tập luyện mỗi ngày~</h5>
+                        <h5>✅Các bước “rinh giải” siêu dễ dàng, chỉ cần:</h5>
+                        <h5>➖ Là thành viên của Boost, có phát sinh chi tiêu tại Boost trong tháng 10/2023 sẽ được tham gia rút thăm.</h5>
+                        <h5>➖ Mỗi hoá đơn sẽ được tính là 1 phiếu thăm, không giới hạn số lượng phiếu thăm cho mỗi thành viên (càng nhiều hóa đơn tỉ lệ trúng càng cao).</h5>
+                        <h5>➖ Thời gian áp dụng chương trình từ ngày 1 đến hết ngày 31/10/2023.</h5>
+                        <h5>➖ Đối với khách hàng chưa là thành viên Boost, tải 𝗮𝗽𝗽 𝗕𝗼𝗼𝘀𝘁 𝗝𝘂𝗶𝗰𝗲 𝗩𝗶𝗲𝘁𝗻𝗮𝗺 tại đây 👉 <a href="https://linktr.ee/boostjuicevn"><strong><span style="color: #000080;">https://linktr.ee/boostjuicevn</span></strong></a></h5>
+                        <h5>⏰Thời gian livestream rút thăm trúng thưởng 10:00 AM ngày 4/11/2023, trên fanpage Boost Juice Vietnam.</h5>
+                        <h5>🔥Đặt Boost ngay để có cơ hội trúng Combo siêu “chất” chỉ trong tháng 10 này nha~</h5>
+                        <p></p>
+                        <p><a href="loyalty-award-thang-10-vui-le-het-minh-tu-tin-khoe-dang" class="button" style="margin-bottom:30px"><localize>Learn More</localize></a></p>
+                    </div>
+                    <div class="six columns half-angle"> <img src="https://www.boostjuice.vn/app/uploads/2023/09/banner-loyalty-kv-540x450.png"> </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="block vibe-bkg">
+            <div class="container">
+                <div class="row">
+                    <div class="columns text-center">
+                        <img src="~/images/vibe-logo.png">
+                        <p></p><p><localize>This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app.</localize></p>
+                        <p></p>
+                        <p><a href="https://www.boostjuice.vn/vibe-vn/" class="button"><localize>Learn More</localize></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="boost-store-finder">
+
+            <div id="boost-store-locator" class="hide-stores">
+                <div class="preloader" id="boost-stores-loading">
+                    <div class="spinner">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                    </div>
+                </div>
+                <div class="boostjuice-search">
+
+                    <img src="~/images/icon-boost-cup.png">
+                    <h2>Tìm cửa hàng Boost Juice</h2>
+                    <p></p><p>
+                        Tôi đang cách cửa hàng Boost Juice gần nhất bao xa?<br>
+                        Hãy nhập vị trí của bạn bằng cách sử dụng thanh tìm kiếm nhỏ xinh phía dưới. Rất dễ dàng.
+                    </p>
+                    <p></p>
+                    <a id="get-my-location" class="button" style="margin-bottom:30px">Vị trí hiện tại của bạn</a>
+
+                </div>
+                
+            </div>
+            <div id="boost-stores" style="display:none">
+                <div id="boostjuice-result-list">
+                    <div id="boostjuice-stores">
+                    </div>
+                </div>
+                <div class="boostjuice-gmap-wrap">
+                    <div id="boostjuice-gmap" style="position: relative; overflow: hidden;">
+                        <div id="map"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ *@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTv4Z_nGhpi5GAzj3cDpcRf43HyonXxYA&#038&callback=initMap" async defer></script>
+
+<script>
+    
+    $('#boostjuice-stores').on('click', '.show-openhours', function () {
+        var e = $("#boostjuice-stores .show-openhours").index(this);
+        $("#boostjuice-stores .wpsl-opening-hours:eq( " + e + " )").addClass("show");
+        $('#boostjuice-stores .wpsl-opening-hours').not(':eq("' + e + '")').removeClass("show");
+
+    });
+    
+</script>
+
+<script src="~/BoostJuice/js/ggmap_boost.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
