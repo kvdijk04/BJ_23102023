@@ -8,7 +8,8 @@ namespace BJ.Application.Mapping
     {
         public SubCategoryMappingProfile()
         {
-            CreateMap<SubCategory, SubCategoryDto>().ForPath(dest => dest.SubCategorySpecificProductDtos, opt => opt.MapFrom(src => src.SubCategorySpecificProducts));
+            CreateMap<SubCategory, SubCategoryDto>().ForPath(dest => dest.SubCategorySpecificProductDtos, opt => opt.MapFrom(src => src.SubCategorySpecificProducts))
+                .ForPath(dest => dest.SubCategoryTranslationDtos, opt => opt.MapFrom(src => src.SubCategoryTranslations));
 
             CreateMap<CreateSubCategoryDto, SubCategory>();
 
@@ -24,12 +25,16 @@ namespace BJ.Application.Mapping
             CreateMap<SubCategorySpecificProduct, UserSubCategorySpecificProductDto>().ForMember(dest => dest.ActiveProduct, opt => opt.MapFrom(src => src.Active))
                 .ForMember(dest => dest.SubActive, opt => opt.MapFrom(src => src.SubCategory.Active))
                  .ForMember(dest => dest.SubCatName, opt => opt.MapFrom(src => src.SubCategory.SubCatName))
-                  .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.SubCategory.ImagePath));
+                  .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.SubCategory.ImagePath))
+                  .ForPath(dest => dest.SubCategoryDto, opt => opt.MapFrom(src => src.SubCategory));
 
             CreateMap<CreateSubCategorySpecificDto, SubCategorySpecificProduct>();
 
 
             CreateMap<UpdateSubCategorySpecificProduct, SubCategorySpecificProduct>();
+        
+        
+        
         }
     }
 }

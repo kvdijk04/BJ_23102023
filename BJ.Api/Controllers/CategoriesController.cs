@@ -1,6 +1,7 @@
 ﻿using BJ.Application.Service;
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
+using BJ.Contract.Translation.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,10 +45,10 @@ namespace BJ.Api.Controllers
         /// </summary>
         [HttpGet("userpage")]
 
-        public async Task<IEnumerable<UserCategoryDto>> GetUserCategories()
+        public async Task<IEnumerable<UserCategoryDto>> GetUserCategories(string languageId)
         {
 
-            return await _categoryService.GetUserCategoryDtos();
+            return await _categoryService.GetUserCategoryDtos(languageId);
 
         }
         /// <summary>
@@ -76,6 +77,76 @@ namespace BJ.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+
+        /// <summary>
+        /// Lấy thông tin ngôn ngữ của loại bằng Id
+        /// </summary>
+
+        [HttpGet("language/{id}/detail")]
+
+        public async Task<IActionResult> GetCategoryTranslationById(Guid id)
+        {
+            if (await _categoryService.GetCategoryTransalationById(id) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            return Ok(await _categoryService.GetCategoryTransalationById(id));
+
+        }
+
+        /// <summary>
+        /// Tạo mới loại theo từng ngôn ngữ
+        /// </summary>
+        /// 
+
+        [HttpPost("language/create")]
+        public async Task<IActionResult> CreateTranslate([FromBody] CreateCategoryTranslationDto createCategoryTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _categoryService.CreateTranslateCategory(createCategoryTranslationDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        /// <summary>
+        /// Cập nhật loại theo từng ngôn ngữ
+        /// </summary>
+        /// 
+
+        [HttpPut("{proId}/language/{id}/update")]
+        public async Task<IActionResult> UpdateTranslate(Guid proId,Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _categoryService.UpdateTranslateCategory(proId, id, updateCategoryTranslationDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+       
 
         /// <summary>
         /// Cập nhật loại

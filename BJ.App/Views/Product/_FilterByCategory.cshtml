@@ -1,11 +1,11 @@
-﻿@using BJ.Contract.Product;
+﻿﻿@using BJ.Contract.Product;
 @model IEnumerable<UserProductDto>
 @{
     Layout = null;
 }
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
-@if(Model != null && Model.Count() > 0)
+@if (Model != null && Model.Count() > 0)
 {
     @foreach (var product in Model.Where(x => x.Active == true))
     {
@@ -16,9 +16,22 @@
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" />
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" />
                 <ul>
-                    @foreach (var subCat in product.UserSubCategorySpecificProductDto.Where(x => x.ActiveProduct == true))
+                    @foreach (var subCat in product.UserSubCategorySpecificProductDto)
                     {
-                        <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@subCat.SubCatName</li>
+                        @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
+                        {
+                            if (sub != null)
+                            {
+                                <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                            }
+                            else
+                            {
+                                <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+
+
+                            }
+
+                        }
                     }
                 </ul>
                 <span>@product.ProductName</span>
@@ -33,22 +46,31 @@
 }
 else
 {
-    <section id="hints" style="display: block;"> 
+    <section id="hints" style="display: block;">
         <p> <img src="~/images/title_wait.png"> </p>
-        <h3>You want all that in a cup?</h3> 
+        <h3>You want all that in a cup?</h3>
         <p>That’s a serious mix of ingredients. You’re either messing with us, or you’ve got some weird taste buds. I mean, we like weird. In fact, we embrace it, but what you’re wanting just straight up doesn’t exist. </p>
-        <ul> <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li> 
+        <ul>
+            <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li>
             <li class="filter2"><img src="~/images/hint-2.png">Chocolate</li>
-            <li class="filter3"><img src="~/images/hint-3.png">Pineapple</li> 
+            <li class="filter3"><img src="~/images/hint-3.png">Pineapple</li>
             <li class="filter4"><img src="~/images/hint-4.png">Green Tea</li>
-            <li class="filter5"><img src="~/images/hint-5.png">Coconut</li> 
-            <li class="filter6"><img src="~/images/hint-6.png">Milk</li> 
-            <li class="filter7"><img src="~/images/hint-7.png">Lemon</li> </ul></section>
+            <li class="filter5"><img src="~/images/hint-5.png">Coconut</li>
+            <li class="filter6"><img src="~/images/hint-6.png">Milk</li>
+            <li class="filter7"><img src="~/images/hint-7.png">Lemon</li>
+        </ul>
+    </section>
 }
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
+    var first = $(location).attr('pathname');
 
+    first.indexOf(1);
+
+    first.toLowerCase();
+
+    first = first.split("/")[1];
     $(".drink-block .grid_item").on("click", function (i) {
 
         var nameCat = $(this).attr("data-catName");
@@ -78,7 +100,7 @@ else
                 url: '/singleproduct',
                 datatype: "json",
                 type: "get",
-                data: { proId: idPro },
+                data: { proId: idPro, culture : first },
 
                 async: true,
                 success: function (results) {

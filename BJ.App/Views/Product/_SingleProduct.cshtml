@@ -1,4 +1,4 @@
-﻿@using BJ.Contract.Product;
+﻿﻿@using BJ.Contract.Product;
 @model UserProductDto
 
 @using Microsoft.Extensions.Configuration
@@ -6,7 +6,9 @@
 <style>
 
 </style>
-
+@{
+    Layout = null;
+}
 <div class="og-expander-inner">
     <span class="og-close" data-proId="@Model.Id"></span>
     <div class="drink-info-box" style="display: block;">
@@ -15,12 +17,25 @@
             <p class="shortdesc">@Model.ShortDesc</p>
 
             <ul class="nutriimage">
-                @foreach (var subCat in Model.UserSubCategorySpecificProductDto.Where(x => x.ActiveProduct == true))
+                @foreach (var subCat in Model.UserSubCategorySpecificProductDto)
                 {
-                    <li><span><img src='@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath'></span>@subCat.SubCatName</li>
+                    @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
+                    {
+                        if (sub != null)
+                        {
+                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                        }
+                        else
+                        {
+                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+
+
+                        }
+
+                    }
                 }
             </ul>
-            <p class="description"></p>
+            <p class="description">@Model.Description</p>
         </div>
         <div class="large-image">
             <img src='@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients'>
@@ -80,15 +95,14 @@
         var i, tabcontent, tablinks;
         console.log(sizeId);
         // Get all elements with class="tabcontent" and hide them
-        
 
         $(".info-table").css("display", "none");
+
         // Get all elements with class="tablinks" and remove the class "active"
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(sizeId).style.display = "block";
 

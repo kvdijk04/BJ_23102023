@@ -1,13 +1,80 @@
 ﻿@using BJ.Application.Ultities;
-@using BJ.Contract.Category;
-@model IEnumerable<UserCategoryDto>
+@model ProductUserViewModel
+@using BJ.Contract.ViewModel;
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @section Styles{
     <link rel="stylesheet" href="~/BoostJuice/css/product.css">
 
 }
+<style>
+    #boost-stores-loading {
+        display: none;
+        background-color: rgba(255, 255, 255, 0.85);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+    }
 
+    .og-expander .preloader {
+        -webkit-transform: skewY(1deg);
+        transform: skewY(1deg);
+        margin-top: -15px;
+    }
+
+    .boost-main-content .preloader {
+        background-color: #fff;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    .og-expander .preloader .spinner {
+        -webkit-transform: skewY(-1deg);
+        transform: skewY(-1deg);
+    }
+
+    .spinner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .double-bounce1, .double-bounce2 {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #67b94c;
+        opacity: 0.6;
+        position: absolute;
+        top: 40%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    @@-webkit-keyframes sk-bounce {
+        0%, 100% {
+            -webkit-transform: scale(0)
+        }
+
+        50% {
+            -webkit-transform: scale(1)
+        }
+    }
+</style>
 
 <div class="page-wrapper">
     <div id="maincontent" class="main_content_page">
@@ -28,7 +95,7 @@
                             </span>
                             MOST POPULAR
                         </div>
-                        @foreach (var cat in Model.Where(x => x.Active == true))
+                        @foreach (var cat in Model.UserCategoryDtos.Where(x => x.Active == true))
                         {
                             <div data-category-id="@cat.Id" class="main-filter__set" popular="false" data-catId="@cat.Id">
                                 <span class="main-filter__set-info">
@@ -51,33 +118,42 @@
 
         <div class="main">
             <ul id="og-grid" class="og-grid">
-               
-                @foreach (var item in Model)
+
+                @foreach (var product in Model.UserProductDtos)
                 {
 
-                    @foreach (var product in item.UserProductDtos.Where(x => x.Active == true))
-                    {
-                        <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;">
-                            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-catName="@item.CatName" data-masp="@product.Id" data-proName="@product.ProductName" @* onclick="openTab('@product.Id');" *@>
-                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" />
-                                <img src="https://www.boostjuice.com.au/img/cup_shadow.png" />
-                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" />
-                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" />
-                                <ul>
-                                    @foreach (var subCat in product.UserSubCategorySpecificProductDto.Where(x => x.ActiveProduct == true))
+                    <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;">
+                        <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-proName="@product.ProductName" data-catName="@product.CatName" @* onclick="openTab('@product.Id');" *@>
+                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" />
+                            <img src="https://www.boostjuice.com.au/img/cup_shadow.png" />
+                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" />
+                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" />
+                            <ul>
+                                @foreach (var subCat in product.UserSubCategorySpecificProductDto)
+                                {
+                                    @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
                                     {
-                                        <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@subCat.SubCatName</li>
+                                        if (sub != null)
+                                        {
+                                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                        }
+                                        else
+                                        {
+                                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+
+
+                                        }
+
                                     }
-                                </ul>
-                                <span>@product.ProductName</span>
-                            </a>
-                            <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
-                                <div class="preloader" style="display:none"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
-                            </div>
+                                }
+                            </ul>
+                            <span>@product.ProductName</span>
+                        </a>
+                        <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
 
-                        </li>
+                        </div>
 
-                    }
+                    </li>
 
                 }
 
@@ -89,7 +165,13 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
+    var first = $(location).attr('pathname');
 
+    first.indexOf(1);
+
+    first.toLowerCase();
+
+    first = first.split("/")[1];
     $(".drink-block .grid_item").on("click", function (i) {
 
         var nameCat = $(this).attr("data-catName");
@@ -112,6 +194,7 @@
             $('.drink-block').not(':eq("' + e + '")').css("height", "380px");
             $('.drink-block').not(':eq("' + e + '")').removeClass(" og-expanded");
             $('.drink-block .grid_item').not(':eq("' + e + '")').attr("clicked", "false");
+            
 
             document.getElementById(idPro).style.display = "block";
             $("#li_" + idPro).css("height", "1530px");
@@ -119,20 +202,22 @@
                 url: '/singleproduct',
                 datatype: "json",
                 type: "get",
-                data: { proId: idPro },
+                data: { proId: idPro, culture: first },
 
                 async: true,
                 success: function (results) {
-                    jQuery("#" + idPro).fadeOut(250, function () {
+                    jQuery("#" + idPro).fadeOut(200, function () {
+                        
                         $("#" + idPro).html();
                         $("#" + idPro).html(results);
-                    }).fadeIn(500);
+                    }).fadeIn(350);
 
 
                 },
                 error: function (xhr) {
                     alert('error');
-                }
+                },
+
             });
             $("#li_" + idPro).addClass(" og-expanded");
             $(this).attr("clicked", "true");
@@ -154,9 +239,6 @@
 
     });
 
-
-</script>
-<script>
     $('.main-filter__set-row > .main-filter__set').on("click", function () {
         var idCat = $(this).attr("data-catId");
         var popular = $(this).attr("popular");
@@ -166,7 +248,7 @@
         }
         $(this).addClass("main-filter__set--active");
         $("#view-all-sidebar").addClass("active");
-        $("#view-all-sidebar").css("display","block");
+        $("#view-all-sidebar").css("display", "block");
 
         var e = $(this).attr("popular");
         console.log(e);
@@ -174,7 +256,7 @@
             url: '/filtercategory',
             datatype: "json",
             type: "GET",
-            data: { catId: idCat, popular: e },
+            data: { catId: idCat, popular: e, culture:first },
 
             async: true,
             success: function (results) {

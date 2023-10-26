@@ -1,4 +1,5 @@
 ﻿using BJ.Contract.Product;
+using BJ.Contract.Translation.Category;
 
 namespace BJ.Contract.Category
 {
@@ -17,5 +18,7 @@ namespace BJ.Contract.Category
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public virtual ICollection<ProductDto> ProductDtos { get; set; } = new HashSet<ProductDto>();
+        public virtual List<CategoryTranslationDto> CategoryTranslationDtos { get; set; }
+
     }
 }

@@ -1,7 +1,10 @@
 ﻿using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
+using BJ.Contract.Translation.Category;
+using BJ.Contract.Translation.Product;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BJ.Admin.Controllers
 {
@@ -9,10 +12,13 @@ namespace BJ.Admin.Controllers
     {
         private readonly ILogger<CategoryController> _logger;
         private readonly ICategoryServiceConnection _categoryServiceConnection;
-        public CategoryController(ILogger<CategoryController> logger, ICategoryServiceConnection categoryServiceConnection)
+        private readonly ILanguageServiceConnection _languageServiceConnection;
+        public CategoryController(ILogger<CategoryController> logger, ICategoryServiceConnection categoryServiceConnection, ILanguageServiceConnection languageServiceConnection)
         {
             _logger = logger;
             _categoryServiceConnection = categoryServiceConnection;
+            _languageServiceConnection = languageServiceConnection;
+
         }
         [Route("/tat-ca-loai.html")]
         [HttpGet]
@@ -74,7 +80,7 @@ namespace BJ.Admin.Controllers
                 MetaDesc = item.MetaDesc,
                 MetaKey = item.MetaKey,
             };
-            ViewBag.CatId = id;
+            ViewBag.Id = id;
 
             return View(updateCategoryDto);
         }
@@ -89,6 +95,74 @@ namespace BJ.Admin.Controllers
             var a = await _categoryServiceConnection.UpdateCategory(id, updateCategoryDto);
 
             return Redirect("/tat-ca-loai.html");
+        }
+
+
+        [Route("chi-tiet-loai/{catId}/ngon-ngu/{languageId}/xem-chi-tiet")]
+        [HttpGet]
+        public async Task<IActionResult> LanguageDetail(Guid catId, Guid languageId)
+        {
+            var category = await _categoryServiceConnection.GetCategoryById(catId);
+            ViewBag.CatName = category.CatName;
+            ViewBag.Id = catId;
+            ViewBag.LanguageId = languageId;
+            var r = await _categoryServiceConnection.GetCategoryTranslationnById(languageId);
+            return View(r);
+        }
+        [Route("chi-tiet-loai/{id}/them-moi-ngon-ngu")]
+        [HttpGet]
+        public async Task<IActionResult> CreateLanguage(Guid id)
+        {
+            var category = await _categoryServiceConnection.GetCategoryById(id);
+            var language = await _languageServiceConnection.GetAllLanguages();
+            ViewData["Language"] = new SelectList(language, "Id", "Name");
+            ViewBag.CatName = category.CatName;
+            ViewBag.Id = category.Id;
+            return View();
+        }
+
+
+        [HttpPost]
+        [Route("chi-tiet-loai/{id}/them-moi-ngon-ngu")]
+
+        public async Task<IActionResult> CreateLanguage(Guid id, CreateCategoryTranslationDto createCategoryTranslationDto)
+        {
+            createCategoryTranslationDto.CategoryId = id;
+
+            await _categoryServiceConnection.CreateLanguage(createCategoryTranslationDto);
+
+            return Redirect("/chi-tiet-loai/" + id);
+        }
+
+        [Route("chi-tiet-loai/{catId}/ngon-ngu/{languageId}/cap-nhat")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateLanguage(Guid catId, Guid languageId)
+        {
+            var r = await _categoryServiceConnection.GetCategoryTranslationnById(languageId);
+            var category = await _categoryServiceConnection.GetCategoryById(catId);
+            ViewBag.CatName = category.CatName;
+            ViewBag.Id = catId;
+            ViewBag.LanguageId = languageId;
+
+            UpdateCategoryTranslationDto updateCategoryTranslationDto = new()
+            {
+                CatName = r.CatName,
+                Description = r.Description,
+                MetaDesc = r.MetaDesc,
+                
+            };
+            return View(updateCategoryTranslationDto);
+        }
+
+
+        [HttpPost]
+        [Route("chi-tiet-loai/{catId}/ngon-ngu/{languageId}/cap-nhat")]
+
+        public async Task<IActionResult> UpdateLanguage(Guid catId, Guid languageId, UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        {
+            await _categoryServiceConnection.UpdateCategoryTranslationn(catId, languageId, updateCategoryTranslationDto);
+
+            return Redirect("/chi-tiet-loai/" + catId);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
+using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,14 +14,17 @@ namespace BJ.Admin.Controllers
         private readonly ISizeServiceConnection _sizeService;
         private readonly ISubCategoryServiceConnection _subCategoryService;
         private readonly ICategoryServiceConnection _categoryService;
+        private readonly ILanguageServiceConnection _languageServiceConnection;
 
-        public ProductController(ILogger<ProductController> logger, IProductServiceConnection productService, ISizeServiceConnection sizeService, ISubCategoryServiceConnection subCategoryService, ICategoryServiceConnection categoryService)
+        public ProductController(ILogger<ProductController> logger, IProductServiceConnection productService, ISizeServiceConnection sizeService, ISubCategoryServiceConnection subCategoryService, ICategoryServiceConnection categoryService, ILanguageServiceConnection languageServiceConnection)
         {
             _logger = logger;
             _productService = productService;
             _sizeService = sizeService;
             _subCategoryService = subCategoryService;
             _categoryService = categoryService;
+            _languageServiceConnection = languageServiceConnection;
+
         }
         [Route("/tat-ca-san-pham.html")]
         [HttpGet]
@@ -96,7 +100,6 @@ namespace BJ.Admin.Controllers
                     MetaKey = result.MetaKey,
                     ProductName = result.ProductName,
                     ShortDesc = result.ShortDesc,
-                    Tags = result.Tags,
                     CategoryId = result.CategoryId,
 
                 },
@@ -157,6 +160,72 @@ namespace BJ.Admin.Controllers
             await _productService.CreateProduct(createProductAdminView);
 
             return View();
+        }
+        [Route("chi-tiet-san-pham/{proId}/ngon-ngu/{languageId}/xem-chi-tiet")]
+        [HttpGet]
+        public async Task<IActionResult> LanguageDetail(Guid proId, Guid languageId)
+        {
+            var product = await _productService.GetProductById(proId);
+            ViewBag.ProductName = product.ProductName;
+            ViewBag.Id = proId;
+            ViewBag.LanguageId = languageId;
+            var r = await _productService.GetProductTranslationnById(languageId);           
+            return View(r);
+        }
+        [Route("chi-tiet-san-pham/{id}/them-moi-ngon-ngu")]
+        [HttpGet]
+        public async Task<IActionResult> CreateLanguage(Guid id)
+        {
+            var r = await _productService.GetProductById(id);
+            var language = await _languageServiceConnection.GetAllLanguages();
+            ViewData["Language"] = new SelectList(language, "Id", "Name");
+            ViewBag.ProductName = r.ProductName;
+            ViewBag.Id = r.Id;
+            return View();
+        }
+
+
+        [HttpPost]
+        [Route("chi-tiet-san-pham/{id}/them-moi-ngon-ngu")]
+
+        public async Task<IActionResult> CreateLanguage(Guid id, CreateProductTranslationDto createProductTranslationDto)
+        {
+            createProductTranslationDto.ProductId = id;
+            await _productService.CreateLanguage(createProductTranslationDto);
+
+            return Redirect("/chi-tiet-san-pham/"+id);
+        }
+
+        [Route("chi-tiet-san-pham/{proId}/ngon-ngu/{languageId}/cap-nhat")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateLanguage(Guid proId, Guid languageId)
+        {
+            var r = await _productService.GetProductTranslationnById(languageId);
+            var product = await _productService.GetProductById(proId);
+            ViewBag.ProductName = product.ProductName;
+            ViewBag.Id = proId;
+            ViewBag.LanguageId = languageId;
+
+            UpdateProductTranslationDto updateProductTranslationDto = new()
+            {
+                ProductName = r.ProductName,
+                Description = r.Description,
+                ShortDesc = r.ShortDesc,
+                MetaDesc = r.MetaDesc,
+                MetaKey = r.MetaKey,
+            };
+            return View(updateProductTranslationDto);
+        }
+
+
+        [HttpPost]
+        [Route("chi-tiet-san-pham/{proId}/ngon-ngu/{languageId}/cap-nhat")]
+
+        public async Task<IActionResult> UpdateLanguage(Guid proId, Guid languageId, UpdateProductTranslationDto updateProductTranslationDto)
+        {
+            await _productService.UpdateProductTranslationn(proId, languageId, updateProductTranslationDto);
+
+            return Redirect("/chi-tiet-san-pham/" + proId);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using BJ.Application.Ultities;
 using BJ.Contract.Product;
 using BJ.Contract.SubCategory;
+using BJ.Contract.Translation.Category;
+using BJ.Contract.Translation.SubCategory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,12 @@ namespace BJ.ApiConnection.Services
         Task<IEnumerable<SubCategoryDto>> GetAllSubCategories();
         public Task<PagedViewModel<SubCategoryDto>> GetPagingSubCategory([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<SubCategoryDto> GetSubCategoryById(int id);
+
+        public Task<SubCategoryTranslationDto> GetSubCategoryTranslationnById(Guid id);
+
+        Task<bool> CreateLanguage(CreateSubCategoryTranslationDto createSubCategoryTranslationDto);
+
+        Task<bool> UpdateSubCategoryTranslationn(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto);
     }
     public class SubCategoryServiceConnection : BaseApiClient, ISubCategoryServiceConnection
     {
@@ -33,7 +41,24 @@ namespace BJ.ApiConnection.Services
             _httpClientFactory = httpClientFactory;
         }
 
+        public async  Task<bool> CreateLanguage(CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(createSubCategoryTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync($"/api/SubCategories/language/create", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
 
         public async Task<bool> CreateSubCategory(CreateSubCategoryDto createSubCategoryDto)
         {
@@ -48,14 +73,18 @@ namespace BJ.ApiConnection.Services
 
             var requestContent = new MultipartFormDataContent();
 
-            byte[] data;
-            using (var br = new BinaryReader(createSubCategoryDto.Image.OpenReadStream()))
+            if(createSubCategoryDto.Image != null)
             {
-                data = br.ReadBytes((int)createSubCategoryDto.Image.OpenReadStream().Length);
-            }
-            ByteArrayContent bytes = new ByteArrayContent(data);
+                byte[] data;
+                using (var br = new BinaryReader(createSubCategoryDto.Image.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)createSubCategoryDto.Image.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
 
-            requestContent.Add(bytes, "createSubCategoryDto.Image", createSubCategoryDto.Image.FileName);
+                requestContent.Add(bytes, "createSubCategoryDto.Image", createSubCategoryDto.Image.FileName);
+            }
+
 
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryDto.SubCatName) ? "" : createSubCategoryDto.SubCatName.ToString()), "createSubCategoryDto.subCatName");
@@ -121,10 +150,15 @@ namespace BJ.ApiConnection.Services
             return subCat;
         }
 
-        public async Task<SubCategoryDto> GetSubCategoryById(int id)
+        public  async Task<SubCategoryDto> GetSubCategoryById(int id)
         {
             return await GetAsync<SubCategoryDto>($"/api/SubCategories/{id}");
 
+        }
+
+        public async Task<SubCategoryTranslationDto> GetSubCategoryTranslationnById(Guid id)
+        {
+            return await GetAsync<SubCategoryTranslationDto>($"/api/SubCategories/language/{id}/detail");
         }
 
         public async Task<bool> UpdateSubCategory(int id, UpdateSubCategoryDto updateSubCategoryDto)
@@ -169,6 +203,25 @@ namespace BJ.ApiConnection.Services
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PutAsync($"/api/SubCategories/{id}", requestContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UpdateSubCategoryTranslationn(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(updateSubCategoryTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/SubCategories/{subCatId}/language/{id}/update", httpContent);
 
             return response.IsSuccessStatusCode;
         }

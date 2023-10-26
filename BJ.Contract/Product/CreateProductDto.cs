@@ -14,7 +14,6 @@
         public bool BestSeller { get; set; }
         public bool HomeTag { get; set; }
         public bool Active { get; set; }
-        public string Tags { get; set; }
         public string Alias { get; set; }
         public string MetaDesc { get; set; }
         public string MetaKey { get; set; }

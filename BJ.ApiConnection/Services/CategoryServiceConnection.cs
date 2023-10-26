@@ -1,5 +1,7 @@
 ﻿using BJ.Application.Ultities;
 using BJ.Contract.Category;
+using BJ.Contract.Translation.Category;
+using BJ.Contract.Translation.Product;
 using BJ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +15,17 @@ namespace BJ.ApiConnection.Services
     public interface ICategoryServiceConnection
     {
         public Task<IEnumerable<CategoryDto>> GetAllCategories();
-        public Task<IEnumerable<UserCategoryDto>> GetAllUserCategories();
+        public Task<IEnumerable<UserCategoryDto>> GetAllUserCategories(string culture);
 
         public Task<PagedViewModel<CategoryDto>> GetPagingCategory([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<CategoryDto> GetCategoryById(Guid id);
         Task<bool> CreateCategory(CreateCategoryDto createCategoryDto);
         Task<bool> UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto);
-        
+        public Task<CategoryTranslationDto> GetCategoryTranslationnById(Guid id);
+
+        Task<bool> CreateLanguage(CreateCategoryTranslationDto createCategoryTranslationDto);
+
+        Task<bool> UpdateCategoryTranslationn(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto);
 
     }
     public class CategoryServiceConnection : BaseApiClient, ICategoryServiceConnection
@@ -86,7 +92,24 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async  Task<bool> CreateLanguage(CreateCategoryTranslationDto createCategoryTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(createCategoryTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync($"/api/Categories/language/create", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategories()
         {
@@ -95,15 +118,20 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<IEnumerable<UserCategoryDto>> GetAllUserCategories()
+        public async Task<IEnumerable<UserCategoryDto>> GetAllUserCategories(string culture)
         {
-            return await GetListAsync<UserCategoryDto>("/api/Categories/userpage");
+            return await GetListAsync<UserCategoryDto>($"/api/Categories/userpage?languageId={culture}");
         }
 
         public async Task<CategoryDto> GetCategoryById(Guid id)
         {
             return await GetAsync<CategoryDto>($"/api/Categories/{id}");
 
+        }
+
+        public async Task<CategoryTranslationDto> GetCategoryTranslationnById(Guid id)
+        {
+            return await GetAsync<CategoryTranslationDto>($"/api/Categories/language/{id}/detail");
         }
 
         public async Task<PagedViewModel<CategoryDto>> GetPagingCategory([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -174,6 +202,25 @@ namespace BJ.ApiConnection.Services
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PutAsync($"/api/Categories/{id}", requestContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UpdateCategoryTranslationn(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(updateCategoryTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/Categories/{catId}/language/{id}/update", httpContent);
 
             return response.IsSuccessStatusCode;
         }

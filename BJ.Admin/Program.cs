@@ -34,6 +34,8 @@ builder.Services.AddScoped<ICategoryServiceConnection, CategoryServiceConnection
 builder.Services.AddScoped<ISubCategoryServiceConnection, SubCategoryServiceConnection>();
 builder.Services.AddScoped<IConfigProductServiceConnection, ConfigProductServiceConnection>();
 builder.Services.AddScoped<ILoginServiceConnection, LoginServiceConnection>();
+builder.Services.AddScoped<ILanguageServiceConnection, LanguageServiceConnection>();
+builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 

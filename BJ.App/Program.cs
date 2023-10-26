@@ -56,6 +56,7 @@ builder.Services.AddScoped<IProductServiceConnection, ProductServiceConnection>(
 builder.Services.AddScoped<ICategoryServiceConnection, CategoryServiceConnection>();
 builder.Services.AddScoped<ISizeServiceConnection, SizeServiceConnection>();
 builder.Services.AddScoped<IStoreLocationServiceConnection, StoreLocationServiceConnection>();
+builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 

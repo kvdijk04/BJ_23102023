@@ -1,6 +1,7 @@
 ﻿using BJ.Contract.Category;
 using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
+using BJ.Contract.Translation.Product;
 
 namespace BJ.Contract.Product
 {
@@ -30,6 +31,7 @@ namespace BJ.Contract.Product
         public virtual CategoryDto CategoryDto { get; set; }
         public virtual ICollection<SizeSpecificProductDto> SizeSpecificProducts { get; set; }
         public virtual ICollection<SubCategorySpecificProductDto> SubCategorySpecificProductDtos { get; set; }
+        public virtual List<ProductTranslationDto> ProductTranslationDtos { get; set; }
 
     }
 }

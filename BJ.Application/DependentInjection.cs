@@ -25,12 +25,16 @@ namespace BJ.Application
             services.AddScoped<ISizeService, SizeService>();
             services.AddScoped<IConfigProductService, ConfigProductService>();
             services.AddScoped<IStoreLocationService, StoreLocationService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IBlogService, BlogService>();
 
-            services.AddAutoMapper(typeof(CategoryMaapingProfile).Assembly);
+            services.AddAutoMapper(typeof(CategoryMappingProfile).Assembly);
             services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
             services.AddAutoMapper(typeof(SizeMappingProfile).Assembly);
             services.AddAutoMapper(typeof(AccountMappingProfile).Assembly);
             services.AddAutoMapper(typeof(StoreLocationMappingProfile).Assembly);
+            services.AddAutoMapper(typeof(LanguageMappingProfile).Assembly);
+            services.AddAutoMapper(typeof(BlogMappingProfile).Assembly);
 
 
             //Config AppSetting

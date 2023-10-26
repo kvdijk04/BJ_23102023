@@ -1,0 +1,57 @@
+﻿@using BJ.Contract.ViewModel;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@section Styles {
+    <link rel="stylesheet" href="~/BoostJuice/css/new.css">
+
+}
+@model BlogUserViewModel
+<div class="boost-main-content">
+    <div class="main-fold-angle banner-news"></div>
+    <div class="container">
+        <div class="row">
+            <div id="blog-posts" class="eight columns">
+
+                <div class="row" style="display: block;">
+                    <h2>@Model.Title</h2>
+                    <img src="@Configuration["BaseAddress"]/ImageBlog/@Model.ImagePath" title="@Model.Title" alt="@Model.Title" class="blog-cover">
+                    <p>
+                        @Html.Raw(Model.Description)
+                    </p>
+                </div>
+            </div>
+
+            <div class="four columns hide-mobile-small" id="popular-posts">
+                <h2><localize>Popular posts</localize></h2>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var culture = $(location).attr('pathname');
+
+    culture.indexOf(1);
+
+    culture.toLowerCase();
+
+    culture = culture.split("/")[1];
+    $.ajax({
+        url: '/healthy/popular',
+        datatype: "json",
+        type: "get",
+        data: { popular: true, culture: culture },
+
+        async: true,
+        success: function (results) {
+            jQuery("#popular-posts").fadeOut(100, function () {
+                $("#popular-posts").append(results);
+            }).fadeIn(300);
+
+
+        },
+        error: function (xhr) {
+            alert('error');
+        }
+    });
+</script>

@@ -13,5 +13,7 @@ namespace BJ.Domain.Entities
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public virtual ICollection<SubCategorySpecificProduct> SubCategorySpecificProducts { get; set; }
+        public virtual ICollection<SubCategoryTranslation> SubCategoryTranslations { get; set; }
+
     }
 }

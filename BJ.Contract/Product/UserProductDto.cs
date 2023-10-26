@@ -1,6 +1,7 @@
 ﻿using BJ.Contract.Category;
 using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
+using BJ.Contract.Translation.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,9 @@ namespace BJ.Contract.Product
         public string ImagePathHero { get; set; }
 
         public string ImagePathIngredients { get; set; }
-        public virtual ICollection<SizeSpecificProductDto> SizeSpecificProducts { get; set; }
-        public virtual ICollection<UserSubCategorySpecificProductDto> UserSubCategorySpecificProductDto { get; set; }
+        public virtual List<SizeSpecificProductDto> SizeSpecificProducts { get; set; }
+        public virtual List<UserSubCategorySpecificProductDto> UserSubCategorySpecificProductDto { get; set; }
+
     }
 
 }

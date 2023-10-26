@@ -20,7 +20,7 @@ namespace BJ.App.Controllers
 
 
         [Route("/{culture}/drinks.html")]
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1)
+        public async Task<IActionResult> Index(string culture, string keyword, int pageIndex = 1)
         {
             //var token = HttpContext.Session.GetString("Token");
 
@@ -35,12 +35,12 @@ namespace BJ.App.Controllers
             //};
 
             //var product = await _productService.GetPaging(request);
-            var result = await _categoryServiceConnection.GetAllUserCategories();
+            var result = await _productService.GetAllUserProduct(culture);
 
             return View(result);
         }
         [Route("/singleproduct", Name = "UserProductDetail")]
-        public async Task<IActionResult> Detail(Guid proId)
+        public async Task<IActionResult> Detail(Guid proId, string culture)
         {
             //var token = HttpContext.Session.GetString("Token");
 
@@ -48,7 +48,7 @@ namespace BJ.App.Controllers
             //{
             //    return Redirect("/dang-nhap.html");
             //}
-            var product = await _productService.GetUserProductById(proId);
+            var product = await _productService.GetUserProductById(proId, culture);
 
             if (product == null)
             {
@@ -59,7 +59,7 @@ namespace BJ.App.Controllers
         }
 
         [Route("/filtercategory", Name = "UserFilterCategory")]
-        public async Task<IActionResult> FilterByCategoryId(Guid catId,bool popular)
+        public async Task<IActionResult> FilterByCategoryId(Guid catId,bool popular, string culture)
         {
             //var token = HttpContext.Session.GetString("Token");
 
@@ -67,7 +67,7 @@ namespace BJ.App.Controllers
             //{
             //    return Redirect("/dang-nhap.html");
             //}
-            var Size = await _productService.GetAllProductByCatId(catId,popular);
+            var Size = await _productService.GetAllProductByCatId(catId,popular,culture);
 
             if (Size == null)
             {
@@ -76,5 +76,6 @@ namespace BJ.App.Controllers
 
             return PartialView("_FilterByCategory", Size);
         }
+        
     }
 }

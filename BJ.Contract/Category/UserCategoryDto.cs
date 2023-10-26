@@ -1,4 +1,5 @@
 ﻿using BJ.Contract.Product;
+using BJ.Contract.Translation.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace BJ.Contract.Category
         public string CatName { get; set; }
         public bool Active { get; set; }
         public string ImagePath { get; set; }
-        public virtual ICollection<UserProductDto> UserProductDtos { get; set; } = new HashSet<UserProductDto>();
+        public virtual List<UserProductDto> UserProductDtos { get; set; }
+        public virtual List<CategoryTranslationDto> CategoryTranslationDtos { get; set; }
+
     }
 }

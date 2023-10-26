@@ -1,0 +1,79 @@
+﻿@using BJ.Contract.Translation.Product;
+@model UpdateProductTranslationDto;
+<form asp-action="UpdateLanguage" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Cập nhật ngôn ngữ</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-san-pham.html " class="breadcrumb-item">Tất cả sản phẩm</a>
+                <a href="/chi-tiet-san-pham/@ViewBag.Id" class="breadcrumb-item">@ViewBag.ProductName</a>
+                <a href="#" class="breadcrumb-item">Ngôn ngữ</a>
+                <span class="breadcrumb-item active">Cập nhật ngôn ngữ</span>
+            </nav>
+
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                </div> *@
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @Model.ProductName </h4>
+                    <a href="/chi-tiet-san-pham/@ViewBag.Id" style="text-decoration:underline">Thông tin chi tiết</a>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+                <button class="btn btn-info" onclick="location.href='/chi-tiet-san-pham/@ViewBag.Id/them-moi-ngon-ngu'" type="button">
+                    <i class="anticon anticon-plus-circle"></i>
+                    <span>Thêm ngôn ngữ</span>
+                </button>
+            </div>
+
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin chi tiết</a>
+            </li>
+         
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.ProductName" asp-for="@Model.ProductName">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Mô tả</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Mô tả" value="@Model.Description" asp-for="@Model.Description">
+                    </div>                    
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Mô tả ngắn" value="@Model.ShortDesc" asp-for="@Model.ShortDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">MetaDesc</label>
+                        <input type="text" class="form-control" id="productName" placeholder="MetaDesc" value="@Model.MetaDesc" asp-for="@Model.MetaDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">MetaKey</label>
+                        <input type="text" class="form-control" id="productName" placeholder="MetaKey" value="@Model.MetaKey" asp-for="@Model.MetaKey">
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</form>

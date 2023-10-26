@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BlogUserViewModel>
+@using BJ.Contract.ViewModel;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    Layout = null;
+}
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@if(Model.Count() > 0 && Model!= null)
+{
+    foreach(var item in Model)
+    {
+        <div class="row">
+            <div class="four columns">
+                <a href="/@culture/healthy/@item.Id/@item.Alias"><img src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" title="@item.Title" class="blog-cover"></a>
+            </div>
+            <div class="eight columns">
+                <h3><a href="/@culture/healthy/@item.Id/@item.Alias">@item.Title</a></h3>
+                <p>10 October 2023</p>
+            </div>
+        </div>
+    }
+}

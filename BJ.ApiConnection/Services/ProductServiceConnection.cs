@@ -2,7 +2,10 @@
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Product;
+using BJ.Contract.Size;
+using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
+using BJ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,15 +20,21 @@ namespace BJ.ApiConnection.Services
         public Task<PagedViewModel<ViewAllProduct>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
 
         Task<bool> CreateProduct(CreateProductAdminView createProductAdminView);
+
         Task<bool> UpdateProduct(Guid id, UpdateProductAdminView updateProductAdminView);
+
 
         public Task<ProductDto> GetProductById(Guid id);
 
-        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId,bool popular);
-        public Task<IEnumerable<UserProductDto>> GetAllUserProduct();
-        public Task<UserProductDto> GetUserProductById(Guid id);
+        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId,bool popular, string culture);
+        public Task<ProductUserViewModel> GetAllUserProduct(string cultrue);
+        public Task<UserProductDto> GetUserProductById(Guid id,string culture);
 
+        public Task<ProductTranslationDto> GetProductTranslationnById(Guid id);
 
+        Task<bool> CreateLanguage(CreateProductTranslationDto createProductTranslationDto);
+
+        Task<bool> UpdateProductTranslationn(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto);
     }
     public class ProductServiceConnection : BaseApiClient, IProductServiceConnection
     {
@@ -40,6 +49,26 @@ namespace BJ.ApiConnection.Services
             _httpContextAccessor = httpContextAccessor;
             _httpClientFactory = httpClientFactory;
         }
+
+        public async Task<bool> CreateLanguage(CreateProductTranslationDto createProductTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(createProductTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync($"/api/Products/language", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> CreateProduct(CreateProductAdminView createProductAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
@@ -50,27 +79,11 @@ namespace BJ.ApiConnection.Services
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
-            createProductAdminView.CreateProduct.Id = Guid.NewGuid();
-
             createProductAdminView.CreateProduct.Alias = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName);
 
 
             var requestContent = new MultipartFormDataContent();
 
-            //foreach(var item in createProductAdminView.ImagesToUpload)
-            //{
-            //    byte[] data;
-            //    using (var br = new BinaryReader(item.OpenReadStream()))
-            //    {
-            //        data = br.ReadBytes((int)item.OpenReadStream().Length);
-            //    }
-            //    ByteArrayContent bytes = new ByteArrayContent(data);
-
-            //    requestContent.Add(bytes, "createProductAdminView.ImagesToUpload", item.FileName);
-
-
-
-            //}
             if (createProductAdminView.ImageCup != null)
             {
                 byte[] data;
@@ -133,7 +146,6 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Active.ToString()) ? "" : createProductAdminView.CreateProduct.Active.ToString()), "createProductAdminView.CreateProduct.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.BestSeller.ToString()) ? "" : createProductAdminView.CreateProduct.BestSeller.ToString()), "createProductAdminView.CreateProduct.bestSeller");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.HomeTag.ToString()) ? "" : createProductAdminView.CreateProduct.HomeTag.ToString()), "createProductAdminView.CreateProduct.homeTag");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Tags.ToString()) ? "" : createProductAdminView.CreateProduct.Tags.ToString()), "createProductAdminView.CreateProduct.tags");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.CategoryId.ToString()) ? "" : createProductAdminView.CreateProduct.CategoryId.ToString()), "createProductAdminView.CreateProduct.categoryId");
 
@@ -151,14 +163,14 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular)
+        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular,string culture)
         {
-            return await GetListAsync<UserProductDto>($"/api/Products/category/filter?catId={catId}&popular={popular}");
+            return await GetListAsync<UserProductDto>($"/api/Products/category/filter?catId={catId}&popular={popular}&languageId={culture}");
         }
 
-        public async Task<IEnumerable<UserProductDto>> GetAllUserProduct()
+        public async Task<ProductUserViewModel> GetAllUserProduct(string cultrue)
         {
-            return await GetListAsync<UserProductDto>($"/api/Products/userpage");
+            return await GetAsync<ProductUserViewModel>($"/api/Products/userpage?languageId={cultrue}");
         }
 
         public async Task<PagedViewModel<ViewAllProduct>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -187,9 +199,14 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<UserProductDto> GetUserProductById(Guid id)
+        public async Task<ProductTranslationDto> GetProductTranslationnById(Guid id)
         {
-            return await GetAsync<UserProductDto>($"/api/Products/userpage/{id}");
+            return await GetAsync<ProductTranslationDto>($"/api/Products/language/{id}/detail");
+        }
+
+        public async Task<UserProductDto> GetUserProductById(Guid id, string culture)
+        {
+            return await GetAsync<UserProductDto>($"/api/Products/userpage/{id}/{culture}");
         }
 
         public async Task<bool> UpdateProduct(Guid id, UpdateProductAdminView updateProductAdminView)
@@ -270,7 +287,6 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Active.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Active.ToString().ToString()), "updateProductAdminView.UpdateProductDto.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.BestSeller.ToString()) ? "" : updateProductAdminView.UpdateProductDto.BestSeller.ToString()), "updateProductAdminView.UpdateProductDto.bestSeller");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.HomeTag.ToString()) ? "" : updateProductAdminView.UpdateProductDto.HomeTag.ToString()), "updateProductAdminView.UpdateProductDto.homeTag");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Tags.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Tags.ToString()), "updateProductAdminView.UpdateProductDto.tags");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.CategoryId.ToString()) ? "" : updateProductAdminView.UpdateProductDto.CategoryId.ToString()), "updateProductAdminView.UpdateProductDto.categoryId");
 
@@ -285,6 +301,25 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.MetaKey.ToString()) ? "" : updateProductAdminView.UpdateProductDto.MetaKey.ToString()), "updateProductAdminView.UpdateProductDto.metaKey");
 
             var response = await client.PutAsync($"/api/Products/{id}", requestContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async  Task<bool> UpdateProductTranslationn(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(updateProductTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/Products/{proId}/language/{id}/update", httpContent);
 
             return response.IsSuccessStatusCode;
         }

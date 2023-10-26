@@ -31,7 +31,6 @@ namespace BJ.App.Controllers
         {
             return View();
         }
-        [Route("/{culture}/healthy.html")]
         public IActionResult Healthy()
         {
             return View();

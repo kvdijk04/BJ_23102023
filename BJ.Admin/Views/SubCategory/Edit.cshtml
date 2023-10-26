@@ -28,7 +28,7 @@
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
                 </div> *@
                 <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: @Model.SubCatName </h4><a href="/chi-tiet-danh-muc-con/@ViewBag.CatId" style="text-decoration:underline">Xem chi tiết</a>
+                    <h4 class="m-b-0">Tên: @Model.SubCatName </h4><a href="/chi-tiet-danh-muc-con/@ViewBag.SubCatId" style="text-decoration:underline">Xem chi tiết</a>
                     @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
                     *@
                     <span class="text-muted m-b-0 catId" hidden>@ViewBag.SubCatId</span>
@@ -38,6 +38,10 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="anticon anticon-save"></i>
                     <span>Lưu</span>
+                </button>
+                <button class="btn btn-info" onclick="location.href='/chi-tiet-danh-muc-con/@ViewBag.Id/them-moi-ngon-ngu'" type="button">
+                    <i class="anticon anticon-plus-circle"></i>
+                    <span>Thêm ngôn ngữ</span>
                 </button>
             </div>
         </div>

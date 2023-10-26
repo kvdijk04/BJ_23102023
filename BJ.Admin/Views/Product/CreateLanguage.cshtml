@@ -1,0 +1,77 @@
+﻿@using BJ.Contract.Translation.Product;
+@model CreateProductTranslationDto
+<form asp-action="CreateLanguage" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Tạo mới ngôn ngữ</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-san-pham.html " class="breadcrumb-item">Tất cả sản phẩm</a>
+                <a href="/chi-tiet-san-pham/@ViewBag.Id" class="breadcrumb-item">@ViewBag.ProductName</a>
+
+                <span class="breadcrumb-item active">Tạo mới ngôn ngữ</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @ViewBag.ProductName</h4>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin sản phẩm</a>
+            </li>           
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" asp-for="@Model.ProductName">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productCategory">Ngôn ngữ</label>
+                        <select class="select2" asp-for="@Model.LanguageId" asp-items="ViewBag.Language">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">Mô tả</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="Mô tả" asp-for="@Model.Description">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="ShortDesc">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="Mô tả ngắn" asp-for="@Model.ShortDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">MetaDesc</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">MetaKey</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaKey" asp-for="@Model.MetaKey">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+           
+
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="~/assets/vendors/select2/select2.min.js"></script>
+<script>
+    $('.select2').select2();
+</script>

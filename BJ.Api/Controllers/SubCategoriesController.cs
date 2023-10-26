@@ -1,6 +1,8 @@
 ﻿using BJ.Application.Service;
 using BJ.Application.Ultities;
 using BJ.Contract.SubCategory;
+using BJ.Contract.Translation.Category;
+using BJ.Contract.Translation.SubCategory;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +20,7 @@ namespace BJ.Api.Controllers
             _categoryService = categoryService;
         }
         /// <summary>
-        /// Danh sách loại
+        /// Danh sách danh mục con
         /// </summary>
         [HttpGet]
 
@@ -60,7 +62,7 @@ namespace BJ.Api.Controllers
                 return StatusCode(StatusCodes.Status200OK);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -128,6 +130,73 @@ namespace BJ.Api.Controllers
 
                 }
                 await _categoryService.CreateSubCategorySpecific(createSubCategorySpecificDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        /// <summary>
+        /// Lấy thông tin ngôn ngữ của danh mục con bằng Id
+        /// </summary>
+
+        [HttpGet("language/{id}/detail")]
+
+        public async Task<IActionResult> GetSubCategoryTranslationById(Guid id)
+        {
+            if (await _categoryService.GetSubCategoryTransalationById(id) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            return Ok(await _categoryService.GetSubCategoryTransalationById(id));
+
+        }
+
+        /// <summary>
+        /// Tạo mới danh mục con theo từng ngôn ngữ
+        /// </summary>
+        /// 
+
+        [HttpPost("language/create")]
+        public async Task<IActionResult> CreateTranslate([FromBody] CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _categoryService.CreateSubCategoryTranslate(createSubCategoryTranslationDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        /// <summary>
+        /// Cập nhật danh mục con theo từng ngôn ngữ
+        /// </summary>
+        /// 
+
+        [HttpPut("{subCatId}/language/{id}/update")]
+        public async Task<IActionResult> UpdateTranslate(int subCatId, Guid id, [FromBody] UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _categoryService.UpdateSubCategoryTranslate(subCatId, id, updateSubCategoryTranslationDto);
 
                 return StatusCode(StatusCodes.Status200OK);
 

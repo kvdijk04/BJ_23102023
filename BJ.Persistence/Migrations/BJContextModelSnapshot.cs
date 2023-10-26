@@ -54,6 +54,71 @@ namespace BJ.Persistence.Migrations
                     b.ToTable("Account", (string)null);
                 });
 
+            modelBuilder.Entity("BJ.Domain.Entities.Blog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Popular")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Blog", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.BlogTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("BlogId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MetaDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MetaKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("BlogTranslation", (string)null);
+                });
+
             modelBuilder.Entity("BJ.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -93,6 +158,120 @@ namespace BJ.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.CategoryTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MetaDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("CategoryTranslation", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.Language", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Language", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.News", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Home")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Popular")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.NewsTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MetaDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MetaKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("NewsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ShortDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("NewsTranslation", (string)null);
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.Product", b =>
@@ -152,14 +331,50 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("ShortDesc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.ProductTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MetaDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MetaKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductTranslation", (string)null);
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.Size", b =>
@@ -339,6 +554,84 @@ namespace BJ.Persistence.Migrations
                     b.ToTable("SubCategorySpecificProduct", (string)null);
                 });
 
+            modelBuilder.Entity("BJ.Domain.Entities.SubCategoryTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SubCatName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("SubCategoryTranslation", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.BlogTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.Blog", "Blog")
+                        .WithMany("BlogTranslations")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany("BlogTranslations")
+                        .HasForeignKey("LanguageId");
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.CategoryTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.Category", "Category")
+                        .WithMany("CategoryTranslations")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany("CategoryTranslations")
+                        .HasForeignKey("LanguageId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.NewsTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany("NewsTranslations")
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("BJ.Domain.Entities.News", "News")
+                        .WithMany("NewsTranslations")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("News");
+                });
+
             modelBuilder.Entity("BJ.Domain.Entities.Product", b =>
                 {
                     b.HasOne("BJ.Domain.Entities.Category", "Category")
@@ -348,6 +641,23 @@ namespace BJ.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.ProductTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany("ProductTranslations")
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("BJ.Domain.Entities.Product", "Product")
+                        .WithMany("ProductTranslations")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.SizeSpecificEachProduct", b =>
@@ -388,13 +698,57 @@ namespace BJ.Persistence.Migrations
                     b.Navigation("SubCategory");
                 });
 
+            modelBuilder.Entity("BJ.Domain.Entities.SubCategoryTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany("SubCategoryTranslations")
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("BJ.Domain.Entities.SubCategory", "SubCategory")
+                        .WithMany("SubCategoryTranslations")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.Blog", b =>
+                {
+                    b.Navigation("BlogTranslations");
+                });
+
             modelBuilder.Entity("BJ.Domain.Entities.Category", b =>
                 {
+                    b.Navigation("CategoryTranslations");
+
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.Language", b =>
+                {
+                    b.Navigation("BlogTranslations");
+
+                    b.Navigation("CategoryTranslations");
+
+                    b.Navigation("NewsTranslations");
+
+                    b.Navigation("ProductTranslations");
+
+                    b.Navigation("SubCategoryTranslations");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.News", b =>
+                {
+                    b.Navigation("NewsTranslations");
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("ProductTranslations");
+
                     b.Navigation("SizeSpecificProducts");
 
                     b.Navigation("SubCategorySpecificProducts");
@@ -408,6 +762,8 @@ namespace BJ.Persistence.Migrations
             modelBuilder.Entity("BJ.Domain.Entities.SubCategory", b =>
                 {
                     b.Navigation("SubCategorySpecificProducts");
+
+                    b.Navigation("SubCategoryTranslations");
                 });
 #pragma warning restore 612, 618
         }

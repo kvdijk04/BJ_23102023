@@ -16,7 +16,6 @@ namespace BJ.Domain.Entities
         public bool BestSeller { get; set; }
         public bool HomeTag { get; set; }
         public bool Active { get; set; }
-        public string Tags { get; set; }
         public string Alias { get; set; }
         public string MetaDesc { get; set; }
 
@@ -29,6 +28,7 @@ namespace BJ.Domain.Entities
         public string MetaKey { get; set; }
         public string Code { get; set; }
         public virtual Category Category { get; set; }
+        public List<ProductTranslation> ProductTranslations { get; set; }
         public virtual ICollection<SizeSpecificEachProduct> SizeSpecificProducts { get; set; }
         public virtual ICollection<SubCategorySpecificProduct> SubCategorySpecificProducts { get; set; }
 

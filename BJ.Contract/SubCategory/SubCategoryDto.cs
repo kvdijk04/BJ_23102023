@@ -1,4 +1,6 @@
-﻿namespace BJ.Contract.SubCategory
+﻿using BJ.Contract.Translation.SubCategory;
+
+namespace BJ.Contract.SubCategory
 {
     public class SubCategoryDto
     {
@@ -11,5 +13,7 @@
         public DateTime? DateUpdated { get; set; }
 
         public virtual ICollection<SubCategorySpecificProductDto> SubCategorySpecificProductDtos { get; set; }
+        public virtual ICollection<SubCategoryTranslationDto> SubCategoryTranslationDtos { get; set; }
+
     }
 }

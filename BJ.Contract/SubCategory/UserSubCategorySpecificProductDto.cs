@@ -16,5 +16,6 @@ namespace BJ.Contract.SubCategory
         public string SubCatName { get; set; }
         public string ImagePath { get; set; }
         public bool SubActive { get; set; }
+        public SubCategoryDto SubCategoryDto { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BJ.Application.Service;
 using BJ.Application.Ultities;
 using BJ.Contract.Product;
+using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,10 +35,10 @@ namespace BJ.Api.Controllers
         /// </summary>
         [HttpGet("userpage")]
 
-        public async Task<IEnumerable<UserProductDto>> GetClientProducts()
+        public async Task<ProductUserViewModel> GetClientProducts(string languageId)
         {
 
-            return await _productService.ClientProductDtos();
+            return await _productService.GetProduct(languageId);
 
         }
         /// <summary>
@@ -67,6 +68,76 @@ namespace BJ.Api.Controllers
 
                 }
                 await _productService.CreateProductAdminView(createProductAdminView);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        /// <summary>
+        /// Thêm mới ngôn ngữ cho từng sản phẩm
+        /// </summary>
+        /// 
+        [Authorize]
+        [HttpPost("language")]
+        public async Task<IActionResult> CreateLanguage([FromBody] CreateProductTranslationDto createProductTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _productService.CreateProductTranslate(createProductTranslationDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        /// <summary>
+        /// Lấy thông tin ngôn ngữ sản phẩm bằng Id
+        /// </summary>
+
+        [HttpGet("language/{id}/detail")]
+
+        public async Task<IActionResult> GetProductTranslationById(Guid id)
+        {
+            if (await _productService.GetProductTranslationDto(id) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            return Ok(await _productService.GetProductTranslationDto(id));
+
+        }
+        /// <summary>
+        /// Cập nhật ngôn ngữ sản phẩm
+        /// </summary>
+        [Authorize]
+
+        [HttpPut("{proId}/language/{id}/update")]
+        public async Task<IActionResult> EditProduct(Guid proId, Guid id, [FromBody] UpdateProductTranslationDto updateProductTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                if (await _productService.GetProductTranslationDto(id) == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound);
+                }
+
+                await _productService.UpdateProductTranslate(proId, id, updateProductTranslationDto);
 
                 return StatusCode(StatusCodes.Status200OK);
 
@@ -125,15 +196,15 @@ namespace BJ.Api.Controllers
         /// Lấy thông tin sản phẩm bằng Id web user
         /// </summary>
 
-        [HttpGet("userpage/{id}")]
+        [HttpGet("userpage/{id}/{languageId}")]
 
-        public async Task<IActionResult> GetUserProductById(Guid id)
+        public async Task<IActionResult> GetUserProductById(Guid id, string languageId)
         {
-            if (await _productService.GetUserProductById(id) == null)
+            if (await _productService.GetUserProductById(id, languageId) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _productService.GetUserProductById(id));
+            return Ok(await _productService.GetUserProductById(id, languageId));
 
         }
         /// <summary>
@@ -142,13 +213,13 @@ namespace BJ.Api.Controllers
 
         [HttpGet("category/filter")]
 
-        public async Task<IActionResult> GetProductByCatId(Guid catId, bool popular)
+        public async Task<IActionResult> GetProductByCatId(Guid catId, bool popular,string languageId)
         {
-            if (await _productService.GetProductByCatId(catId, popular) == null)
+            if (await _productService.GetProductByCatId(catId, popular,languageId) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _productService.GetProductByCatId(catId, popular));
+            return Ok(await _productService.GetProductByCatId(catId, popular, languageId));
 
         }
     }

@@ -39,7 +39,7 @@
     @await RenderSectionAsync("Styles", required: false)
 
     <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="~/css/aos.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 @*     <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/jquery.min.js"></script>
@@ -191,7 +191,6 @@
 
     <script>
         var type = window.location; // get information of all url
-        console.log(type.pathname);
         if ((type.pathname).includes("/vi") || (type.pathname) === ("/")) {
             $(".boost-logo img").attr('style', 'margin-left: 10px');
             function myFunction(x) {
