@@ -19,9 +19,14 @@ namespace BJ.Application.Service
         Task CreateBlog(CreateBlogAdminView createBlogAdminView);
         Task CreateBlogTranslate(CreateBlogTranslationDto createBlogTranslationDto);
 
-        Task UpdateBlog(Guid id, UpdateBlogDto updateBlogDto);
+        Task UpdateBlog(Guid id, UpdateBlogAdminView updateBlogAdminView);
         Task<BlogUserViewModel> GetBlogById(Guid id, string culture);
         Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+
+        Task<BlogTranslationDto> GetBlogTransalationById(Guid id);
+
+        Task CreateTranslateBlog(CreateBlogTranslationDto createBlogTranslationDto);
+        Task UpdateTranslateBlog(Guid id, UpdateBlogTranslationDto updateBlogTranslationDto);
 
     }
     public class BlogService : IBlogService
@@ -40,7 +45,7 @@ namespace BJ.Application.Service
 
         public async Task CreateBlog(CreateBlogAdminView createBlogAdminView)
         {
-            var code = _configuration.GetValue<string>("Code:Product");
+            var code = _configuration.GetValue<string>("Code:Blog");
 
             createBlogAdminView.CreateBlog.Id = Guid.NewGuid();
 
@@ -104,31 +109,36 @@ namespace BJ.Application.Service
             }
             var pageResult = getListPagingRequest.PageSize;
             var pageCount = Math.Ceiling(_context.Blogs.Count() / (double)pageResult);
-            var query = _context.Blogs.OrderBy(x => x.Id).AsNoTracking().AsQueryable();
-            //if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
-            //{
-            //    query = query.Where(x => x.tit.Contains(getListPagingRequest.Keyword));
-            //    pageCount = Math.Ceiling(query.Count() / (double)pageResult);
-            //}
 
+            var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
+
+            var query = from b in _context.Blogs
+                        join bt in _context.BlogTranslations on b.Id equals bt.BlogId into ppic
+                        from bt in ppic.DefaultIfEmpty()
+                        where bt.LanguageId == defaultLanguage
+                        select new { b, bt };
 
             var totalRow = await query.CountAsync();
             var data = await query.Skip((getListPagingRequest.PageIndex - 1) * pageResult)
                                     .Take(pageResult)
                                     .Select(x => new BlogDto()
                                     {
-                                        Id = x.Id,
-                                        ImagePath = x.ImagePath,
-                                        DateCreated = x.DateCreated,
+                                        Id = x.b.Id,
+                                        ImagePath = x.b.ImagePath,
+                                        DateCreated = x.b.DateCreated,
+                                        Active = x.b.Active,
+                                        DateUpdated = x.b.DateUpdated,
+                                        Popular = x.b.Popular,
+                                        Title = x.bt.Title,
                                     }).ToListAsync();
-            var subCategoryResponse = new PagedViewModel<BlogDto>
+            var blogResponse = new PagedViewModel<BlogDto>
             {
                 Items = data,
                 PageIndex = getListPagingRequest.PageIndex,
                 PageSize = getListPagingRequest.PageSize,
                 TotalRecord = (int)pageCount,
             };
-            return subCategoryResponse;
+            return blogResponse;
         }
 
 
@@ -136,6 +146,11 @@ namespace BJ.Application.Service
         public async Task<BlogUserViewModel> GetBlogById(Guid id, string culture)
         {
             var item = await _context.Blogs.FindAsync(id);
+
+            if(culture == null)
+            {
+                culture = _configuration.GetValue<string>("DefaultLanguageId");
+            }
 
             var blogTranslation = await _context.BlogTranslations.FirstOrDefaultAsync(x => x.LanguageId == culture && x.BlogId.Equals(id));
 
@@ -153,6 +168,7 @@ namespace BJ.Application.Service
                 Active = item.Active,
                 ImagePath = item != null ? item.ImagePath : null,
                 Popular = item.Popular,
+                BlogTranslationDtos = _mapper.Map<List<BlogTranslationDto>>(await _context.BlogTranslations.Where(x => x.BlogId.Equals(id)).ToListAsync()),
             };
             return blogViewModel;
 
@@ -185,18 +201,67 @@ namespace BJ.Application.Service
             return data;
         }
 
-        public async Task UpdateBlog(Guid id, UpdateBlogDto updateBlogDto)
+        public async Task UpdateBlog(Guid id, UpdateBlogAdminView updateBlogAdminView)
         {
-            var item = await _context.Blogs.FirstOrDefaultAsync(x => x.Id == id);
+            var item = await _context.Blogs.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
             if (item != null)
             {
-                updateBlogDto.DateUpdated = DateTime.Now;
+                using var transaction = _context.Database.BeginTransaction();
 
-                _context.Update(_mapper.Map(updateBlogDto, item));
+                if (updateBlogAdminView.FileUpload != null)
+                {
+                    string extension = Path.GetExtension(updateBlogAdminView.FileUpload.FileName);
+
+                    string image = Utilities.SEOUrl(updateBlogAdminView.UpdateBlogTranslation.Title) + extension;
+
+
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "ImageBlog", image);
+
+                    var fileExsit = File.Exists(imagePath);
+
+                    if (fileExsit == true)
+                    {
+                        File.Delete(imagePath);
+
+                    }
+
+                    updateBlogAdminView.UpdateBlog.ImagePath= await Utilities.UploadFile(updateBlogAdminView.FileUpload, "ImageBlog", image);
+
+                }
+
+
+                updateBlogAdminView.UpdateBlog.DateUpdated = DateTime.Now;
+
+                _context.Blogs.Update(_mapper.Map(updateBlogAdminView.UpdateBlog, item));
 
                 await _context.SaveChangesAsync();
+
+                var culture = _configuration.GetValue<string>("DefaultLanguageId");
+
+                var translate = await _context.BlogTranslations.FirstOrDefaultAsync(x => x.BlogId.Equals(id) && x.LanguageId == culture);
+
+                if (translate != null)
+                {
+                    var updateTranslate = new UpdateBlogTranslationDto()
+                    {
+                        Title = updateBlogAdminView.UpdateBlogTranslation.Title,
+                        Description = updateBlogAdminView.UpdateBlogTranslation.Description,
+                        ShortDesc = updateBlogAdminView.UpdateBlogTranslation.ShortDesc,
+                        MetaDesc = updateBlogAdminView.UpdateBlogTranslation.MetaDesc,
+                        MetaKey = updateBlogAdminView.UpdateBlogTranslation.MetaKey,
+                        Alias = Utilities.SEOUrl(updateBlogAdminView.UpdateBlogTranslation.Title),
+                        
+
+                    };
+                    _context.Update(_mapper.Map(updateTranslate, translate));
+
+                    await _context.SaveChangesAsync();
+                }
+                await transaction.CommitAsync();
             }
+
+            return;
         }
 
         public async Task CreateBlogTranslate(CreateBlogTranslationDto createBlogTranslationDto)
@@ -204,11 +269,47 @@ namespace BJ.Application.Service
             createBlogTranslationDto.Id = Guid.NewGuid();
             createBlogTranslationDto.Alias = Utilities.SEOUrl(createBlogTranslationDto.Title);
 
-            BlogTranslation transaltecategory = _mapper.Map<BlogTranslation>(createBlogTranslationDto);
+            BlogTranslation transalteblog = _mapper.Map<BlogTranslation>(createBlogTranslationDto);
 
-            _context.Add(transaltecategory);
+            _context.Add(transalteblog);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async  Task<BlogTranslationDto> GetBlogTransalationById(Guid id)
+        {
+            var blogTranslate = await _context.BlogTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var blogTranslateDto = _mapper.Map<BlogTranslationDto>(blogTranslate);
+
+            return blogTranslateDto;
+        }
+
+        public async Task CreateTranslateBlog(CreateBlogTranslationDto createBlogTranslationDto)
+        {
+            createBlogTranslationDto.Id = Guid.NewGuid();
+
+            createBlogTranslationDto.Alias = Utilities.SEOUrl(createBlogTranslationDto.Title);
+
+            
+            BlogTranslation transalteblog = _mapper.Map<BlogTranslation>(createBlogTranslationDto);
+
+            _context.Add(transalteblog);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateTranslateBlog( Guid id, UpdateBlogTranslationDto updateBlogTranslationDto)
+        {
+            var item = await _context.BlogTranslations.FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+            updateBlogTranslationDto.Alias = Utilities.SEOUrl(updateBlogTranslationDto.Title);
+
+            if (item != null)
+            {
+                _context.Update(_mapper.Map(updateBlogTranslationDto, item));
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

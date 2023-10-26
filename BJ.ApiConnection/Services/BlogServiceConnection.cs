@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BJ.ApiConnection.Services
 {
@@ -18,13 +19,13 @@ namespace BJ.ApiConnection.Services
         public Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<BlogUserViewModel> GetBlogById(Guid id, string culture);
         Task<bool> CreateBlog(CreateBlogAdminView createBlogAdminView);
-        Task<bool> UpdateBlog(int id, UpdateBlogDto updateBlogDto);
+        Task<bool> UpdateBlog(Guid id, string culture, UpdateBlogAdminView updateBlogAdminView);
 
         public Task<BlogTranslationDto> GetBlogTranslationnById(Guid id);
 
         Task<bool> CreateLanguage(CreateBlogTranslationDto createBlogTranslationDto);
 
-        Task<bool> UpdateBlogTranslationn(Guid id, UpdateBlogTranslationDto updateBlogTranslationDto);
+        Task<bool> UpdateBlogTranslationn(Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto);
 
     }
     public class BlogServiceConnection : BaseApiClient, IBlogServiceConnection
@@ -120,11 +121,11 @@ namespace BJ.ApiConnection.Services
 
         public async Task<BlogUserViewModel> GetBlogById(Guid id, string culture)
         {
-            return await GetAsync<BlogUserViewModel>($"/api/Blogs/{id}?culture={culture}");
+            return await GetAsync<BlogUserViewModel>($"/api/Blogs/{id}/language/{culture}");
 
         }
 
-        public async Task<bool> UpdateBlog(int id, UpdateBlogDto updateBlogDto)
+        public async Task<bool> UpdateBlog(Guid id,string culture, UpdateBlogAdminView updateBlogAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -134,11 +135,39 @@ namespace BJ.ApiConnection.Services
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
-            var json = JsonConvert.SerializeObject(updateBlogDto);
 
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var requestContent = new MultipartFormDataContent();
 
-            var response = await client.PutAsync($"/api/Blogs/{id}", httpContent);
+            if (updateBlogAdminView.FileUpload != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(updateBlogAdminView.FileUpload.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)updateBlogAdminView.FileUpload.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new(data);
+
+                requestContent.Add(bytes, "updateBlogAdminView.FileUpload", updateBlogAdminView.FileUpload.FileName);
+            }
+            if(updateBlogAdminView.FileUpload == null) 
+            {
+                requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.ImagePath) ? "" : updateBlogAdminView.UpdateBlog.ImagePath.ToString()), "updateBlogAdminView.UpdateBlog.ImagePath");
+
+            }
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.Title) ? "" : updateBlogAdminView.UpdateBlogTranslation.Title.ToString()), "updateBlogAdminView.UpdateBlogTranslation.Title");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.ShortDesc) ? "" : updateBlogAdminView.UpdateBlogTranslation.ShortDesc.ToString()), "updateBlogAdminView.UpdateBlogTranslation.shortDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.Description) ? "" : updateBlogAdminView.UpdateBlogTranslation.Description.ToString()), "updateBlogAdminView.UpdateBlogTranslation.description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.DateUpdated.ToString()) ? "" : updateBlogAdminView.UpdateBlog.DateUpdated.ToString()), "updateBlogAdminView.UpdateBlog.DateUpdated");
+
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.Active.ToString()) ? "" : updateBlogAdminView.UpdateBlog.Active.ToString()), "updateBlogAdminView.UpdateBlog.active");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.Popular.ToString()) ? "" : updateBlogAdminView.UpdateBlog.Popular.ToString()), "updateBlogAdminView.UpdateBlog.popular");
+
+
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.MetaDesc.ToString()) ? "" : updateBlogAdminView.UpdateBlogTranslation.MetaDesc.ToString()), "updateBlogAdminView.UpdateBlogTranslation.metaDesc");
+
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.MetaKey.ToString()) ? "" : updateBlogAdminView.UpdateBlogTranslation.MetaKey.ToString()), "updateBlogAdminView.UpdateBlogTranslation.metaKey");
+
+            var response = await client.PutAsync($"/api/Blogs/{id}?culture={culture}", requestContent);
 
             return response.IsSuccessStatusCode;
         }
@@ -167,7 +196,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateBlogTranslationn(Guid id, UpdateBlogTranslationDto updateBlogTranslationDto)
+        public async Task<bool> UpdateBlogTranslationn(Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -181,9 +210,11 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Blogs/language/{id}/update", httpContent);
+            var response = await client.PutAsync($"/api/Blogs/language/{languageId}/update", httpContent);
 
             return response.IsSuccessStatusCode;
         }
+
+
     }
 }

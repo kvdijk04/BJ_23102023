@@ -1,4 +1,6 @@
-﻿namespace BJ.Contract.ViewModel
+﻿using BJ.Contract.Translation.Blog;
+
+namespace BJ.Contract.ViewModel
 {
     public class BlogUserViewModel
     {
@@ -23,5 +25,7 @@
         public string MetaDesc { get; set; }
 
         public string MetaKey { get; set; }
+
+        public List<BlogTranslationDto> BlogTranslationDtos { get; set; }
     }
 }

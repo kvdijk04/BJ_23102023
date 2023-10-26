@@ -2,6 +2,7 @@
 using BJ.Application.Ultities;
 using BJ.Contract.Blog;
 using BJ.Contract.Translation.Blog;
+using BJ.Contract.Translation.Blog;
 using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -92,10 +93,10 @@ namespace BJ.Api.Controllers
         }
 
         /// <summary>
-        /// Lấy thông tin blog bằng id
+        /// Lấy thông tin blog bằng id và ngôn ngữ
         /// </summary>
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/language/{culture}")]
 
         public async Task<IActionResult> GetBlogById(Guid id, string culture)
         {
@@ -106,14 +107,14 @@ namespace BJ.Api.Controllers
             return Ok(await _blogService.GetBlogById(id, culture));
 
         }
+        
         /// <summary>
         /// Cập nhật blog bằng id
         /// </summary>
-        [Authorize]
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> UpdateBlog(Guid id, string culture, [FromBody] UpdateBlogDto updateBlogDto)
+        public async Task<IActionResult> UpdateBlog(Guid id, string culture, [FromForm] UpdateBlogAdminView updateBlogAdminView)
         {
             try
             {
@@ -127,7 +128,7 @@ namespace BJ.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
 
-                await _blogService.UpdateBlog(id, updateBlogDto);
+                await _blogService.UpdateBlog(id, updateBlogAdminView);
 
                 return StatusCode(StatusCodes.Status200OK);
 
@@ -137,6 +138,73 @@ namespace BJ.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
+        }
+
+        /// <summary>
+        /// Lấy thông tin ngôn ngữ của loại bằng Id
+        /// </summary>
+
+        [HttpGet("language/{id}/detail")]
+
+        public async Task<IActionResult> GetBlogTranslationById(Guid id)
+        {
+            if (await _blogService.GetBlogTransalationById(id) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            return Ok(await _blogService.GetBlogTransalationById(id));
+
+        }
+
+        /// <summary>
+        /// Tạo mới loại theo từng ngôn ngữ
+        /// </summary>
+        /// 
+
+        [HttpPost("language/create")]
+        public async Task<IActionResult> CreateTranslate([FromBody] CreateBlogTranslationDto createBlogTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _blogService.CreateTranslateBlog(createBlogTranslationDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        /// <summary>
+        /// Cập nhật loại theo từng ngôn ngữ
+        /// </summary>
+        /// 
+
+        [HttpPut("language/{id}/update")]
+        public async Task<IActionResult> UpdateTranslate( Guid id, [FromBody] UpdateBlogTranslationDto updateBlogTranslationDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                await _blogService.UpdateTranslateBlog(id, updateBlogTranslationDto);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

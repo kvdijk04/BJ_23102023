@@ -1,0 +1,105 @@
+﻿@using BJ.Contract.Translation.Blog;
+@model CreateBlogTranslationDto
+<form asp-action="CreateLanguage" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Tạo mới ngôn ngữ</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-blog.html " class="breadcrumb-item">Tất cả blog</a>
+                <a href="/chi-tiet-blog/@ViewBag.Id" class="breadcrumb-item">@ViewBag.Title</a>
+
+                <span class="breadcrumb-item active">Tạo mới ngôn ngữ</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @ViewBag.Title</h4>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin blog</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Tên blog</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Tên blog" asp-for="@Model.Title">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBlog">Ngôn ngữ</label>
+                        <select class="select2" asp-for="@Model.LanguageId" asp-items="ViewBag.Language">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">Mô tả ngắn</label>
+                        <textarea class="form-control" id="shortDescription" placeholder="Mô tả" asp-for="@Model.ShortDesc"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">Mô tả</label>
+                        <textarea class="form-control" id="Description" placeholder="Mô tả" asp-for="@Model.Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">MetaDesc</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">MetaKey</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaKey">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="~/assets/vendors/select2/select2.min.js"></script>
+<script>
+    $('.select2').select2();
+</script>
+
+<script>
+
+    $('#shortDescription').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 120,
+
+        fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+            'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+            'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+        fontSizeUnits: ['px', 'pt'],
+        lineHeights: ['0.2', '0.3', '0.4', '0.5', '0.6', '0.8', '1.0', '1.2', '1.4', '1.5', '2.0', '3.0'],
+
+
+    });
+    $('#Description').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 120,
+
+        fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+            'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+            'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+    });
+</script>

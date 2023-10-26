@@ -8,7 +8,7 @@ namespace BJ.Contract.Blog
 
         public string ImagePath { get; set; }
         public bool Active { get; set; }
-
+        public string Title { get; set; }
         public bool Popular { get; set; }
         public DateTime? DateCreated { get; set; }
 
