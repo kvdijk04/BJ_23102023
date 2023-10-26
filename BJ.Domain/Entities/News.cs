@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BJ.Domain.Entities
+﻿namespace BJ.Domain.Entities
 {
     public class News
     {
         public Guid Id { get; set; }
 
-        public string ImagePath { get;set; }
+        public string ImagePath { get; set; }
 
         public bool Active { get; set; }
 

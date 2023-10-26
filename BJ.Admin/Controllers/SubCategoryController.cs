@@ -1,11 +1,9 @@
 ﻿using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.SubCategory;
-using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BJ.Admin.Controllers
 {
@@ -80,7 +78,7 @@ namespace BJ.Admin.Controllers
                 ImagePath = item.ImagePath,
             };
             ViewBag.Id = id;
-           
+
             return View(updateSubCategoryDto);
         }
         [HttpPost]
@@ -149,7 +147,7 @@ namespace BJ.Admin.Controllers
             {
                 SubCatName = r.SubCatName,
                 Description = r.Description,
-               
+
             };
             return View(updateCategoryTranslationDto);
         }

@@ -32,9 +32,9 @@ namespace BJ.Application.Mapping
 
 
             CreateMap<UpdateSubCategorySpecificProduct, SubCategorySpecificProduct>();
-        
-        
-        
+
+
+
         }
     }
 }

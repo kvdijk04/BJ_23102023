@@ -2,7 +2,6 @@
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
-using BJ.Contract.Translation.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -149,7 +148,7 @@ namespace BJ.Admin.Controllers
                 CatName = r.CatName,
                 Description = r.Description,
                 MetaDesc = r.MetaDesc,
-                
+
             };
             return View(updateCategoryTranslationDto);
         }

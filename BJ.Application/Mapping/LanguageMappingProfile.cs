@@ -17,7 +17,7 @@ namespace BJ.Application.Mapping
 
             CreateMap<UpdateLanguageDto, Language>();
 
-            
+
         }
     }
 }

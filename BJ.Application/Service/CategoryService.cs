@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using BJ.Application.Helper;
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
-using BJ.Contract.Product;
-using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Category;
-using BJ.Contract.Translation.Product;
 using BJ.Contract.Translation.SubCategory;
-using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
@@ -119,7 +114,7 @@ namespace BJ.Application.Service
 
             createSubCategoryDto.DateUpdated = DateTime.Now;
 
-            if(createSubCategoryDto.Image != null) 
+            if (createSubCategoryDto.Image != null)
             {
                 string extension = Path.GetExtension(createSubCategoryDto.Image.FileName);
 
@@ -127,7 +122,7 @@ namespace BJ.Application.Service
 
                 createSubCategoryDto.ImagePath = await Utilities.UploadFile(createSubCategoryDto.Image, "ImageSubCategory", image);
             }
-            
+
 
 
             SubCategory category = _mapper.Map<SubCategory>(createSubCategoryDto);
@@ -145,7 +140,7 @@ namespace BJ.Application.Service
                 SubCatName = createSubCategoryDto.SubCatName,
                 Description = createSubCategoryDto.Description,
                 LanguageId = defaultLanguage,
-                
+
             };
             SubCategoryTranslation categoryTranslation = _mapper.Map<SubCategoryTranslation>(createSubCategoryTranslationDto);
 
@@ -292,23 +287,23 @@ namespace BJ.Application.Service
             return categoryTranslateDto;
         }
 
-        public async  Task<IEnumerable<UserCategoryDto>> GetUserCategoryDtos(string languageId)
+        public async Task<IEnumerable<UserCategoryDto>> GetUserCategoryDtos(string languageId)
         {
             if (languageId == null) languageId = _configuration.GetValue<string>("DefaultLanguageId");
 
-           var query = from c in _context.Categories
+            var query = from c in _context.Categories
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
                         from ct in cl.DefaultIfEmpty()
-                       where ct.LanguageId == languageId && c.Active == true
-                        select new { c,ct};
+                        where ct.LanguageId == languageId && c.Active == true
+                        select new { c, ct };
             var cat = await query.Select(x => new UserCategoryDto()
             {
                 CatName = x.ct.CatName,
                 Active = x.c.Active,
                 ImagePath = x.c.ImagePath,
                 Id = x.c.Id,
-                
-                
+
+
             }).ToListAsync();
 
             return cat;
@@ -353,7 +348,7 @@ namespace BJ.Application.Service
 
                 await _context.SaveChangesAsync();
 
-                var culture  = _configuration.GetValue<string>("DefaultLanguageId");
+                var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
                 var translate = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId.Equals(id) && x.LanguageId == culture);
 
@@ -431,7 +426,7 @@ namespace BJ.Application.Service
             }
         }
 
-        public async  Task UpdateTranslateCategory(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        public async Task UpdateTranslateCategory(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
             var item = await _context.CategoryTranslations.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
@@ -481,7 +476,7 @@ namespace BJ.Application.Service
 
 
             SubCategoryTranslation transaltecategory = _mapper.Map<SubCategoryTranslation>(createSubCategoryTranslationDto);
-            
+
             _context.Add(transaltecategory);
 
             await _context.SaveChangesAsync();
@@ -496,7 +491,7 @@ namespace BJ.Application.Service
             {
                 using var transaction = _context.Database.BeginTransaction();
 
-        
+
                 _context.Update(_mapper.Map(updateSubCategoryTranslationDto, item));
 
                 await _context.SaveChangesAsync();

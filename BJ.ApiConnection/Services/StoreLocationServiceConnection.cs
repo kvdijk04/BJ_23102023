@@ -1,8 +1,5 @@
-﻿using BJ.Application.Ultities;
-using BJ.Contract.Product;
-using BJ.Contract.StoreLocation;
+﻿using BJ.Contract.StoreLocation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -23,7 +20,7 @@ namespace BJ.ApiConnection.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         public StoreLocationServiceConnection(IHttpClientFactory httpClientFactory,
                    IHttpContextAccessor httpContextAccessor,
-                    IConfiguration configuration) :base(httpClientFactory, httpContextAccessor, configuration)
+                    IConfiguration configuration) : base(httpClientFactory, httpContextAccessor, configuration)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;

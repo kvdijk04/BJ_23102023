@@ -1,12 +1,4 @@
-﻿using BJ.Contract.Product;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BJ.Contract.Translation.Product
+﻿namespace BJ.Contract.Translation.Product
 {
     public class UpdateProductTranslationDto
     {

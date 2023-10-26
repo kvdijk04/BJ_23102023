@@ -1,8 +1,5 @@
-﻿using BJ.Application.Ultities;
-using BJ.Contract.Product;
-using BJ.Contract.Translation;
+﻿using BJ.Contract.Translation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -25,7 +22,7 @@ namespace BJ.ApiConnection.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         public LanguageServiceConnection(IHttpClientFactory httpClientFactory,
                    IHttpContextAccessor httpContextAccessor,
-                    IConfiguration configuration) :base(httpClientFactory, httpContextAccessor, configuration)
+                    IConfiguration configuration) : base(httpClientFactory, httpContextAccessor, configuration)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
@@ -58,7 +55,7 @@ namespace BJ.ApiConnection.Services
         }
 
 
-      
+
         public async Task<LanguageDto> GetLanguageById(int id)
         {
             return await GetAsync<LanguageDto>($"/api/Languages/{id}");

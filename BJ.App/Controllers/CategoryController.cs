@@ -7,13 +7,13 @@ namespace BJ.App.Controllers
     {
         private readonly ILogger<CategoryController> _logger;
         private readonly ICategoryServiceConnection _categoryService;
-   
+
         public CategoryController(ILogger<CategoryController> logger, ICategoryServiceConnection categoryService)
         {
             _logger = logger;
             _categoryService = categoryService;
         }
 
-       
+
     }
 }

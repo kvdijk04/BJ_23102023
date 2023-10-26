@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BJ.Domain.Entities
 {
@@ -16,11 +11,11 @@ namespace BJ.Domain.Entities
         public string City { get; set; }
 
         public string IconPath { get; set; }
-        public float Latitude { get;set; }
+        public float Latitude { get; set; }
 
-        public float Longitude { get;set; }
+        public float Longitude { get; set; }
 
-        public bool Closed { get;set; }
+        public bool Closed { get; set; }
 
         public bool Repaired { get; set; }
     }

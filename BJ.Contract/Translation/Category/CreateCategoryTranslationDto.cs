@@ -1,12 +1,4 @@
-﻿using BJ.Contract.Category;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BJ.Contract.Translation.Category
+﻿namespace BJ.Contract.Translation.Category
 {
     public class CreateCategoryTranslationDto
     {

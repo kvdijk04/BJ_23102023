@@ -169,7 +169,7 @@ namespace BJ.Admin.Controllers
             ViewBag.ProductName = product.ProductName;
             ViewBag.Id = proId;
             ViewBag.LanguageId = languageId;
-            var r = await _productService.GetProductTranslationnById(languageId);           
+            var r = await _productService.GetProductTranslationnById(languageId);
             return View(r);
         }
         [Route("chi-tiet-san-pham/{id}/them-moi-ngon-ngu")]
@@ -193,7 +193,7 @@ namespace BJ.Admin.Controllers
             createProductTranslationDto.ProductId = id;
             await _productService.CreateLanguage(createProductTranslationDto);
 
-            return Redirect("/chi-tiet-san-pham/"+id);
+            return Redirect("/chi-tiet-san-pham/" + id);
         }
 
         [Route("chi-tiet-san-pham/{proId}/ngon-ngu/{languageId}/cap-nhat")]

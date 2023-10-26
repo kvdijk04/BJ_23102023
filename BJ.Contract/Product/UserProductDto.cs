@@ -1,12 +1,5 @@
-﻿using BJ.Contract.Category;
-using BJ.Contract.Size;
+﻿using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
-using BJ.Contract.Translation.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BJ.Contract.Product
 {

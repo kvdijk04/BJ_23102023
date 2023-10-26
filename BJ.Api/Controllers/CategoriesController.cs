@@ -126,7 +126,7 @@ namespace BJ.Api.Controllers
         /// 
 
         [HttpPut("{proId}/language/{id}/update")]
-        public async Task<IActionResult> UpdateTranslate(Guid proId,Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        public async Task<IActionResult> UpdateTranslate(Guid proId, Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
             try
             {
@@ -146,7 +146,7 @@ namespace BJ.Api.Controllers
             }
         }
 
-       
+
 
         /// <summary>
         /// Cập nhật loại

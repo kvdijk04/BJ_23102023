@@ -25,8 +25,8 @@ namespace BJ.Persistence.ApplicationContext
         public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<BlogTranslation> BlogTranslations { get; set; }
 
-        public virtual DbSet<News > News { get; set; }
-        public virtual DbSet<NewsTranslation> NewsTranslations{ get; set; }
+        public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<NewsTranslation> NewsTranslations { get; set; }
 
 
         public virtual DbSet<Category> Categories { get; set; }

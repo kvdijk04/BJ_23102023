@@ -59,7 +59,7 @@ namespace BJ.App.Controllers
         }
 
         [Route("/filtercategory", Name = "UserFilterCategory")]
-        public async Task<IActionResult> FilterByCategoryId(Guid catId,bool popular, string culture)
+        public async Task<IActionResult> FilterByCategoryId(Guid catId, bool popular, string culture)
         {
             //var token = HttpContext.Session.GetString("Token");
 
@@ -67,7 +67,7 @@ namespace BJ.App.Controllers
             //{
             //    return Redirect("/dang-nhap.html");
             //}
-            var Size = await _productService.GetAllProductByCatId(catId,popular,culture);
+            var Size = await _productService.GetAllProductByCatId(catId, popular, culture);
 
             if (Size == null)
             {
@@ -76,6 +76,6 @@ namespace BJ.App.Controllers
 
             return PartialView("_FilterByCategory", Size);
         }
-        
+
     }
 }

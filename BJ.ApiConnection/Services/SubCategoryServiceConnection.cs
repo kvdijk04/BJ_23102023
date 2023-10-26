@@ -1,7 +1,5 @@
 ﻿using BJ.Application.Ultities;
-using BJ.Contract.Product;
 using BJ.Contract.SubCategory;
-using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +39,7 @@ namespace BJ.ApiConnection.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async  Task<bool> CreateLanguage(CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
+        public async Task<bool> CreateLanguage(CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -73,7 +71,7 @@ namespace BJ.ApiConnection.Services
 
             var requestContent = new MultipartFormDataContent();
 
-            if(createSubCategoryDto.Image != null)
+            if (createSubCategoryDto.Image != null)
             {
                 byte[] data;
                 using (var br = new BinaryReader(createSubCategoryDto.Image.OpenReadStream()))
@@ -150,7 +148,7 @@ namespace BJ.ApiConnection.Services
             return subCat;
         }
 
-        public  async Task<SubCategoryDto> GetSubCategoryById(int id)
+        public async Task<SubCategoryDto> GetSubCategoryById(int id)
         {
             return await GetAsync<SubCategoryDto>($"/api/SubCategories/{id}");
 

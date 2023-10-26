@@ -1,10 +1,7 @@
 ﻿using BJ.Contract.Account;
-using BJ.Contract.Size;
-using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace BJ.ApiConnection.Services
@@ -28,7 +25,7 @@ namespace BJ.ApiConnection.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async  Task<string> Login(LoginDto loginDto)
+        public async Task<string> Login(LoginDto loginDto)
         {
             var json = JsonConvert.SerializeObject(loginDto);
 

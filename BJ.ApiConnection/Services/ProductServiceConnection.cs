@@ -1,11 +1,8 @@
 ﻿using BJ.Application.Helper;
 using BJ.Application.Ultities;
-using BJ.Contract.Category;
 using BJ.Contract.Product;
-using BJ.Contract.Size;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
-using BJ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,9 +23,9 @@ namespace BJ.ApiConnection.Services
 
         public Task<ProductDto> GetProductById(Guid id);
 
-        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId,bool popular, string culture);
+        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular, string culture);
         public Task<ProductUserViewModel> GetAllUserProduct(string cultrue);
-        public Task<UserProductDto> GetUserProductById(Guid id,string culture);
+        public Task<UserProductDto> GetUserProductById(Guid id, string culture);
 
         public Task<ProductTranslationDto> GetProductTranslationnById(Guid id);
 
@@ -163,7 +160,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular,string culture)
+        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular, string culture)
         {
             return await GetListAsync<UserProductDto>($"/api/Products/category/filter?catId={catId}&popular={popular}&languageId={culture}");
         }
@@ -305,7 +302,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async  Task<bool> UpdateProductTranslationn(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto)
+        public async Task<bool> UpdateProductTranslationn(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 

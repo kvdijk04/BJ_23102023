@@ -1,11 +1,6 @@
 ﻿using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.Translation.SubCategory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BJ.Contract.Translation
 {

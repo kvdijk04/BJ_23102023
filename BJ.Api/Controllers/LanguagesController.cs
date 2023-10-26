@@ -1,7 +1,5 @@
 ﻿using BJ.Application.Service;
-using BJ.Application.Ultities;
 using BJ.Contract.Translation;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.Api.Controllers
@@ -57,7 +55,7 @@ namespace BJ.Api.Controllers
         //}
 
 
-        
+
         /// <summary>
         /// Cập nhật size bằng id
         /// </summary>

@@ -1,16 +1,14 @@
-﻿using BJ.Application.Ultities;
-using BJ.Contract.Product;
+﻿using BJ.Application.Helper;
+using BJ.Application.Ultities;
 using BJ.Contract.Blog;
+using BJ.Contract.Translation.Blog;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using BJ.Contract.ViewModel;
-using BJ.Application.Helper;
-using BJ.Contract.Translation.Blog;
-using BJ.Contract.Translation.Category;
 
 namespace BJ.ApiConnection.Services
 {
@@ -18,7 +16,7 @@ namespace BJ.ApiConnection.Services
     {
         public Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, bool popular);
         public Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
-        Task<BlogUserViewModel> GetBlogById(Guid id,string culture);
+        Task<BlogUserViewModel> GetBlogById(Guid id, string culture);
         Task<bool> CreateBlog(CreateBlogAdminView createBlogAdminView);
         Task<bool> UpdateBlog(int id, UpdateBlogDto updateBlogDto);
 
@@ -36,7 +34,7 @@ namespace BJ.ApiConnection.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         public BlogServiceConnection(IHttpClientFactory httpClientFactory,
                    IHttpContextAccessor httpContextAccessor,
-                    IConfiguration configuration) :base(httpClientFactory, httpContextAccessor, configuration)
+                    IConfiguration configuration) : base(httpClientFactory, httpContextAccessor, configuration)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
@@ -70,7 +68,7 @@ namespace BJ.ApiConnection.Services
 
                 requestContent.Add(bytes, "createBlogAdminView.FileUpload", createBlogAdminView.FileUpload.FileName);
             }
-            
+
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.Title) ? "" : createBlogAdminView.CreateBlogTranslation.Title.ToString()), "createBlogAdminView.CreateBlogTranslation.Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.ShortDesc) ? "" : createBlogAdminView.CreateBlogTranslation.ShortDesc.ToString()), "createBlogAdminView.CreateBlogTranslation.shortDesc");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.Description) ? "" : createBlogAdminView.CreateBlogTranslation.Description.ToString()), "createBlogAdminView.CreateBlogTranslation.description");
@@ -119,7 +117,7 @@ namespace BJ.ApiConnection.Services
             return size;
         }
 
-      
+
         public async Task<BlogUserViewModel> GetBlogById(Guid id, string culture)
         {
             return await GetAsync<BlogUserViewModel>($"/api/Blogs/{id}?culture={culture}");

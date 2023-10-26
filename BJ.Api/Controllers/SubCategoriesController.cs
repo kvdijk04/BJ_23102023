@@ -1,7 +1,6 @@
 ﻿using BJ.Application.Service;
 using BJ.Application.Ultities;
 using BJ.Contract.SubCategory;
-using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

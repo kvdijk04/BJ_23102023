@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BJ.Domain.Entities
 {
@@ -22,7 +17,7 @@ namespace BJ.Domain.Entities
         public string ShortDesc { get; set; }
 
         public string Description { get; set; }
-        public string Alias { get;set; }
+        public string Alias { get; set; }
         public string MetaDesc { get; set; }
 
         public string MetaKey { get; set; }

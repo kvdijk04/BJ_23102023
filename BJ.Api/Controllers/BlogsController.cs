@@ -35,7 +35,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         [HttpGet]
 
-        public async Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture,bool popular)
+        public async Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture, bool popular)
         {
 
             return await _blogService.GetBlogs(culture, popular);
@@ -47,7 +47,7 @@ namespace BJ.Api.Controllers
         /// 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]CreateBlogAdminView createBlogAdminView)
+        public async Task<IActionResult> Post([FromForm] CreateBlogAdminView createBlogAdminView)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace BJ.Api.Controllers
 
         public async Task<IActionResult> GetBlogById(Guid id, string culture)
         {
-            if (await _blogService.GetBlogById(id,culture) == null)
+            if (await _blogService.GetBlogById(id, culture) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
@@ -113,7 +113,7 @@ namespace BJ.Api.Controllers
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> UpdateBlog(Guid id,string culture, [FromBody] UpdateBlogDto updateBlogDto)
+        public async Task<IActionResult> UpdateBlog(Guid id, string culture, [FromBody] UpdateBlogDto updateBlogDto)
         {
             try
             {

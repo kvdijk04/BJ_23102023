@@ -16,7 +16,7 @@ namespace BJ.App.Controllers
         [Route("/{culture}/healthy.html")]
         public async Task<IActionResult> Index(string culture, bool popular)
         {
-            var blog = await _blogService.GetAllBlogs(culture,popular);
+            var blog = await _blogService.GetAllBlogs(culture, popular);
 
             return View(blog);
         }

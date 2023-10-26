@@ -18,7 +18,7 @@ namespace BJ.Application
             services.AddDbContext<BJContext>(options => options.UseSqlServer(configuration.GetConnectionString("BJConnection")));
 
 
-;
+            ;
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();

@@ -7,7 +7,7 @@ namespace BJ.Application.Mapping
 {
     public class AccountMappingProfile : Profile
     {
-        public AccountMappingProfile() 
+        public AccountMappingProfile()
         {
             CreateMap<Account, AccountDto>();
             CreateMap<CreateAccountDto, Account>();

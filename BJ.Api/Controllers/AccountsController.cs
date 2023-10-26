@@ -1,7 +1,5 @@
 ﻿using BJ.Application.Service;
 using BJ.Contract.Account;
-using BJ.Contract.Size;
-using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -102,7 +100,7 @@ namespace BJ.Api.Controllers
             {
                 var a = await _accountService.Login(loginDto);
                 return a;
-            
+
             }
             catch (Exception e)
             {

@@ -2,17 +2,12 @@
 using BJ.Application.Helper;
 using BJ.Application.Ultities;
 using BJ.Contract.Blog;
-using BJ.Contract.Size;
-using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Blog;
-using BJ.Contract.Translation.Category;
-using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.Configuration;
 
 namespace BJ.Application.Service
@@ -20,7 +15,7 @@ namespace BJ.Application.Service
     public interface IBlogService
     {
 
-        Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture,bool popular);
+        Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture, bool popular);
         Task CreateBlog(CreateBlogAdminView createBlogAdminView);
         Task CreateBlogTranslate(CreateBlogTranslationDto createBlogTranslationDto);
 
@@ -56,7 +51,7 @@ namespace BJ.Application.Service
 
             using var transaction = _context.Database.BeginTransaction();
 
-            if (createBlogAdminView.FileUpload!= null)
+            if (createBlogAdminView.FileUpload != null)
             {
                 string extension = Path.GetExtension(createBlogAdminView.FileUpload.FileName);
 
@@ -65,14 +60,14 @@ namespace BJ.Application.Service
                 createBlogAdminView.CreateBlog.ImagePath = await Utilities.UploadFile(createBlogAdminView.FileUpload, "ImageBlog", image);
 
             }
-            
+
             Blog blog = _mapper.Map<Blog>(createBlogAdminView.CreateBlog);
 
             _context.Add(blog);
 
             await _context.SaveChangesAsync();
 
-            
+
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
             CreateBlogTranslationDto createBlogTranslationDto = new()
@@ -86,7 +81,7 @@ namespace BJ.Application.Service
                 MetaDesc = createBlogAdminView.CreateBlogTranslation.MetaDesc,
                 MetaKey = createBlogAdminView.CreateBlogTranslation.MetaKey,
                 LanguageId = defaultLanguage,
-                
+
             };
             BlogTranslation poductTranslation = _mapper.Map<BlogTranslation>(createBlogTranslationDto);
 
@@ -163,7 +158,7 @@ namespace BJ.Application.Service
 
         }
 
-        public async Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture,bool popular)
+        public async Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture, bool popular)
         {
             var query = from b in _context.Blogs
                         join bt in _context.BlogTranslations on b.Id equals bt.BlogId into ppic
@@ -186,7 +181,7 @@ namespace BJ.Application.Service
                     ImagePath = x.b.ImagePath,
                     Popular = x.b.Popular,
                 }).ToListAsync();
-            if(popular != false) { data = data.Where(x => x.Popular == popular).ToList(); }
+            if (popular != false) { data = data.Where(x => x.Popular == popular).ToList(); }
             return data;
         }
 
@@ -204,7 +199,7 @@ namespace BJ.Application.Service
             }
         }
 
-        public async  Task CreateBlogTranslate(CreateBlogTranslationDto createBlogTranslationDto)
+        public async Task CreateBlogTranslate(CreateBlogTranslationDto createBlogTranslationDto)
         {
             createBlogTranslationDto.Id = Guid.NewGuid();
             createBlogTranslationDto.Alias = Utilities.SEOUrl(createBlogTranslationDto.Title);

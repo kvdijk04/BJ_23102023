@@ -1,6 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
-using BJ.Contract.Blog;
 using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 

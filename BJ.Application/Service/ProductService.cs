@@ -5,7 +5,6 @@ using BJ.Contract.Category;
 using BJ.Contract.Product;
 using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
-using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
@@ -13,7 +12,6 @@ using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Client;
 using System.Data;
 
 namespace BJ.Application.Service
@@ -65,8 +63,8 @@ namespace BJ.Application.Service
                         from ct in cd.DefaultIfEmpty()
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
 
-                        where pt.LanguageId == languageId &&  p.Active == true  /*sct.LanguageId == languageId*/
-                        select new {c, p, pt,ct /*scsp*/ };
+                        where pt.LanguageId == languageId && p.Active == true  /*sct.LanguageId == languageId*/
+                        select new { c, p, pt, ct /*scsp*/ };
             var productDto = await query.Select(x => new UserProductDto()
             {
                 Id = x.p.Id,
@@ -89,7 +87,7 @@ namespace BJ.Application.Service
 
         public async Task CreateProductAdminView(CreateProductAdminView createProductAdminView)
         {
-           
+
             var code = _configuration.GetValue<string>("Code:Product");
 
             createProductAdminView.CreateProduct.Id = Guid.NewGuid();
@@ -282,11 +280,11 @@ namespace BJ.Application.Service
             if (languageId == null) languageId = _configuration.GetValue<string>("DefaultLanguageId");
 
             var queryCat = from c in _context.Categories
-                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
-                        from ct in cl.DefaultIfEmpty()
+                           join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
+                           from ct in cl.DefaultIfEmpty()
 
-                        where ct.LanguageId == languageId && c.Active == true
-                        select new { c, ct };
+                           where ct.LanguageId == languageId && c.Active == true
+                           select new { c, ct };
             var cat = await queryCat.Select(x => new UserCategoryDto()
             {
                 CatName = x.ct.CatName,
@@ -299,12 +297,12 @@ namespace BJ.Application.Service
 
             var queryPro = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId)).AsSplitQuery()
                            join c in _context.Categories on p.CategoryId equals c.Id
-                        join ct in _context.CategoryTranslations.Where(x => x.LanguageId == languageId) on c.Id equals ct.CategoryId into cd
-                        from ct in cd.DefaultIfEmpty()
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                           join ct in _context.CategoryTranslations.Where(x => x.LanguageId == languageId) on c.Id equals ct.CategoryId into cd
+                           from ct in cd.DefaultIfEmpty()
+                           join pt in _context.ProductTranslations on p.Id equals pt.ProductId
 
-                        where pt.LanguageId == languageId && p.Active == true  /*sct.LanguageId == languageId*/
-                        select new { c, p, pt, ct /*scsp*/ };
+                           where pt.LanguageId == languageId && p.Active == true  /*sct.LanguageId == languageId*/
+                           select new { c, p, pt, ct /*scsp*/ };
             var productDto = await queryPro.Select(x => new UserProductDto()
             {
                 Id = x.p.Id,
@@ -338,7 +336,7 @@ namespace BJ.Application.Service
             //else { product = product.Where(x => x.BestSeller == popular).ToList(); }
             //var productDto = _mapper.Map<List<UserProductDto>>(product);
             //return productDto;
-            if (catId != Guid.Empty && popular == false) 
+            if (catId != Guid.Empty && popular == false)
             {
                 var query = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId))
                             join c in _context.Categories on p.CategoryId equals c.Id
@@ -402,7 +400,7 @@ namespace BJ.Application.Service
 
                 return productDto;
             }
-           
+
         }
 
         public async Task<ProductDto> GetProductById(Guid id)
@@ -542,7 +540,7 @@ namespace BJ.Application.Service
 
                 var translate = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId.Equals(id) && x.LanguageId == culture);
 
-                if(translate != null)
+                if (translate != null)
                 {
                     var updateTranslate = new UpdateProductTranslationDto()
                     {
@@ -564,7 +562,7 @@ namespace BJ.Application.Service
             return;
         }
 
-        public async  Task UpdateProductTranslate(Guid proId,  Guid id, UpdateProductTranslationDto updateProductTranslationDto)
+        public async Task UpdateProductTranslate(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto)
         {
             var item = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -596,7 +594,7 @@ namespace BJ.Application.Service
                     MetaKey = updateProductTranslationDto.MetaKey,
                     ProductName = updateProductTranslationDto.ProductName,
                     ShortDesc = updateProductTranslationDto.ShortDesc,
-                    
+
                 };
                 _context.Update(_mapper.Map(updateProductDto, product));
 

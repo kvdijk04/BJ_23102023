@@ -1,8 +1,6 @@
 ﻿using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
-using BJ.Contract.Translation.Product;
-using BJ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -92,7 +90,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async  Task<bool> CreateLanguage(CreateCategoryTranslationDto createCategoryTranslationDto)
+        public async Task<bool> CreateLanguage(CreateCategoryTranslationDto createCategoryTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 

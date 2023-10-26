@@ -14,7 +14,7 @@ namespace BJ.Application.Mapping
             CreateMap<Product, ProductDto>().ForPath(dest => dest.CategoryDto, opt => opt.MapFrom(src => src.Category))
                                             .ForPath(dest => dest.SizeSpecificProducts, opt => opt.MapFrom(src => src.SizeSpecificProducts))
                                             .ForPath(dest => dest.SubCategorySpecificProductDtos, opt => opt.MapFrom(src => src.SubCategorySpecificProducts))
-                                            .ForPath(dest => dest.ProductTranslationDtos, opt => opt.MapFrom(src => src.ProductTranslations)); 
+                                            .ForPath(dest => dest.ProductTranslationDtos, opt => opt.MapFrom(src => src.ProductTranslations));
             CreateMap<Product, ViewAllProduct>();
 
             CreateMap<CreateProductDto, Product>();
