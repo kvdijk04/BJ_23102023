@@ -1,4 +1,5 @@
-﻿using BJ.ApiConnection.Services;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.SubCategory;
@@ -12,11 +13,13 @@ namespace BJ.Admin.Controllers
         private readonly ILogger<SubCategoryController> _logger;
         private readonly ISubCategoryServiceConnection _subCategoryServiceConnection;
         private readonly ILanguageServiceConnection _languageServiceConnection;
-        public SubCategoryController(ILogger<SubCategoryController> logger, ISubCategoryServiceConnection subCategoryServiceConnection, ILanguageServiceConnection languageServiceConnection)
+        private readonly INotyfService _notyfService;
+        public SubCategoryController(ILogger<SubCategoryController> logger, ISubCategoryServiceConnection subCategoryServiceConnection, ILanguageServiceConnection languageServiceConnection, INotyfService notyfService)
         {
             _logger = logger;
             _subCategoryServiceConnection = subCategoryServiceConnection;
             _languageServiceConnection = languageServiceConnection;
+            _notyfService = notyfService;
 
         }
         [Route("/tat-ca-danh-muc-con.html")]
@@ -25,12 +28,12 @@ namespace BJ.Admin.Controllers
         {
             if (keyword != null) ViewBag.Keyword = keyword;
 
-            //var token = HttpContext.Session.GetString("Token");
+            var token = HttpContext.Session.GetString("Token");
 
-            //if (token == null)
-            //{
-            //    return Redirect("/dang-nhap.html");
-            //}
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var request = new GetListPagingRequest()
             {
                 Keyword = keyword,
@@ -45,6 +48,13 @@ namespace BJ.Admin.Controllers
         [Route("/chi-tiet-danh-muc-con/{id}")]
         public async Task<IActionResult> Detail(int id)
         {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var r = await _subCategoryServiceConnection.GetSubCategoryById(id);
             ViewBag.Id = r.Id;
             return View(r);
@@ -53,6 +63,13 @@ namespace BJ.Admin.Controllers
         [Route("/tao-moi-danh-muc-con.html")]
         public IActionResult Create()
         {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             return View();
         }
         [HttpPost]
@@ -61,8 +78,15 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> Create([FromForm] CreateSubCategoryDto createSubCategoryDto)
         {
 
-            var r = await _subCategoryServiceConnection.CreateSubCategory(createSubCategoryDto);
-
+            var a = await _subCategoryServiceConnection.CreateSubCategory(createSubCategoryDto);
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
             return Redirect("/tao-moi-danh-muc-con.html");
         }
         [Route("/cap-nhat-danh-muc-con/{id}")]
@@ -87,11 +111,27 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> Edit(int id, [FromForm] UpdateSubCategoryDto updateSubCategoryDto)
         {
 
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
+
             var result = await _subCategoryServiceConnection.GetSubCategoryById(id);
 
             if (updateSubCategoryDto.Image == null) updateSubCategoryDto.ImagePath = result.ImagePath;
 
-            var r = await _subCategoryServiceConnection.UpdateSubCategory(id, updateSubCategoryDto);
+            var a = await _subCategoryServiceConnection.UpdateSubCategory(id, updateSubCategoryDto);
+
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
 
             return Redirect("/tat-ca-danh-muc-con.html");
         }
@@ -101,6 +141,13 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> LanguageDetail(int subCatId, Guid languageId)
         {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var category = await _subCategoryServiceConnection.GetSubCategoryById(subCatId);
             ViewBag.SubCatName = category.SubCatName;
             ViewBag.Id = subCatId;
@@ -112,6 +159,13 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateLanguage(int id)
         {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var category = await _subCategoryServiceConnection.GetSubCategoryById(id);
             var language = await _languageServiceConnection.GetAllLanguages();
             ViewData["Language"] = new SelectList(language, "Id", "Name");
@@ -128,8 +182,15 @@ namespace BJ.Admin.Controllers
         {
             createSubCategoryTranslationDto.SubCategoryId = id;
 
-            await _subCategoryServiceConnection.CreateLanguage(createSubCategoryTranslationDto);
-
+            var a = await _subCategoryServiceConnection.CreateLanguage(createSubCategoryTranslationDto);
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
             return Redirect("/chi-tiet-danh-muc-con/" + id);
         }
 
@@ -137,6 +198,13 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateLanguage(int subCatId, Guid languageId)
         {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var r = await _subCategoryServiceConnection.GetSubCategoryTranslationnById(languageId);
             var category = await _subCategoryServiceConnection.GetSubCategoryById(subCatId);
             ViewBag.SubCatName = category.SubCatName;
@@ -158,8 +226,16 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(int subCatId, Guid languageId, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
         {
-            await _subCategoryServiceConnection.UpdateSubCategoryTranslationn(subCatId, languageId, updateSubCategoryTranslationDto);
+            var a = await _subCategoryServiceConnection.UpdateSubCategoryTranslationn(subCatId, languageId, updateSubCategoryTranslationDto);
 
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/chi-tiet-danh-muc-con/" + subCatId);
         }
     }

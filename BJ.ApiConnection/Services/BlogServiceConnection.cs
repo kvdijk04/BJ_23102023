@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace BJ.ApiConnection.Services
 {
@@ -125,7 +124,7 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<bool> UpdateBlog(Guid id,string culture, UpdateBlogAdminView updateBlogAdminView)
+        public async Task<bool> UpdateBlog(Guid id, string culture, UpdateBlogAdminView updateBlogAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -149,7 +148,7 @@ namespace BJ.ApiConnection.Services
 
                 requestContent.Add(bytes, "updateBlogAdminView.FileUpload", updateBlogAdminView.FileUpload.FileName);
             }
-            if(updateBlogAdminView.FileUpload == null) 
+            if (updateBlogAdminView.FileUpload == null)
             {
                 requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.ImagePath) ? "" : updateBlogAdminView.UpdateBlog.ImagePath.ToString()), "updateBlogAdminView.UpdateBlog.ImagePath");
 

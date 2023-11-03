@@ -57,11 +57,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" asp-for="@Model.CreateProduct.ProductName">
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" asp-for="@Model.CreateProduct.ProductName" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productPrice">Giá giảm</label>
-                        <input type="text" class="form-control" id="productPrice" placeholder="Giá giảm" asp-for="@Model.CreateProduct.Discount">
+                        <input type="text" class="form-control" id="productPrice" placeholder="Giá giảm" asp-for="@Model.CreateProduct.Discount" value="0">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
@@ -101,6 +101,7 @@
                             </div>
                             @foreach (var size in ViewBag.SizeDtos)
                             {
+                                
                                 <div>
                                     <input id="checkbox-size_@size.Id" type="checkbox" name="Size" value="@size.Id">
                                     <label for="checkbox-size_@size.Id">@size.Name</label>
@@ -181,11 +182,11 @@
 
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProduct.MetaDesc">
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProduct.MetaDesc" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.CreateProduct.MetaKey">
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.CreateProduct.MetaKey" required>
                     </div>
                 </div>
             </div>

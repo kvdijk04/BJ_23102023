@@ -5,6 +5,7 @@ using BJ.Contract.Category;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
+using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,8 @@ namespace BJ.Application.Service
         Task CreateSubCategoryTranslate(CreateSubCategoryTranslationDto createSubCategoryTranslationDto);
         Task UpdateSubCategoryTranslate(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto);
 
+        Task<Guid> GetIdOfCategorỵ(string code);
+
     }
     public class CategoryService : ICategoryService
     {
@@ -70,8 +73,40 @@ namespace BJ.Application.Service
 
             var code = _configuration.GetValue<string>("Code:Category");
 
-            createCategoryDto.Code = code + Utilities.GenerateStringDateTime();
 
+            var total = await _context.Categories.OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
+
+            string s = null;
+            var codeLimit = _configuration.GetValue<string>("LimitCode");
+
+            if (total.Count == 0) { createCategoryDto.Code = code + codeLimit; }
+
+            else if (total.Count > 0)
+            {
+                var x = total[0].Code.Substring(code.Length, codeLimit.Length);
+
+                int k = Convert.ToInt32(total[0].Code.Substring(code.Length, codeLimit.Length)) + 1;
+                if (k < 10) s += total[0].Code.Substring(code.Length, codeLimit.Length - 1);
+                else if (k < 100)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 2);
+                else if (k < 1000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 3);
+                else if (k < 10000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 4);
+                else if (k < 100000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 5);
+                else if (k < 1000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 6);
+                else if (k < 10000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 7);
+                else if (k < 100000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 8);
+                else if (k < 1000000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 9);
+                s += k.ToString();
+
+                createCategoryDto.Code = code + s;
+            }
             string extension = Path.GetExtension(createCategoryDto.Image.FileName);
 
             string image = Utilities.SEOUrl(createCategoryDto.CatName) + extension;
@@ -114,6 +149,42 @@ namespace BJ.Application.Service
 
             createSubCategoryDto.DateUpdated = DateTime.Now;
 
+            var code = _configuration.GetValue<string>("Code:SubCategory");
+
+            var total = await _context.SubCategories.OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
+
+            string s = null;
+            var codeLimit = _configuration.GetValue<string>("LimitCode");
+
+            if (total.Count == 0) { createSubCategoryDto.Code = code + codeLimit; }
+
+            else if (total.Count > 0)
+            {
+                var x = total[0].Code.Substring(code.Length, codeLimit.Length);
+
+                int k = Convert.ToInt32(total[0].Code.Substring(code.Length, codeLimit.Length)) + 1;
+                if (k < 10) s += total[0].Code.Substring(code.Length, codeLimit.Length - 1);
+                else if (k < 100)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 2);
+                else if (k < 1000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 3);
+                else if (k < 10000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 4);
+                else if (k < 100000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 5);
+                else if (k < 1000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 6);
+                else if (k < 10000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 7);
+                else if (k < 100000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 8);
+                else if (k < 1000000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 9);
+                s += k.ToString();
+
+                createSubCategoryDto.Code = code + s;
+
+            }
             if (createSubCategoryDto.Image != null)
             {
                 string extension = Path.GetExtension(createSubCategoryDto.Image.FileName);
@@ -199,7 +270,7 @@ namespace BJ.Application.Service
             }
             var pageResult = getListPagingRequest.PageSize;
             var pageCount = Math.Ceiling(_context.Categories.Count() / (double)pageResult);
-            var query = _context.Categories.AsQueryable();
+            var query = _context.Categories.OrderByDescending(x => x.DateCreated).AsQueryable();
             if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
             {
                 query = query.Where(x => x.CatName.Contains(getListPagingRequest.Keyword) || x.Code.Contains(getListPagingRequest.Keyword));
@@ -235,7 +306,7 @@ namespace BJ.Application.Service
             }
             var pageResult = getListPagingRequest.PageSize;
             var pageCount = Math.Ceiling(_context.SubCategories.Count() / (double)pageResult);
-            var query = _context.SubCategories.OrderBy(x => x.Id).AsNoTracking().AsQueryable();
+            var query = _context.SubCategories.OrderByDescending(x => x.DateCreated).AsNoTracking().AsQueryable();
             if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
             {
                 query = query.Where(x => x.SubCatName.Contains(getListPagingRequest.Keyword));
@@ -273,7 +344,7 @@ namespace BJ.Application.Service
 
         public async Task<IEnumerable<SubCategoryDto>> GetSubCategoryDtos()
         {
-            var subCategory = await _context.SubCategories.AsNoTracking().ToListAsync();
+            var subCategory = await _context.SubCategories.Where(x => x.Active == true).AsNoTracking().ToListAsync();
             var subCategoryDto = _mapper.Map<List<SubCategoryDto>>(subCategory);
 
             return subCategoryDto;
@@ -510,6 +581,14 @@ namespace BJ.Application.Service
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
+        }
+
+        public async Task<Guid> GetIdOfCategorỵ(string code)
+        {
+            var r = await _context.Categories.FirstOrDefaultAsync(x => x.Code == code);
+            if(r == null) return Guid.Empty;
+
+            return r.Id;
         }
     }
 }

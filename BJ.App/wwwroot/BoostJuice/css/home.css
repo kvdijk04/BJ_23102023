@@ -633,6 +633,7 @@ table {
     background-position: 94% center;
     padding-right: 40px;
 }
+
 @media (max-width: 1440px) {
     .welcome {
         background-size: 100%;
@@ -797,13 +798,19 @@ table {
         width: 100%;
     }
     .boost-store-finder #boost-store-locator.hide-stores {
-        height: 390px;
+        height: 490px;
     }
     .boost-store-finder .boostjuice-search {
         padding-top: 30px;
     }
     .boost-store-finder .boostjuice-search {
         padding: 20px 0px 0px 0px;
+    }
+
+}
+@media (max-width:767px) {
+    .boostjuice-search img {
+        margin-top: 15%;
     }
 }
 @media(max-width:760px) {
@@ -909,7 +916,18 @@ table {
     .vibe-bkg .row{
         margin-top:-25%;
     }
+    .boostjuice-search h2 {
+        width: 90%;
+        margin:auto;
+    }
 
+    .boostjuice-search p {
+        width: 70%;
+        margin: auto;
+    }
+    .boostjuice-search img {
+        margin-top: 15%;
+    }
 
 }
 @media (max-width: 280px) {
@@ -923,6 +941,11 @@ table {
 
         font-size: 16px;
     }
+    #get-my-location{
+        font-size:16px;
+        margin-top:10px;
+    }
+
 }
 
 @media (min-width: 400px) {
@@ -951,6 +974,11 @@ table {
     .block .columns {
         margin-left: 4%;
     }
+}
+@media (min-width: 768px) {
+   .boostjuice-search img{
+       margin-top:5%;
+   }
 }
 @media (min-width: 961px) {
     .store-list .button, .store-list .button:hover, .store-list .button:focus {

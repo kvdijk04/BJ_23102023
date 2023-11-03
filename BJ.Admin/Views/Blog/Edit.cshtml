@@ -65,7 +65,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên blog</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên blog" value="@Model.UpdateBlogTranslation.Title" asp-for="@Model.UpdateBlogTranslation.Title">
+                        <input type="text" class="form-control" id="catName" placeholder="Tên blog" value="@Model.UpdateBlogTranslation.Title" asp-for="@Model.UpdateBlogTranslation.Title" required>
                     </div>
                     @if (Model.UpdateBlog.Active == true)
                     {
@@ -164,11 +164,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.UpdateBlogTranslation.MetaDesc" value="@Model.UpdateBlogTranslation.MetaDesc">
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.UpdateBlogTranslation.MetaDesc" value="@Model.UpdateBlogTranslation.MetaDesc" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.UpdateBlogTranslation.MetaKey" value="@Model.UpdateBlogTranslation.MetaKey">
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.UpdateBlogTranslation.MetaKey" value="@Model.UpdateBlogTranslation.MetaKey" required>
                     </div>
                 </div>
             </div>
@@ -184,26 +184,48 @@
     <script>
 
         $('#shortDescription').summernote({
-            placeholder: 'Hello stand alone ui',
-            tabsize: 2,
-            height: 120,
+            placeholder: 'Mô tả ngắn',
 
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
             fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
                 'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
                 'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
-            fontSizeUnits: ['px', 'pt'],
-            lineHeights: ['0.2', '0.3', '0.4', '0.5', '0.6', '0.8', '1.0', '1.2', '1.4', '1.5', '2.0', '3.0'],
-
-
+            tabsize: 2,
+            height: 120,
         });
         $('#Description').summernote({
-            placeholder: 'Hello stand alone ui',
-            tabsize: 2,
-            height: 120,
+            placeholder: 'Mô tả',
 
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
             fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
                 'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
                 'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+            tabsize: 2,
+            height: 120,
         });
     </script>
     <script>

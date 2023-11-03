@@ -9,6 +9,8 @@ namespace BJ.Contract.SubCategory
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public bool Active { get; set; }
+        public string Code { get; set; }
+
         public DateTime? DateUpdated { get; set; }
         public IFormFile Image { get; set; }
         public DateTime? DateCreated { get; set; }

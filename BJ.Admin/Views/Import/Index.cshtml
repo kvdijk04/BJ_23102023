@@ -1,0 +1,99 @@
+﻿@using BJ.Contract;
+@{
+    ViewData["Title"] = "Tạo mới quyền";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model ImportResponse
+
+@section Styles{
+    <style>
+        .input-group input {
+            margin: 10px;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Load dữ liệu</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <form asp-controller="Import" asp-action="Import" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    
+                    <div class="card-body">
+                        <h3>Lựa chọn dữ liệu để load</h3>
+                        <div class="form-group" id="filevideo">
+                            <label class="font-weight-semibold" for="productName">File Excel</label>
+                            <div class="input-group">
+                                <input type="file" id="exampleInputFile" name="formFile" asp-for="@Model.File">
+                            </div>
+                            <span asp-validation-for="@Model.File" class="text-danger">@TempData["fileError"]</span>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="checkbox" id="checkAll" class="checkAll"> Tất cả
+
+                                </div>
+                                <div class="input-group">
+                                    <input type="checkbox" name="category" value="true" /> Loại
+
+                                </div>
+                                <div class="input-group">
+                                    <input type="checkbox" name="subCategory" value="true" /> Danh mục con<br />
+
+                                </div>
+                                <div class="input-group">
+                                    <input type="checkbox" name="size" value="true" /> Size <br />
+
+                                </div>
+                                <div class="input-group">
+                                    <input type="checkbox" name="product" value="true" /> Sản phẩm
+
+                                </div>
+                                <div class="input-group">
+                                    <input type="checkbox" name="blog" value="true" /> Blog <br />
+
+                                </div>
+                                <div class="input-group">
+                                    <input type="checkbox" name="news" value="true" /> Tin tức <br />
+
+                                </div>
+                                
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="/quyen.html" class="btn btn-danger">Cancel</a>
+                <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+            </div>
+        </div>
+    </form>
+
+</section>
+@section Scripts{
+    <script>
+        $("#checkAll").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    </script>
+
+}

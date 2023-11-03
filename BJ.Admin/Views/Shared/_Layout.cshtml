@@ -94,6 +94,29 @@
                                 <span class="title">Blog</span>
 
                             </a>
+                            <a class="dropdown-toggle" href="/tat-ca-tin-tuc.html">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-tags"></i>
+                                </span>
+                                <span class="title">Tin tức</span>
+
+                            </a>
+                            <a class="dropdown-toggle" href="/load-file-excel.hmtl">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-file-excel"></i>
+                                </span>
+                                <span class="title">Import File</span>
+
+                            </a>
+                            
+                            <a class="dropdown-toggle" id="logout" style="cursor:pointer">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-logout"></i>
+                                </span>
+                                <span class="title">Đăng xuất</span>
+
+                            </a>
+
                         </li>
                     </ul>
                 </div>
@@ -123,6 +146,27 @@
 
     <!-- Core JS -->
     <script src="~/assets/js/app.min.js"></script>
+     <script>
+        $("#logout").on("click", function () {
+            $.ajax({
+                url: '/dang-xuat.html',
+                type: "post",
+                async: true,
+                success: function (results) {
+                    if (results == "done") {
+                                window.location.href = "/dang-nhap.html";
+
+                    }
+
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+       
+    </Script>
+        @await Component.InvokeAsync("Notyf") 
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

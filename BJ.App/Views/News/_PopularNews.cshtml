@@ -1,0 +1,35 @@
+﻿@model IEnumerable<NewsUserViewModel>
+@using BJ.Contract.ViewModel;
+@using Microsoft.Extensions.Configuration
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@inject IConfiguration Configuration
+@{
+    Layout = null;
+}
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@if (Model.Count() > 0 && Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="four columns">
+                <a href="/@ViewBag.Culture/@ViewBag.NewsUrl/@item.Id/@item.Alias"><img src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" title="@item.Title" class="blog-cover"></a>
+            </div>
+            <div class="eight columns">
+                <h3><a href="/@ViewBag.Culture/@ViewBag.NewsUrl/@item.Id/@item.Alias">@item.Title</a></h3>
+                @if (item.DateCreated != null)
+                {
+                    <p>@item.DateCreated.Value.ToString("dd MMMM yyyy",CultureInfo.CreateSpecificCulture("en-US"))</p>
+
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+@*     <p><localize>There are no popular news yet</localize></p>
+ *@
+}

@@ -1,0 +1,264 @@
+﻿.boost-home .sub-navi li a, .is-fixed .sub-navi li a {
+    color: #fff;
+}
+
+.is-fixed .sub-navi li a {
+    color: #846042;
+}
+
+.bg-image {
+    background-image: url('../../images/boy-combi-desktop-1.jpg');
+}
+
+@media (max-width: 1440px) {
+    .bg-image {
+        background-image: url('../../images/boy-combi-desktop-small-2.jpg');
+    }
+}
+
+@media (max-width: 1024px) {
+    .bg-image {
+        background-image: url('../../images/boy-combi-tablet-1.jpg');
+    }
+}
+
+@media (max-width: 660px) {
+    .bg-image {
+        background-image: url('../../images/boy-combi-mobile.jpg');
+    }
+}
+
+.boost-store-finder {
+    max-width: 1440px;
+    margin: 0px auto;
+}
+
+.boost-nav-trigger span::before {
+    background-color: #846042;
+}
+
+#boost-stores {
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+#boostjuice-result-list {
+    float: left;
+    width: 49.5%;
+    margin-right: 0.5%;
+}
+
+.boostjuice-gmap-wrap {
+    position: relative;
+}
+
+#boostjuice-gmap {
+    float: left;
+    width: 50%;
+}
+
+
+#map {
+    height: 100%;
+}
+
+#boostjuice-result-list li.boostjuice-preloader {
+    border-bottom: none
+}
+
+#boost-store-locator {
+    position: relative;
+    overflow: hidden;
+    min-width: 100%;
+    float: left;
+    margin-top: -60px
+}
+
+    #boost-store-locator.hide-stores {
+        height: 500px
+    }
+
+        #boost-store-locator.hide-stores #boost-stores {
+            visibility: hidden
+        }
+
+
+
+.store-list h2 {
+    color: #79C339;
+    margin-bottom: 20px;
+    font-weight: 600
+}
+
+.store-list h3 {
+    margin: 0px 0px 10px 0px;
+    font-size: inherit;
+    font-weight: 600;
+    color: inherit
+}
+
+    .store-list h3 em {
+        color: #79C339;
+        margin-left: 45px;
+        font-style: normal;
+        float: right
+    }
+
+.store-list em {
+    color: #a4a4a4;
+    font-style: normal
+}
+
+.store-list h4 {
+    font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+    font-style: italic;
+    margin: 0;
+    font-weight: 400;
+    margin: 25px 0px 15px;
+    color: #a4a4a4;
+    font-size: 18px
+}
+
+.store-list span {
+    display: block;
+    margin: 0 0 5px
+}
+
+.store-list div {
+    max-height: 0;
+    margin-bottom: 30px;
+    overflow: hidden;
+    -webkit-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s
+}
+
+    .store-list div.show {
+        max-height: 360px
+    }
+
+    .store-list div > em {
+        font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+        font-style: italic;
+        clear: both;
+        float: none;
+        display: block;
+        padding: 5px
+    }
+
+.store-list ul li em {
+    font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+    font-style: italic;
+    display: inline-block;
+    min-width: 60px
+}
+
+.store-list div span {
+    background-color: #eee;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 0 0 0 -5px;
+    padding: 0 5px
+}
+
+.boostjuice-store-details.boostjuice-store-listing {
+    position: relative;
+    padding-right: 20px
+}
+
+    .boostjuice-store-details.boostjuice-store-listing:before, .boostjuice-store-details.boostjuice-store-listing.boostjuice-active-details:before {
+        position: absolute;
+        content: '';
+        bottom: 6px;
+        right: 0;
+        border-top: 5px solid #000000;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent
+    }
+
+    .boostjuice-store-details.boostjuice-store-listing.boostjuice-active-details:before {
+        border-bottom: 5px solid #000000;
+        border-top: none;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent
+    }
+
+#boostjuice-result-list a {
+    outline: none;
+}
+
+button, .button {
+    margin-bottom: 1rem;
+}
+
+table.wpsl-opening-hours td {
+    vertical-align: top;
+    padding: 0 15px 0 0;
+    text-align: left;
+}
+
+#boost-stores-loading {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.85);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.boost-store-finder .preloader {
+    -webkit-transform: skewY(1deg);
+    transform: skewY(1deg);
+    margin-top: -15px;
+}
+
+.boost-main-content .preloader {
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.boost-store-finder .preloader .spinner {
+    -webkit-transform: skewY(-1deg);
+    transform: skewY(-1deg);
+}
+
+.spinner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #67b94c;
+    opacity: 0.6;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%, 100% {
+        -webkit-transform: scale(0)
+    }
+
+    50% {
+        -webkit-transform: scale(1)
+    }
+}

@@ -1,0 +1,78 @@
+﻿@model NewsTranslationDto;
+@using BJ.Contract.Translation.News;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="page-header">
+    <h2 class="header-title">Chi tiết tin tức</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-tin-tuc.html " class="breadcrumb-item">Tất cả tin tức</a>
+            <a href="/chi-tiet-tin-tuc/@ViewBag.Id" class="breadcrumb-item">@Model.Title</a>
+            <a href="#" class="breadcrumb-item">Ngôn ngữ</a>
+            <span class="breadcrumb-item active">Chi tiết ngôn ngữ</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="m-b-15">
+            <button class="btn btn-warning" onclick="location.href='/chi-tiet-tin-tuc/@ViewBag.Id/ngon-ngu/@ViewBag.LanguageId/cap-nhat'" type="button">
+                <i class="anticon anticon-edit"></i>
+                <span>Cập nhật</span>
+            </button>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-overview">Tổng quan</a>
+        </li>
+
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-overview">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td class="text-dark font-weight-semibold">@Model.Title</td>
+                                </tr>
+                                <tr>
+                                    <td>Mô tả ngắn:</td>
+                                    <td>	@Html.Raw(Model.ShortDesc)</td>
+                                </tr>
+                                <tr>
+                                    <td>Mô tả:</td>
+                                    <td>	@Html.Raw(Model.Description)</td>
+                                </tr>
+                                <tr>
+                                    <td>MetaDesc:</td>
+                                    <td>	@Model.MetaDesc</td>
+                                </tr>
+                                <tr>
+                                    <td>Metakey:</td>
+                                    <td>	@Model.MetaKey</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

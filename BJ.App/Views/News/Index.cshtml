@@ -1,123 +1,91 @@
-﻿@section Styles {
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@using BJ.Contract.ViewModel;
+@model IEnumerable<NewsUserViewModel>
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/new.css">
 
+}
+@{
+    ViewBag.Title = "News";
 }
 <div class="boost-main-content">
     <div class="main-fold-angle banner-news"></div>
     <div class="container">
         <div class="row">
             <div id="blog-posts" class="eight columns">
+                @if (Model != null && Model.Count() > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="row" style="display: block;">
+                            <h2>@item.Title</h2>
+                            @if (item.DateCreated != null)
+                            {
 
-                <div class="row" style="display: block;">
-                    <h2>POSE BOOST NGAY – 10 TRIỆU VỀ LIỀN TAY</h2><div class="date">10 October 2023</div><a href="https://www.boostjuice.vn/news/pose-boost-ngay-10-trieu-ve-lien-tay/"><img src="https://www.boostjuice.vn/app/uploads/2023/10/selfie.png" title="POSE BOOST NGAY – 10 TRIỆU VỀ LIỀN TAY" alt="POSE BOOST NGAY – 10 TRIỆU VỀ LIỀN TAY" class="blog-cover"></a><p>
-                        🥰Thử thách sáng tạo vui Halloween là thử thách sáng tạo ra 1 video/album hình ảnh có chủ đề Halloween do Boost Juice Việt Nam tổ chức trên nền tảng TikTok, dành cho cộng đồng khách hàng của Boost nói chung và những người yêu thích ngày hội Halloween nói riêng.<br>
-                        🕺Người chiến thắng chung cuộc sẽ nhận ngay giải thưởng tiền mặt 10.000.000 VND và 1 voucher 1 tháng sử dụng Boost miễn phí nếu sở hữu một clip làm chấn động cộng đồng Tiktok bằng cách đáp ứng đủ những thể lệ dưới đây<br>
-                    </p><a href="https://www.boostjuice.vn/news/pose-boost-ngay-10-trieu-ve-lien-tay/"><localize>Read more</localize></a>
-                </div><div class="row" style="display: block;"><h2>Boost Juice gửi tặng 500 hũ kem ngọt ngào cho các Bé Bi nhân ngày Trăng Rằm</h2><div class="date">02 October 2023</div><a href="https://www.boostjuice.vn/news/boost-juice-gui-tang-500-hu-kem-ngot-ngao-cho-cac-be-bi-nhan-ngay-trang-ram/"><img src="https://www.boostjuice.vn/app/uploads/2023/10/z4738500699427-7dad7e821131728968d9e77bb165547c.jpg" title="Boost Juice gửi tặng 500 hũ kem ngọt ngào cho các Bé Bi nhân ngày Trăng Rằm" alt="Boost Juice gửi tặng 500 hũ kem ngọt ngào cho các Bé Bi nhân ngày Trăng Rằm" class="blog-cover"></a><p>😍Không khí của sự kiện “Trẩy Hội Trăng Rằm - Bé Bi Pose Dáng” trong ngày hội Trung Thu tại tất cả cửa hàng Boost đã diễn ra vô cùng náo nhiệt và sôi nổi. Tuy Trung Thu đã kết thúc, nhưng sức nóng của lễ hội vẫn còn lan tỏa mạnh mẽ và chưa có dấu hiệu hạ nhiệt 🌡🔥.</p><a href="https://www.boostjuice.vn/news/boost-juice-gui-tang-500-hu-kem-ngot-ngao-cho-cac-be-bi-nhan-ngay-trang-ram/"><localize>Read more</localize></a></div><div class="row" style="display: block;"><h2>Boost xin chúc mừng Saigon Heat vô địch lần thứ 4 liên tiếp tại giải VBA 2023</h2><div class="date">02 October 2023</div><a href="https://www.boostjuice.vn/news/boost-xin-chuc-mung-saigon-heat-vo-dich-lan-thu-4-lien-tiep-tai-giai-vba-2023/"><img src="https://www.boostjuice.vn/app/uploads/2023/10/383162425-700228852139865-6942876954261193176-n.jpg" title="Boost xin chúc mừng Saigon Heat vô địch lần thứ 4 liên tiếp tại giải VBA 2023" alt="Boost xin chúc mừng Saigon Heat vô địch lần thứ 4 liên tiếp tại giải VBA 2023" class="blog-cover"></a><p>✨Ông 30 được giương cao chiếc cúp vàng trên sân CIS - nơi được coi là 'thánh địa dễ đến khó về' với mọi đội bóng trong trận đấu nảy lửa tối qua.</p><a href="https://www.boostjuice.vn/news/boost-xin-chuc-mung-saigon-heat-vo-dich-lan-thu-4-lien-tiep-tai-giai-vba-2023/"><localize>Read more</localize></a></div><div class="row" style="display: block;"><h2>💚GRAND OPENING – BOOST LOTTE MALL TÂY HỒ – HÀ NỘI 🧡</h2><div class="date">27 September 2023</div><a href="https://www.boostjuice.vn/news/grand-opening-boost-lotte-mall-tay-ho-ha-noi/"><img src="https://www.boostjuice.vn/app/uploads/2023/09/1-45.jpg" title="💚GRAND OPENING – BOOST LOTTE MALL TÂY HỒ – HÀ NỘI 🧡" alt="💚GRAND OPENING – BOOST LOTTE MALL TÂY HỒ – HÀ NỘI 🧡" class="blog-cover"></a><p>🔥GẦN 1000 khách hàng đã ghé thăm &amp; ủng hộ Boost nhân dịp khai trương chi nhánh đầu tiên của Boost Tại Hà Nội 🔥</p><a href="https://www.boostjuice.vn/news/grand-opening-boost-lotte-mall-tay-ho-ha-noi/"><localize>Read more</localize></a></div>
+                                <div class="date">@item.DateCreated.Value.ToString("dd MMMM yyyy",CultureInfo.CreateSpecificCulture("en-US"))</div>
+
+                            }
+                            <a href="/@culture/@_loc["newsUrl"]/@item.Id/@item.Alias">
+                                <img src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" title="@item.Title" alt="@item.Title" class="blog-cover">
+                            </a>
+                            <p>
+                                @Html.Raw(item.ShortDesc)
+                            </p><a href="/@culture/@_loc["newsUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p><localize>There are no news yet</localize></p>
+
+                }
             </div>
 
             <div class="four columns hide-mobile-small" id="popular-posts">
-                <div class="row">
-                    <div class="four columns">
-                        <a href="http://www.boostjuice.vn/boost-va-than-tuong/"><img src="https://www.boostjuice.vn/app/themes/boostjuice/dist/img/celebs-and-boost.png" title="Người nổi tiếng và Boost" alt="Người nổi tiếng và Boost" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="http://www.boostjuice.vn/boost-va-than-tuong/">Người nổi tiếng và Boost</a></h3>
-                        <p>Look who we’ve spotted dropping into Boost!</p>
-                    </div>
-                </div>
-                <h2><localize>Popular posts</localize></h2>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/pose-boost-ngay-10-trieu-ve-lien-tay/"><img src="https://www.boostjuice.vn/app/uploads/2023/10/selfie.png" title="POSE BOOST NGAY – 10 TRIỆU VỀ LIỀN TAY" alt="POSE BOOST NGAY – 10 TRIỆU VỀ LIỀN TAY" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/pose-boost-ngay-10-trieu-ve-lien-tay/">POSE BOOST NGAY – 10 TRIỆU VỀ LIỀN TAY</a></h3>
-                        <p>10 October 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/boost-juice-gui-tang-500-hu-kem-ngot-ngao-cho-cac-be-bi-nhan-ngay-trang-ram/"><img src="https://www.boostjuice.vn/app/uploads/2023/10/z4738500699427-7dad7e821131728968d9e77bb165547c.jpg" title="Boost Juice gửi tặng 500 hũ kem ngọt ngào cho các Bé Bi nhân ngày Trăng Rằm" alt="Boost Juice gửi tặng 500 hũ kem ngọt ngào cho các Bé Bi nhân ngày Trăng Rằm" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/boost-juice-gui-tang-500-hu-kem-ngot-ngao-cho-cac-be-bi-nhan-ngay-trang-ram/">Boost Juice gửi tặng 500 hũ kem ngọt ngào cho các Bé Bi nhân ngày Trăng Rằm</a></h3>
-                        <p>02 October 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/boost-xin-chuc-mung-saigon-heat-vo-dich-lan-thu-4-lien-tiep-tai-giai-vba-2023/"><img src="https://www.boostjuice.vn/app/uploads/2023/10/383162425-700228852139865-6942876954261193176-n.jpg" title="Boost xin chúc mừng Saigon Heat vô địch lần thứ 4 liên tiếp tại giải VBA 2023" alt="Boost xin chúc mừng Saigon Heat vô địch lần thứ 4 liên tiếp tại giải VBA 2023" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/boost-xin-chuc-mung-saigon-heat-vo-dich-lan-thu-4-lien-tiep-tai-giai-vba-2023/">Boost xin chúc mừng Saigon Heat vô địch lần thứ 4 liên tiếp tại giải VBA 2023</a></h3>
-                        <p>02 October 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/grand-opening-boost-lotte-mall-tay-ho-ha-noi/"><img src="https://www.boostjuice.vn/app/uploads/2023/09/1-45.jpg" title="💚GRAND OPENING - BOOST LOTTE MALL TÂY HỒ - HÀ NỘI 🧡" alt="💚GRAND OPENING - BOOST LOTTE MALL TÂY HỒ - HÀ NỘI 🧡" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/grand-opening-boost-lotte-mall-tay-ho-ha-noi/">💚GRAND OPENING - BOOST LOTTE MALL TÂY HỒ - HÀ NỘI 🧡</a></h3>
-                        <p>27 September 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/boost-juice-khai-truong-cua-hang-thu-10-boost-mega-market-quan-2/"><img src="https://www.boostjuice.vn/app/uploads/2023/08/vnh-2536.jpg" title="Boost Juice Khai Trương cửa hàng thứ 10 - Boost Mega Market Quận 2" alt="Boost Juice Khai Trương cửa hàng thứ 10 - Boost Mega Market Quận 2" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/boost-juice-khai-truong-cua-hang-thu-10-boost-mega-market-quan-2/">Boost Juice Khai Trương cửa hàng thứ 10 - Boost Mega Market Quận 2</a></h3>
-                        <p>30 August 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/su-kien-well-being-fair-rmit-x-boost-juice-ket-noi-hanh-phuc-va-suc-khoe-den-cong-dong/"><img src="https://www.boostjuice.vn/app/uploads/2023/08/366513532-670260271803390-6806309432079304829-n.jpg" title="Sự kiện Well Being Fair RMIT x Boost Juice kết nối hạnh phúc và sức khỏe đến cộng đồng" alt="Sự kiện Well Being Fair RMIT x Boost Juice kết nối hạnh phúc và sức khỏe đến cộng đồng" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/su-kien-well-being-fair-rmit-x-boost-juice-ket-noi-hanh-phuc-va-suc-khoe-den-cong-dong/">Sự kiện Well Being Fair RMIT x Boost Juice kết nối hạnh phúc và sức khỏe đến cộng đồng</a></h3>
-                        <p>10 August 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/nu-cuoi-cung-thuc-uong-tuoi-mat-tu-boost-juice-lam-nong-bau-khong-khi-tai-aisvn-family-gathering-2023/"><img src="https://www.boostjuice.vn/app/uploads/2023/08/boost-201.jpg" title="Nụ Cười Cùng Thức Uống Tươi Mát Từ Boost Juice Làm Nóng Bầu Không Khí Tại AISVN Family Gathering 2023" alt="Nụ Cười Cùng Thức Uống Tươi Mát Từ Boost Juice Làm Nóng Bầu Không Khí Tại AISVN Family Gathering 2023" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/nu-cuoi-cung-thuc-uong-tuoi-mat-tu-boost-juice-lam-nong-bau-khong-khi-tai-aisvn-family-gathering-2023/">Nụ Cười Cùng Thức Uống Tươi Mát Từ Boost Juice Làm Nóng Bầu Không Khí Tại AISVN Family Gathering 2023</a></h3>
-                        <p>08 August 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/boost-juice-dua-huong-vi-song-dong-toi-nguoi-dan-thu-do/"><img src="https://www.boostjuice.vn/app/uploads/2023/08/dsc00458.jpg" title="Boost Juice Đưa Hương Vị Sống Động Tới Người Dân Thủ Đô" alt="Boost Juice Đưa Hương Vị Sống Động Tới Người Dân Thủ Đô" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/boost-juice-dua-huong-vi-song-dong-toi-nguoi-dan-thu-do/">Boost Juice Đưa Hương Vị Sống Động Tới Người Dân Thủ Đô</a></h3>
-                        <p>01 August 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/3302/"><img src="https://www.boostjuice.vn/app/uploads/2023/07/photo-1-168644948789936647950.jpg" title="Trà mãng cầu, gỏi gà măng cụt: Xu hướng rồi sẽ qua đi nhưng điều gì còn đọng lại?" alt="Trà mãng cầu, gỏi gà măng cụt: Xu hướng rồi sẽ qua đi nhưng điều gì còn đọng lại?" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/3302/">Trà mãng cầu, gỏi gà măng cụt: Xu hướng rồi sẽ qua đi nhưng điều gì còn đọng lại?</a></h3>
-                        <p>14 July 2023</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        <a href="https://www.boostjuice.vn/news/the-garden-mall-grand-opening-27-04-2019/"><img src="https://www.boostjuice.vn/app/uploads/2019/05/58755074-384664758808373-3266555282691457024-o.jpg" title="THE GARDEN MALL – GRAND OPENING 27/04/2019" alt="THE GARDEN MALL – GRAND OPENING 27/04/2019" class="blog-cover"></a>
-                    </div>
-                    <div class="eight columns">
-                        <h3><a href="https://www.boostjuice.vn/news/the-garden-mall-grand-opening-27-04-2019/">THE GARDEN MALL – GRAND OPENING 27/04/2019</a></h3>
-                        <p>17 May 2019</p>
-                    </div>
-                </div>
+                <h2><localize>Popular</localize></h2>
+                
             </div>
         </div>
     </div>
 </div>
+<script>
+    var culture = $(location).attr('pathname');
+
+    culture.indexOf(1);
+
+    culture.toLowerCase();
+
+    culture = culture.split("/")[1];
+
+    var newsUrl = $(location).attr('pathname');
+
+    newsUrl.indexOf(1);
+
+    newsUrl.toLowerCase();
+
+    newsUrl = newsUrl.split("/")[2];
+
+    $.ajax({
+        url: '/news/popular',
+        datatype: "json",
+        type: "get",
+        data: { popular: true, culture: culture, newsUrl: newsUrl },
+
+        async: true,
+        success: function (results) {
+            jQuery("#popular-posts").fadeOut(100, function () {
+                $("#popular-posts").append(results);
+            }).fadeIn(300);
+
+
+        },
+        error: function (xhr) {
+            alert('error');
+        }
+    });
+</script>

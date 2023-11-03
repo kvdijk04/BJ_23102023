@@ -47,6 +47,17 @@ namespace BJ.Application.Service
 
         public async Task<PagedViewModel<SizeDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
         {
+            //long ticks = DateTime.Now.Ticks;
+            //byte[] bytes = BitConverter.GetBytes(ticks);
+            //string id = Convert.ToBase64String(bytes);
+            //var a = id.Replace('+', '_');
+            //var b = a.Replace('/', '-');
+            //var c = b.TrimEnd('=');
+
+
+            //Console.WriteLine(id);
+
+
             if (getListPagingRequest.PageSize == 0)
             {
                 getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSize:Size"));
@@ -99,7 +110,7 @@ namespace BJ.Application.Service
 
         public async Task<IEnumerable<SizeDto>> GetSizes()
         {
-            var size = await _context.Sizes.Include(x => x.SizeSpecificProducts).OrderByDescending(x => x.Created).AsNoTracking().ToListAsync();
+            var size = await _context.Sizes.Include(x => x.SizeSpecificProducts).Where(x => x.Active == true).OrderByDescending(x => x.Created).AsNoTracking().ToListAsync();
             var sizeDto = _mapper.Map<List<SizeDto>>(size);
             return sizeDto;
         }

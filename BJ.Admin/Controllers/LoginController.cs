@@ -1,4 +1,5 @@
-﻿using BJ.ApiConnection.Services;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BJ.ApiConnection.Services;
 using BJ.Contract.Account;
 using BJ.Contract.Config;
 using Microsoft.AspNetCore.Authentication;
@@ -15,11 +16,14 @@ namespace BJ.Admin.Controllers
         private readonly ILogger<LoginController> _logger;
         private readonly AppSetting _appSettings;
         private readonly ILoginServiceConnection _loginService;
-        public LoginController(ILogger<LoginController> logger, ILoginServiceConnection loginService, IOptionsMonitor<AppSetting> optionsMonitor)
+        private readonly INotyfService _notyf;
+
+        public LoginController(ILogger<LoginController> logger, ILoginServiceConnection loginService, IOptionsMonitor<AppSetting> optionsMonitor, INotyfService notyf)
         {
             _logger = logger;
             _appSettings = optionsMonitor.CurrentValue;
             _loginService = loginService;
+            _notyf = notyf;
 
         }
         [AllowAnonymous]
@@ -37,15 +41,16 @@ namespace BJ.Admin.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginAccount(LoginDto loginDto)
+        public async Task<IActionResult> LoginAccount(LoginDto loginDto, string returnUrl = null)
         {
 
             if (!ModelState.IsValid) return View(ModelState);
 
 
             var token = await _loginService.Login(loginDto);
-            if (token == "Tài khoản không đúng")
+            if (token == "" || token == null)
             {
+                TempData["Error"] = "Tài khoản không đúng";
                 return Redirect("/dang-nhap.html");
             }
             var claim = new List<Claim>
@@ -60,10 +65,32 @@ namespace BJ.Admin.Controllers
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, props).Wait();
             HttpContext.Session.SetString("Token", token);
 
-            return RedirectToAction("Index", "Home");
+            _notyf.Success("Đăng nhập thảnh công");
+            return RedirectToLocal(returnUrl);
 
 
 
+        }
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+
+        }
+        [HttpPost]
+        [Route("/dang-xuat.html")]
+        [AllowAnonymous]
+        public async Task<string> LogOutAccount()
+        {
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("Token");
+
+            string result = "done";
+
+            return result;
         }
     }
 }

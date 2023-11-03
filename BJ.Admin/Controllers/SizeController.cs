@@ -1,4 +1,5 @@
-﻿using BJ.ApiConnection.Services;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.Size;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace BJ.Admin.Controllers
     {
         private readonly ILogger<SizeController> _logger;
         private readonly ISizeServiceConnection _sizeServiceConnection;
-        public SizeController(ILogger<SizeController> logger, ISizeServiceConnection sizeServiceConnection)
+        private readonly INotyfService _notyfService;
+        public SizeController(ILogger<SizeController> logger, ISizeServiceConnection sizeServiceConnection, INotyfService notyfService)
         {
             _logger = logger;
             _sizeServiceConnection = sizeServiceConnection;
+            _notyfService = notyfService;
         }
         [Route("/tat-ca-size.html")]
         [HttpGet]
@@ -20,12 +23,12 @@ namespace BJ.Admin.Controllers
         {
             if (keyword != null) ViewBag.Keyword = keyword;
 
-            //var token = HttpContext.Session.GetString("Token");
+            var token = HttpContext.Session.GetString("Token");
 
-            //if (token == null)
-            //{
-            //    return Redirect("/dang-nhap.html");
-            //}
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var request = new GetListPagingRequest()
             {
                 Keyword = keyword,
@@ -41,6 +44,13 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
+
             var r = await _sizeServiceConnection.GetSizeById(id);
             return View(r);
         }
@@ -48,6 +58,13 @@ namespace BJ.Admin.Controllers
         [Route("/tao-moi-size.html")]
         public IActionResult Create()
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
+
             return View();
         }
         [HttpPost]
@@ -56,13 +73,27 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> Create(CreateSizeDto createSizeDto)
         {
             var a = await _sizeServiceConnection.CreateSize(createSizeDto);
-
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
             return Redirect("/tao-moi-size.html");
         }
         [HttpGet]
         [Route("/cap-nhat-size/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
+
             var item = await _sizeServiceConnection.GetSizeById(id);
             UpdateSizeDto updateSizeDto = new()
             {
@@ -80,7 +111,14 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> Edit(int id, UpdateSizeDto updateSizeDto)
         {
             var a = await _sizeServiceConnection.UpdateSize(id, updateSizeDto);
-
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/tat-ca-size.html");
         }
     }

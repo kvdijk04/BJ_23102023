@@ -1,4 +1,5 @@
-﻿using BJ.ApiConnection.Services;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
@@ -15,8 +16,8 @@ namespace BJ.Admin.Controllers
         private readonly ISubCategoryServiceConnection _subCategoryService;
         private readonly ICategoryServiceConnection _categoryService;
         private readonly ILanguageServiceConnection _languageServiceConnection;
-
-        public ProductController(ILogger<ProductController> logger, IProductServiceConnection productService, ISizeServiceConnection sizeService, ISubCategoryServiceConnection subCategoryService, ICategoryServiceConnection categoryService, ILanguageServiceConnection languageServiceConnection)
+        private readonly INotyfService _notyfService;
+        public ProductController(ILogger<ProductController> logger, IProductServiceConnection productService, ISizeServiceConnection sizeService, ISubCategoryServiceConnection subCategoryService, ICategoryServiceConnection categoryService, ILanguageServiceConnection languageServiceConnection, INotyfService notyfService)
         {
             _logger = logger;
             _productService = productService;
@@ -24,6 +25,7 @@ namespace BJ.Admin.Controllers
             _subCategoryService = subCategoryService;
             _categoryService = categoryService;
             _languageServiceConnection = languageServiceConnection;
+            _notyfService = notyfService;
 
         }
         [Route("/tat-ca-san-pham.html")]
@@ -58,6 +60,12 @@ namespace BJ.Admin.Controllers
         [Route("/tao-moi-san-pham.html")]
         public async Task<IActionResult> Create()
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var size = await _sizeService.GetAllSizes();
             var cat = await _subCategoryService.GetAllSubCategories();
 
@@ -74,6 +82,12 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
 
             var listCat = await _categoryService.GetAllCategories();
             var subCat = await _subCategoryService.GetAllSubCategories();
@@ -129,7 +143,16 @@ namespace BJ.Admin.Controllers
 
             if (updateProductAdminView.ImageCup == null) { updateProductAdminView.UpdateProductDto.ImagePathCup = result.ImagePathCup; }
 
-            await _productService.UpdateProduct(id, updateProductAdminView);
+            var a = await _productService.UpdateProduct(id, updateProductAdminView);
+
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
 
             return Redirect("/cap-nhat-san-pham/" + id);
         }
@@ -137,6 +160,12 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(Guid id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var r = await _productService.GetProductById(id);
 
             return View(r);
@@ -157,7 +186,16 @@ namespace BJ.Admin.Controllers
 
             ViewBag.SizeDtos = size.ToList();
             ViewBag.SubCategoryDtos = cat.ToList();
-            await _productService.CreateProduct(createProductAdminView);
+            var a = await _productService.CreateProduct(createProductAdminView);
+
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
 
             return View();
         }
@@ -165,6 +203,12 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> LanguageDetail(Guid proId, Guid languageId)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var product = await _productService.GetProductById(proId);
             ViewBag.ProductName = product.ProductName;
             ViewBag.Id = proId;
@@ -176,6 +220,12 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateLanguage(Guid id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var r = await _productService.GetProductById(id);
             var language = await _languageServiceConnection.GetAllLanguages();
             ViewData["Language"] = new SelectList(language, "Id", "Name");
@@ -191,7 +241,17 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> CreateLanguage(Guid id, CreateProductTranslationDto createProductTranslationDto)
         {
             createProductTranslationDto.ProductId = id;
-            await _productService.CreateLanguage(createProductTranslationDto);
+            var a = await _productService.CreateLanguage(createProductTranslationDto);
+
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
+
 
             return Redirect("/chi-tiet-san-pham/" + id);
         }
@@ -200,6 +260,12 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateLanguage(Guid proId, Guid languageId)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var r = await _productService.GetProductTranslationnById(languageId);
             var product = await _productService.GetProductById(proId);
             ViewBag.ProductName = product.ProductName;
@@ -223,8 +289,15 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid proId, Guid languageId, UpdateProductTranslationDto updateProductTranslationDto)
         {
-            await _productService.UpdateProductTranslationn(proId, languageId, updateProductTranslationDto);
-
+            var a = await _productService.UpdateProductTranslationn(proId, languageId, updateProductTranslationDto);
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/chi-tiet-san-pham/" + proId);
         }
     }

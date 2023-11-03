@@ -18,5 +18,8 @@ namespace BJ.Domain.Entities
         public bool Closed { get; set; }
 
         public bool Repaired { get; set; }
+
+        public string Code { get; set; }
+
     }
 }

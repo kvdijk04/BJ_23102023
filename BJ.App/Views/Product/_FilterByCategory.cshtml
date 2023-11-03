@@ -48,8 +48,8 @@ else
 {
     <section id="hints" style="display: block;">
         <p> <img src="~/images/title_wait.png"> </p>
-        <h3>You want all that in a cup?</h3>
-        <p>That’s a serious mix of ingredients. You’re either messing with us, or you’ve got some weird taste buds. I mean, we like weird. In fact, we embrace it, but what you’re wanting just straight up doesn’t exist. </p>
+        <h3><localize>You want find drinks in this category?</localize></h3>
+        <p><localize>There are no drinks in this category. Please come back later.</localize></p>
         <ul>
             <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li>
             <li class="filter2"><img src="~/images/hint-2.png">Chocolate</li>
@@ -82,7 +82,7 @@ else
 
         if ($(this).attr("clicked") == "false") {
 
-            $(".drink-block .og-expander:eq( " + e + " )").css("height", "1140px");
+            $(".drink-block .og-expander:eq( " + e + " )").css("height", "1140");
             $(".drink-block:eq( " + e + " )").css("height", "1530");
             $(".drink-block:eq( " + e + " )").addClass(" og-expanded");
             $(".drink-block .grid_item:eq( " + e + " )").attr("clicked", "true");

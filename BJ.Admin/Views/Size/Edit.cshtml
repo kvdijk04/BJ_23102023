@@ -55,7 +55,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên size</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên size" value="@Model.Name" asp-for="@Model.Name">
+                        <input type="text" class="form-control" id="catName" placeholder="Tên size" value="@Model.Name" asp-for="@Model.Name" required>
                     </div>
                     @if (Model.Active == true)
                     {
@@ -79,7 +79,7 @@
                     }
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Giá tiền</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Giá tiền" value="@Model.Price" asp-for="@Model.Price">
+                        <input type="text" class="form-control" id="catName" placeholder="Giá tiền" value="@Model.Price" asp-for="@Model.Price" required>
                     </div>
 
                 </div>

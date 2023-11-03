@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification;
 using BJ.ApiConnection.Services;
 using BJ.App.LocalizationResources;
 using LazZiya.ExpressLocalization;
@@ -57,9 +58,11 @@ builder.Services.AddScoped<ICategoryServiceConnection, CategoryServiceConnection
 builder.Services.AddScoped<ISizeServiceConnection, SizeServiceConnection>();
 builder.Services.AddScoped<IStoreLocationServiceConnection, StoreLocationServiceConnection>();
 builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
+builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 
 
 
@@ -89,5 +92,172 @@ app.UseRequestLocalization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
-
+app.MapControllerRoute(
+    name: "Product List En",
+    pattern: "{culture}/drinks", new
+    {
+        controller = "Product",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Product List Vi",
+    pattern: "{culture}/thuc-uong", new
+    {
+        controller = "Product",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Store List En",
+    pattern: "{culture}/stores", new
+    {
+        controller = "Store",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Store List Vi",
+    pattern: "{culture}/cua-hang", new
+    {
+        controller = "Store",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Wellbeing List En",
+    pattern: "{culture}/wellbeing", new
+    {
+        controller = "Blog",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Wellbeing List Vi",
+    pattern: "{culture}/song-khoe", new
+    {
+        controller = "Blog",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "WellBeing Detail En",
+    pattern: "{culture}/wellbeing/{id}/{Alias}", new
+    {
+        controller = "Blog",
+        action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "Wellbeing Detail Vi",
+    pattern: "{culture}/song-khoe/{id}/{Alias}", new
+    {
+        controller = "Blog",
+        action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "News List En",
+    pattern: "{culture}/news", new
+    {
+        controller = "News",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "News List Vi",
+    pattern: "{culture}/tin-tuc", new
+    {
+        controller = "News",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "News Detail En",
+    pattern: "{culture}/news/{id}/{Alias}", new
+    {
+        controller = "News",
+        action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "News Detail Vi",
+    pattern: "{culture}/tin-tuc/{id}/{Alias}", new
+    {
+        controller = "News",
+        action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "Contact En",
+    pattern: "{culture}/contact", new
+    {
+        controller = "Home",
+        action = "Contact"
+    });
+app.MapControllerRoute(
+    name: "Contact Vi",
+    pattern: "{culture}/lien-he", new
+    {
+        controller = "Home",
+        action = "Contact"
+    });
+app.MapControllerRoute(
+    name: "About En",
+    pattern: "{culture}/about", new
+    {
+        controller = "Home",
+        action = "About"
+    });
+app.MapControllerRoute(
+    name: "About Vi",
+    pattern: "{culture}/ve-boost-juice", new
+    {
+        controller = "Home",
+        action = "About"
+    });
+app.MapControllerRoute(
+    name: "Privacy En",
+    pattern: "{culture}/privacy-policy", new
+    {
+        controller = "Home",
+        action = "Privacy"
+    });
+app.MapControllerRoute(
+    name: "About Vi",
+    pattern: "{culture}/chinh-sach-bao-mat", new
+    {
+        controller = "Home",
+        action = "Privacy"
+    });
+app.MapControllerRoute(
+    name: "UsePolicy En",
+    pattern: "{culture}/acceptable-use-policy", new
+    {
+        controller = "Home",
+        action = "UsePolicy"
+    });
+app.MapControllerRoute(
+    name: "UsePolicy Vi",
+    pattern: "{culture}/chinh-sach-su-dung-duoc-chap-nhan", new
+    {
+        controller = "Home",
+        action = "UsePolicy"
+    });
+app.MapControllerRoute(
+    name: "Delivery En",
+    pattern: "{culture}/delivery-return-policy", new
+    {
+        controller = "Home",
+        action = "Delivery"
+    });
+app.MapControllerRoute(
+    name: "Delivery Vi",
+    pattern: "{culture}/giao-hang-hoan-tra", new
+    {
+        controller = "Home",
+        action = "Delivery"
+    });
+app.MapControllerRoute(
+    name: "TermOfUse En",
+    pattern: "{culture}/terms-of-use", new
+    {
+        controller = "Home",
+        action = "TermOfUse"
+    });
+app.MapControllerRoute(
+    name: "TermOfUse Vi",
+    pattern: "{culture}/dieu-khoan-thoa-thuan", new
+    {
+        controller = "Home",
+        action = "TermOfUse"
+    });
 app.Run();

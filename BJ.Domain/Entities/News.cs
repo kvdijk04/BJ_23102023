@@ -11,6 +11,7 @@
         public bool Popular { get; set; }
 
         public bool Home { get; set; }
+        public string Code { get; set; }
 
         public DateTime? DateCreated { get; set; }
 

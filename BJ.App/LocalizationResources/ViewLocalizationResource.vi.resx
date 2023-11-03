@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/span&gt; For orders exceeding 20 km from the nearest store and/or in the Fresh Juice and Create Your Own Juice ranges, Boost must obtain confirmation from Customer to make an order." xml:space="preserve">
+    <value>&lt;span style="text-decoration: underline;"&gt;&lt;em&gt;Lưu ý:&lt;/em&gt;&lt;/span&gt; Đối với những đơn hàng quá phạm vi  20 km từ cửa hàng gần nhất và/hoặc nằm trong dòng sản phẩm Fresh Juice và Create Your Own Juice, Boost phải có&amp;nbsp; sự đồng ý xác nhận từ Khách hàng để thực hiện đơn hàng.</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="&lt;strong&gt;DELIVERY TIME&lt;br&gt;&lt;/strong&gt;– Boost delivers from&lt;strong&gt; 7.30am to 10.00pm&lt;/strong&gt; during weekdays and weekends (&lt;strong&gt;from Monday to Sunday&lt;/strong&gt;)." xml:space="preserve">
+    <value>&lt;strong&gt;THỜI GIAN GIAO HÀNG&lt;br&gt;&lt;/strong&gt;– Boost thực hiện giao hàng từ&lt;strong&gt; 7h30 đến 22h00&lt;/strong&gt; các ngày trong tuần (&lt;strong&gt;từ Thứ 2 đến Chủ nhật&lt;/strong&gt;).</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="&lt;td width=&quot;150&quot;&gt;&lt;strong&gt;Distance (km)&lt;/strong&gt;&lt;/td&gt;&lt;td width=&quot;150&quot;&gt;&lt;strong&gt;Shipping fee (VND)&lt;/strong&gt;&lt;/td&gt;&lt;td width=&quot;400&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;&lt;/td&gt;" xml:space="preserve">
+    <value>&lt;td width="150"&gt;&lt;strong&gt;Phạm vi (km)&lt;/strong&gt;&lt;/td&gt;&lt;td width="150"&gt;&lt;strong&gt;Phí giao hàng (VND)&lt;/strong&gt;&lt;/td&gt;&lt;td width="400"&gt;&lt;strong&gt;Lưu ý&lt;/strong&gt;&lt;/td&gt;</value>
+    <comment>Home/Delivery</comment>
+  </data>
   <data name="A bit about Australia's favourite juice and smoothie bar" xml:space="preserve">
     <value>Về Thương hiệu Smoothie và Nước ép trái cây&lt;br&gt;
 được ưa chuộng nhất tại Úc.</value>
@@ -129,6 +141,18 @@
   <data name="About Boost Juice" xml:space="preserve">
     <value>Về Boost Juice</value>
     <comment>Layout</comment>
+  </data>
+  <data name="aboutUrl" xml:space="preserve">
+    <value>ve-boost-juice</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="ACCEPTABLE USE POLICY" xml:space="preserve">
+    <value>Chính Sách Sử Dụng Được Chấp Nhận</value>
+    <comment>Home/UsePolicy</comment>
+  </data>
+  <data name="acceptableUsePolicyUrl" xml:space="preserve">
+    <value>chinh-sach-su-dung-duoc-chap-nhan</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide." xml:space="preserve">
     <value>Quay trở lại năm 2000, một người phụ nữ với không kinh nghiệm trong lĩnh vực kinh doanh – nhưng với niềm đam mê vô hạn và sự hỗ trợ từ gia đình – đã mở cửa hàng nước ép trái cây đầu tiên của cô ấy tại Adelaide.</value>
@@ -154,6 +178,14 @@
     <value>Nhưng con đường dẫn đến thành công không dễ dàng như đi lên bằng thang máy. Bạn phải bước lên từng bậc thang một.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="BUY" xml:space="preserve">
+    <value>ĐẶT MUA</value>
+    <comment>Product/SingleProduct</comment>
+  </data>
+  <data name="Certificate of Business Registration No. 0317934150 issued by" xml:space="preserve">
+    <value>Giấy chứng nhận đăng ký kinh doanh số 0317934150 do</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="Choose drink type" xml:space="preserve">
     <value>Chọn dòng sản phẩm</value>
     <comment>Product/Index</comment>
@@ -161,6 +193,30 @@
   <data name="Contact Us" xml:space="preserve">
     <value>Liên hệ</value>
     <comment>Layout</comment>
+  </data>
+  <data name="contactUrl" xml:space="preserve">
+    <value>lien-he</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="DELIVERY &amp;amp; RETURN POLICY" xml:space="preserve">
+    <value>Chính sách Giao hàng  &amp;amp; Đổi trả</value>
+    <comment>_Layout/Footer</comment>
+  </data>
+  <data name="DELIVERY FEE" xml:space="preserve">
+    <value>MỨC PHÍ GIAO HÀNG</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="DELIVERY POLICY" xml:space="preserve">
+    <value>CHÍNH SÁCH GIAO HÀNG</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="deliveryUrl" xml:space="preserve">
+    <value>giao-hang-hoan-tra</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Department of Planning and Investment of Ho Chi Minh City on 14/07/2023." xml:space="preserve">
+    <value>Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 14/07/2023.</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register." xml:space="preserve">
     <value>Bạn có ghét việc chờ đợi? Bạn có thích mọi thứ thực sự nhanh chóng? Bạn đang trở nên thiếu kiên nhẫn chờ đợi khi chúng tôi vẫn chưa đưa ra quan điểm của chúng tôi? Thôi không cần chờ nữa! Khi bạn trở thành thành viên của Vibe, bạn không cần phải chờ xếp hàng nữa khi bạn đặt hàng qua Ứng dụng của chúng tôi! Thành viên Vibe sẽ nhận được rất nhiều quà tặng miễn phí và tất cả những gì bạn phải làm là Đăng ký.</value>
@@ -170,13 +226,25 @@
     <value>Download ngay ứng dụng&lt;br&gt;Boost Juice Vietnam</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="drinkUrl" xml:space="preserve">
+    <value>thuc-uong</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
     <value>Đối mặt với việc cửa hàng nước trái cây mà không thể bán nước trái cây, đội ngũ nhân viên đã phải gấp rút đến cửa hàng bách hoá bán lẻ Myer của Úc để mua những máy ép nội địa. Tất cả đều hư hỏng chỉ sau một ngày sử dụng, nhưng trước khi những thiết bị mới được nhập về, công việc cuối cùng cũng được hoàn thành. Những rào cản là để chúng ta vượt qua.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Find a Boost Juice Store" xml:space="preserve">
+    <value>Tìm cửa hàng Boost Juice</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="Find Us" xml:space="preserve">
     <value>Cửa hàng</value>
     <comment>Layout</comment>
+  </data>
+  <data name="Free shipping" xml:space="preserve">
+    <value>Miễn phí</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="Get yourself&lt;br&gt; a Vibe Card" xml:space="preserve">
     <value>Lấy ngay cho bạn&lt;br&gt;một thẻ VIBE</value>
@@ -186,9 +254,21 @@
     <value>Phát triển Mạnh mẽ</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Home page - Boost Juice" xml:space="preserve">
+    <value>Trang chủ - Boost Juice</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy." xml:space="preserve">
+    <value>Tôi đang cách cửa hàng Boost Juice gần nhất bao xa?&lt;br/&gt;Hãy nhập vị trí của bạn bằng cách sử dụng thanh tìm kiếm nhỏ xinh phía dưới. Rất dễ dàng.</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and &quot;love of life&quot; through spontaneous experiences. at store." xml:space="preserve">
     <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="In case after you have successfully placed an order and want to cancel your order, please contact Boost Juice Vietnam immediately to cancel your order via&lt;span style=&quot;color: #70b046;&quot;&gt;&lt;strong&gt; Our Hotline&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;" xml:space="preserve">
+    <value>Trong trường hợp sau khi bạn đã đặt hàng thành công và muốn huỷ đơn hàng, vui lòng liên hệ ngay với Boost Juice Vietnam để hủy đơn hàng qua &lt;span style="color: #70b046;"&gt;&lt;strong&gt; Tổng Đài&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 500 stores worldwide." xml:space="preserve">
     <value>Đây chính là triết lý đã đưa chúng tôi bay thật cao. Việc xây dựng một trong những thương hiệu được yêu thích nhất tại Úc thật sự là một điều không dễ dàng. Tuy nhiên nhờ vào niềm tin tích cực, lạc quan, sự chăm chỉ và sự giúp đỡ của những con người phi thường, Boost Juice đã có thể ăn mừng ngày khai trương cửa hàng thứ 250 tại Úc và hơn 500 cửa hàng trên toàn thế giới.</value>
@@ -218,9 +298,21 @@
     <value>Tìm hiểu thêm</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="MENU &amp; DELIVERY POLICY" xml:space="preserve">
+    <value>MENU &amp;amp; PHẠM VI GIAO HÀNG</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="Menu - Boost Juice" xml:space="preserve">
+    <value>Thức uống - Boost Juice</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="News" xml:space="preserve">
     <value>Tin tức</value>
     <comment>Layout</comment>
+  </data>
+  <data name="newsUrl" xml:space="preserve">
+    <value>tin-tuc</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream." xml:space="preserve">
     <value>Oh cho những bạn ‘mù công nghệ’ của tôi!
@@ -243,6 +335,14 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>LỰA CHỌN 2</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Orders over 1.000.000 VND, free shipping" xml:space="preserve">
+    <value>Đơn hàng từ 1.000.000 trở lên sẽ miễn phí vận chuyển</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="Orders over 300.000 VND, free shipping" xml:space="preserve">
+    <value>Đơn hàng từ 300.000 trở lên sẽ miễn phí vận chuyển</value>
+    <comment>Home/Delivery</comment>
+  </data>
   <data name="Our Drinks" xml:space="preserve">
     <value>Thức uống</value>
     <comment>Layout</comment>
@@ -251,9 +351,21 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Yêu cuộc sống chính là năng lượng của chúng tôi. Triết lý này truyền cảm hứng vào tất cả mọi việc chúng tôi làm. Và khi chúng tôi liên tục đổi mới và phát triển, không phải vì mục đích thay đổi thế giới, mà là chỉ để làm cho khách hàng của chúng tôi cảm thấy “tốt hơn một chút” mà thôi.</value>
     <comment>Home/About</comment>
   </data>
-  <data name="Popular posts" xml:space="preserve">
+  <data name="Please come back later. Sorry for this inconvenience" xml:space="preserve">
+    <value>Chúng tôi xin lỗi về sự bất tiện này. Mong quý khách vui lòng quay trở lại sau</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Popular" xml:space="preserve">
     <value>Phổ biến</value>
-    <comment>Blog/Index</comment>
+    <comment>Blog/Detail, News/Index, News/Detail</comment>
+  </data>
+  <data name="PRIVACY POLICY" xml:space="preserve">
+    <value>Chính Sách Bảo Mật</value>
+    <comment>Home/Privacy</comment>
+  </data>
+  <data name="privacyPolicyUrl" xml:space="preserve">
+    <value>chinh-sach-bao-mat</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Read more" xml:space="preserve">
     <value>Xem thêm</value>
@@ -263,6 +375,14 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Đăng Ký</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn" xml:space="preserve">
+    <value>Địa chỉ đăng ký: 110-112 Kinh Dương Vương, Phường 13, Quận 6 , Thành phố Hồ Chí Minh, Việt Nam Tel: (84-028) 37858858 | Email: info@boostjuice.com.vn</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="RETURN/EXCHANGE POLICY" xml:space="preserve">
+    <value>CHÍNH SÁCH ĐỔI TRẢ</value>
+    <comment>Home/Delivery</comment>
+  </data>
   <data name="Sign In" xml:space="preserve">
     <value>Đăng Nhập</value>
     <comment>Vibe/Index</comment>
@@ -270,6 +390,22 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="Sometimes, the best way to learn is to jump in at the deep end, and that’s exactly what happened next. Janine and Jeff signed on for 28 leases at Westfield Shopping Centres. It meant a personal liability of over $5 million and a deadline to open every store in just 18 months. Thanks to sheer determination and amazing franchise partners, it happened on time and on budget." xml:space="preserve">
     <value>Đôi khi, cách tốt nhất để học là đẩy bản thân mình đến tận cùng khó khăn. Đó là những gì xảy ra tiếp theo. Janine và Jeff đã kí hợp đồng với chuỗi Trung tâm Mua sắm Westfield để mở thêm 28 cửa hàng tại đây. Điều này đồng nghĩa với một món nợ cá nhân hơn 5 triệu đô và thời hạn phải hoàn thành tất cả các cửa hàng này chỉ vỏn vẹn 18 tháng. Nhờ vào quyết tâm tuyệt đối cùng với những đối tác nhượng quyền tuyệt vời, các cửa hàng đã được hoàn thành đúng thời hạn và nằm trong ngân sách.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Stores" xml:space="preserve">
+    <value>Cửa hàng</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="storeUrl" xml:space="preserve">
+    <value>cua-hang</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="termOfUseUrl" xml:space="preserve">
+    <value>dieu-khoan-thoa-thuan</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="TERMS OF USE" xml:space="preserve">
+    <value>Điều Khoản Thoả Thuận</value>
+    <comment>Home/TermOfUse</comment>
   </data>
   <data name="The Boost Juice Story" xml:space="preserve">
     <value>Câu chuyện Boost Juice</value>
@@ -287,6 +423,26 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Người phụ nữ thích phiêu lưu mạo hiểm ấy chính là doanh nhân khởi nghiệp người Úc – Bà Janine Allis. Và cửa hàng ấy chính là Boost Juice – một trong những thương hiệu smoothie và nước ép trái cây được ưa thích nhất và nổi tiếng nhất hiện nay của chúng tôi, với 500 cửa hàng tại 13 quốc gia… và đang ngày càng được mở rộng.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="There are currently no products" xml:space="preserve">
+    <value>Hiện tại chưa có sản phẩm nào</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="There are no blogs yet" xml:space="preserve">
+    <value>Hiện tại chưa có bài viết mới nào</value>
+    <comment>Blog/Index</comment>
+  </data>
+  <data name="There are no drinks in this category. Please come back later." xml:space="preserve">
+    <value>Đồ uống bạn tìm kiếm hiện tại chưa có. Vui lòng quay trở lại sau</value>
+    <comment>Product/FilterByCategory</comment>
+  </data>
+  <data name="There are no news yet" xml:space="preserve">
+    <value>Hiện tại chưa có tin tức mới nào</value>
+    <comment>News/Index</comment>
+  </data>
+  <data name="There are no popular news yet" xml:space="preserve">
+    <value>Chưa có bài viết phổ biến nào</value>
+    <comment>News/_PopularNews</comment>
+  </data>
   <data name="They say success is 10% inspiration and 90% perspiration. And who’s going to argue with that? Little did Janine know that her plan to not work a 40-hour week would actually mean working a 100-hour week, with no money coming in for a good three years." xml:space="preserve">
     <value>Người ta nói rằng sự thành công đến từ 10% cảm hứng và 90% nỗ lực bản thân. Và ai có thể không đồng tình với điều này? Ngay cả bản thân Janine cũng không ngờ rằng kế hoạch từ bỏ công việc 40 giờ một tuần giờ đây lại trở thành công việc 100 giờ một tuần, với không một xu mang về trong suốt ba năm liền.</value>
     <comment>Home/About</comment>
@@ -294,6 +450,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app." xml:space="preserve">
     <value>Đây chính là câu lạc bộ tuyệt vời nhất mà bạn đã từng tham gia. Nơi đây còn hào nhoáng hơn cuộc sống của Mariah Carey, với hàng trăm lợi ích tiềm ẩn hơn cả Illuminati và nếu bạn tải xuống ứng dụng BOOST của chúng tôi thì bạn sẽ “ngập” trong vô vàn quà tặng miễn phí và ưu đãi ngọt ngào cho quãng đời còn lại của bạn…. hoặc cho đến khi bạn làm mất thẻ hoặc xóa ứng dụng này.</value>
     <comment>Layout</comment>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>đến</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story." xml:space="preserve">
     <value>Hiện nay, Boost Juice đang là xu hướng của thế giới nên đối với thế giới, Boost Juice không bao giờ là đủ. Sự kết hợp hương vị trái cây tươi, xay và ép thành những thức uống smoothies và nước ép ngon tuyệt là câu chuyện thành công mang dấu ấn rất đặc biệt.</value>
@@ -303,6 +463,14 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Không có gì đáng ngạc nhiên, Boost Juice được bình chọn là một trong những thương hiệu nhượng quyền đáng ngưỡng mộ nhất tại Úc. Janine được vinh danh là giải thưởng Telstra Nữ doanh nhân của năm và, một năm sau đó, vào năm 2005, Boost Juice nhận được giải thưởng American Express Franchisor của năm.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="User current location" xml:space="preserve">
+    <value>Vị trí hiện tại của bạn</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="VAN XUAN FMCG INVESTMENT COMPANY LIMITED" xml:space="preserve">
+    <value>CÔNG TY TNHH THỰC PHẨM VÀ NƯỚC GIẢI KHÁT BOOST JUICE VIỆT NAM</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="View All" xml:space="preserve">
     <value>Xóa lọc</value>
     <comment>Product/Index</comment>
@@ -311,13 +479,29 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Sống khỏe</value>
     <comment>Layout</comment>
   </data>
+  <data name="wellbeingUrl" xml:space="preserve">
+    <value>song-khoe</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="We’re not just here to give customers great tasting smoothies and juices. We want to share our energy, passion and ‘love life’ philosophy, and make sure every customer leaves feeling just that little bit better." xml:space="preserve">
     <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="You want find drinks in this category" xml:space="preserve">
+    <value>Bạn muốn tìm đồ uống thuộc loại này ?</value>
+    <comment>Product/FilterByCategory</comment>
+  </data>
   <data name="Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever." xml:space="preserve">
     <value>Điện thoại của bạn trở nên thông minh hơn! Từ sự tiện lợi của những ngón tay của bạn (hoặc ngón chân nếu bạn thật sự tài năng như thế), bạn có thể đặt hàng ly Boost của bạn từ Ứng dụng và không cần phải đứng xếp hàng chờ đợi. Nếu điều đó không đủ, chúng tôi sẽ cho bạn rất nhiều ưu đãi khi bạn nghĩ rằng chúng tôi sẽ có một đợt siêu giảm giá trước khi đóng cửa! Mà chúng tôi không có. Chúng tôi sẽ ở đây mãi mãi.</value>
     <comment>Vibe/Index</comment>
+  </data>
+  <data name="– For &lt;strong&gt;Fresh Juice&lt;/strong&gt; and &lt;strong&gt;Create Your Own Juice&lt;/strong&gt; ranges, delivery service is not applicable." xml:space="preserve">
+    <value>– Đối với các sản phẩm của dòng &lt;strong&gt;Fresh Juice&lt;/strong&gt; và &lt;strong&gt;Create Your Own Juice&lt;/strong&gt;, Boost không áp dụng hình thức giao hàng.</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="– The delivery address should not exceed&lt;strong&gt; 20 km&lt;/strong&gt; from the nearest store, to ensure Boost’s product quality" xml:space="preserve">
+    <value>– Địa chỉ giao hàng không quá phạm vi &lt;strong&gt; 20 km&lt;/strong&gt; so với cửa hàng gần nhất, để đảm bảo chất lượng sản phẩm của Boost</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="“Boost has a can-do attitude. We don’t believe in the word ‘try’ because that means I’ll give myself permission to not succeed. You don’t try. You just do it.”&#xD;&#xA;Janine Allis“" xml:space="preserve">
     <value>Boost có một quan niệm “can-do attitude” – có thể làm được. Chúng tôi không tin vào từ “thử” bởi vì điều đó đồng nghĩa với việc tôi sẽ cho phép mình không thành công. Bạn đừng thử, bạn hãy cứ làm đi.”

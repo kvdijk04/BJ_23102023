@@ -94,65 +94,71 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Items)
+                        @if (Model.Items != null && Model.Items.Count() > 0)
                         {
-                            <tr>
-                                @* <td>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    @* <td>
                             <div class="checkbox">
                             <input id="check-item-1" type="checkbox">
                             <label for="check-item-1" class="m-b-0"></label>
                             </div>
                             </td> *@
-                                <td>
-                                    @item.Code
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@item.ImageIngredients" style="max-width: 120px" alt="">
-                                    </div>
-                                </td>
-                                <td>@item.ProductName</td>
-                                <td>@item.CategoryName</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        @if (item.BestSeller == true)
-                                        {
-                                            <div class="badge badge-success badge-dot m-r-10"></div>
-                                            <div>Có</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-danger badge-dot m-r-10"></div>
-                                            <div>Không</div>
-                                        }
+                                    <td>
+                                        @item.Code
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@item.ImageIngredients" style="max-width: 120px" alt="">
+                                        </div>
+                                    </td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.CategoryName</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.BestSeller == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Không</div>
+                                            }
 
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        @if (item.Active == true)
-                                        {
-                                            <div class="badge badge-success badge-dot m-r-10"></div>
-                                            <div>Có</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-danger badge-dot m-r-10"></div>
-                                            <div>Khóa</div>
-                                        }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.Active == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Khóa</div>
+                                            }
 
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-san-pham/@item.Id'">
-                                        <i class="anticon anticon-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-san-pham/@item.Id'">
-                                        <i class="anticon anticon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-san-pham/@item.Id'">
+                                            <i class="anticon anticon-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-san-pham/@item.Id'">
+                                            <i class="anticon anticon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+
                         }
+
 
                     </tbody>
                 </table>

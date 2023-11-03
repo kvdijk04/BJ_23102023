@@ -1,5 +1,14 @@
 ﻿@{
+    ViewBag.Title = "Home page - Boost Juice";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using BJ.Contract.ViewModel;
+@model IEnumerable<NewsUserViewModel>
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
 }
 <style>
     .boost-nav-trigger span::before {
@@ -241,13 +250,13 @@
         <div class="container">
             <div class="row">
                 <div class="six columns">
-                    <img src="https://www.boostjuice.vn/app/uploads/2019/02/titles-love-life.png" id="welcome-img">
+                    <img src="~/images/titles-love-life.png" id="welcome-img">
                     <span class="hide-mobile">
-                        <a href="https://www.boostjuice.vn/tim-chung-toi/" class="button"><localize>Juices &amp; Smoothies</localize></a>
+                        <a href="/@culture/@_loc["drinkUrl"]" class="button"><localize>Juices &amp; Smoothies</localize></a>
                         <a href="#boost-store-locator" class="button"><localize>Find Us</localize></a>
                     </span>
                     <span class="hide-desktop">
-                        <a href="https://www.boostjuice.vn/tim-chung-toi/" class="button"><localize>Juices &amp; Smoothies</localize></a>
+                        <a href="/@culture/@_loc["drinkUrl"]" class="button"><localize>Juices &amp; Smoothies</localize></a>
                         <a href="#boost-store-locator" class="button"><localize>Find Us</localize></a>
                     </span>
                 </div>
@@ -259,35 +268,39 @@
     </div>  
     <div class="sub-container">
         <div class="block block-green promo half-angle-container grey">
-            <div class="container">
-                <div class="row">
-                    <div class="six columns">
-                        <h2>𝗟𝗢𝗬𝗔𝗟𝗧𝗬 𝗔𝗪𝗔𝗥𝗗 THÁNG 10 – VUI LỄ HẾT MÌNH, TỰ TIN KHOE DÁNG</h2>
-                        <p></p><h5>👻 Tháng Halloween này, Boost mang đến phần thưởng “chất chơi” đó chính là Combo Thẻ tập gym 1 năm tại hệ thống <span style="color: #000080;"><strong>California Fitness &amp; Yoga Centers Vietnam</strong></span> và 30 ly smoothies miễn phí để bạn uống thỏa thích sau mỗi giờ tập luyện.</h5>
-                        <h5>🎃 Với hệ thống phòng tập hiện đại, trang thiết bị đa dạng, Boost tin rằng món quà sẽ giúp bạn duy trì lối sống khỏe mạnh khi vừa nạp Boost và tập luyện mỗi ngày~</h5>
-                        <h5>✅Các bước “rinh giải” siêu dễ dàng, chỉ cần:</h5>
-                        <h5>➖ Là thành viên của Boost, có phát sinh chi tiêu tại Boost trong tháng 10/2023 sẽ được tham gia rút thăm.</h5>
-                        <h5>➖ Mỗi hoá đơn sẽ được tính là 1 phiếu thăm, không giới hạn số lượng phiếu thăm cho mỗi thành viên (càng nhiều hóa đơn tỉ lệ trúng càng cao).</h5>
-                        <h5>➖ Thời gian áp dụng chương trình từ ngày 1 đến hết ngày 31/10/2023.</h5>
-                        <h5>➖ Đối với khách hàng chưa là thành viên Boost, tải 𝗮𝗽𝗽 𝗕𝗼𝗼𝘀𝘁 𝗝𝘂𝗶𝗰𝗲 𝗩𝗶𝗲𝘁𝗻𝗮𝗺 tại đây 👉 <a href="https://linktr.ee/boostjuicevn"><strong><span style="color: #000080;">https://linktr.ee/boostjuicevn</span></strong></a></h5>
-                        <h5>⏰Thời gian livestream rút thăm trúng thưởng 10:00 AM ngày 4/11/2023, trên fanpage Boost Juice Vietnam.</h5>
-                        <h5>🔥Đặt Boost ngay để có cơ hội trúng Combo siêu “chất” chỉ trong tháng 10 này nha~</h5>
-                        <p></p>
-                        <p><a href="loyalty-award-thang-10-vui-le-het-minh-tu-tin-khoe-dang" class="button" style="margin-bottom:30px"><localize>Learn More</localize></a></p>
-                    </div>
-                    <div class="six columns half-angle"> <img src="https://www.boostjuice.vn/app/uploads/2023/09/banner-loyalty-kv-540x450.png"> </div>
 
-                </div>
+            <div class="container" id="newshomepage">
+                <form asp-action="Index" method="get">
+                    <input name="culture" value="@culture" hidden/>
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <div class="row">
+                                <div class="six columns">
+                                    <h2>@item.Title</h2>
+                                    <p></p>@Html.Raw(item.ShortDesc)
+                                    <p></p>
+                                    <p id="detailBtn"><a href="/@culture/@_loc["newsUrl"]/@item.Id/@item.Alias" class="button" style="margin-bottom:30px"><localize>Learn More</localize></a></p>
+
+                                </div>
+                                <div class="six columns half-angle"><img src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" alt="@item.Title" style="width:100%;height:100%"></div>
+
+                            </div>
+                        }
+                    }
+                </form>
+               
             </div>
         </div>
         <div class="block vibe-bkg">
             <div class="container">
                 <div class="row">
                     <div class="columns text-center">
-                        <img src="~/images/vibe-logo.png">
+                        <img src="~/images/vibe-logo.png" alt="Vibe logo">
                         <p></p><p><localize>This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app.</localize></p>
                         <p></p>
-                        <p><a href="https://www.boostjuice.vn/vibe-vn/" class="button"><localize>Learn More</localize></a></p>
+                        <p><a href="/@culture/vibe.html" class="button"><localize>Learn More</localize></a></p>
                     </div>
                 </div>
             </div>
@@ -303,14 +316,13 @@
                 </div>
                 <div class="boostjuice-search">
 
-                    <img src="~/images/icon-boost-cup.png">
-                    <h2>Tìm cửa hàng Boost Juice</h2>
+                    <img src="~/images/icon-boost-cup.png" alt="Boost juice cup">
+                    <h2><localize>Find a Boost Juice Store</localize></h2>
                     <p></p><p>
-                        Tôi đang cách cửa hàng Boost Juice gần nhất bao xa?<br>
-                        Hãy nhập vị trí của bạn bằng cách sử dụng thanh tìm kiếm nhỏ xinh phía dưới. Rất dễ dàng.
+                        <localize>How close am I to putting a Boost in my belly?<br/>Just search your address using the little search bar thingy below. Easy.</localize>
                     </p>
                     <p></p>
-                    <a id="get-my-location" class="button" style="margin-bottom:30px">Vị trí hiện tại của bạn</a>
+                    <a id="get-my-location" class="button" style="margin-bottom:30px"><localize>User current location</localize></a>
 
                 </div>
                 
@@ -333,9 +345,6 @@
 </div>
 
 
-@* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
- *@
-
 <script>
     
     $('#boostjuice-stores').on('click', '.show-openhours', function () {
@@ -344,267 +353,9 @@
         $('#boostjuice-stores .wpsl-opening-hours').not(':eq("' + e + '")').removeClass("show");
 
     });
-    
+
 </script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTv4Z_nGhpi5GAzj3cDpcRf43HyonXxYA&#038&callback=initMap" async defer></script>
+<script src="~/BoostJuice/js/ggmap_boost.js"></script>
 
-<script>
-
-    let map, infoWindow;
-    let markers = [];
-    let infoWindows = [];
-    const iconBase = "/images/";
-    function distance(lat1, lon1, lat2, lon2, unit) {
-        var radlat1 = Math.PI * lat1 / 180
-        var radlat2 = Math.PI * lat2 / 180
-        var theta = lon1 - lon2
-        var radtheta = Math.PI * theta / 180
-        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        if (dist > 1) {
-            dist = 1;
-        }
-        dist = Math.acos(dist)
-        dist = dist * 180 / Math.PI
-        dist = dist * 60 * 1.1515
-        if (unit == "K") { dist = dist * 1.609344 }
-        if (unit == "N") { dist = dist * 0.8684 }
-        return dist
-    }
-    function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: new google.maps.LatLng(10.777502919418838, 106.69500171298014),
-            zoom: 12,
-        });
-        infoWindow = new google.maps.InfoWindow();
-        $("#get-my-location").on("click", function () {
-            //jQuery("#boost-stores").fadeOut(350, function () {
-            //    $('#boost-stores-loading').hide();
-            //    $('.boost-home .footer').css("margin-top", "60px");
-            //}).fadeIn(500);
-            if (navigator.geolocation) {
-                var a = {};
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                        };
-
-                        map.setCenter(pos);
-                        if (!markers.length) {
-                            var html = "";
-                            let list = [];
-                            var $loading = $('#boost-stores-loading');
-                            $.ajax({
-                                url: '/store',
-                                datatype: "json",
-                                type: "get",
-                                async: true,
-                                beforeSend: function () {
-                                    $loading.show();
-                                },
-                                success: function (results) {
-
-                                    const icons = {
-                                        info: {
-                                            icon: {
-                                            }
-                                        },
-                                        current: {
-                                            icon: {
-                                                scaledSize: new google.maps.Size(34, 60), // scaled size
-                                                origin: new google.maps.Point(0, 0), // origin
-                                                anchor: new google.maps.Point(0, 0) // anchor
-                                            },
-
-                                        }
-                                    };
-                                    for (var i = 0; i < results.length; i++) {
-
-                                        if (results[i].id != 1) { results[i].type = "info", icons.info.icon.url = iconBase + results[i].iconPath }
-                                        else { icons.current.icon.url = iconBase + results[i].iconPath, results[i].type = "current"; results[i].latitude = position.coords.latitude; results[i].longitude = position.coords.longitude };
-                                        var e = Math.round((distance(position.coords.latitude, position.coords.longitude, results[i].latitude, results[i].longitude, "K")) * 100) / 100;
-                                        results[i].distance = e;
-                                    }
-                                    results.sort(function (a, b) { return a.distance - b.distance });
-                                    for (let i = 0; i < results.length; i++) {
-                                        const marker = new google.maps.Marker({
-                                            draggable: false,
-                                            position: new google.maps.LatLng(results[i].latitude, results[i].longitude),
-                                            icon: icons[results[i].type].icon,
-                                            title: results[i].name,
-                                            animation: google.maps.Animation.DROP,
-                                            address: results[i].address,
-                                            code: results[i].code,
-                                            lat: results[i].latitude,
-                                            lng: results[i].longitude,
-                                            map: map,
-                                            distance: results[i].distance
-                                        });
-                                        markers.push(marker);
-
-
-                                        const contentString =
-                                            '<div id="content">' +
-                                            '<strong style="font-size:18px;font-weight:bold" id="firstHeading" class="firstHeading">' + marker.title + '</strong>' +
-                                            '<p style="font-size:16px;font-weight:bold">' + marker.address + '<a href="' + marker.map.mapUrl + '"></a></p>' +
-                                            "</div>";
-                                        const infowindow = new google.maps.InfoWindow({
-                                            content: contentString,
-                                            ariaLabel: marker.title,
-                                        });
-                                        infoWindows.push(infowindow);
-
-                                        map.addListener("click", (event) => {
-                                            infowindow.close();
-                                        });
-
-                                        marker.addListener("click", () => {
-                                            infowindow.open({
-                                                anchor: marker,
-                                                map,
-                                            });
-                                        });
-
-                                        marker.addListener("click", toggleBounce);
-
-                                        function toggleBounce() {
-                                            if (marker.getAnimation() !== null) {
-                                                marker.setAnimation(null);
-                                            } else {
-                                                marker.setAnimation(google.maps.Animation.BOUNCE);
-                                            }
-                                        };
-
-                                    }
-                                    $('#boostjuice-stores').html('<h2 style="color: #79C339;margin-bottom: 20px;font-weight: 600;text-align:center">Boost gần nhất ' + results[1].distance + ' km</h2>');
-                                    for (let i = 1; i < markers.length; i++) {
-                                        html += '<div class="item store-list" id="' + i + '" data-store-id="' + results[i].id + '">' +
-                                            '<h3><em>' + results[i].distance + 'km</em>' + results[i].name + '</h3><span class="boostjuice-street">' + results[i].address + '<br> ' + results[i].city + ' </span>' +
-                                            '<table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>' +
-                                            '<td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>' +
-                                            '<tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>' +
-                                            '<a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="' + results[i].latitude + '" lng="' + results[i].longitude + '" >Giờ mở cửa</a>' + /* onclick="showDetail(' + data[i].lat + ', ' + data[i].lng + ')" */
-                                            '<a data-url="https://www.google.com/maps/dir/?api=1&destination=' + results[i].address + ", " + results[i].city + '&travelmode=driving" target="_blank" class="marker-link" data-markerid="' + i + '" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">Chỉ đường</a></div>';
-                                    }
-                                    $('#boostjuice-stores').append(html);
-                                    console.log(markers);
-                                    console.log("infowindows: " + infoWindows);
-
-                                    $('.marker-link').on('click', function () {
-                                        var e = $(".marker-link").index(this);
-                                        for (var i = 0; i < infoWindows.length; i++) {
-                                            if (markers[$(this).data('markerid')] != i) {
-                                                infoWindows[i].close();
-                                            }
-                                        }
-                                        google.maps.event.trigger(markers[$(this).data('markerid')], 'click');
-                                        window.open($(this).attr('data-url'), '_blank');
-
-                                    });
-
-
-
-                                },
-                                error: function (xhr) {
-                                    console.log("error");
-                                },
-                                complete: function () {
-                                    setTimeout(function () {
-                                        $loading.hide();
-                                        $('#boost-stores').show();
-
-                                        $('.boost-home .footer').css("margin-top", "60px");
-
-                                    }, 1500);
-
-                                },
-                            });
-                        }
-                    },
-                    () => {
-                        handleLocationError(true, infoWindow, map.getCenter());
-                    },
-                );
-
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
-        });
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(
-                browserHasGeolocation
-                    ? "Error: The Geolocation service failed."
-                    : "Error: Your browser doesn't support geolocation.",
-            );
-            infoWindow.open(map);
-        }
-        map.setOptions({
-            styles: [{
-                featureType: "administrative",
-                elementType: "labels.text.fill",
-                stylers: [{
-                    color: "#444444"
-                }]
-            }, {
-                featureType: "landscape",
-                elementType: "all",
-                stylers: [{
-                    color: "#f2f2f2"
-                }]
-            }, {
-                featureType: "poi",
-                elementType: "all",
-                stylers: [{
-                    visibility: "off"
-                }]
-            }, {
-                featureType: "poi.business",
-                elementType: "geometry.fill",
-                stylers: [{
-                    visibility: "on"
-                }]
-            }, {
-                featureType: "road",
-                elementType: "all",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    lightness: 45
-                }]
-            }, {
-                featureType: "road.highway",
-                elementType: "all",
-                stylers: [{
-                    visibility: "simplified"
-                }]
-            }, {
-                featureType: "road.arterial",
-                elementType: "labels.icon",
-                stylers: [{
-                    visibility: "off"
-                }]
-            }, {
-                featureType: "transit",
-                elementType: "all",
-                stylers: [{
-                    visibility: "off"
-                }]
-            }, {
-                featureType: "water",
-                elementType: "all",
-                stylers: [{
-                    color: "#b4d4e1"
-                }, {
-                    visibility: "on"
-                }]
-            }]
-        });
-
-    }
-
-    window.initMap = initMap;
-</script>

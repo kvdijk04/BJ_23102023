@@ -1,4 +1,5 @@
-﻿using BJ.ApiConnection.Services;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.Blog;
 using BJ.Contract.Translation.Blog;
@@ -14,12 +15,14 @@ namespace BJ.Admin.Controllers
         private readonly IBlogServiceConnection _blogServiceConnection;
         private readonly IConfiguration _configuration;
         private readonly ILanguageServiceConnection _languageService;
-        public BlogController(ILogger<BlogController> logger, IBlogServiceConnection blogServiceConnection, IConfiguration configuration, ILanguageServiceConnection languageService)
+        private readonly INotyfService _notyfService;
+        public BlogController(ILogger<BlogController> logger, IBlogServiceConnection blogServiceConnection, IConfiguration configuration, ILanguageServiceConnection languageService, INotyfService notyfService)
         {
             _logger = logger;
             _blogServiceConnection = blogServiceConnection;
             _configuration = configuration;
             _languageService = languageService;
+            _notyfService = notyfService;
 
         }
         [Route("/tat-ca-blog.html")]
@@ -28,12 +31,12 @@ namespace BJ.Admin.Controllers
         {
             if (keyword != null) ViewBag.Keyword = keyword;
 
-            //var token = HttpContext.Session.GetString("Token");
+            var token = HttpContext.Session.GetString("Token");
 
-            //if (token == null)
-            //{
-            //    return Redirect("/dang-nhap.html");
-            //}
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var request = new GetListPagingRequest()
             {
                 Keyword = keyword,
@@ -49,15 +52,27 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(Guid id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var r = await _blogServiceConnection.GetBlogById(id,defaultLanguage);
+            var r = await _blogServiceConnection.GetBlogById(id, defaultLanguage);
             return View(r);
         }
         [HttpGet]
         [Route("/tao-moi-blog.html")]
         public IActionResult Create()
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             return View();
         }
         [HttpPost]
@@ -65,14 +80,29 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create([FromForm] CreateBlogAdminView createBlogAdminView)
         {
+
             var a = await _blogServiceConnection.CreateBlog(createBlogAdminView);
 
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
             return Redirect("/tao-moi-blog.html");
         }
         [HttpGet]
         [Route("/cap-nhat-blog/{id}")]
         public async Task<IActionResult> Edit(Guid id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
             var item = await _blogServiceConnection.GetBlogById(id, defaultLanguage);
@@ -90,9 +120,9 @@ namespace BJ.Admin.Controllers
                     Title = item.Title,
                     Alias = item.Alias,
                     Description = item.Description,
-                    MetaDesc    = item.MetaDesc,
+                    MetaDesc = item.MetaDesc,
                     MetaKey = item.MetaKey,
-                    ShortDesc   = item.ShortDesc,
+                    ShortDesc = item.ShortDesc,
                 },
 
             };
@@ -106,10 +136,17 @@ namespace BJ.Admin.Controllers
         {
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
             var item = await _blogServiceConnection.GetBlogById(id, culture);
-            if(updateBlogAdminView.FileUpload == null) { updateBlogAdminView.UpdateBlog.ImagePath = item.ImagePath; }
+            if (updateBlogAdminView.FileUpload == null) { updateBlogAdminView.UpdateBlog.ImagePath = item.ImagePath; }
 
             var a = await _blogServiceConnection.UpdateBlog(id, culture, updateBlogAdminView);
-
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/tat-ca-blog.html");
         }
 
@@ -117,6 +154,12 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> LanguageDetail(Guid blogId, Guid languageId)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
             var blog = await _blogServiceConnection.GetBlogById(blogId, culture);
@@ -130,12 +173,20 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateLanguage(Guid id)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
-            var blog = await _blogServiceConnection.GetBlogById(id,culture);
+            var blog = await _blogServiceConnection.GetBlogById(id, culture);
             var language = await _languageService.GetAllLanguages();
             ViewData["Language"] = new SelectList(language, "Id", "Name");
             ViewBag.Title = blog.Title;
             ViewBag.Id = blog.Id;
+
+
             return View();
         }
 
@@ -147,7 +198,16 @@ namespace BJ.Admin.Controllers
         {
             createBlogTranslationDto.BlogId = id;
 
-            await _blogServiceConnection.CreateLanguage(createBlogTranslationDto);
+            var a = await _blogServiceConnection.CreateLanguage(createBlogTranslationDto);
+
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
 
             return Redirect("/chi-tiet-blog/" + id);
         }
@@ -156,10 +216,16 @@ namespace BJ.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateLanguage(Guid blogId, Guid languageId)
         {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null)
+            {
+                return Redirect("/dang-nhap.html");
+            }
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
             var r = await _blogServiceConnection.GetBlogTranslationnById(languageId);
-            var blog = await _blogServiceConnection.GetBlogById(blogId,culture);
+            var blog = await _blogServiceConnection.GetBlogById(blogId, culture);
             ViewBag.Title = blog.Title;
             ViewBag.Id = blogId;
             ViewBag.LanguageId = languageId;
@@ -181,8 +247,16 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid blogId, Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto)
         {
-            await _blogServiceConnection.UpdateBlogTranslationn(languageId, updateBlogTranslationDto);
+            var a = await _blogServiceConnection.UpdateBlogTranslationn(languageId, updateBlogTranslationDto);
 
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/chi-tiet-blog/" + blogId);
         }
     }

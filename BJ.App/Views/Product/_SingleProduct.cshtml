@@ -4,6 +4,8 @@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 <style>
+    
+    
 
 </style>
 @{
@@ -36,6 +38,22 @@
                 }
             </ul>
             <p class="description">@Model.Description</p>
+
+ 
+
+@*             <h4><localize>Download the<br>Boost Juice App</localize></h4>
+ *@            @* <p>
+                <a href="http://bit.ly/1yqA2a2" target="_blank">
+                    <img src="~/images/ios.png"
+                         width="100">
+                </a>
+                <a href="http://bit.ly/USKKXP" target="_blank">
+                    <img src="~/images/ggplay.png"
+                         width="100">
+                </a>
+            </p> *@
+
+
         </div>
         <div class="large-image">
             <img src='@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients'>
@@ -52,10 +70,10 @@
 
                 }
             </div>
-            @foreach (var size in Model.SizeSpecificProducts.Where(x => x.ActiveSize == true))
+            @foreach (var size in Model.SizeSpecificProducts.Where(x => x.ActiveSize == true && x.ActiveNutri == true))
             {
                 string id = size.SizeId + "_" + size.ProductId;
-                <div class="info-table" style="display:none" id="@id">
+                <div class="info-table" style="display:none; " id="@id">
                     <ul>
                         <li><strong>@size.Energy kJ</strong> (@size.Cal cal) Energy</li>
                         <li><strong>@size.Fat g</strong> Fat, total</li>
@@ -69,12 +87,23 @@
                 </div>
 
             }
+            
+            
         </div>
+
     </div>
 
 </div>
 
 <script>
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+    $(".buy_product button").on("click", function () {
+        
+    })
     $(".tablinks:nth-of-type(1)").addClass("active");
     $(".info-table:nth-of-type(2)").css("display", "block");
 

@@ -9,6 +9,7 @@
         public bool Active { get; set; }
 
         public bool Popular { get; set; }
+        public string Code { get; set; }
 
         public DateTime? DateCreated { get; set; }
 

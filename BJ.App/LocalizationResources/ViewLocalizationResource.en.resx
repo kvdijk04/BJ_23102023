@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/span&gt; For orders exceeding 20 km from the nearest store and/or in the Fresh Juice and Create Your Own Juice ranges, Boost must obtain confirmation from Customer to make an order." xml:space="preserve">
+    <value>&lt;span style="text-decoration: underline;"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/span&gt; For orders exceeding 20 km from the nearest store and/or in the Fresh Juice and Create Your Own Juice ranges, Boost must obtain confirmation from Customer to make an order.</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="&lt;strong&gt;DELIVERY TIME&lt;br&gt;&lt;/strong&gt;– Boost delivers from&lt;strong&gt; 7.30am to 10.00pm&lt;/strong&gt; during weekdays and weekends (&lt;strong&gt;from Monday to Sunday&lt;/strong&gt;)." xml:space="preserve">
+    <value>&lt;strong&gt;DELIVERY TIME&lt;br&gt;&lt;/strong&gt;– Boost delivers from&lt;strong&gt; 7.30am to 10.00pm&lt;/strong&gt; during weekdays and weekends (&lt;strong&gt;from Monday to Sunday&lt;/strong&gt;).</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="&lt;td width=&quot;150&quot;&gt;&lt;strong&gt;Distance (km)&lt;/strong&gt;&lt;/td&gt;&lt;td width=&quot;150&quot;&gt;&lt;strong&gt;Shipping fee (VND)&lt;/strong&gt;&lt;/td&gt;&lt;td width=&quot;400&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;&lt;/td&gt;" xml:space="preserve">
+    <value>&lt;td width="150"&gt;&lt;strong&gt;Distance (km)&lt;/strong&gt;&lt;/td&gt;&lt;td width="150"&gt;&lt;strong&gt;Shipping fee (VND)&lt;/strong&gt;&lt;/td&gt;&lt;td width="400"&gt;&lt;strong&gt;Note&lt;/strong&gt;&lt;/td&gt;</value>
+    <comment>Home/Delivery</comment>
+  </data>
   <data name="A bit about Australia's favourite juice and smoothie bar" xml:space="preserve">
     <value>A bit about Australia's favourite juice and smoothie bar</value>
     <comment>Home/About</comment>
@@ -128,6 +140,18 @@
   <data name="About Boost Juice" xml:space="preserve">
     <value>About Boost Juice</value>
     <comment>Layout</comment>
+  </data>
+  <data name="aboutUrl" xml:space="preserve">
+    <value>about</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="ACCEPTABLE USE POLICY" xml:space="preserve">
+    <value>ACCEPTABLE USE POLICY</value>
+    <comment>Home/UsePolicy</comment>
+  </data>
+  <data name="acceptableUsePolicyUrl" xml:space="preserve">
+    <value>acceptable-use-policy</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide." xml:space="preserve">
     <value>Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide.</value>
@@ -149,6 +173,14 @@
     <value>But there’s no elevator to success. You have to take the stairs.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="BUY" xml:space="preserve">
+    <value>BUY</value>
+    <comment>Product/SingleProduct</comment>
+  </data>
+  <data name="Certificate of Business Registration No. 0317934150 issued by" xml:space="preserve">
+    <value>Certificate of Business Registration No. 0317934150 issued by</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="Choose drink type" xml:space="preserve">
     <value>Choose drink type</value>
     <comment>Product/Index</comment>
@@ -156,6 +188,30 @@
   <data name="Contact Us" xml:space="preserve">
     <value>Contact us</value>
     <comment>Layout</comment>
+  </data>
+  <data name="contactUrl" xml:space="preserve">
+    <value>contact</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="DELIVERY &amp;amp; RETURN POLICY" xml:space="preserve">
+    <value>DELIVERY &amp;amp; RETURN POLICY</value>
+    <comment>_Layout/Footer</comment>
+  </data>
+  <data name="DELIVERY FEE" xml:space="preserve">
+    <value>DELIVERY FEE</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="DELIVERY POLICY" xml:space="preserve">
+    <value>DELIVERY POLICY</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="deliveryUrl" xml:space="preserve">
+    <value>delivery-return-policy</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Department of Planning and Investment of Ho Chi Minh City on 14/07/2023." xml:space="preserve">
+    <value>Department of Planning and Investment of Ho Chi Minh City on 14/07/2023.</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register." xml:space="preserve">
     <value>Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register.</value>
@@ -165,13 +221,25 @@
     <value>Download the&lt;br&gt;Boost Juice App</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="drinkUrl" xml:space="preserve">
+    <value>drinks</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
     <value>Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Find a Boost Juice Store" xml:space="preserve">
+    <value>Find a Boost Juice Store</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="Find Us" xml:space="preserve">
     <value>Find Us</value>
     <comment>Layout</comment>
+  </data>
+  <data name="Free shipping" xml:space="preserve">
+    <value>Free shipping</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="Get yourself&lt;br&gt; a Vibe Card" xml:space="preserve">
     <value>Get yourself&lt;br&gt; a Vibe Card</value>
@@ -181,9 +249,21 @@
     <value>Growing Strong</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Home page - Boost Juice" xml:space="preserve">
+    <value>Home page - Boost Juice</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy." xml:space="preserve">
+    <value>How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy.</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and &quot;love of life&quot; through spontaneous experiences. at store." xml:space="preserve">
     <value>If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and "love of life" through spontaneous experiences. at store.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="In case after you have successfully placed an order and want to cancel your order, please contact Boost Juice Vietnam immediately to cancel your order via&lt;span style=&quot;color: #70b046;&quot;&gt;&lt;strong&gt; Our Hotline&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;" xml:space="preserve">
+    <value>In case after you have successfully placed an order and want to cancel your order, please contact Boost Juice Vietnam immediately to cancel your order via&lt;span style="color: #70b046;"&gt;&lt;strong&gt; Our Hotline&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 580 stores worldwide." xml:space="preserve">
     <value>It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 580 stores worldwide.</value>
@@ -209,9 +289,21 @@
     <value>Learn More</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="MENU &amp; DELIVERY POLICY" xml:space="preserve">
+    <value>MENU &amp; DELIVERY POLICY</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="Menu - Boost Juice" xml:space="preserve">
+    <value>Menu - Boost Juice</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
     <comment>Layout</comment>
+  </data>
+  <data name="newsUrl" xml:space="preserve">
+    <value>news</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream." xml:space="preserve">
     <value>Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream.</value>
@@ -233,6 +325,14 @@
     <value>OPTION 2</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Orders over 1.000.000 VND, free shipping" xml:space="preserve">
+    <value>Orders over 1.000.000 VND, free shipping</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="Orders over 300.000 VND, free shipping" xml:space="preserve">
+    <value>Orders over 300.000 VND, free shipping</value>
+    <comment>Home/Delivery</comment>
+  </data>
   <data name="Our Drinks" xml:space="preserve">
     <value>Our Drinks</value>
     <comment>Layout</comment>
@@ -241,9 +341,21 @@
     <value>Our primary life requires energy. This philosophy inspires everything we do. And as we continually innovate and grow, it's not with the goal of changing the world, but just to make our customers feel “a little better.”</value>
     <comment>Home/About</comment>
   </data>
-  <data name="Popular posts" xml:space="preserve">
-    <value>Popular posts</value>
-    <comment>Blog/Index</comment>
+  <data name="Please come back later. Sorry for this inconvenience" xml:space="preserve">
+    <value>Please come back later. Sorry for this inconvenience</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>Popular</value>
+    <comment>Blog/Detail, News/Index, News/Detail</comment>
+  </data>
+  <data name="PRIVACY POLICY" xml:space="preserve">
+    <value>PRIVACY POLICY</value>
+    <comment>Home/Privacy</comment>
+  </data>
+  <data name="privacyPolicyUrl" xml:space="preserve">
+    <value>privacy-policy</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Read more" xml:space="preserve">
     <value>Read more</value>
@@ -253,6 +365,14 @@
     <value>Register</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn" xml:space="preserve">
+    <value>Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="RETURN/EXCHANGE POLICY" xml:space="preserve">
+    <value>RETURN/EXCHANGE POLICY</value>
+    <comment>Home/Delivery</comment>
+  </data>
   <data name="Sign In" xml:space="preserve">
     <value>Sign In</value>
     <comment>Vibe/Index</comment>
@@ -260,6 +380,22 @@
   <data name="Sometimes, the best way to learn is to jump in at the deep end, and that’s exactly what happened next. Janine and Jeff signed on for 28 leases at Westfield Shopping Centres. It meant a personal liability of over $5 million and a deadline to open every store in just 18 months. Thanks to sheer determination and amazing franchise partners, it happened on time and on budget." xml:space="preserve">
     <value>Sometimes, the best way to learn is to jump in at the deep end, and that’s exactly what happened next. Janine and Jeff signed on for 28 leases at Westfield Shopping Centres. It meant a personal liability of over $5 million and a deadline to open every store in just 18 months. Thanks to sheer determination and amazing franchise partners, it happened on time and on budget.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Stores" xml:space="preserve">
+    <value>Stores</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="storeUrl" xml:space="preserve">
+    <value>stores</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="termOfUseUrl" xml:space="preserve">
+    <value>terms-of-use</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="TERMS OF USE" xml:space="preserve">
+    <value>TERMS OF USE</value>
+    <comment>Home/TermOfUse</comment>
   </data>
   <data name="The Boost Juice Story" xml:space="preserve">
     <value>The Boost Juice Story</value>
@@ -277,6 +413,22 @@
     <value>The woman was Australian adventurer and entrepreneur Janine Allis. The bar was Boost Juice – now one of the most popular and loved juice and smoothie brands across the globe, with over 500 stores across 13 different countries and counting.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="There are currently no products" xml:space="preserve">
+    <value>There are currently no products</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="There are no blogs yet" xml:space="preserve">
+    <value>There are no blogs yet</value>
+    <comment>Blog/Index</comment>
+  </data>
+  <data name="There are no drinks in this category. Please come back later." xml:space="preserve">
+    <value>There are no drinks in this category. Please come back later.</value>
+    <comment>Product/FilterByCategory</comment>
+  </data>
+  <data name="There are no news yet" xml:space="preserve">
+    <value>There are no news yet</value>
+    <comment>News/Index</comment>
+  </data>
   <data name="They say success is 10% inspiration and 90% perspiration. And who’s going to argue with that? Little did Janine know that her plan to not work a 40-hour week would actually mean working a 100-hour week, with no money coming in for a good three years." xml:space="preserve">
     <value>They say success is 10% inspiration and 90% perspiration. And who’s going to argue with that? Little did Janine know that her plan to not work a 40-hour week would actually mean working a 100-hour week, with no money coming in for a good three years.</value>
     <comment>Home/About</comment>
@@ -284,6 +436,10 @@
   <data name="This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app." xml:space="preserve">
     <value>This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app.</value>
     <comment>Layout</comment>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>to</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story." xml:space="preserve">
     <value>Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story.</value>
@@ -293,6 +449,14 @@
     <value>Unsurprisingly, Boost Juice was voted one of the most admired franchises in Australia. Janine was named Telstra Businesswoman of the Year and, a year later, in 2005, Boost Juice received the American Express Franchisor of the Year award.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="User current location" xml:space="preserve">
+    <value>User current location</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="VAN XUAN FMCG INVESTMENT COMPANY LIMITED" xml:space="preserve">
+    <value>VAN XUAN FMCG INVESTMENT COMPANY LIMITED</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="View All" xml:space="preserve">
     <value>View All</value>
     <comment>Product/Index</comment>
@@ -301,9 +465,25 @@
     <value>Wellbeing</value>
     <comment>Layout</comment>
   </data>
+  <data name="wellbeingUrl" xml:space="preserve">
+    <value>wellbeing</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="You want find drinks in this category" xml:space="preserve">
+    <value>You want find drinks in this category</value>
+    <comment>Product/FilterByCategory</comment>
+  </data>
   <data name="Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever." xml:space="preserve">
     <value>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</value>
     <comment>Vibe/Index</comment>
+  </data>
+  <data name="– For &lt;strong&gt;Fresh Juice&lt;/strong&gt; and &lt;strong&gt;Create Your Own Juice&lt;/strong&gt; ranges, delivery service is not applicable." xml:space="preserve">
+    <value>– For &lt;strong&gt;Fresh Juice&lt;/strong&gt; and &lt;strong&gt;Create Your Own Juice&lt;/strong&gt; ranges, delivery service is not applicable.</value>
+    <comment>Home/Delivery</comment>
+  </data>
+  <data name="– The delivery address should not exceed&lt;strong&gt; 20 km&lt;/strong&gt; from the nearest store, to ensure Boost’s product quality" xml:space="preserve">
+    <value>– The delivery address should not exceed&lt;strong&gt; 20 km&lt;/strong&gt; from the nearest store, to ensure Boost’s product quality</value>
+    <comment>Home/Delivery</comment>
   </data>
   <data name="“Boost has a can-do attitude. We don’t believe in the word ‘try’ because that means I’ll give myself permission to not succeed. You don’t try. You just do it.”&lt;br/&gt;&#xD;&#xA;Janine Allis" xml:space="preserve">
     <value>“Boost has a can-do attitude. We don’t believe in the word ‘try’ because that means I’ll give myself permission to not succeed. You don’t try. You just do it.”&lt;br/&gt;

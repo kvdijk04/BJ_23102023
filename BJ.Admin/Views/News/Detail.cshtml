@@ -1,0 +1,214 @@
+﻿@model NewsUserViewModel
+@using BJ.Contract.ViewModel;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h2 class="header-title">Chi tiết tin tức</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-tin-tuc.html " class="breadcrumb-item">Tất cả tin tức</a>
+
+            <span class="breadcrumb-item active">Chi tiết tin tức</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="media align-items-center m-b-15">
+            <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageNews/@Model.ImagePath" alt="">
+            </div>
+            <div class="m-l-15">
+                <h4 class="m-b-0">@Model.Title</h4>
+@*                 <p class="text-muted m-b-0">Code: @Model.Code</p>
+ *@            </div>
+        </div>
+        <div class="m-b-15">
+            <button class="btn btn-warning" onclick="location.href='/cap-nhat-tin-tuc/@Model.Id'" type="button">
+                <i class="anticon anticon-edit"></i>
+                <span>Cập nhật</span>
+            </button>
+            <button class="btn btn-info" onclick="location.href='/chi-tiet-tin-tuc/@Model.Id/them-moi-ngon-ngu'" type="button">
+                <i class="anticon anticon-plus-circle"></i>
+                <span>Thêm ngôn ngữ</span>
+            </button>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-overview">Tổng quan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-images">Ảnh</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-language">Ngôn ngữ sẵn có</a>
+        </li>
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-overview">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td>	@Model.Title</td>
+                                </tr>
+                                <tr>
+                                    <td>Hoạt động:</td>
+                                    <td>
+                                        @if (Model.Active == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phổ biến:</td>
+                                    <td>
+                                        @if (Model.Popular == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ở trang chủ:</td>
+                                    <td>
+                                        @if (Model.Home == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin thêm</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+@*                                 <tr>
+                                    <td>Code:</td>
+                                    <td>@Model.Code</td>
+                                </tr> *@
+                                <tr>
+                                    <td>Meta Desc</td>
+                                    <td>@Model.MetaDesc</td>
+                                </tr>
+                                <tr>
+                                    <td>Meta Key</td>
+                                    <td>@Model.MetaKey</td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <td>Ngày tạo</td>
+                                    <td>@Model.DateCreated</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày cập nhật</td>
+                                    <td>@Model.DateUpdated</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Mô tả ngắn</h4>
+                </div>
+                <div class="card-body">
+                    <p>@Html.Raw(Model.ShortDesc)</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Mô tả</h4>
+                </div>
+                <div class="card-body">
+                    <p>@Html.Raw(Model.Description)</p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-images">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3" style="background-color:gray">
+                            <img class="img-fluid" src="@Configuration["BaseAddress"]/ImageNews/@Model.ImagePath" alt="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="product-language">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                @foreach (var item in Model.NewsTranslationDtos)
+                                {
+                                    <tr>
+
+                                        <td>@item.LanguageId</td>
+                                        <td class="text-dark font-weight-semibold">@item.Title</td>
+                                        <td>
+                                            <a href="/chi-tiet-tin-tuc/@Model.Id/ngon-ngu/@item.Id/xem-chi-tiet">
+                                                <span class="badge badge-pill badge-info">Xem chi tiết</span>
+
+                                            </a>
+                                            <a href="/chi-tiet-tin-tuc/@Model.Id/ngon-ngu/@item.Id/cap-nhat">
+                                                <span class="badge badge-pill badge-warning">Cập nhật</span>
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

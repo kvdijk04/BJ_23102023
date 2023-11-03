@@ -63,7 +63,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên danh mục con</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên danh mục con" value="@Model.SubCatName" asp-for="@Model.SubCatName">
+                        <input type="text" class="form-control" id="catName" placeholder="Tên danh mục con" value="@Model.SubCatName" asp-for="@Model.SubCatName" required>
                     </div>
                     @if (Model.Active == true)
                     {

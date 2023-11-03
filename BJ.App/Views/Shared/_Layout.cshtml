@@ -1,19 +1,33 @@
-﻿@{
+﻿@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+
+@{
     var culture = CultureInfo.CurrentCulture.Name;
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><localize>@ViewBag.Title</localize></title>
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Boost Juice is one of Australia&#039;s most famous and loved juice and smoothie brands.">
+    <meta name="keywords" content="Boost Juice, is one of Australia's most famous and loved juice and smoothie brands, nước ép, healthy, sinh tố, trái cây tươi" />
+    <meta name="author" content="Magentech">
+    <meta name="robots" content="index, follow" />
+    <meta property="og:site_name" content="Boost Juice" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Boost Juice" />
+    <meta property="og:image" content="~/BoostJuice/images/cropped-iconboostweb-270x270.png" />
+    <meta property="og:description" content="Boost Juice is one of Australia&#039;s most famous and loved juice and smoothie brands." />
+    @*     <meta property="og:url" content="" />*@
+    <link href="~/BoostJuice/images/favicon.png" rel="shortcut icon">
+    <link rel="icon" href="~/BoostJuice/images/cropped-iconboostweb-32x32.png" sizes="32x32" />
+    <link rel="icon" href="~/BoostJuice/images/cropped-iconboostweb-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="~/BoostJuice/images/cropped-iconboostweb-180x180.png" />
+    <meta name="msapplication-TileImage" content="~/BoostJuice/images/cropped-iconboostweb-270x270.png" />
     <style>
         body {
-            font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+            font-family: 'Roboto', arial, sans-serif;
             font-size: 18px;
             letter-spacing: .75px;
             color: #595959;
@@ -32,58 +46,325 @@
             color:#fff;
         }
 
+        .hotline-phone-ring-wrap {
+            position: fixed;
+            bottom: 50px;
+            right: 10%;
+            z-index: 1;
+        }
 
+        .hotline-phone-ring {
+            position: relative;
+            visibility: visible;
+            background-color: transparent;
+            width: 110px;
+            height: 110px;
+            cursor: pointer;
+            z-index: 11;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transition: visibility .5s;
+            left: 0;
+            bottom: 0;
+            display: block;
+        }
+
+        .hotline-phone-ring-circle {
+            width: 85px;
+            height: 85px;
+            top: 10px;
+            left: 10px;
+            position: absolute;
+            background-color: transparent;
+            border-radius: 100%;
+            border: 2px solid #e60808;
+            -webkit-animation: phonering-alo-circle-anim 1.2s infinite ease-in-out;
+            animation: phonering-alo-circle-anim 1.2s infinite ease-in-out;
+            transition: all .5s;
+            -webkit-transform-origin: 50% 50%;
+            -ms-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            opacity: 0.5;
+        }
+
+        .hotline-phone-ring-circle-fill {
+            width: 55px;
+            height: 55px;
+            top: 25px;
+            left: 25px;
+            position: absolute;
+            background-color: rgba(230, 8, 8, 0.7);
+            border-radius: 100%;
+            border: 2px solid transparent;
+            -webkit-animation: phonering-alo-circle-fill-anim 2.3s infinite ease-in-out;
+            animation: phonering-alo-circle-fill-anim 2.3s infinite ease-in-out;
+            transition: all .5s;
+            -webkit-transform-origin: 50% 50%;
+            -ms-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+        }
+
+        .hotline-phone-ring-img-circle {
+            background-color: #e60808;
+            width: 33px;
+            height: 33px;
+            top: 37px;
+            left: 37px;
+            position: absolute;
+            background-size: 20px;
+            border-radius: 100%;
+            border: 2px solid transparent;
+            -webkit-animation: phonering-alo-circle-img-anim 1s infinite ease-in-out;
+            animation: phonering-alo-circle-img-anim 1s infinite ease-in-out;
+            -webkit-transform-origin: 50% 50%;
+            -ms-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hotline-phone-ring-img-circle .pps-btn-img {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .hotline-phone-ring-img-circle .pps-btn-img img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .hotline-bar {
+            position: absolute;
+            background: rgba(230, 8, 8, 0.75);
+            height: 40px;
+            width: 180px;
+            line-height: 40px;
+            border-radius: 3px;
+            padding: 0 10px;
+            background-size: 100%;
+            cursor: pointer;
+            transition: all 0.8s;
+            -webkit-transition: all 0.8s;
+            z-index: 9;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 50px !important;
+            /* width: 175px !important; */
+            left: 33px;
+            bottom: 37px;
+        }
+
+        .hotline-bar > a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            text-indent: 50px;
+            display: block;
+            letter-spacing: 1px;
+            line-height: 40px;
+            font-family: Arial;
+        }
+
+        .hotline-bar > a:hover,
+        .hotline-bar > a:active {
+            color: #fff;
+        }
+
+        @@-webkit-keyframes phonering-alo-circle-anim {
+            0% {
+                -webkit-transform: rotate(0) scale(0.5) skew(1deg);
+                -webkit-opacity: 0.1;
+            }
+
+            30% {
+                -webkit-transform: rotate(0) scale(0.7) skew(1deg);
+                -webkit-opacity: 0.5;
+            }
+
+            100% {
+                -webkit-transform: rotate(0) scale(1) skew(1deg);
+                -webkit-opacity: 0.1;
+            }
+        }
+
+        @@-webkit-keyframes phonering-alo-circle-fill-anim {
+            0% {
+                -webkit-transform: rotate(0) scale(0.7) skew(1deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                -webkit-transform: rotate(0) scale(1) skew(1deg);
+                opacity: 0.6;
+            }
+
+            100% {
+                -webkit-transform: rotate(0) scale(0.7) skew(1deg);
+                opacity: 0.6;
+            }
+        }
+
+        @@-webkit-keyframes phonering-alo-circle-img-anim {
+            0% {
+                -webkit-transform: rotate(0) scale(1) skew(1deg);
+            }
+
+            10% {
+                -webkit-transform: rotate(-25deg) scale(1) skew(1deg);
+            }
+
+            20% {
+                -webkit-transform: rotate(25deg) scale(1) skew(1deg);
+            }
+
+            30% {
+                -webkit-transform: rotate(-25deg) scale(1) skew(1deg);
+            }
+
+            40% {
+                -webkit-transform: rotate(25deg) scale(1) skew(1deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(0) scale(1) skew(1deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0) scale(1) skew(1deg);
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .hotline-bar {
+                display: none;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+/* 
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px #67b94c;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px #70b046;
+        } */
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px ;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px #70b046;
+        }
     </style>
     <link rel="stylesheet" href="~/css/boostjuice.css">
     <link rel="stylesheet" href="~/BoostJuice/css/home.css">
     @await RenderSectionAsync("Styles", required: false)
+    @await RenderSectionAsync("metatags", required: false)
 
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/aos.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-@*     <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/jquery.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/tempo.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/sweetalert.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/jquery.tokeninput.min.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/navigation.js"></script>
-    <script type="text/javascript" src="https://boostjuice.com.vn/app/themes/boostjuice/dist/js/modernizr.custom.js"></script> *@
+
+
+    <!--Google tag-->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCVYLYJRTR">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-JCVYLYJRTR');
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BPFXFS750"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6BPFXFS750');
+    </script>
 </head>
 <body class="boost-home">
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
 
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "169987209524629");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <header class="boost-main"> 
         <nav class="boost-main-nav-wrapper"> 
             <ul class="boost-main-nav">
-                <li class="first-item"><a class="boost-subnav-trigger-off" href="/@culture/about.html"><localize>About Boost Juice</localize></a></li>
+                <li class="first-item" style="margin-left:7%"><a class="boost-subnav-trigger-off" href="/@culture/@_loc["aboutUrl"]"><localize>About Boost Juice</localize></a></li>
 
 
-                <li><a class="boost-subnav-trigger-off" href="https://www.boostjuice.com.au/franchising/">Own a Boost</a></li>
-                <li><a class="boost-subnav-trigger-off" href="https://www.boostjuice.com.au/work-at-boost/">Work at Boost</a></li>
-                
-                 <li id="lgcontainer">
+                 <li><a class="boost-subnav-trigger-off" href="#">Own a Boost</a></li>
+                <li><a class="boost-subnav-trigger-off" href="#">Work at Boost</a></li>
+
+                <li id="lgcontainer">
                     <a class="gift-card" href="/en/Home/SetCultureCookie?cltr=en&amp;returnUrl=/en"><img src="~/images/us.png" width="20"> en</a>
                     <a class="gift-card" href="/vi/Home/SetCultureCookie?cltr=vi&amp;returnUrl=/vi" id="vnlng"><img src="~/images/vn.png" width="20"> vi</a>
 
                 </li>
 
-                <li><a href="/@culture/vibe" class="my-vibe" data-open="0"><span>VIBE</span></a></li>
+                <li><a href="/@culture/vibe.html" class="my-vibe" data-open="0"><span>VIBE</span></a></li>
 
             </ul> 
         </nav>
 
         <a class="boost-nav-trigger" clicked="false" onclick="myFunction(this)"><span></span></a>
-        <a href="./" class="boost-logo" id="boostlogo"><img src="~/images/boost-juice-logo.png" alt="Boost Juice" id="boost-logo"></a>
+        <a href="/@culture/" class="boost-logo" id="boostlogo"><img src="~/images/boost-juice-logo.png" alt="Boost Juice" id="boost-logo"></a>
         <nav class="sub-navi">
             <ul>
-                <li id="menu-item-500" class="remove-me"><a href="/@culture/drinks.html"><localize>Our Drinks</localize></a></li>
-                <li id="menu-item-501" class="remove-me"><a href="/@culture/stores.html"><localize>Find Us</localize></a></li>
+                <li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]"><localize>Our Drinks</localize></a></li>
+                <li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]"><localize>Find Us</localize></a></li>
                 <li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>
-                <li id="menu-item-503" class="remove-me"><a href="/@culture/healthy.html"><localize>Wellbeing</localize></a></li>
-                <li id="menu-item-504" class="remove-me"><a href="/@culture/news.html"><localize>News</localize></a></li>
-                <li id="menu-item-505" class="remove-me"><a href="/@culture/contact.html"><localize>Contact Us</localize></a></li>
+                <li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]"><localize>Wellbeing</localize></a></li>
+                <li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]"><localize>News</localize></a></li>
+                <li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
+
             </ul>
         </nav>
         </header>
@@ -99,17 +380,17 @@
         <a href="https://www.instagram.com/boostjuicevietnam/" target="_blank"><img src="~/images/icon_instagram.png" alt="Boost Juice - Instagram"></a>
         <nav class="footer-nav">
             <ul>
-                <li><a href="https://www.boostjuice.vn/huong-dan-dat-hang-va-thanh-toan/">Hướng dẫn Đặt hàng &amp; Thanh toán</a></li>
-                <li><a href="https://www.boostjuice.vn/chinh-sach-giao-hang-doi-tra/">Chính sách Giao hàng  &amp; Đổi trả</a></li>
+                <li><a href="#">Hướng dẫn Đặt hàng &amp; Thanh toán</a></li>
+                <li><a href="/@culture/@_loc["deliveryUrl"]"><localize>DELIVERY &amp; RETURN POLICY</localize></a></li>
             </ul>
         </nav>
         <p class="copyright">
             © 2023 Copyright Boost Juice - VietNam                                    <span class="hide-mobile">|</span>
-            <a href="https://www.boostjuice.vn/dieu-khoan-thoa-thuan/">Điều Khoản Thoả Thuận</a>
+            <a href="/@culture/@_loc["termOfUseUrl"]"><localize>TERMS OF USE</localize></a>
             <span class="hide-mobile">|</span>
-            <a href="https://www.boostjuice.vn/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a>
+            <a href="/@culture/@_loc["privacyPolicyUrl"]"><localize>PRIVACY POLICY</localize></a>
             <span class="hide-mobile">|</span>
-            <a href="https://www.boostjuice.vn/chinh-sach-su-dung-duoc-chap-nhan/">Chính Sách Sử Dụng Được Chấp Nhận</a>
+            <a href="/@culture/@_loc["acceptableUsePolicyUrl"]"><localize>ACCEPTABLE USE POLICY</localize></a>
         </p>
         <div class="footer-extra">
             <div class="footer__app">
@@ -121,54 +402,40 @@
                 </a>
             </div>
             <div class="footer__content">
-                <p>CÔNG TY TNHH THỰC PHẨM VÀ NƯỚC GIẢI KHÁT BOOST JUICE VIỆT NAM</p>
+                <p><localize>VAN XUAN FMCG INVESTMENT COMPANY LIMITED</localize></p>
                 <p>
-                    MST: 0317934150<br>
-                    110-112 Kinh Dương Vương, Phường 13, Quận 6, TP.HCM<br>
-                    Email:info@boostjuice.com.vn &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Hotline: <strong>1800 282890</strong>
+                    <localize>
+                        Certificate of Business Registration No. 0317934150 issued by
+                    </localize>
+                    <br>
+                    <localize>Department of Planning and Investment of Ho Chi Minh City on 14/07/2023.</localize>
+                    <br /><localize>Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn</localize>
                 </p>
                 <p>&nbsp;</p>
                 <div align="Center">Our Visitor</div>
-                <div align="Center">
-                    <strong>
-                        <div>
-                            <table class="table-borderless table-primary ">
-                                <tbody>
-                                    <tr>
-                                        <td>Today</td>
-                                        <td align="right">12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Yesterday</td>
-                                        <td align="right">50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Past 7 Days</td>
-                                        <td align="right">322</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Month of October</td>
-                                        <td align="right">&nbsp;486</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Year 2023</td>
-                                        <td align="right">9,508</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
-                    </strong>
-                </div>
 
             </div>
-            <a href="http://online.gov.vn/Home/WebDetails/59207" class="footer__app-item">
-                <img src="https://www.boostjuice.vn/app/themes/boostjuice/dist/img/footer_moit.png" alt="">
-            </a>
+           
         </div>
     </footer>
+    <div class="hotline-phone-ring-wrap" style="z-index:21">
+        <div class="hotline-phone-ring">
+            <div class="hotline-phone-ring-circle"></div>
+            <div class="hotline-phone-ring-circle-fill"></div>
+            <div class="hotline-phone-ring-img-circle">
+                <a href="tel:1800 282890" class="pps-btn-img">
+                    <img src="https://nocodebuilding.com/wp-content/uploads/2020/07/icon-call-nh.png" alt="Gọi điện thoại" width="50">
+                </a>
+            </div>
+        </div>
+        <div class="hotline-bar">
+            <a href="tel:1800 282890">
+                <span class="text-hotline">1800282890</span>
+            </a>
+        </div>
+    </div>
 
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 
     <script src="~/js/jquery.min.js"></script>
@@ -186,8 +453,25 @@
     <script src="~/js/bootstrap-datepicker.js"></script>
     <script src="~/js/scrollax.min.js"></script>
     <script src="~/js/main.js"></script>
+    <!-- Google Analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-126319440-2', 'auto');  // Replace with your property ID.
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11004042599"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'AW-11004042599');</script>
 
 
+    @await Component.InvokeAsync("Notyf")
+    @RenderSection("Scripts", required: false)
 
     <script>
         var type = window.location; // get information of all url
@@ -205,12 +489,12 @@
                     $(".boost-nav-trigger").attr("clicked", "true");
                     $('.boost-logo').addClass('is-visible');
 
-                    $('<li id="menu-item-500" class="remove-me"><a href="/@culture/drinks.html">Thức uống</a></li>'+
-                    '<li id="menu-item-501" class="remove-me"><a href="https://www.boostjuice.com.au/stores">Cửa hàng</a></li>' +
+                    $('<li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]">Thức uống</a></li>'+
+                        '<li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]">Cửa hàng</a></li>' +
                         '<li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>' +
-                        '<li id="menu-item-503" class="remove-me"><a href="/@culture/healthy.html">Sống khỏe</a></li>' +
-                        '<li id="menu-item-504" class="remove-me"><a href="/@culture/news.html">Tin tức</a></li>' +
-                        '<li id="menu-item-505" class="remove-me"><a href="/@culture/contact.html">Liên hệ</a></li>').insertBefore('#lgcontainer');
+                        '<li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]">Sống khỏe</a></li>' +
+                        '<li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]">Tin tức</a></li>' +
+                        '<li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]">Liên hệ</a></li>').insertBefore('#lgcontainer');
 
                 } else {
                     $('.boost-home').removeClass('nav-active');
@@ -240,12 +524,12 @@
                     $(".boost-nav-trigger").attr("clicked", "true");
                     $('.boost-logo').addClass('is-visible');
 
-                    $('<li id="menu-item-500" class="remove-me"><a href="/@culture/drinks.html"><localize>Our Drinks</localize></a></li>'+
-                    '<li id="menu-item-501" class="remove-me"><a href="https://www.boostjuice.com.au/stores"><localize>Find Us</localize></a></li>' +
+                    $('<li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]">Our Drinks</a></li>' +
+                        '<li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]">Find Us</a></li>' +
                         '<li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>' +
-                        '<li id="menu-item-503" class="remove-me"><a href="/@culture/healthy.html"><localize>Wellbeing</localize></a></li>' +
-                        '<li id="menu-item-504" class="remove-me"><a href="/@culture/news.html"><localize>News</localize></a></li>' +
-                        '<li id="menu-item-505" class="remove-me"><a href="/@culture/contact.html"><localize>Contact Us</localize></a></li>').insertBefore('#lgcontainer');
+                        '<li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]">Wellbeing</a></li>' +
+                        '<li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]">News</a></li>' +
+                        '<li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]">Contact</a></li>').insertBefore('#lgcontainer');
 
                 } else {
                     $('.boost-home').removeClass('nav-active');

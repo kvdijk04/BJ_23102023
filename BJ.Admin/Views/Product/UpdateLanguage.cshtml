@@ -32,7 +32,7 @@
                 </button>
                 <button class="btn btn-info" onclick="location.href='/chi-tiet-san-pham/@ViewBag.Id/them-moi-ngon-ngu'" type="button">
                     <i class="anticon anticon-plus-circle"></i>
-                    <span>Cập nhật ngôn ngữ</span>
+                    <span>Thêm mới ngôn ngữ</span>
                 </button>
             </div>
 
@@ -50,7 +50,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.ProductName" asp-for="@Model.ProductName">
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.ProductName" asp-for="@Model.ProductName" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">Mô tả</label>
@@ -62,11 +62,11 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">MetaDesc</label>
-                        <input type="text" class="form-control" id="productName" placeholder="MetaDesc" value="@Model.MetaDesc" asp-for="@Model.MetaDesc">
+                        <input type="text" class="form-control" id="productName" placeholder="MetaDesc" value="@Model.MetaDesc" asp-for="@Model.MetaDesc" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">MetaKey</label>
-                        <input type="text" class="form-control" id="productName" placeholder="MetaKey" value="@Model.MetaKey" asp-for="@Model.MetaKey">
+                        <input type="text" class="form-control" id="productName" placeholder="MetaKey" value="@Model.MetaKey" asp-for="@Model.MetaKey" required>
                     </div>
                 </div>
 

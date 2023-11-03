@@ -45,7 +45,6 @@ namespace BJ.Application.Service
 
         public async Task CreateBlog(CreateBlogAdminView createBlogAdminView)
         {
-            var code = _configuration.GetValue<string>("Code:Blog");
 
             createBlogAdminView.CreateBlog.Id = Guid.NewGuid();
 
@@ -64,7 +63,45 @@ namespace BJ.Application.Service
 
                 createBlogAdminView.CreateBlog.ImagePath = await Utilities.UploadFile(createBlogAdminView.FileUpload, "ImageBlog", image);
 
+            }           
+            var code = _configuration.GetValue<string>("Code:Blog");
+
+            var total = await _context.Blogs.OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
+
+            string s = null;
+
+            var codeLimit = _configuration.GetValue<string>("LimitCode");
+
+            if (total.Count == 0) { createBlogAdminView.CreateBlog.Code = code + codeLimit; }
+
+            else if (total.Count > 0)
+            {
+                var x = total[0].Code.Substring(code.Length, codeLimit.Length);
+
+                int k = Convert.ToInt32(total[0].Code.Substring(code.Length, codeLimit.Length)) + 1;
+                if (k < 10) s += total[0].Code.Substring(code.Length, codeLimit.Length - 1);
+                else if (k < 100)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 2);
+                else if (k < 1000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 3);
+                else if (k < 10000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 4);
+                else if (k < 100000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 5);
+                else if (k < 1000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 6);
+                else if (k < 10000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 7);
+                else if (k < 100000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 8);
+                else if (k < 1000000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 9);
+                s += k.ToString();
+
+                createBlogAdminView.CreateBlog.Code = code + s;
+
             }
+
 
             Blog blog = _mapper.Map<Blog>(createBlogAdminView.CreateBlog);
 
@@ -107,30 +144,25 @@ namespace BJ.Application.Service
             {
                 getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSize:Blog"));
             }
-            var pageResult = getListPagingRequest.PageSize;
-            var pageCount = Math.Ceiling(_context.Blogs.Count() / (double)pageResult);
+            var pageCount = Math.Ceiling(_context.Blogs.Count() / (double)getListPagingRequest.PageSize);
 
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var query = from b in _context.Blogs
-                        join bt in _context.BlogTranslations on b.Id equals bt.BlogId into ppic
-                        from bt in ppic.DefaultIfEmpty()
-                        where bt.LanguageId == defaultLanguage
+            var query = from b in _context.Blogs.OrderByDescending(x => x.DateCreated)
+                        join bt in _context.BlogTranslations on b.Id equals bt.BlogId
+                        where bt.LanguageId == defaultLanguage && b.Id.Equals(bt.BlogId)
                         select new { b, bt };
 
-            var totalRow = await query.CountAsync();
-            var data = await query.Skip((getListPagingRequest.PageIndex - 1) * pageResult)
-                                    .Take(pageResult)
+            var data = await query.Skip((getListPagingRequest.PageIndex - 1) * getListPagingRequest.PageSize)
+                                    .Take(getListPagingRequest.PageSize)
                                     .Select(x => new BlogDto()
                                     {
-                                        Id = x.b.Id,
+                                        Code = x.b.Code,
                                         ImagePath = x.b.ImagePath,
-                                        DateCreated = x.b.DateCreated,
                                         Active = x.b.Active,
-                                        DateUpdated = x.b.DateUpdated,
                                         Popular = x.b.Popular,
                                         Title = x.bt.Title,
-                                    }).ToListAsync();
+                                    }).AsNoTracking().ToListAsync();
             var blogResponse = new PagedViewModel<BlogDto>
             {
                 Items = data,
@@ -147,7 +179,7 @@ namespace BJ.Application.Service
         {
             var item = await _context.Blogs.FindAsync(id);
 
-            if(culture == null)
+            if (culture == null)
             {
                 culture = _configuration.GetValue<string>("DefaultLanguageId");
             }
@@ -197,7 +229,7 @@ namespace BJ.Application.Service
                     ImagePath = x.b.ImagePath,
                     Popular = x.b.Popular,
                 }).ToListAsync();
-            if (popular != false) { data = data.Where(x => x.Popular == popular).ToList(); }
+            if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
             return data;
         }
 
@@ -226,7 +258,7 @@ namespace BJ.Application.Service
 
                     }
 
-                    updateBlogAdminView.UpdateBlog.ImagePath= await Utilities.UploadFile(updateBlogAdminView.FileUpload, "ImageBlog", image);
+                    updateBlogAdminView.UpdateBlog.ImagePath = await Utilities.UploadFile(updateBlogAdminView.FileUpload, "ImageBlog", image);
 
                 }
 
@@ -251,7 +283,7 @@ namespace BJ.Application.Service
                         MetaDesc = updateBlogAdminView.UpdateBlogTranslation.MetaDesc,
                         MetaKey = updateBlogAdminView.UpdateBlogTranslation.MetaKey,
                         Alias = Utilities.SEOUrl(updateBlogAdminView.UpdateBlogTranslation.Title),
-                        
+
 
                     };
                     _context.Update(_mapper.Map(updateTranslate, translate));
@@ -276,7 +308,7 @@ namespace BJ.Application.Service
             await _context.SaveChangesAsync();
         }
 
-        public async  Task<BlogTranslationDto> GetBlogTransalationById(Guid id)
+        public async Task<BlogTranslationDto> GetBlogTransalationById(Guid id)
         {
             var blogTranslate = await _context.BlogTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             var blogTranslateDto = _mapper.Map<BlogTranslationDto>(blogTranslate);
@@ -290,7 +322,7 @@ namespace BJ.Application.Service
 
             createBlogTranslationDto.Alias = Utilities.SEOUrl(createBlogTranslationDto.Title);
 
-            
+
             BlogTranslation transalteblog = _mapper.Map<BlogTranslation>(createBlogTranslationDto);
 
             _context.Add(transalteblog);
@@ -298,7 +330,7 @@ namespace BJ.Application.Service
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateTranslateBlog( Guid id, UpdateBlogTranslationDto updateBlogTranslationDto)
+        public async Task UpdateTranslateBlog(Guid id, UpdateBlogTranslationDto updateBlogTranslationDto)
         {
             var item = await _context.BlogTranslations.FirstOrDefaultAsync(x => x.Id.Equals(id));
 

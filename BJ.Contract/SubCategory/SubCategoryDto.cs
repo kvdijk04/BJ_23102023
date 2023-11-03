@@ -11,6 +11,7 @@ namespace BJ.Contract.SubCategory
         public bool Active { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public string Code { get; set; }
 
         public virtual ICollection<SubCategorySpecificProductDto> SubCategorySpecificProductDtos { get; set; }
         public virtual ICollection<SubCategoryTranslationDto> SubCategoryTranslationDtos { get; set; }

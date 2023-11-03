@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">Tên loại</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Tên loại" asp-for="@Model.CatName">
+                        <input type="text" class="form-control" id="productName" placeholder="Tên loại" asp-for="@Model.CatName" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productCategory">Ngôn ngữ</label>
@@ -48,11 +48,11 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="MetaDesc">Mô tả</label>
-                        <input type="text" class="form-control" id="productPrice" placeholder="Mô tả" asp-for="@Model.Description">
+                        <input type="text" class="form-control" id="productPrice" placeholder="Mô tả" asp-for="@Model.Description" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="MetaDesc">MetaDesc</label>
-                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaDesc">
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaDesc" required>
                     </div>
 
                 </div>

@@ -40,43 +40,49 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Items)
+                        @if (Model.Items != null && Model.Items.Count() > 0)
                         {
-                            <tr>
-                                <td>
-                                    @item.Code
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center" style="background-color:gray;align-items:center" >
-                                        <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageCategory/@item.ImagePath" style="max-width: 120px" alt="" >
-                                    </div>
-                                </td>
-                                <td>@item.CatName</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        @if (item.Active == true)
-                                        {
-                                            <div class="badge badge-success badge-dot m-r-10"></div>
-                                            <div>Có</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-danger badge-dot m-r-10"></div>
-                                            <div>Khóa</div>
-                                        }
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Code
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center" style="background-color:gray;align-items:center">
+                                            <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageCategory/@item.ImagePath" style="max-width: 120px" alt="">
+                                        </div>
+                                    </td>
+                                    <td>@item.CatName</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.Active == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Khóa</div>
+                                            }
 
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-loai/@item.Id'">
-                                        <i class="anticon anticon-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-loai/@item.Id'">
-                                        <i class="anticon anticon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-loai/@item.Id'">
+                                            <i class="anticon anticon-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-loai/@item.Id'">
+                                            <i class="anticon anticon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+
                         }
+
 
                     </tbody>
                 </table>

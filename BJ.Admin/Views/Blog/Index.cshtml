@@ -33,7 +33,7 @@
                 <table class="table table-hover e-commerce-table">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>Code</th>
                             <th>Tiêu dề</th>
                             <th>Ảnh</th>
                             <th>Hoạt động</th>
@@ -42,56 +42,61 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Items)
+                        @if (Model.Items != null && Model.Items.Count() > 0)
                         {
-                            <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Title</td>
-                                <td>
-                                    <div class="d-flex align-items-center" >
-                                        <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" style="max-width: 120px" alt="">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        @if (item.Active == true)
-                                        {
-                                            <div class="badge badge-success badge-dot m-r-10"></div>
-                                            <div>Có</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-danger badge-dot m-r-10"></div>
-                                            <div>Khóa</div>
-                                        }
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>@item.Code</td>
+                                    <td>@item.Title</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" style="max-width: 120px" alt="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.Active == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Khóa</div>
+                                            }
 
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        @if (item.Popular == true)
-                                        {
-                                            <div class="badge badge-success badge-dot m-r-10"></div>
-                                            <div>Có</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-danger badge-dot m-r-10"></div>
-                                            <div>Không</div>
-                                        }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.Popular == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Không</div>
+                                            }
 
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-blog/@item.Id'">
-                                        <i class="anticon anticon-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-blog/@item.Id'">
-                                        <i class="anticon anticon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-blog/@item.Id'">
+                                            <i class="anticon anticon-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-blog/@item.Id'">
+                                            <i class="anticon anticon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
                         }
+
 
                     </tbody>
                 </table>

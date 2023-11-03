@@ -1,13 +1,18 @@
-﻿@using BJ.Contract.ViewModel;
-@model IEnumerable<BlogUserViewModel>
+﻿
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
-@section Styles {
-    <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
-
-}
 @{
     var culture = CultureInfo.CurrentCulture.Name;
+}
+@using BJ.Contract.ViewModel;
+@model IEnumerable<BlogUserViewModel>
+@section Styles {
+    <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
+}
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@{
+    ViewBag.Title = "Wellbeing";
+
 }
 <div class="boost-main-content">
     <div class="main-fold-angle bg-image ">
@@ -20,7 +25,7 @@
                 <div class="row" style="display: block;">
                     <div class="six columns">
                         <p>
-                            <a href="https://www.boostjuice.vn/wellbeing/thong-tin-dinh-duong/">
+                            <a href="/@culture/@_loc["wellbeingUrl"]/@item.Id/@item.Alias">
                                 <img src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" title="@item.Title" alt="@item.Title" class="blog-cover">
                             </a>
                         </p>
@@ -31,13 +36,18 @@
 
                         <h2> @Html.Raw(item.Title)</h2>
                         <p>@Html.Raw(item.ShortDesc)</p>
-                        <a href="/@culture/healthy/@item.Id/@item.Alias"><localize>Read more</localize></a>
+                        <a href="/@culture/@_loc["wellbeingUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
                     </div>
                 </div>
             }
         }
-        
-      
+
+        else
+        {
+            <p><localize>There are no blogs yet</localize></p>
+
+        }
+
 
 
 

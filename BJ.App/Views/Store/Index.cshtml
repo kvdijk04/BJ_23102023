@@ -1,0 +1,109 @@
+﻿<link rel="stylesheet" href="~/BoostJuice/css/store.css">
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    ViewBag.Title = "Stores";
+
+}
+@section Styles{
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+}
+
+<div class="boost-main-content">
+    <div class="main-fold bg-image banner-find-us">
+    </div>
+    <div class="boost-store-finder">
+        <div class="block block-green promo half-angle-container grey">
+            <div class="container">
+                <div class="row">
+                    <div class="six columns">
+                        <h2></h2>
+                        <p><p>Cảm ơn bạn đã quan tâm đến thức uống đến từ Boost, xem Menu <span style="color: #ff0000;"><a style="color: #ff0000;" href="/@culture/drinks.html">tại đây.</a></span></p>
+                        <p>Bạn dễ dàng đặt hàng các thức uống cực fresh của Boost qua những kênh mua hàng dưới đây:</p>
+                        <ol>
+                            <li><strong>Hotline đặt hàng: </strong><strong><span style="color: #ff0000;">1800 28 28 90</span></strong></li>
+                            <li><strong>Hệ thống cửa hàng của Boost Juice:</strong></li>
+                        </ol>
+                        <p>📍Hồ Chí Minh</p>
+                        <p>🏢56 Ngô Đức Kế, Quận 1</p>
+                        <p>🏢Tầng 4 Diamond Plaza, 34 Lê Duẩn, Phường Bến Nghé, Quận 1</p>
+                        <p>🏢119/2 Điện Biên Phủ, Quận 1</p>
+                        <p>🏢GF-A1 Crescent Mall, 101 Tôn Dật Tiên, Quận 7</p>
+                        <p>🏢RMIT, 702 Nguyễn Văn Linh, Quận 7</p>
+                        <p>🏢Thảo Điền Square 94 Xuân Thủy, Thảo Điền, Quận 2</p>
+                        <p>🏢 Mega Market An Phú, Quận 2</p>
+                        <p>🏢Tầng B2 Takashimaya, 92-94 Nam Kỳ Khởi Nghĩa, Quận 1 (Will come back soon)</p>
+                        <p>📍Hà Nội</p>
+                        <p>🏢Tầng 4, Lotte Mall Tây Hồ (Lotte Mall West Lake), 272 đường Võ Chí Công, Quận Tây Hồ, Thủ đô Hà Nội.</p>
+                        <p><strong>3. Đặt hàng thông qua ứng dụng của Boost Juice Việt Nam:</strong></p>
+                        <ul>
+                            <li><strong><span style="color: #ff0000;"> <a style="color: #ff0000;" href="https://play.google.com/store/apps/details?id=com.vn.vxfmcg.boostjuice">Android</a></span></strong></li>
+                            <li><strong><span style="color: #ff0000;"> <a style="color: #ff0000;" href="https://apps.apple.com/vn/app/boost-juice-vietnam/id6444144103">IOS</a></span></strong></li>
+                        </ul>
+                        <h4><strong>4. Đặt hàng thông qua các sàn thương mại:</strong></h4>
+                        <ul>
+                            <li><strong><span style="color: #ff0000;"> <a style="color: #ff0000;" href="https://food.grab.com/vn/vi/restaurant/boost-juice-nguy%E1%BB%85n-th%C3%A1i-h%E1%BB%8Dc-delivery/5-C4KDJ6WCV8K2RX?">Grab Food</a></span></strong></li>
+                            <li><strong><span style="color: #ff0000;"> <a style="color: #ff0000;" href="https://shopeefood.vn/ho-chi-minh/boost-juice-smoothies-nuoc-ep-trai-cay-dien-bien-phu?shareChannel=copy_link&amp;smtt=0.0.9">Shopee Food</a></span></strong></li>
+                            <li><strong><span style="color: #ff0000;"> <a style="color: #ff0000;" href="https://baemin.vn/">Beamin</a></span></strong></li>
+                            <li><strong><span style="color: #ff0000;"> <a style="color: #ff0000;" href="https://gofood.co.id/quan-1/restaurant/ter-boost-juice-i-n-bi-n-ph--2466f574-55a5-4a8f-a3de-0f98b98fa2b3">Go Food</a></span></strong></li>
+                        </ul>
+                        <p>Boost xin cảm ơn.</p>
+                        </p>
+                        <p><a href="#boost-store-locator" class="button" style="margin-bottom:100px">Boostjuice Bar Việt Nam</a></p>
+                    </div>
+                    <div class="six columns half-angle"> <img src="" /> </div>
+                    <style>
+                        .block.half-angle-container.grey .half-angle::after {
+                            background-color: #ede100;
+                        }</style>
+                </div>
+            </div>
+        </div>
+        <div id="boost-store-locator" class="hide-stores">
+            <div class="preloader" id="boost-stores-loading">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+            <div class="boostjuice-search">
+
+                <img src="~/images/icon-boost-cup.png">
+                <h2><localize>Find a Boost Juice Store</localize></h2>
+                <p></p><p>
+                    <localize>How close am I to putting a Boost in my belly?<br />Just search your address using the little search bar thingy below. Easy.</localize>
+                </p>
+                <p></p>
+                <a id="get-my-location" class="button" style="margin-bottom:30px"><localize>User current location</localize></a>
+
+            </div>
+
+        </div>
+        <div id="boost-stores" style="display:none">
+            <div id="boostjuice-result-list">
+                <div id="boostjuice-stores">
+                </div>
+            </div>
+            <div class="boostjuice-gmap-wrap">
+                <div id="boostjuice-gmap" style="position: relative; overflow: hidden;">
+                    <div id="map"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $('#boostjuice-stores').on('click', '.show-openhours', function () {
+        var e = $("#boostjuice-stores .show-openhours").index(this);
+        $("#boostjuice-stores .wpsl-opening-hours:eq( " + e + " )").addClass("show");
+        $('#boostjuice-stores .wpsl-opening-hours').not(':eq("' + e + '")').removeClass("show");
+
+    });
+
+</script>
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTv4Z_nGhpi5GAzj3cDpcRf43HyonXxYA&#038&callback=initMap" async defer></script>
+<script src="~/BoostJuice/js/ggmap_boost.js"></script>

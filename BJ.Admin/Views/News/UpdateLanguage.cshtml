@@ -1,0 +1,132 @@
+﻿@using BJ.Contract.Translation.News;
+@model UpdateNewsTranslationDto;
+<form asp-action="UpdateLanguage" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Cập nhật ngôn ngữ</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-tin-tuc.html " class="breadcrumb-item">Tất cả tin tức</a>
+                <a href="/chi-tiet-tin-tuc/@ViewBag.Id" class="breadcrumb-item">@ViewBag.Title</a>
+                <a href="#" class="breadcrumb-item">Ngôn ngữ</a>
+                <span class="breadcrumb-item active">Cập nhật ngôn ngữ</span>
+            </nav>
+
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                </div> *@
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @Model.Title </h4>
+                    <a href="/chi-tiet-tin-tuc/@ViewBag.Id" style="text-decoration:underline">Thông tin chi tiết</a>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+                <button class="btn btn-info" onclick="location.href='/chi-tiet-tin-tuc/@ViewBag.Id/them-moi-ngon-ngu'" type="button">
+                    <i class="anticon anticon-plus-circle"></i>
+                    <span>Thêm mới ngôn ngữ</span>
+                </button>
+            </div>
+
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin chi tiết</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="catName">Tên tin tức</label>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên tin tức" value="@Model.Title" asp-for="@Model.Title" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">Mô tả ngắn</label>
+                        <textarea class="form-control" id="shortDescription" placeholder="Mô tả" asp-for="@Model.ShortDesc"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">Mô tả</label>
+                        <textarea class="form-control" id="Description" placeholder="Mô tả" asp-for="@Model.Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">MetaDesc</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaDesc" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="MetaDesc">MetaKey</label>
+                        <input type="text" class="form-control" id="productPrice" placeholder="MetaDesc" asp-for="@Model.MetaKey" required>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</form>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+
+<script>
+
+    $('#shortDescription').summernote({
+        placeholder: 'Mô tả ngắn',
+
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video', 'hr']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+        ],
+        fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+            'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+            'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+        tabsize: 2,
+        height: 120,
+    });
+    $('#Description').summernote({
+        placeholder: 'Mô tả',
+
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video', 'hr']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+        ],
+        fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+            'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+            'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+        tabsize: 2,
+        height: 120,
+    });
+</script>

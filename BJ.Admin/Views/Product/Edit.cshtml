@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <div class="form-group">
                     <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.UpdateProductDto.ProductName" asp-for="@Model.UpdateProductDto.ProductName">
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.UpdateProductDto.ProductName" asp-for="@Model.UpdateProductDto.ProductName" required>
                     </div> 
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
@@ -231,11 +231,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductDto.MetaDesc" asp-for="@Model.UpdateProductDto.MetaDesc" >
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductDto.MetaDesc" asp-for="@Model.UpdateProductDto.MetaDesc" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" value="@Model.UpdateProductDto.MetaKey" asp-for="@Model.UpdateProductDto.MetaKey" >
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" value="@Model.UpdateProductDto.MetaKey" asp-for="@Model.UpdateProductDto.MetaKey" required>
                     </div>
                 </div>
             </div>

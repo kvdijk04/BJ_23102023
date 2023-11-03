@@ -57,7 +57,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên loại</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên loại" asp-for="@Model.CatName">
+                        <input type="text" class="form-control" id="catName" placeholder="Tên loại" asp-for="@Model.CatName" required>
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <div class="switch m-r-10">
@@ -93,7 +93,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả</label>
-                        <textarea class="form-control" id="productBrand" placeholder="Mô tả" asp-for="@Model.Description"></textarea>
+                        <textarea class="form-control" id="productBrand" placeholder="Mô tả" asp-for="@Model.Description" ></textarea>
                     </div>
                 </div>
             </div>
@@ -103,11 +103,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.MetaDesc">
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.MetaDesc" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.MetaKey">
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.MetaKey" required>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@model UpdateNewsAdminView
+@using BJ.Contract.ViewModel;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Cập nhật tin tức</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/tat-ca-tin-tuc.html " class="breadcrumb-item">Tất cả tin tức</a>
+
+                <span class="breadcrumb-item active">Cập nhật tin tức</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                @* <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
+                </div> *@
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @Model.UpdateNewsTranslation.Title </h4><a href="/chi-tiet-tin-tuc/@ViewBag.NewsId" style="text-decoration:underline">Xem chi tiết</a>
+                    @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
+                    *@
+                    <span class="text-muted m-b-0 catId" hidden>@ViewBag.NewsId</span>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+                <button class="btn btn-info" onclick="location.href='/chi-tiet-tin-tuc/@ViewBag.NewsId/them-moi-ngon-ngu'" type="button">
+                    <i class="anticon anticon-plus-circle"></i>
+                    <span>Thêm ngôn ngữ</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin tin tức</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Ảnh</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Mô tả</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-config">Cấu hình</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="catName">Tên tin tức</label>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên tin tức" value="@Model.UpdateNewsTranslation.Title" asp-for="@Model.UpdateNewsTranslation.Title" required>
+                    </div>
+                    @if (Model.UpdateNews.Active == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.UpdateNews.Active">
+                                <label for="switch-3"></label>
+                            </div>
+                            <label>Kích hoạt</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.UpdateNews.Active">
+                                <label for="switch-3"></label>
+                            </div>
+                            <label>Kích hoạt</label>
+                        </div>
+                    }
+
+                    @if (Model.UpdateNews.Popular == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-4" checked="" value="true" asp-for="@Model.UpdateNews.Popular">
+                                <label for="switch-4"></label>
+                            </div>
+                            <label>Phổ biến</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-4" value="true" asp-for="@Model.UpdateNews.Popular">
+                                <label for="switch-4"></label>
+                            </div>
+                            <label>Phổ biến</label>
+                        </div>
+                    }
+                    @if (Model.UpdateNews.Home == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-5" checked="" value="true" asp-for="@Model.UpdateNews.Home">
+                                <label for="switch-5"></label>
+                            </div>
+                            <label>Ở trang chủ</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-5" value="true" asp-for="@Model.UpdateNews.Home">
+                                <label for="switch-5"></label>
+                            </div>
+                            <label>Ở trang chủ</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh đại diện *</label>
+
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                <input type="file" class="drop-zone__input" asp-for="@Model.FileUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <h2>Ảnh hiện tại</h2>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Ảnh đại diện *</label>
+
+
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageNews/@Model.UpdateNews.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-description">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Mô tả ngắn</label>
+                        <textarea class="form-control" id="shortDescription" placeholder="Mô tả" asp-for="@Model.UpdateNewsTranslation.ShortDesc" value="@Model.UpdateNewsTranslation.ShortDesc"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Mô tả</label>
+                        <textarea class="form-control" id="Description" placeholder="Mô tả" asp-for="@Model.UpdateNewsTranslation.Description" value="@Model.UpdateNewsTranslation.Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-config">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.UpdateNewsTranslation.MetaDesc" value="@Model.UpdateNewsTranslation.MetaDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">MetaKey</label>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.UpdateNewsTranslation.MetaKey" value="@Model.UpdateNewsTranslation.MetaKey">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+
+        $('#shortDescription').summernote({
+            placeholder: 'Mô tả ngắn',
+
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+                'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+                'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+            tabsize: 2,
+            height: 120,
+        });
+        $('#Description').summernote({
+            placeholder: 'Mô tả',
+
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+                'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+                'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+            tabsize: 2,
+            height: 120,
+        });
+    </script>
+    <script>
+        document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+            const dropZoneElement = inputElement.closest(".drop-zone");
+
+            dropZoneElement.addEventListener("click", (e) => {
+                inputElement.click();
+            });
+
+            inputElement.addEventListener("change", (e) => {
+                if (inputElement.files.length) {
+                    updateThumbnail(dropZoneElement, inputElement.files[0]);
+                }
+            });
+
+            dropZoneElement.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZoneElement.classList.add("drop-zone--over");
+            });
+
+            ["dragleave", "dragend"].forEach((type) => {
+                dropZoneElement.addEventListener(type, (e) => {
+                    dropZoneElement.classList.remove("drop-zone--over");
+                });
+            });
+
+            dropZoneElement.addEventListener("drop", (e) => {
+                e.preventDefault();
+
+                if (e.dataTransfer.files.length) {
+                    inputElement.files = e.dataTransfer.files;
+                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+                }
+
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+
+        function updateThumbnail(dropZoneElement, file) {
+            let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+            // First time - remove the prompt
+            if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+                dropZoneElement.querySelector(".drop-zone__prompt").remove();
+            }
+
+            // First time - there is no thumbnail element, so lets create it
+            if (!thumbnailElement) {
+                thumbnailElement = document.createElement("div");
+                thumbnailElement.classList.add("drop-zone__thumb");
+                dropZoneElement.appendChild(thumbnailElement);
+            }
+            //Chèn tên dưới hình----------
+            //thumbnailElement.dataset.label = file.name;
+            //------------
+            // Show thumbnail for image files
+            if (file.type.startsWith("image/")) {
+                const reader = new FileReader();
+
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+                };
+            } else {
+                thumbnailElement.style.backgroundImage = null;
+            }
+        }
+
+    </script>
+}

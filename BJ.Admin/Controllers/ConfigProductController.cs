@@ -1,4 +1,5 @@
-﻿using BJ.ApiConnection.Services;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BJ.ApiConnection.Services;
 using BJ.Contract.Size;
 using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,13 @@ namespace BJ.Admin.Controllers
     {
         private readonly ILogger<ConfigProductController> _logger;
         private readonly IConfigProductServiceConnection _configProductServiceConnection;
-        public ConfigProductController(ILogger<ConfigProductController> logger, IConfigProductServiceConnection configProductServiceConnection)
+        private readonly INotyfService _notyfService;
+
+        public ConfigProductController(ILogger<ConfigProductController> logger, IConfigProductServiceConnection configProductServiceConnection, INotyfService notyfService)
         {
             _logger = logger;
             _configProductServiceConnection = configProductServiceConnection;
+            _notyfService = notyfService;
         }
         [HttpGet]
         public IActionResult Edit()
@@ -24,6 +28,14 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> Edit(Guid proId, Guid id, UpdateSizeSpecificProductDto updateSizeSpecificProductDto)
         {
             var a = await _configProductServiceConnection.UpdateSpecificProduct(id, updateSizeSpecificProductDto);
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/cap-nhat-san-pham/" + proId);
         }
         [HttpPost]
@@ -31,7 +43,14 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> Create(Guid proId, CreateSizeSpecificProductDto createSizeSpecificProductDto)
         {
             var a = await _configProductServiceConnection.CreateSizeSpecificProduct(createSizeSpecificProductDto);
-
+            if (a == true)
+            {
+                _notyfService.Success("Thêm mới thành công");
+            }
+            else
+            {
+                _notyfService.Error("Thêm mới thất bại");
+            }
             return Redirect("/cap-nhat-san-pham/" + proId);
         }
 
@@ -40,7 +59,14 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> EditConfig(ConfigProduct configProduct)
         {
             var a = await _configProductServiceConnection.CreateConfigProduct(configProduct);
-
+            if (a == true)
+            {
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
             return Redirect("/cap-nhat-san-pham/" + configProduct.ProId);
         }
     }

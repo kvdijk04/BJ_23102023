@@ -8,7 +8,6 @@ namespace BJ.Domain.Entities
 
         [ForeignKey("News")]
         public Guid NewsId { get; set; }
-
         [ForeignKey("Language")]
         public string LanguageId { get; set; }
 

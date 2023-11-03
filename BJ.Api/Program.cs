@@ -96,6 +96,13 @@ app.UseFileServer(new FileServerOptions
 app.UseFileServer(new FileServerOptions
 {
     FileProvider = new PhysicalFileProvider(
+           Path.Combine(Directory.GetCurrentDirectory(), "ImageNews")),
+    RequestPath = "/ImageNews",
+    EnableDirectoryBrowsing = true
+});
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
            Path.Combine(Directory.GetCurrentDirectory(), "ImageSubCategory")),
     RequestPath = "/ImageSubCategory",
     EnableDirectoryBrowsing = true

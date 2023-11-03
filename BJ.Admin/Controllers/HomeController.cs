@@ -1,5 +1,6 @@
 ﻿using BJ.Admin.Models;
 using BJ.ApiConnection.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -20,6 +21,7 @@ namespace BJ.Admin.Controllers
             _subCategoryService = subCategoryService;
             _categoryService = categoryService;
         }
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View();

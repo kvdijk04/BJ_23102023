@@ -2,9 +2,7 @@
 using BJ.Application.Ultities;
 using BJ.Contract.Blog;
 using BJ.Contract.Translation.Blog;
-using BJ.Contract.Translation.Blog;
 using BJ.Contract.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.Api.Controllers
@@ -107,7 +105,7 @@ namespace BJ.Api.Controllers
             return Ok(await _blogService.GetBlogById(id, culture));
 
         }
-        
+
         /// <summary>
         /// Cập nhật blog bằng id
         /// </summary>
@@ -141,7 +139,7 @@ namespace BJ.Api.Controllers
         }
 
         /// <summary>
-        /// Lấy thông tin ngôn ngữ của loại bằng Id
+        /// Lấy thông tin ngôn ngữ của blog bằng Id
         /// </summary>
 
         [HttpGet("language/{id}/detail")]
@@ -157,7 +155,7 @@ namespace BJ.Api.Controllers
         }
 
         /// <summary>
-        /// Tạo mới loại theo từng ngôn ngữ
+        /// Tạo mới blog theo từng ngôn ngữ
         /// </summary>
         /// 
 
@@ -182,12 +180,12 @@ namespace BJ.Api.Controllers
             }
         }
         /// <summary>
-        /// Cập nhật loại theo từng ngôn ngữ
+        /// Cập nhật blog theo từng ngôn ngữ
         /// </summary>
         /// 
 
         [HttpPut("language/{id}/update")]
-        public async Task<IActionResult> UpdateTranslate( Guid id, [FromBody] UpdateBlogTranslationDto updateBlogTranslationDto)
+        public async Task<IActionResult> UpdateTranslate(Guid id, [FromBody] UpdateBlogTranslationDto updateBlogTranslationDto)
         {
             try
             {

@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification;
 using BJ.ApiConnection.Services;
 using BJ.Contract.Config;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -36,8 +37,11 @@ builder.Services.AddScoped<IConfigProductServiceConnection, ConfigProductService
 builder.Services.AddScoped<ILoginServiceConnection, LoginServiceConnection>();
 builder.Services.AddScoped<ILanguageServiceConnection, LanguageServiceConnection>();
 builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
+builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
+builder.Services.AddScoped<IImportExcelServiceConnection, ImportExcelServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 
 
 var app = builder.Build();

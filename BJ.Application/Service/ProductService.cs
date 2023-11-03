@@ -88,12 +88,47 @@ namespace BJ.Application.Service
         public async Task CreateProductAdminView(CreateProductAdminView createProductAdminView)
         {
 
-            var code = _configuration.GetValue<string>("Code:Product");
+
 
             createProductAdminView.CreateProduct.Id = Guid.NewGuid();
 
-            createProductAdminView.CreateProduct.Code = code + Utilities.GenerateStringDateTime();
+            var total = await _context.Products.OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
 
+            string s = null;
+
+            var code = _configuration.GetValue<string>("Code:Product");
+
+            var codeLimit = _configuration.GetValue<string>("LimitCode");
+
+            if (total.Count == 0) { createProductAdminView.CreateProduct.Code = code + codeLimit; }
+
+            else if (total.Count > 0)
+            {
+                var x = total[0].Code.Substring(code.Length, codeLimit.Length);
+
+                int k = Convert.ToInt32(total[0].Code.Substring(code.Length, codeLimit.Length)) + 1;
+                if (k < 10) s += total[0].Code.Substring(code.Length, codeLimit.Length-1);
+                else if (k < 100)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 2);
+                else if (k < 1000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 3);
+                else if (k < 10000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 4);
+                else if (k < 100000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 5);
+                else if (k < 1000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 6);
+                else if (k < 10000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 7);
+                else if (k < 100000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 8);
+                else if (k < 1000000000)
+                    s += total[0].Code.Substring(code.Length, codeLimit.Length - 9);
+                s += k.ToString();
+
+                createProductAdminView.CreateProduct.Code = code + s;
+
+            }
             createProductAdminView.CreateProduct.DateModified = DateTime.Now;
 
             createProductAdminView.CreateProduct.DateCreated = DateTime.Now;
@@ -127,6 +162,10 @@ namespace BJ.Application.Service
 
                 createProductAdminView.CreateProduct.ImagePathIngredients = await Utilities.UploadFile(createProductAdminView.ImageIngredients, "ImageProduct", image);
 
+            }
+            if(createProductAdminView.CreateProduct.Alias == null)
+            {
+                createProductAdminView.CreateProduct.Alias = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName);
             }
             Product product = _mapper.Map<Product>(createProductAdminView.CreateProduct);
 
@@ -188,6 +227,7 @@ namespace BJ.Application.Service
                 Description = createProductAdminView.CreateProduct.Description,
                 ShortDesc = createProductAdminView.CreateProduct.ShortDesc,
                 MetaDesc = createProductAdminView.CreateProduct.MetaDesc,
+                MetaKey = createProductAdminView.CreateProduct.MetaKey,
                 LanguageId = defaultLanguage,
             };
             ProductTranslation poductTranslation = _mapper.Map<ProductTranslation>(createProductTranslationDto);

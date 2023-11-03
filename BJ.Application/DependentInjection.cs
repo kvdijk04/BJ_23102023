@@ -27,6 +27,7 @@ namespace BJ.Application
             services.AddScoped<IStoreLocationService, StoreLocationService>();
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<INewsService, NewsService>();
 
             services.AddAutoMapper(typeof(CategoryMappingProfile).Assembly);
             services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
@@ -35,6 +36,7 @@ namespace BJ.Application
             services.AddAutoMapper(typeof(StoreLocationMappingProfile).Assembly);
             services.AddAutoMapper(typeof(LanguageMappingProfile).Assembly);
             services.AddAutoMapper(typeof(BlogMappingProfile).Assembly);
+            services.AddAutoMapper(typeof(NewsMappingProfile).Assembly);
 
 
             //Config AppSetting
