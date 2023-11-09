@@ -41,6 +41,17 @@ namespace BJ.Api.Controllers
 
         }
         /// <summary>
+        /// Danh sách tin khuyến mãi
+        /// </summary>
+        [HttpGet("promotion")]
+
+        public async Task<IEnumerable<NewsUserViewModel>> GetPromotion(string culture)
+        {
+
+            return await _blogService.GetPromotions(culture);
+
+        }
+        /// <summary>
         /// Danh sách tin tức tại trang chủ
         /// </summary>
         [HttpGet("homepage")]

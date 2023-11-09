@@ -35,6 +35,9 @@
                     }
                 </ul>
                 <span>@product.ProductName</span>
+                <a class="button" onclick="momodal()">
+                    <localize>BUY</localize>
+                </a>
             </a>
             <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
                 <div class="preloader" style="display:none"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
@@ -61,9 +64,58 @@ else
         </ul>
     </section>
 }
+<div class="nenmodal" id="nenmodal-1">
+    <div class="nenmodal2"></div>
+    <div class="ndmodal">
+        <div class="closemodal"><button onclick="momodal()">×</button></div>
+        <div class="vibe-options">
+            <div class="container">
+
+                <div class="row">
+                    <div class="notify six columns">
+                        <div>
+                            <p class="sub-title">
+                                <localize>
+                                    OPTION 1
+                                </localize>
+                            </p>
+                            <h3><localize>Download the<br>Boost Juice App</localize></h3>
+                            <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
+                            <p>
+                                <a href="http://bit.ly/1yqA2a2" target="_blank">
+                                    <img src="~/images/ios.png"
+                                         width="160">
+                                </a>
+                                <a href="http://bit.ly/USKKXP" target="_blank">
+                                    <img src="~/images/ggplay.png"
+                                         width="160">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="notify six columns">
+                        <div>
+                            <p class="sub-title">
+                                <localize>
+                                    OPTION 2
+                                </localize>
+                            </p>
+                            <h3><localize>Call us maybe?</localize></h3>
+                            <a href="tel:1800 282890" style="color:#FFFF">Hotline: 1800 282890</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
+    function momodal() {
+        document.getElementById("nenmodal-1").classList.toggle("active");
+    }
     var first = $(location).attr('pathname');
 
     first.indexOf(1);

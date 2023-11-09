@@ -89,7 +89,7 @@
 		position: absolute
 	}
 
-.og-grid li.og-expanded > a::after {
+/*.og-grid li.og-expanded > a::after {*/
 	/*	bottom: -36px;
 	border: solid red;
 	content: " ";
@@ -102,7 +102,7 @@
 	left: 50%;
 	margin: -20px 0 0 -15px;
 	z-index: 1*/
-	border: solid transparent;
+	/*border: solid transparent;
 	content: " ";
 	height: 0;
 	width: 0;
@@ -129,7 +129,7 @@
 
 .og-grid li:nth-child(4n+1) a::after {
 	bottom: -35px
-}
+}*/
 
 .og-expander {
 	position: absolute;
@@ -579,8 +579,8 @@ ul#og-grid li {
 	background-color: #5bbde1;
 	text-transform: uppercase;
 	z-index: 9999;
-	cursor: pointer;
-	max-width: 100px;
+		cursor: pointer;
+	max-width: 150px;
 	text-align: center;
 	line-height: 14px;
 	-webkit-transition: all 1s ease 1.4s;

@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&amp;quot;I wasn’t feeling well the other day, so I went and visited the Doctor. He told me to download the Boost app and now I feel great. This app is medicinal magic!&amp;quot;" xml:space="preserve">
+    <value>&amp;quot;I wasn’t feeling well the other day, so I went and visited the Doctor. He told me to download the Boost app and now I feel great. This app is medicinal magic!&amp;quot;</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="58 Ngo Duc Ke Street" xml:space="preserve">
+    <value>58 Ngo Duc Ke Street</value>
+    <comment>Contact</comment>
+  </data>
   <data name="&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/span&gt; For orders exceeding 20 km from the nearest store and/or in the Fresh Juice and Create Your Own Juice ranges, Boost must obtain confirmation from Customer to make an order." xml:space="preserve">
     <value>&lt;span style="text-decoration: underline;"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/span&gt; For orders exceeding 20 km from the nearest store and/or in the Fresh Juice and Create Your Own Juice ranges, Boost must obtain confirmation from Customer to make an order.</value>
     <comment>Home/Delivery</comment>
@@ -153,9 +161,26 @@
     <value>acceptable-use-policy</value>
     <comment>_Layout</comment>
   </data>
+  <data name="Ah, ‘cos it’s awesome? Keep your alerts on and get the low down on random challenges, freebies and discounts (because we’re a generous bunch of coconuts) and the power to strut your stuff pass the queue and grab your pre-ordered Boost drink with our Order Now feature.&lt;br /&gt;&#xA;                                        Other deliciously entices things that may tickle your pickle:&lt;br /&gt;&#xA;                                        &amp;#8211; What’s Your Name Game – We call out your name, and you get a free Boost, simples! Thank your folks later.&lt;br /&gt;&#xA;                                        &amp;#8211; My Boost Points – Collect points every time you buy a Boost, 10 points and you get a Freebie Find Us&lt;br /&gt;&#xA;                                        &amp;#8211; Our Menu – What’s in our drinks? Nothing artificial that’s for sure but you can find out all about it FREE birthday drink just for being born! And again&lt;br /&gt;&#xA;                                        yay for parents! Still not sure what the fruit is going on? We’ve dumbed it all down in our FAQ’s." xml:space="preserve">
+    <value>Ah, ‘cos it’s awesome? Keep your alerts on and get the low down on random challenges, freebies and discounts (because we’re a generous bunch of coconuts) and the power to strut your stuff pass the queue and grab your pre-ordered Boost drink with our Order Now feature.&lt;br /&gt;
+                                        Other deliciously entices things that may tickle your pickle:&lt;br /&gt;
+                                        &amp;#8211; What’s Your Name Game – We call out your name, and you get a free Boost, simples! Thank your folks later.&lt;br /&gt;
+                                        &amp;#8211; My Boost Points – Collect points every time you buy a Boost, 10 points and you get a Freebie Find Us&lt;br /&gt;
+                                        &amp;#8211; Our Menu – What’s in our drinks? Nothing artificial that’s for sure but you can find out all about it FREE birthday drink just for being born! And again&lt;br /&gt;
+                                        yay for parents! Still not sure what the fruit is going on? We’ve dumbed it all down in our FAQ’s.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Are you reading this seriously? We don't know whether to congratulate you for your efforts, or just because you have nothing better to do... either way, you're here, which is good for you." xml:space="preserve">
+    <value>Are you reading this seriously? We don't know whether to congratulate you for your efforts, or just because you have nothing better to do... either way, you're here, which is good for you.</value>
+    <comment>Product/Index</comment>
+  </data>
   <data name="Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide." xml:space="preserve">
     <value>Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Ben Nghe Ward, District 1" xml:space="preserve">
+    <value>Ben Nghe Ward, District 1</value>
+    <comment>Contact</comment>
   </data>
   <data name="Boost from the beginning." xml:space="preserve">
     <value>Boost from the beginning.</value>
@@ -164,6 +189,22 @@
   <data name="Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life." xml:space="preserve">
     <value>Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website." xml:space="preserve">
+    <value>Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Boosters are not a sole source of nutrition and should be consumed in conjunction with a healthy nutritious diet." xml:space="preserve">
+    <value>Boosters are not a sole source of nutrition and should be consumed in conjunction with a healthy nutritious diet.</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Boosters not suitable for children under 15 years or pregnant women, except for chia and lucuma powder." xml:space="preserve">
+    <value>Boosters not suitable for children under 15 years or pregnant women, except for chia and lucuma powder.</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Boy we hope" xml:space="preserve">
+    <value>Boy we hope</value>
+    <comment>Contact</comment>
   </data>
   <data name="But hard work is often rewarded, and the success of the first King William St store allowed Janine and Jeff to open three new sites – including two in one day." xml:space="preserve">
     <value>But hard work is often rewarded, and the success of the first King William St store allowed Janine and Jeff to open three new sites – including two in one day.</value>
@@ -176,6 +217,22 @@
   <data name="BUY" xml:space="preserve">
     <value>BUY</value>
     <comment>Product/SingleProduct</comment>
+  </data>
+  <data name="Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded." xml:space="preserve">
+    <value>Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="By registering and/or using your Boost VIBE Card, you consent to the terms of this agreement." xml:space="preserve">
+    <value>By registering and/or using your Boost VIBE Card, you consent to the terms of this agreement.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Call us maybe?" xml:space="preserve">
+    <value>Call us maybe?</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Can I get a free drink yet?" xml:space="preserve">
+    <value>Can I get a free drink yet?</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="Certificate of Business Registration No. 0317934150 issued by" xml:space="preserve">
     <value>Certificate of Business Registration No. 0317934150 issued by</value>
@@ -217,6 +274,10 @@
     <value>Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register.</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Download the&lt;br&gt;Boost Juice App" xml:space="preserve">
     <value>Download the&lt;br&gt;Boost Juice App</value>
     <comment>Vibe/Index</comment>
@@ -224,6 +285,10 @@
   <data name="drinkUrl" xml:space="preserve">
     <value>drinks</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+    <comment>Contact</comment>
   </data>
   <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
     <value>Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome.</value>
@@ -241,13 +306,41 @@
     <value>Free shipping</value>
     <comment>Home/Delivery</comment>
   </data>
+  <data name="Frequently Asked Questions" xml:space="preserve">
+    <value>Frequently Asked Questions</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>FullName</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="General/Store Feedback" xml:space="preserve">
+    <value>General/Store Feedback</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Get yourself&lt;br&gt; a Vibe Card" xml:space="preserve">
     <value>Get yourself&lt;br&gt; a Vibe Card</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Give us the details" xml:space="preserve">
+    <value>Give us the details</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Got 10 or more points? Then do a happy dance because you have a free Boost! You only need 10 points to get your freebie! Free Boost is for original size only and does not include soy, double fruit or any extras!" xml:space="preserve">
+    <value>Got 10 or more points? Then do a happy dance because you have a free Boost! You only need 10 points to get your freebie! Free Boost is for original size only and does not include soy, double fruit or any extras!</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="got something to say?" xml:space="preserve">
+    <value>got something to say?</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Growing Strong" xml:space="preserve">
     <value>Growing Strong</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Ho Chi Minh City, Vietnam" xml:space="preserve">
+    <value>Ho Chi Minh City, Vietnam</value>
+    <comment>Contact</comment>
   </data>
   <data name="Home page - Boost Juice" xml:space="preserve">
     <value>Home page - Boost Juice</value>
@@ -257,13 +350,53 @@
     <value>How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy.</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="I Know My Vibe Number" xml:space="preserve">
+    <value>I Know My Vibe Number</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="If I have registered in the app using the plastic card, do I still need to keep the physical one or is the one in my app sufficient?" xml:space="preserve">
+    <value>If I have registered in the app using the plastic card, do I still need to keep the physical one or is the one in my app sufficient?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="If I have registered using the &quot;without a card&quot; option, will I receive a physical one?" xml:space="preserve">
+    <value>If I have registered using the "without a card" option, will I receive a physical one?</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and &quot;love of life&quot; through spontaneous experiences. at store." xml:space="preserve">
     <value>If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and "love of life" through spontaneous experiences. at store.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="If your points haven’t refreshed automatically, refresh the Boost Juice website or app. Cheeky thing still not working? Don’t throw your phone at that random stranger, just send an email our way to info@boostjuice.vn and we will fix it for you!" xml:space="preserve">
+    <value>If your points haven’t refreshed automatically, refresh the Boost Juice website or app. Cheeky thing still not working? Don’t throw your phone at that random stranger, just send an email our way to info@boostjuice.vn and we will fix it for you!</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Im Not A Vibe Member" xml:space="preserve">
+    <value>Im Not A Vibe Member</value>
+    <comment>Contact</comment>
+  </data>
   <data name="In case after you have successfully placed an order and want to cancel your order, please contact Boost Juice Vietnam immediately to cancel your order via&lt;span style=&quot;color: #70b046;&quot;&gt;&lt;strong&gt; Our Hotline&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;" xml:space="preserve">
     <value>In case after you have successfully placed an order and want to cancel your order, please contact Boost Juice Vietnam immediately to cancel your order via&lt;span style="color: #70b046;"&gt;&lt;strong&gt; Our Hotline&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;</value>
     <comment>Home/Delivery</comment>
+  </data>
+  <data name="In the case of a lost or stolen Vibe Card; Vibe Members should visit a Boost Juice store and request a new Vibe Card. They can log onto the registered members section of the Boost Juice Vietnam website where they can Transfer their existing card information including Vibe Points, to their new card by submitting their details. Every endeavour will be made to ensure that the full points balance is also transferred to the new card; however Boost Juice Vietnam will not be responsible for any points accrued that are lost in the transfer. Cards that are reported as lost or stolen will immediately be cancelled and will be no longer able to be used. If a Vibe Card is lost or stolen, the Vibe Member is responsible for logging onto the website to perform a lost card process and transfer all existing Vibe Points to a new Vibe Card. A new card can be acquired from any Boost Juice Outlet in Vietnam." xml:space="preserve">
+    <value>In the case of a lost or stolen Vibe Card; Vibe Members should visit a Boost Juice store and request a new Vibe Card. They can log onto the registered members section of the Boost Juice Vietnam website where they can Transfer their existing card information including Vibe Points, to their new card by submitting their details. Every endeavour will be made to ensure that the full points balance is also transferred to the new card; however Boost Juice Vietnam will not be responsible for any points accrued that are lost in the transfer. Cards that are reported as lost or stolen will immediately be cancelled and will be no longer able to be used. If a Vibe Card is lost or stolen, the Vibe Member is responsible for logging onto the website to perform a lost card process and transfer all existing Vibe Points to a new Vibe Card. A new card can be acquired from any Boost Juice Outlet in Vietnam.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at" xml:space="preserve">
+    <value>Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Is there a limit on points and do they expire?" xml:space="preserve">
+    <value>Is there a limit on points and do they expire?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="It is our mission to become one of the worlds most loved and famous smoothie and juice brands and we are well on the way! Boost Juice is a truly global brand with over 450 stores in operation and exciting international expansion plans." xml:space="preserve">
+    <value>It is our mission to become one of the worlds most loved and famous smoothie and juice brands and we are well on the way! Boost Juice is a truly global brand with over 450 stores in operation and exciting international expansion plans.</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="it's something good!" xml:space="preserve">
+    <value>it's something good!</value>
+    <comment>Contact</comment>
   </data>
   <data name="It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 580 stores worldwide." xml:space="preserve">
     <value>It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 580 stores worldwide.</value>
@@ -281,6 +414,10 @@
     <value>Just one problem: the banks wouldn’t touch a business that just sold liquid. But as they say, when life hands you lemons, make lemonade. Or juices and smoothies, as the case may be.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Just select which option below is most relevant to you and we’ll take it from there." xml:space="preserve">
+    <value>Just select which option below is most relevant to you and we’ll take it from there.</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Just three years later, Janine purchased rival chain Viva Juice and sold the rebranded stores to franchise partners." xml:space="preserve">
     <value>Just three years later, Janine purchased rival chain Viva Juice and sold the rebranded stores to franchise partners.</value>
     <comment>Home/About</comment>
@@ -297,6 +434,18 @@
     <value>Menu - Boost Juice</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="message" xml:space="preserve">
+    <value>Message</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Monday – Sunday (9:00 – 20:00)" xml:space="preserve">
+    <value>Monday – Sunday (9:00 – 20:00)</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Moved? Made a boo boo? Tied the knot? No worries! All the details you entered when you registered can be changed whenever you feel the need. Just log into the app, head to the My Profile section, change your deets and save it!" xml:space="preserve">
+    <value>Moved? Made a boo boo? Tied the knot? No worries! All the details you entered when you registered can be changed whenever you feel the need. Just log into the app, head to the My Profile section, change your deets and save it!</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
     <comment>Layout</comment>
@@ -304,6 +453,18 @@
   <data name="newsUrl" xml:space="preserve">
     <value>news</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="No fees will be charged by Boost Juice Vietnam for the issue, registration, activation or use of the VIBE Card." xml:space="preserve">
+    <value>No fees will be charged by Boost Juice Vietnam for the issue, registration, activation or use of the VIBE Card.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Nope! Everything you need is right here in this handy dandy app." xml:space="preserve">
+    <value>Nope! Everything you need is right here in this handy dandy app.</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream." xml:space="preserve">
     <value>Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream.</value>
@@ -333,6 +494,10 @@
     <value>Orders over 300.000 VND, free shipping</value>
     <comment>Home/Delivery</comment>
   </data>
+  <data name="Other Queries" xml:space="preserve">
+    <value>Other Queries</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Our Drinks" xml:space="preserve">
     <value>Our Drinks</value>
     <comment>Layout</comment>
@@ -340,6 +505,10 @@
   <data name="Our primary life requires energy. This philosophy inspires everything we do. And as we continually innovate and grow, it's not with the goal of changing the world, but just to make our customers feel “a little better.”" xml:space="preserve">
     <value>Our primary life requires energy. This philosophy inspires everything we do. And as we continually innovate and grow, it's not with the goal of changing the world, but just to make our customers feel “a little better.”</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Phone</value>
+    <comment>Contact</comment>
   </data>
   <data name="Please come back later. Sorry for this inconvenience" xml:space="preserve">
     <value>Please come back later. Sorry for this inconvenience</value>
@@ -349,12 +518,32 @@
     <value>Popular</value>
     <comment>Blog/Detail, News/Index, News/Detail</comment>
   </data>
+  <data name="Postal address" xml:space="preserve">
+    <value>Postal address</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+    <comment>Contact</comment>
+  </data>
   <data name="PRIVACY POLICY" xml:space="preserve">
     <value>PRIVACY POLICY</value>
     <comment>Home/Privacy</comment>
   </data>
   <data name="privacyPolicyUrl" xml:space="preserve">
     <value>privacy-policy</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Product Feedback" xml:space="preserve">
+    <value>Product Feedback</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="promotionUrl" xml:space="preserve">
+    <value>promotion</value>
     <comment>_Layout</comment>
   </data>
   <data name="Read more" xml:space="preserve">
@@ -373,6 +562,14 @@
     <value>RETURN/EXCHANGE POLICY</value>
     <comment>Home/Delivery</comment>
   </data>
+  <data name="Service Feedback" xml:space="preserve">
+    <value>Service Feedback</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Should a password be lost or forgotten, VIBE members should go to the registered members section of the Boost Juice Vietnam website where they can enter their email address and click on 'lost password'. Their password will then be sent to their nominated email address." xml:space="preserve">
+    <value>Should a password be lost or forgotten, VIBE members should go to the registered members section of the Boost Juice Vietnam website where they can enter their email address and click on 'lost password'. Their password will then be sent to their nominated email address.</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="Sign In" xml:space="preserve">
     <value>Sign In</value>
     <comment>Vibe/Index</comment>
@@ -385,9 +582,38 @@
     <value>Stores</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="StoresName" xml:space="preserve">
+    <value>Stores Name</value>
+    <comment>Contact</comment>
+  </data>
   <data name="storeUrl" xml:space="preserve">
     <value>stores</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Home/Vibe</value>
+  </data>
+  <data name="String10" xml:space="preserve">
+    <value>Home/Vibe</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="String11" xml:space="preserve">
+    <value>Home/Vibe</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="String12" xml:space="preserve">
+    <value>Home/Vibe</value>
+  </data>
+  <data name="String13" xml:space="preserve">
+    <value>Home/Vibe</value>
+  </data>
+  <data name="String9" xml:space="preserve">
+    <value>Home/Vibe</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>SUBMIT</value>
+    <comment>Contact</comment>
   </data>
   <data name="termOfUseUrl" xml:space="preserve">
     <value>terms-of-use</value>
@@ -397,9 +623,29 @@
     <value>TERMS OF USE</value>
     <comment>Home/TermOfUse</comment>
   </data>
+  <data name="Testimonials" xml:space="preserve">
+    <value>Testimonials</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Thank You!" xml:space="preserve">
+    <value>Thank You!</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="The app is snazzy and pretty and so much more than a card! It still does all the same stuff as your card but also much much more!" xml:space="preserve">
+    <value>The app is snazzy and pretty and so much more than a card! It still does all the same stuff as your card but also much much more!</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="The average adult daily energy intake is 8700 kJ" xml:space="preserve">
+    <value>The average adult daily energy intake is 8700 kJ</value>
+    <comment>Product/Index</comment>
+  </data>
   <data name="The Boost Juice Story" xml:space="preserve">
     <value>The Boost Juice Story</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="The Boost VIBE Card should be treated like cash. Unless otherwise required by law or permitted by this agreement, any points on your VIBE Card is non-refundable and may not be redeemed for cash. No interest or any other points deposited to a VIBE card will accrue, be paid or be credited to you by Boost Juice Vietnam." xml:space="preserve">
+    <value>The Boost VIBE Card should be treated like cash. Unless otherwise required by law or permitted by this agreement, any points on your VIBE Card is non-refundable and may not be redeemed for cash. No interest or any other points deposited to a VIBE card will accrue, be paid or be credited to you by Boost Juice Vietnam.</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="The idea was brilliantly simple: make healthy living tasty and fun." xml:space="preserve">
     <value>The idea was brilliantly simple: make healthy living tasty and fun.</value>
@@ -408,6 +654,10 @@
   <data name="The list of awards is increasing day by day. In December 2015, Boost Juice achieved three awards with the Australian Franchise Council and Janine was inducted into the Hall of Fame. The brand also received awards for Australian Franchise of the Year, Outstanding International Franchise and NT/QLD Regional Franchise." xml:space="preserve">
     <value>The list of awards is increasing day by day. In December 2015, Boost Juice achieved three awards with the Australian Franchise Council and Janine was inducted into the Hall of Fame. The brand also received awards for Australian Franchise of the Year, Outstanding International Franchise and NT/QLD Regional Franchise.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="The VIBE Card is issued to you by Boost Juice Vietnam." xml:space="preserve">
+    <value>The VIBE Card is issued to you by Boost Juice Vietnam.</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="The woman was Australian adventurer and entrepreneur Janine Allis. The bar was Boost Juice – now one of the most popular and loved juice and smoothie brands across the globe, with over 500 stores across 13 different countries and counting." xml:space="preserve">
     <value>The woman was Australian adventurer and entrepreneur Janine Allis. The bar was Boost Juice – now one of the most popular and loved juice and smoothie brands across the globe, with over 500 stores across 13 different countries and counting.</value>
@@ -457,9 +707,36 @@
     <value>VAN XUAN FMCG INVESTMENT COMPANY LIMITED</value>
     <comment>_Layout</comment>
   </data>
+  <data name="Vibe Card - Terms &amp; Conditions" xml:space="preserve">
+    <value>Vibe Card - Terms &amp; Conditions</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="VIBE CLUB TERMS &amp; CONDITIONS" xml:space="preserve">
+    <value>VIBE CLUB TERMS &amp; CONDITIONS</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="VIBE Members are entitled to a free Birthday Boost Juice on the day of their birthday upon presentation of their VIBE Card confirming their birth date registered on the card matches the date of visit to the store. This free Birthday Boost Juice cannot be redeemed on any other day regardless of external circumstances including but not limited to public holidays, store closures etc. This free Birthday Boost is non-transferable and cannot be exchanged for cash. Boost Juice do not take responsibility for incorrectly entered birth dates during the registration process." xml:space="preserve">
+    <value>VIBE Members are entitled to a free Birthday Boost Juice on the day of their birthday upon presentation of their VIBE Card confirming their birth date registered on the card matches the date of visit to the store. This free Birthday Boost Juice cannot be redeemed on any other day regardless of external circumstances including but not limited to public holidays, store closures etc. This free Birthday Boost is non-transferable and cannot be exchanged for cash. Boost Juice do not take responsibility for incorrectly entered birth dates during the registration process.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="VIBE Points will be awarded to customers for full price smoothies, crushes or freshly squeezed juice products only, unless expressly specified. Points will not be awarded in association with any other offer or discount. Point balances are not transferable or redeemable for cash." xml:space="preserve">
+    <value>VIBE Points will be awarded to customers for full price smoothies, crushes or freshly squeezed juice products only, unless expressly specified. Points will not be awarded in association with any other offer or discount. Point balances are not transferable or redeemable for cash.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="vibemember" xml:space="preserve">
+    <value>Vibe Member Number</value>
+    <comment>Contact</comment>
+  </data>
   <data name="View All" xml:space="preserve">
     <value>View All</value>
     <comment>Product/Index</comment>
+  </data>
+  <data name="We reserve the right not to accept a VIBE Card should we believe that the use is unauthorised, fraudulent or otherwise unlawful." xml:space="preserve">
+    <value>We reserve the right not to accept a VIBE Card should we believe that the use is unauthorised, fraudulent or otherwise unlawful.</value>
+  </data>
+  <data name="We Will Get Back To You Soon." xml:space="preserve">
+    <value>We Will Get Back To You Soon.</value>
+    <comment>Contact</comment>
   </data>
   <data name="Wellbeing" xml:space="preserve">
     <value>Wellbeing</value>
@@ -469,9 +746,54 @@
     <value>wellbeing</value>
     <comment>_Layout</comment>
   </data>
+  <data name="What can we help you with?" xml:space="preserve">
+    <value>What can we help you with?</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="What do I do if my personal details change?" xml:space="preserve">
+    <value>What do I do if my personal details change?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="What is the difference between my physical card and the one in the app?" xml:space="preserve">
+    <value>What is the difference between my physical card and the one in the app?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="What’s that..." xml:space="preserve">
+    <value>What’s that...</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="When will my card update with the points?" xml:space="preserve">
+    <value>When will my card update with the points?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="While every effort will be made in store to ensure VIBE Points are correctly awarded, Boost Juice Bars takes no responsibility for technical errors associated with crediting points onto the VIBE Card." xml:space="preserve">
+    <value>While every effort will be made in store to ensure VIBE Points are correctly awarded, Boost Juice Bars takes no responsibility for technical errors associated with crediting points onto the VIBE Card.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Why register?" xml:space="preserve">
+    <value>Why register?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!" xml:space="preserve">
+    <value>You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="You want find drinks in this category" xml:space="preserve">
     <value>You want find drinks in this category</value>
     <comment>Product/FilterByCategory</comment>
+  </data>
+  <data name="Your app will do the job but if you’re a bit of a hoarder or don’t like saying goodbyes then keep the card." xml:space="preserve">
+    <value>Your app will do the job but if you’re a bit of a hoarder or don’t like saying goodbyes then keep the card.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Your closest Boost&#xD;&#xA;Juice Bar is" xml:space="preserve">
+    <value>Your closest Boost
+Juice Bar is</value>
+    <comment>Home/Index/GGMap</comment>
+  </data>
+  <data name="Your contact details" xml:space="preserve">
+    <value>Your contact details</value>
+    <comment>Contact</comment>
   </data>
   <data name="Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever." xml:space="preserve">
     <value>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</value>

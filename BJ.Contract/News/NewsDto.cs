@@ -12,6 +12,7 @@ namespace BJ.Contract.News
         public bool Active { get; set; }
 
         public bool Popular { get; set; }
+        public bool Promotion { get; set; }
 
         public bool Home { get; set; }
         public string Code { get; set; }

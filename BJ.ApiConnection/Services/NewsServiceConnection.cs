@@ -16,6 +16,7 @@ namespace BJ.ApiConnection.Services
     {
         public Task<IEnumerable<NewsUserViewModel>> GetAllNews(string culture, bool popular);
         public Task<IEnumerable<NewsUserViewModel>> GetNewsAtHome(string culture);
+        public Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture);
 
         public Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<NewsUserViewModel> GetNewsById(Guid id, string culture);
@@ -79,6 +80,7 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Active.ToString()) ? "" : createNewsAdminView.CreateNews.Active.ToString()), "createNewsAdminView.CreateNews.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Popular.ToString()) ? "" : createNewsAdminView.CreateNews.Popular.ToString()), "createNewsAdminView.CreateNews.popular");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Home.ToString()) ? "" : createNewsAdminView.CreateNews.Home.ToString()), "createNewsAdminView.CreateNews.Home");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Promotion.ToString()) ? "" : createNewsAdminView.CreateNews.Promotion.ToString()), "createNewsAdminView.CreateNews.promotion");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.DateCreated.ToString()) ? "" : createNewsAdminView.CreateNews.DateCreated.ToString()), "createNewsAdminView.CreateNews.DateCreated");
 
@@ -164,6 +166,7 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Active.ToString()) ? "" : updateNewsAdminView.UpdateNews.Active.ToString()), "updateNewsAdminView.UpdateNews.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Popular.ToString()) ? "" : updateNewsAdminView.UpdateNews.Popular.ToString()), "updateNewsAdminView.UpdateNews.popular");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Home.ToString()) ? "" : updateNewsAdminView.UpdateNews.Home.ToString()), "updateNewsAdminView.UpdateNews.Home");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Promotion.ToString()) ? "" : updateNewsAdminView.UpdateNews.Promotion.ToString()), "updateNewsAdminView.UpdateNews.promotion");
 
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.MetaDesc.ToString()) ? "" : updateNewsAdminView.UpdateNewsTranslation.MetaDesc.ToString()), "updateNewsAdminView.UpdateNewsTranslation.metaDesc");
@@ -221,6 +224,11 @@ namespace BJ.ApiConnection.Services
         public async Task<IEnumerable<NewsUserViewModel>> GetNewsAtHome(string culture)
         {
             return await GetListAsync<NewsUserViewModel>($"/api/Newss/homepage?culture={culture}");
+        }
+
+        public async Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture)
+        {
+            return await GetListAsync<NewsUserViewModel>($"/api/Newss/promotion?culture={culture}");
         }
     }
 }

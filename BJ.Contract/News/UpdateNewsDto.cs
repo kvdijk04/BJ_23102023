@@ -5,6 +5,7 @@
         public string ImagePath { get; set; }
 
         public bool Active { get; set; }
+        public bool Promotion { get; set; }
 
         public bool Popular { get; set; }
 

@@ -107,7 +107,7 @@ namespace BJ.Application.Service
                 var x = total[0].Code.Substring(code.Length, codeLimit.Length);
 
                 int k = Convert.ToInt32(total[0].Code.Substring(code.Length, codeLimit.Length)) + 1;
-                if (k < 10) s += total[0].Code.Substring(code.Length, codeLimit.Length-1);
+                if (k < 10) s += total[0].Code.Substring(code.Length, codeLimit.Length - 1);
                 else if (k < 100)
                     s += total[0].Code.Substring(code.Length, codeLimit.Length - 2);
                 else if (k < 1000)
@@ -163,7 +163,7 @@ namespace BJ.Application.Service
                 createProductAdminView.CreateProduct.ImagePathIngredients = await Utilities.UploadFile(createProductAdminView.ImageIngredients, "ImageProduct", image);
 
             }
-            if(createProductAdminView.CreateProduct.Alias == null)
+            if (createProductAdminView.CreateProduct.Alias == null)
             {
                 createProductAdminView.CreateProduct.Alias = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName);
             }

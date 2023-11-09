@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&amp;quot;I wasn’t feeling well the other day, so I went and visited the Doctor. He told me to download the Boost app and now I feel great. This app is medicinal magic!&amp;quot;" xml:space="preserve">
+    <value>&amp;quot;Một ngày nọ, tôi cảm thấy không được khoẻ, vì vậy tôi đã đến khám tại văn phòng bác sĩ. Bác sĩ bảo tôi download ngay ứng dụng Boost Juice và bây giờ tôi cảm thấy thật tuyệt. Ứng dụng này đích thực là dược liệu!&amp;quot;</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="58 Ngo Duc Ke Street" xml:space="preserve">
+    <value>56 Ngô Đức Kế</value>
+    <comment>Contact</comment>
+  </data>
   <data name="&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/span&gt; For orders exceeding 20 km from the nearest store and/or in the Fresh Juice and Create Your Own Juice ranges, Boost must obtain confirmation from Customer to make an order." xml:space="preserve">
     <value>&lt;span style="text-decoration: underline;"&gt;&lt;em&gt;Lưu ý:&lt;/em&gt;&lt;/span&gt; Đối với những đơn hàng quá phạm vi  20 km từ cửa hàng gần nhất và/hoặc nằm trong dòng sản phẩm Fresh Juice và Create Your Own Juice, Boost phải có&amp;nbsp; sự đồng ý xác nhận từ Khách hàng để thực hiện đơn hàng.</value>
     <comment>Home/Delivery</comment>
@@ -154,9 +162,26 @@
     <value>chinh-sach-su-dung-duoc-chap-nhan</value>
     <comment>_Layout</comment>
   </data>
+  <data name="Ah, ‘cos it’s awesome? Keep your alerts on and get the low down on random challenges, freebies and discounts (because we’re a generous bunch of coconuts) and the power to strut your stuff pass the queue and grab your pre-ordered Boost drink with our Order Now feature.&lt;br /&gt;&#xA;                                        Other deliciously entices things that may tickle your pickle:&lt;br /&gt;&#xA;                                        &amp;#8211; What’s Your Name Game – We call out your name, and you get a free Boost, simples! Thank your folks later.&lt;br /&gt;&#xA;                                        &amp;#8211; My Boost Points – Collect points every time you buy a Boost, 10 points and you get a Freebie Find Us&lt;br /&gt;&#xA;                                        &amp;#8211; Our Menu – What’s in our drinks? Nothing artificial that’s for sure but you can find out all about it FREE birthday drink just for being born! And again&lt;br /&gt;&#xA;                                        yay for parents! Still not sure what the fruit is going on? We’ve dumbed it all down in our FAQ’s." xml:space="preserve">
+    <value>À, thì bởi vì thành viên Vibe rất là tuyệt? Cập nhật thông báo về những thử thách, quà tặng và ưu đãi (bởi vì chúng tôi rất là rộng lượng và hào phóng) và sẽ là công cụ đắc lực giúp bạn không cần phải chờ đợi xếp hàng và nhận ngay ly Boost bạn đã đặt trước với chức năng &amp;#8220;Order Ngay&amp;#8221;.&lt;br /&gt;
+                                    Và rất nhiều ưu đãi hay ho khác đang chờ bạn:&lt;br /&gt;
+                                    &amp;#8211; Trò chơi tên của bạn &amp;#8211; Chúng tôi gọi tên bạn và bạn sẽ nhận được ngay 1 ly Boost miễn phí! Bạn hãy cảm ơn Ba Mẹ bạn nhé :).&lt;br /&gt;
+                                    &amp;#8211; Điểm Boost của tôi &amp;#8211; Thu thập điểm mỗi khi bạn mua Boost, 10 điểm và bạn nhận được 1 ly miễn phí.&lt;br /&gt;
+                                    &amp;#8211; CÒN NỮA! NGÀY SINH NHẬT của bạn, bạn sẽ nhận được ngay 1 ly BOOST MIỄN PHÍ. Một lần nữa, cảm ơn Ba Mẹ mình nào!&lt;br /&gt;
+                                    Vẫn không chắc chắn chuyện gì đang xảy ra? Chúng tôi đã có tất cả câu trả lời cho bạn ngay dưới đây.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Are you reading this seriously? We don't know whether to congratulate you for your efforts, or just because you have nothing better to do... either way, you're here, which is good for you." xml:space="preserve">
+    <value>Bạn đang đọc điều này một cách nghiêm túc? Chúng tôi không biết nên chúc mừng bạn vì những nỗ lực cố gắng của bạn hay không, hoặc chỉ vì bạn không có điều gì tốt hơn để làm ... dù sao thì bạn cũng ở đây, điều này là tốt cho bạn.</value>
+    <comment>Product/Index</comment>
+  </data>
   <data name="Back in 2000, a woman with no business experience – but unlimited passion and family support – opened her first juice bar in Adelaide." xml:space="preserve">
     <value>Quay trở lại năm 2000, một người phụ nữ với không kinh nghiệm trong lĩnh vực kinh doanh – nhưng với niềm đam mê vô hạn và sự hỗ trợ từ gia đình – đã mở cửa hàng nước ép trái cây đầu tiên của cô ấy tại Adelaide.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Ben Nghe Ward, District 1" xml:space="preserve">
+    <value>Phường Bến Nghé, Quận 1</value>
+    <comment>Contact</comment>
   </data>
   <data name="Boost from the beginning." xml:space="preserve">
     <value>Khởi đầu của Boost</value>
@@ -166,9 +191,25 @@
     <value>Boost Juice đã đi một chặng đường dài từ những ngày khởi đầu khiêm tốn. Nhưng có một điều không bao giờ thay đổi đó chính là cam kết của chúng tôi cho một cuộc sống đầy sức khoẻ, niềm vui và yêu thương.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website." xml:space="preserve">
+    <value>Boost Juice Vietnam có quyền thay đổi các điều khoản và điều kiện của chương trình Thành viên VIBE bất cứ lúc nào bằng cách thông báo cho các thành viên qua email hoặc trang website.</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="Boost Juice đã đi một chặng đường dài từ những ngày khởi đầu khiêm tốn. Nhưng có một điều không bao giờ thay đổi đó chính là cam kết của chúng tôi cho một cuộc sống đầy sức khoẻ, niềm vui và yêu thương." xml:space="preserve">
     <value>Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Boosters are not a sole source of nutrition and should be consumed in conjunction with a healthy nutritious diet." xml:space="preserve">
+    <value>Boosters không phải là một nguồn dinh dưỡng duy nhất và nên được sử dụng kết hợp với một chế độ ăn uống bổ dưỡng lành mạnh.</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Boosters not suitable for children under 15 years or pregnant women, except for chia and lucuma powder." xml:space="preserve">
+    <value>† Boosters không thích hợp cho trẻ em dưới 15 tuổi hoặc phụ nữ mang thai..</value>
+    <comment>Product/Index</comment>
+  </data>
+  <data name="Boy we hope" xml:space="preserve">
+    <value>Chúng tôi mong rằng</value>
+    <comment>Contact</comment>
   </data>
   <data name="But hard work is often rewarded, and the success of the first King William St store allowed Janine and Jeff to open three new sites – including two in one day." xml:space="preserve">
     <value>Nhưng sự nỗ lực, cần cù thường được đền đáp. Sự thành công của cửa hàng đầu tiên – King William St, đã tạo điều kiện cho Janine và Jeff mở thêm ba cửa hàng mới – với hai trong số đó được khai trương trong cùng một ngày. Tuy nhiên, công việc làm nước smoothies hoá ra không suôn sẻ như tưởng tượng – điển hình là một trường hợp: những máy ép trái cây sáng bóng từ chối làm việc.</value>
@@ -181,6 +222,22 @@
   <data name="BUY" xml:space="preserve">
     <value>ĐẶT MUA</value>
     <comment>Product/SingleProduct</comment>
+  </data>
+  <data name="Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded." xml:space="preserve">
+    <value>Mua một ly, được một điểm. Mua hai ly, được hai điểm. Dễ dàng như vắt chanh! Áp dụng cho cả ly Small, Medium và Original, miễn sao bạn chỉ cần mua một ly. Điểm Boost chỉ áp dụng cho nguyên giá của thức uống (vì vậy không áp dụng tích điểm khi đang có chương trình ưu đãi hoặc giảm giá) và chỉ ở những nơi có chương trình thành viên Vibe.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="By registering and/or using your Boost VIBE Card, you consent to the terms of this agreement." xml:space="preserve">
+    <value>Bằng việc đăng ký và/hoặc sử dụng thẻ thành viên VIBE, bạn đã đồng ý với các điều khoản thỏa thuận này.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Call us maybe?" xml:space="preserve">
+    <value>Muốn liên lạc với chúng tôi?</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Can I get a free drink yet?" xml:space="preserve">
+    <value>Tôi đã có ly Boost miễn phí chưa?</value>
+    <comment>ss</comment>
   </data>
   <data name="Certificate of Business Registration No. 0317934150 issued by" xml:space="preserve">
     <value>Giấy chứng nhận đăng ký kinh doanh số 0317934150 do</value>
@@ -222,6 +279,10 @@
     <value>Bạn có ghét việc chờ đợi? Bạn có thích mọi thứ thực sự nhanh chóng? Bạn đang trở nên thiếu kiên nhẫn chờ đợi khi chúng tôi vẫn chưa đưa ra quan điểm của chúng tôi? Thôi không cần chờ nữa! Khi bạn trở thành thành viên của Vibe, bạn không cần phải chờ xếp hàng nữa khi bạn đặt hàng qua Ứng dụng của chúng tôi! Thành viên Vibe sẽ nhận được rất nhiều quà tặng miễn phí và tất cả những gì bạn phải làm là Đăng ký.</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Hoàn tất</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Download the&lt;br&gt;Boost Juice App" xml:space="preserve">
     <value>Download ngay ứng dụng&lt;br&gt;Boost Juice Vietnam</value>
     <comment>Vibe/Index</comment>
@@ -229,6 +290,10 @@
   <data name="drinkUrl" xml:space="preserve">
     <value>thuc-uong</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+    <comment>Contact</comment>
   </data>
   <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
     <value>Đối mặt với việc cửa hàng nước trái cây mà không thể bán nước trái cây, đội ngũ nhân viên đã phải gấp rút đến cửa hàng bách hoá bán lẻ Myer của Úc để mua những máy ép nội địa. Tất cả đều hư hỏng chỉ sau một ngày sử dụng, nhưng trước khi những thiết bị mới được nhập về, công việc cuối cùng cũng được hoàn thành. Những rào cản là để chúng ta vượt qua.</value>
@@ -246,13 +311,41 @@
     <value>Miễn phí</value>
     <comment>Home/Delivery</comment>
   </data>
+  <data name="Frequently Asked Questions" xml:space="preserve">
+    <value>Các câu hỏi thường gặp</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>Họ tên</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="General/Store Feedback" xml:space="preserve">
+    <value>Đánh giá cửa hàng</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Get yourself&lt;br&gt; a Vibe Card" xml:space="preserve">
     <value>Lấy ngay cho bạn&lt;br&gt;một thẻ VIBE</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="Give us the details" xml:space="preserve">
+    <value>Gửi cho chúng tôi</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Got 10 or more points? Then do a happy dance because you have a free Boost! You only need 10 points to get your freebie! Free Boost is for original size only and does not include soy, double fruit or any extras!" xml:space="preserve">
+    <value>Bạn có 10 điểm hoặc hơn? Vậy hãy nhảy ngay điệu nhảy vui vẻ nào vì bạn đã có một ly Boost miễn phí! Bạn chỉ cần có 10 điểm để có được ly Boost miễn phí! Ly Boost free dành cho bất kỳ size ly nào và không bao gồm sữa đậu nành, trái cây thêm hoặc extra thêm nào!</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="got something to say?" xml:space="preserve">
+    <value>bạn có thắc mắc?</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Growing Strong" xml:space="preserve">
     <value>Phát triển Mạnh mẽ</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Ho Chi Minh City, Vietnam" xml:space="preserve">
+    <value>TP. HCM</value>
+    <comment>Contact</comment>
   </data>
   <data name="Home page - Boost Juice" xml:space="preserve">
     <value>Trang chủ - Boost Juice</value>
@@ -262,13 +355,53 @@
     <value>Tôi đang cách cửa hàng Boost Juice gần nhất bao xa?&lt;br/&gt;Hãy nhập vị trí của bạn bằng cách sử dụng thanh tìm kiếm nhỏ xinh phía dưới. Rất dễ dàng.</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="I Know My Vibe Number" xml:space="preserve">
+    <value>Tôi biết số thành viên Vibe</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="If I have registered in the app using the plastic card, do I still need to keep the physical one or is the one in my app sufficient?" xml:space="preserve">
+    <value>Khi tôi đăng ký làm thành viên và sử dụng thẻ thành viên mà tôi được phát, tôi có cần giữ lại thẻ không hay thẻ trong ứng dụng của tôi là đủ?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="If I have registered using the &quot;without a card&quot; option, will I receive a physical one?" xml:space="preserve">
+    <value>Khi tôi đăng ký làm thành viên với lựa chọn "không có thẻ", tôi có nhận được thẻ thành viên không?</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="If we can help people eat more fruits and vegetables by making them taste delicious, the results are great. But we don't just want to bring our customers delicious smoothies and juices, we also want to share our energy, passion and &quot;love of life&quot; through spontaneous experiences. at store." xml:space="preserve">
     <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="If your points haven’t refreshed automatically, refresh the Boost Juice website or app. Cheeky thing still not working? Don’t throw your phone at that random stranger, just send an email our way to info@boostjuice.vn and we will fix it for you!" xml:space="preserve">
+    <value>Nếu như điểm của bạn không được tự động cập nhật, hãy refresh lại trang web hoặc ứng dụng. Vẫn không được ư? Đừng ném điện thoại của bạn vào người lạ, hãy gửi email cho chúng tôi tại info@boostjuice.com.vn và chúng tôi sẽ điều chỉnh ngay cho bạn!</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Im Not A Vibe Member" xml:space="preserve">
+    <value>Tôi không phải là thành viên của vibe</value>
+    <comment>Contact</comment>
+  </data>
   <data name="In case after you have successfully placed an order and want to cancel your order, please contact Boost Juice Vietnam immediately to cancel your order via&lt;span style=&quot;color: #70b046;&quot;&gt;&lt;strong&gt; Our Hotline&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;" xml:space="preserve">
     <value>Trong trường hợp sau khi bạn đã đặt hàng thành công và muốn huỷ đơn hàng, vui lòng liên hệ ngay với Boost Juice Vietnam để hủy đơn hàng qua &lt;span style="color: #70b046;"&gt;&lt;strong&gt; Tổng Đài&lt;/strong&gt; &lt;strong&gt;1800 282890&lt;/strong&gt;&lt;/span&gt;</value>
     <comment>Home/Delivery</comment>
+  </data>
+  <data name="In the case of a lost or stolen Vibe Card; Vibe Members should visit a Boost Juice store and request a new Vibe Card. They can log onto the registered members section of the Boost Juice Vietnam website where they can Transfer their existing card information including Vibe Points, to their new card by submitting their details. Every endeavour will be made to ensure that the full points balance is also transferred to the new card; however Boost Juice Vietnam will not be responsible for any points accrued that are lost in the transfer. Cards that are reported as lost or stolen will immediately be cancelled and will be no longer able to be used. If a Vibe Card is lost or stolen, the Vibe Member is responsible for logging onto the website to perform a lost card process and transfer all existing Vibe Points to a new Vibe Card. A new card can be acquired from any Boost Juice Outlet in Vietnam." xml:space="preserve">
+    <value>Trong trường hợp Thẻ VIBE bị mất hoặc bị đánh cắp; Thành viên VIBE nên liên hệ Boost Juice Vietnam và yêu cầu Thẻ VIBE mới. Các thành viên có thể đăng nhập vào phần thành viên đã đăng ký của Trang web Boost để Chuyển thông tin thẻ hiện tại của mình bao gồm Điểm Vibe, bằng cách gửi thông tin chi tiết. Mọi nỗ lực sẽ được thực hiện để đảm bảo rằng số dư điểm đầy đủ cũng được chuyển sang thẻ mới; tuy nhiên Boost Juice Vietnam sẽ không chịu trách nhiệm cho bất kỳ điểm tích lũy nào bị mất trong quá trình chuyển đổi. Thẻ được báo cáo là bị mất hoặc bị đánh cắp sẽ ngay lập tức bị hủy và sẽ không được sử dụng nữa. Nếu Thẻ VIBE bị mất hoặc bị đánh cắp, Thành viên VIBE có trách nhiệm đăng nhập vào trang website của Boost để thực hiện quy trình thẻ bị mất và chuyển tất cả tín dụng Vibe Points hiện tại sang Thẻ Vibe mới. Một thẻ VIBE mới có thể được lấy từ bất kỳ cửa hàng Boost Juice nào ở Vietnam.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at" xml:space="preserve">
+    <value>Thông tin được thu thập từ các thành viên tại thời điểm đăng ký chương trình Thành viên VIBE phải tuân theo Chính Sách Bảo Mật được liệt kê tại</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Is there a limit on points and do they expire?" xml:space="preserve">
+    <value>Điểm có mức giới hạn và chúng có hết hạn không?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="It is our mission to become one of the worlds most loved and famous smoothie and juice brands and we are well on the way! Boost Juice is a truly global brand with over 450 stores in operation and exciting international expansion plans." xml:space="preserve">
+    <value>Nhiệm vụ của Boost Juice là trở thành một trong những thương hiệu Smoothies và Nước trái cây được yêu thích và nổi tiếng nhất thế giới và chúng tôi đang trên đường hoàn thành nhiệm vụ đây! Boost Juice thực sự là một thương hiệu toàn cầu với hơn 450 cửa hàng đang hoạt động và đang ấp ủ các kế hoạch mở rộng thị trường quốc tế đầy thú vị.</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="it's something good!" xml:space="preserve">
+    <value>sẽ tốt hơn!</value>
+    <comment>Contact</comment>
   </data>
   <data name="It’s a philosophy that has taken us far. Building one of Australia’s most well-loved brands was never going to be easy. But thanks to a positive outlook, hard work and the help of extraordinary people, Boost has grown to over 500 stores worldwide." xml:space="preserve">
     <value>Đây chính là triết lý đã đưa chúng tôi bay thật cao. Việc xây dựng một trong những thương hiệu được yêu thích nhất tại Úc thật sự là một điều không dễ dàng. Tuy nhiên nhờ vào niềm tin tích cực, lạc quan, sự chăm chỉ và sự giúp đỡ của những con người phi thường, Boost Juice đã có thể ăn mừng ngày khai trương cửa hàng thứ 250 tại Úc và hơn 500 cửa hàng trên toàn thế giới.</value>
@@ -290,6 +423,10 @@
     <value>Nhưng vấn đề duy nhất ở đây là: các ngân hàng sẽ không đầu tư vào một doanh nghiệp chỉ bán thức uống. Nhưng người ta thường có câu, khi cuộc đời ném cho bạn một quả chanh, hãy pha ngay một ly nước chanh. Hoặc trong trường hợp này, nước ép và smoothies.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Just select which option below is most relevant to you and we’ll take it from there." xml:space="preserve">
+    <value>Hãy chọn một lựa chọn dưới đây và chúng tôi sẽ xử lý.</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Just three years later, Janine purchased rival chain Viva Juice and sold the rebranded stores to franchise partners." xml:space="preserve">
     <value>Chỉ ba năm sau, Janine đã thu mua lại chuỗi cửa hàng đối thủ Viva Juice và bán các cửa hàng đã được thay đổi nhãn hiệu cho đối tác của mình. Các số liệu lúc bấy giờ là không thể tin được. Boost Juice trung bình cho ra đời một cửa hàng mới mỗi tuần; vào Tháng 09/2004, Boost Juice dường như khai trương một cửa hàng mới mỗi ngày.</value>
     <comment>Home/About</comment>
@@ -306,6 +443,18 @@
     <value>Thức uống - Boost Juice</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="message" xml:space="preserve">
+    <value>Lời nhắn</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Monday – Sunday (9:00 – 20:00)" xml:space="preserve">
+    <value>Thứ Hai – Chủ Nhật (9:00 – 20:00)</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Moved? Made a boo boo? Tied the knot? No worries! All the details you entered when you registered can be changed whenever you feel the need. Just log into the app, head to the My Profile section, change your deets and save it!" xml:space="preserve">
+    <value>Bạn chuyển nhà? Kết hôn? Đừng lo lắng! Tất cả các chi tiết bạn nhập khi bạn đăng ký có thể được thay đổi bất cứ khi nào bạn muốn. Chỉ cần đăng nhập vào ứng dụng, đến phần Hồ sơ của tôi, thay đổi các thông tin và lưu lại!</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="News" xml:space="preserve">
     <value>Tin tức</value>
     <comment>Layout</comment>
@@ -313,6 +462,18 @@
   <data name="newsUrl" xml:space="preserve">
     <value>tin-tuc</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Tiếp theo</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="No fees will be charged by Boost Juice Vietnam for the issue, registration, activation or use of the VIBE Card." xml:space="preserve">
+    <value>Thành viên sẽ không bị tính phí bởi Boost Juice Vietnam khi đăng ký, kích hoạt hay sử dụng thẻ VIBE.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Nope! Everything you need is right here in this handy dandy app." xml:space="preserve">
+    <value>Không nhé! Tất cả mọi thứ bạn cần là ở ngay trong ứng dụng tiện lợi này!</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream." xml:space="preserve">
     <value>Oh cho những bạn ‘mù công nghệ’ của tôi!
@@ -343,6 +504,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Đơn hàng từ 300.000 trở lên sẽ miễn phí vận chuyển</value>
     <comment>Home/Delivery</comment>
   </data>
+  <data name="Other Queries" xml:space="preserve">
+    <value>Yêu cầu khác</value>
+    <comment>Contact</comment>
+  </data>
   <data name="Our Drinks" xml:space="preserve">
     <value>Thức uống</value>
     <comment>Layout</comment>
@@ -350,6 +515,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="Our primary life requires energy. This philosophy inspires everything we do. And as we continually innovate and grow, it's not with the goal of changing the world, but just to make our customers feel “a little better.”" xml:space="preserve">
     <value>Yêu cuộc sống chính là năng lượng của chúng tôi. Triết lý này truyền cảm hứng vào tất cả mọi việc chúng tôi làm. Và khi chúng tôi liên tục đổi mới và phát triển, không phải vì mục đích thay đổi thế giới, mà là chỉ để làm cho khách hàng của chúng tôi cảm thấy “tốt hơn một chút” mà thôi.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Số điện thoại</value>
+    <comment>Contact</comment>
   </data>
   <data name="Please come back later. Sorry for this inconvenience" xml:space="preserve">
     <value>Chúng tôi xin lỗi về sự bất tiện này. Mong quý khách vui lòng quay trở lại sau</value>
@@ -359,12 +528,32 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Phổ biến</value>
     <comment>Blog/Detail, News/Index, News/Detail</comment>
   </data>
+  <data name="Postal address" xml:space="preserve">
+    <value>Địa chỉ</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Trước</value>
+    <comment>Contact</comment>
+  </data>
   <data name="PRIVACY POLICY" xml:space="preserve">
     <value>Chính Sách Bảo Mật</value>
     <comment>Home/Privacy</comment>
   </data>
   <data name="privacyPolicyUrl" xml:space="preserve">
     <value>chinh-sach-bao-mat</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Product Feedback" xml:space="preserve">
+    <value>Đánh giá sản phẩm</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Khuyến mãi</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="promotionUrl" xml:space="preserve">
+    <value>khuyen-mai</value>
     <comment>_Layout</comment>
   </data>
   <data name="Read more" xml:space="preserve">
@@ -383,6 +572,14 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>CHÍNH SÁCH ĐỔI TRẢ</value>
     <comment>Home/Delivery</comment>
   </data>
+  <data name="Service Feedback" xml:space="preserve">
+    <value>Đánh giá dịch vụ</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="Should a password be lost or forgotten, VIBE members should go to the registered members section of the Boost Juice Vietnam website where they can enter their email address and click on 'lost password'. Their password will then be sent to their nominated email address." xml:space="preserve">
+    <value>Nếu bạn bị mất hoặc quên mật khẩu, các thành viên VIBE nên vào phần thành viên đã đăng ký của trang website Boost Juice để nhập địa chỉ email của mình và nhấp vào 'mật khẩu bị mất'. Mật khẩu mới của bạn sau đó sẽ được gửi đến địa chỉ email được chỉ định.</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="Sign In" xml:space="preserve">
     <value>Đăng Nhập</value>
     <comment>Vibe/Index</comment>
@@ -395,9 +592,21 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Cửa hàng</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="StoresName" xml:space="preserve">
+    <value>Tên cửa hàng</value>
+    <comment>Contact</comment>
+  </data>
   <data name="storeUrl" xml:space="preserve">
     <value>cua-hang</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="String13" xml:space="preserve">
+    <value />
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>GỬI</value>
+    <comment>Contact</comment>
   </data>
   <data name="termOfUseUrl" xml:space="preserve">
     <value>dieu-khoan-thoa-thuan</value>
@@ -407,9 +616,29 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Điều Khoản Thoả Thuận</value>
     <comment>Home/TermOfUse</comment>
   </data>
+  <data name="Testimonials" xml:space="preserve">
+    <value>Cảm nhận của Khách hàng</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Thank You!" xml:space="preserve">
+    <value>Cảm ơn bạn!</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="The app is snazzy and pretty and so much more than a card! It still does all the same stuff as your card but also much much more!" xml:space="preserve">
+    <value>Ứng dụng thì hấp dẫn, đẹp và hơn rất nhiều so với một chiếc thẻ! Ứng dụng này vẫn làm tất cả những việc tương tự như thẻ của bạn nhưng còn nhiều hơn thế nữa!</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="The average adult daily energy intake is 8700 kJ" xml:space="preserve">
+    <value>Lượng năng lượng trung bình hàng ngày của người trưởng thành là 8700 kJ</value>
+    <comment>Product/Index</comment>
+  </data>
   <data name="The Boost Juice Story" xml:space="preserve">
     <value>Câu chuyện Boost Juice</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="The Boost VIBE Card should be treated like cash. Unless otherwise required by law or permitted by this agreement, any points on your VIBE Card is non-refundable and may not be redeemed for cash. No interest or any other points deposited to a VIBE card will accrue, be paid or be credited to you by Boost Juice Vietnam." xml:space="preserve">
+    <value>Thẻ VIBE của BOOST nên được coi như là tiền mặt. Trừ khi có quy định khác của pháp luật hoặc được cho phép theo thỏa thuận này, mọi điểm trong Thẻ VIBE sẽ không được hoàn trả và không được quy đổi thành tiền mặt. Không có lãi suất hoặc bất kỳ khoản thu nhập nào khác đối với các loại điểm được gửi vào Thẻ VIBE sẽ được tích lũy, thanh toán hoặc được ghi có cho bạn bởi Boost Juice Vietnam.</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="The idea was brilliantly simple: make healthy living tasty and fun." xml:space="preserve">
     <value>Bắt nguồn từ một ý tưởng vô cùng đơn giản và tinh tế: xây dựng một cuộc sống lành mạnh vừa ngon và vừa thú vị.</value>
@@ -418,6 +647,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="The list of awards is increasing day by day. In December 2015, Boost Juice achieved three awards with the Australian Franchise Council and Janine was inducted into the Hall of Fame. The brand also received awards for Australian Franchise of the Year, Outstanding International Franchise and NT/QLD Regional Franchise." xml:space="preserve">
     <value>Danh sách giải thưởng tăng ngày một nhiều hơn. Vào tháng 12 năm 2015, Boost Juice đã đạt được ba giải thưởng với Hội đồng Nhượng quyền Úc và Janine được vinh danh vào Hall of Fame. Thương hiệu cũng nhận được giải thưởng Thương hiệu nhượng quyền Úc của năm, Thương hiệu Nhượng quyền Quốc tế xuất sắc và Thương hiệu nhượng quyền Khu vực NT/QLD.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="The VIBE Card is issued to you by Boost Juice Vietnam." xml:space="preserve">
+    <value>Thẻ VIBE được cấp cho bạn bởi Boost Juice Vietnam.</value>
+    <comment>Home/Vibe</comment>
   </data>
   <data name="The woman was Australian adventurer and entrepreneur Janine Allis. The bar was Boost Juice – now one of the most popular and loved juice and smoothie brands across the globe, with over 500 stores across 13 different countries and counting." xml:space="preserve">
     <value>Người phụ nữ thích phiêu lưu mạo hiểm ấy chính là doanh nhân khởi nghiệp người Úc – Bà Janine Allis. Và cửa hàng ấy chính là Boost Juice – một trong những thương hiệu smoothie và nước ép trái cây được ưa thích nhất và nổi tiếng nhất hiện nay của chúng tôi, với 500 cửa hàng tại 13 quốc gia… và đang ngày càng được mở rộng.</value>
@@ -471,9 +704,37 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>CÔNG TY TNHH THỰC PHẨM VÀ NƯỚC GIẢI KHÁT BOOST JUICE VIỆT NAM</value>
     <comment>_Layout</comment>
   </data>
+  <data name="Vibe Card - Terms &amp; Conditions" xml:space="preserve">
+    <value>Điều khoản sử dụng thẻ Vibe</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="VIBE CLUB TERMS &amp; CONDITIONS" xml:space="preserve">
+    <value>Điều khoản sử dụng thẻ Vibe</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="VIBE Members are entitled to a free Birthday Boost Juice on the day of their birthday upon presentation of their VIBE Card confirming their birth date registered on the card matches the date of visit to the store. This free Birthday Boost Juice cannot be redeemed on any other day regardless of external circumstances including but not limited to public holidays, store closures etc. This free Birthday Boost is non-transferable and cannot be exchanged for cash. Boost Juice do not take responsibility for incorrectly entered birth dates during the registration process." xml:space="preserve">
+    <value>Thành viên VIBE được tặng miễn phí một ly Boost Juice vào ngày sinh nhật của họ sau khi xuất trình Thẻ VIBE xác nhận ngày sinh của họ được đăng ký trên thẻ phù hợp với ngày ghé thăm cửa hàng. Ly Boost Juice miễn phí vào ngày sinh nhật này không thể được đổi vào bất kỳ ngày nào khác bất kể hoàn cảnh bao gồm nhưng không giới hạn vào các ngày lễ, ngày cửa hàng đóng cửa... Ly Boost Juice Sinh nhật miễn phí này không thể chuyển nhượng và không thể đổi thành tiền mặt. Boost Juice không chịu trách nhiệm về ngày sinh không chính xác trong quá trình đăng ký.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="VIBE Points will be awarded to customers for full price smoothies, crushes or freshly squeezed juice products only, unless expressly specified. Points will not be awarded in association with any other offer or discount. Point balances are not transferable or redeemable for cash." xml:space="preserve">
+    <value>Điểm VIBE sẽ được tích cho khách hàng khi mua Boost nguyên giá dòng Smoothies, Crushes hoặc Nước ép trái cây, trừ khi có quy định khác. Điểm sẽ không được áp dụng khi đang sử dụng các chương trình ưu đãi hoặc giảm giá khác. Số dư điểm không được chuyển nhượng cho thành viên khác hoặc quy đổi thành tiền mặt.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="vibemember" xml:space="preserve">
+    <value>Số thành viên Vibe</value>
+    <comment>Contact</comment>
+  </data>
   <data name="View All" xml:space="preserve">
     <value>Xóa lọc</value>
     <comment>Product/Index</comment>
+  </data>
+  <data name="We reserve the right not to accept a VIBE Card should we believe that the use is unauthorised, fraudulent or otherwise unlawful." xml:space="preserve">
+    <value>Chúng tôi có quyền không chấp nhận Thẻ VIBE nếu chúng tôi tin rằng việc sử dụng là trái phép, lừa đảo hoặc trái pháp luật.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="We Will Get Back To You Soon." xml:space="preserve">
+    <value>Chúng tôi sẽ liên lạc lại với bạn.</value>
+    <comment>Contact</comment>
   </data>
   <data name="Wellbeing" xml:space="preserve">
     <value>Sống khỏe</value>
@@ -487,9 +748,57 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="What are my Boost Points?" xml:space="preserve">
+    <value>Điểm Boost của tôi là gì?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="What can we help you with?" xml:space="preserve">
+    <value>Chúng tôi có thể giúp bạn?</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="What do I do if my personal details change?" xml:space="preserve">
+    <value>Tôi sẽ phải làm gì khi thông tin cá nhân của tôi có sự thay đổi?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="What is the difference between my physical card and the one in the app?" xml:space="preserve">
+    <value>Sự khác biệt giữa thẻ thành viên tôi được phát và thẻ trong Ứng dụng?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="What’s that..." xml:space="preserve">
+    <value>Có vấn đề...</value>
+    <comment>Contact</comment>
+  </data>
+  <data name="When will my card update with the points?" xml:space="preserve">
+    <value>Khi nào thẻ của tôi được cập nhật điểm?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="While every effort will be made in store to ensure VIBE Points are correctly awarded, Boost Juice Bars takes no responsibility for technical errors associated with crediting points onto the VIBE Card." xml:space="preserve">
+    <value>Mặc dù mọi nỗ lực sẽ được thực hiện ở cửa hàng để đảm bảo điểm VIBE được bảo lưu chính xác, Boost Juice Vietnam không chịu trách nhiệm đối với các lỗi kỹ thuật liên quan đến việc tích điểm vào thẻ VIBE.</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Why register?" xml:space="preserve">
+    <value>Tại sao phải đăng ký?</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!" xml:space="preserve">
+    <value>Bạn có thể thu thập bao nhiêu điểm tuỳ thích và điểm của bạn không có thời hạn hết hạn, vì vậy hãy thu thập và cuối cùng bạn có thể lấp đầy bồn tắm của bạn với Mango Magic!</value>
+    <comment>Home/Vibe</comment>
+  </data>
   <data name="You want find drinks in this category" xml:space="preserve">
     <value>Bạn muốn tìm đồ uống thuộc loại này ?</value>
     <comment>Product/FilterByCategory</comment>
+  </data>
+  <data name="Your app will do the job but if you’re a bit of a hoarder or don’t like saying goodbyes then keep the card." xml:space="preserve">
+    <value>Ứng dụng của bạn sẽ thay thế cho thẻ của bạn nhưng nếu như bạn thích tích trữ hoặc không thích nói lời tạm biệt thì hãy giữ lại thẻ nhé</value>
+    <comment>Home/Vibe</comment>
+  </data>
+  <data name="Your closest Boost&#xD;&#xA;Juice Bar is" xml:space="preserve">
+    <value>Boost gần bạn nhất</value>
+    <comment>Home/Index/GGMap</comment>
+  </data>
+  <data name="Your contact details" xml:space="preserve">
+    <value>Chi tiết đánh giá</value>
+    <comment>Contact</comment>
   </data>
   <data name="Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever." xml:space="preserve">
     <value>Điện thoại của bạn trở nên thông minh hơn! Từ sự tiện lợi của những ngón tay của bạn (hoặc ngón chân nếu bạn thật sự tài năng như thế), bạn có thể đặt hàng ly Boost của bạn từ Ứng dụng và không cần phải đứng xếp hàng chờ đợi. Nếu điều đó không đủ, chúng tôi sẽ cho bạn rất nhiều ưu đãi khi bạn nghĩ rằng chúng tôi sẽ có một đợt siêu giảm giá trước khi đóng cửa! Mà chúng tôi không có. Chúng tôi sẽ ở đây mãi mãi.</value>

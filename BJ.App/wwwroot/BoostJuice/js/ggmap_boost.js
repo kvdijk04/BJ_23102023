@@ -87,7 +87,8 @@ function initMap() {
                                         lat: results[i].latitude,
                                         lng: results[i].longitude,
                                         map: map,
-                                        distance: results[i].distance
+                                        distance: results[i].distance,
+                                        
                                     });
                                     markers.push(marker);
 
@@ -100,6 +101,7 @@ function initMap() {
                                     const infowindow = new google.maps.InfoWindow({
                                         content: contentString,
                                         ariaLabel: marker.title,
+                                        
                                     });
                                     infoWindows.push(infowindow);
 
@@ -112,6 +114,7 @@ function initMap() {
                                             anchor: marker,
                                             map,
                                         });
+                                        
                                     });
 
                                     marker.addListener("click", toggleBounce);
@@ -125,19 +128,31 @@ function initMap() {
                                     };
 
                                 }
-                                $('#boostjuice-stores').html('<h2 style="color: #79C339;margin-bottom: 20px;font-weight: 600;text-align:center">Boost gần nhất ' + results[1].distance + ' km</h2>');
-                                for (let i = 1; i < markers.length; i++) {
-                                    html += '<div class="item store-list" id="' + i + '" data-store-id="' + results[i].id + '">' +
-                                        '<h3><em>' + results[i].distance + 'km</em>' + results[i].name + '</h3><span class="boostjuice-street">' + results[i].address + '<br> ' + results[i].city + ' </span>' +
-                                        '<table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>' +
-                                        '<td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>' +
-                                        '<tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>' +
-                                        '<a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="' + results[i].latitude + '" lng="' + results[i].longitude + '" >Giờ mở cửa</a>' + /* onclick="showDetail(' + data[i].lat + ', ' + data[i].lng + ')" */
-                                        '<a data-url="https://www.google.com/maps/dir/?api=1&destination=' + results[i].address + ", " + results[i].city + '&travelmode=driving" target="_blank" class="marker-link" data-markerid="' + i + '" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">Chỉ đường</a></div>';
+                                if (((window.location).pathname).includes("/vi") || ((window.location).pathname) === ("/")) {
+                                    $('#boostjuice-stores').html('<h2 style="color: #79C339;margin-bottom: 20px;font-weight: 600;text-align:center">Boost gần nhất ' + results[1].distance + ' km</h2>');
+                                    for (let i = 1; i < markers.length; i++) {
+                                        html += '<div class="item store-list" id="' + i + '" data-store-id="' + results[i].id + '">' +
+                                            '<h3><em>' + results[i].distance + 'km</em>' + results[i].name + '</h3><span class="boostjuice-street">' + results[i].address + '<br> ' + results[i].city + ' </span>' +
+                                            '<table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>' +
+                                            '<td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>' +
+                                            '<tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>' +
+                                            '<a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="' + results[i].latitude + '" lng="' + results[i].longitude + '" >Giờ mở cửa</a>' + /* onclick="showDetail(' + data[i].lat + ', ' + data[i].lng + ')" */
+                                            '<a data-url="https://www.google.com/maps/dir/?api=1&destination=' + results[i].address + ", " + results[i].city + '&travelmode=driving" target="_blank" class="marker-link" data-markerid="' + i + '" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">Chỉ đường</a></div>';
+                                    }
+                                } else {
+                                    $('#boostjuice-stores').html('<h2 style="color: #79C339;margin-bottom: 20px;font-weight: 600;text-align:center;padding:30px 75px 15px">Your closest Boost Juice Bar is ' + results[1].distance + ' km</h2>');
+                                    for (let i = 1; i < markers.length; i++) {
+                                        html += '<div class="item store-list" id="' + i + '" data-store-id="' + results[i].id + '">' +
+                                            '<h3><em>' + results[i].distance + 'km</em>' + results[i].name + '</h3><span class="boostjuice-street">' + results[i].address + '<br> ' + results[i].city + ' </span>' +
+                                            '<table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>' +
+                                            '<td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>' +
+                                            '<tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>' +
+                                            '<a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="' + results[i].latitude + '" lng="' + results[i].longitude + '" >Opening hours</a>' + /* onclick="showDetail(' + data[i].lat + ', ' + data[i].lng + ')" */
+                                            '<a data-url="https://www.google.com/maps/dir/?api=1&destination=' + results[i].address + ", " + results[i].city + '&travelmode=driving" target="_blank" class="marker-link" data-markerid="' + i + '" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">Get Directions</a></div>';
+                                    }
                                 }
+                                
                                 $('#boostjuice-stores').append(html);
-                                console.log(markers);
-                                console.log("infowindows: " + infoWindows);
 
                                 $('.marker-link').on('click', function () {
                                     var e = $(".marker-link").index(this);
@@ -159,7 +174,7 @@ function initMap() {
                             },
                             complete: function () {
                                 $loading.fadeOut(3000, function () {
-                                    $('#boost-stores').fadeIn(1000);
+                                    $('#boost-stores').fadeIn();
                                     $('.boost-home .footer').css("margin-top", "60px");
                                 });
                             },

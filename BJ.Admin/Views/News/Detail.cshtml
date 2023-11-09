@@ -95,6 +95,21 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Khuyến mãi:</td>
+                                    <td>
+                                        @if (Model.Promotion == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Ở trang chủ:</td>
                                     <td>
                                         @if (Model.Home == true)

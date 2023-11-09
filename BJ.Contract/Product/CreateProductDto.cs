@@ -19,7 +19,7 @@
         public string MetaKey { get; set; }
         public string Code { get; set; }
         public string ImagePathCup { get; set; }
-        public string CodeCategory { get;set; }
+        public string CodeCategory { get; set; }
         public string ImagePathHero { get; set; }
 
         public string ImagePathIngredients { get; set; }

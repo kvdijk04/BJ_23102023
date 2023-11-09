@@ -505,8 +505,8 @@ h5 {
 
 .footer .footer-nav {
     position: relative;
-    z-index: 30;
-    text-transform: uppercase;
+/*    z-index: 30;
+*/    text-transform: uppercase;
 }
 .footer .footer-nav ul {
     display: inline-block;
@@ -1065,11 +1065,14 @@ table {
         width: 120px;
         z-index: 1000;
         position: relative;
+        transform: translateY(30px);
     }
 
     header.is-fixed .boost-logo img {
         max-width: 100px;
-        margin: 10px 10px 10px -20px;
+/*        margin: 10px 10px 10px -20px;
+*/      
+        margin: 10px;
         -webkit-transition: all 0.5s ease-in-out;
         transition: all 0.5s ease-in-out;
     }
@@ -1083,12 +1086,15 @@ table {
     }
 
     header.is-fixed .sub-navi li:nth-child(3) {
-        margin-right: 80px;
-    }
+/*        margin-right: 80px;
+*/    
 
+        margin-right:20px;
+    }
+/*
     header.is-fixed .sub-navi li:nth-child(4) {
-        margin-left: 80px;
-        }
+        margin: auto;
+    }*/
     .hide-desktop {
         display: none;
     }

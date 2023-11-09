@@ -3,11 +3,37 @@
     <link rel="stylesheet" href="~/BoostJuice/css/about.css">
 
     <link rel="stylesheet" href="~/BoostJuice/css/contact.css">
+    <style>
+        input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea, select {
+            font-family: 'RobotoCondensed-Regular', arial, sans-serif;
+            font-style: italic;
+            height: 42px;
+            padding: 6px 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            box-shadow: none;
+            box-sizing: border-box;
+        }
 
+        input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        textarea {
+            min-height: 65px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+    </style>
 }
 @{
     ViewBag.Title = "Contact Us";
 }
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+
 <div class="boost-main-content">
     <div class="main-fold-angle bg-image banner-contact">
 
@@ -16,51 +42,55 @@
         <div class="container">
             <div class="row">
                 <div class="column text-center">
-                    <h3>Có vấn đề...<br class="hide-desktop"> bạn có thắc mắc?</h3>
-                    <h3>Chúng tôi mong rằng<br class="hide-desktop"> sẽ tốt hơn!</h3>
-                    <p>Hãy chọn một lựa chọn dưới đây và chúng tôi sẽ xử lý.</p>
+                    <h3><localize>What’s that...</localize><br class="hide-desktop"><localize>got something to say?</localize></h3>
+                    <h3><localize>Boy we hope</localize><br class="hide-desktop"><localize>it's something good!</localize></h3>
+                    <p><localize>Just select which option below is most relevant to you and we’ll take it from there.</localize></p>
                     <!-- multistep form -->
-                    <form action="" class="boostform" method="post" enctype="multipart/form-data" id="contact" novalidate="novalidate" style="height: 472px;">
+                    <form class="boostform"  enctype="multipart/form-data" id="contact" novalidate="novalidate" style="height: 472px;">
 
 
                         <!-- progressbar -->
                         <ul id="progressbar">
-                            <li class="active">Chúng tôi có thể giúp bạn?</li>
-                            <li>Chi tiết đánh giá</li>
-                            <li>Gửi cho chúng tôi</li>
+                            <li class="active"><localize>What can we help you with?</localize></li>
+                            <li><localize>Your contact details</localize></li>
+                            <li>
+                                <localize>
+                                    Give us the details
+                                </localize>
+                            </li>
                         </ul>
                         <!-- fieldsets -->
 
                         <fieldset class="tab form-step-1" id="form-step">
                             <div class="custom-inputs">
-                                <div class="iradio_lineblock-green checked"><input type="radio" name="reason" value="VIBE" checked="" id="vibe" style="position: absolute; visibility: hidden;">Vibe<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green" data="VIBE" ><input type="radio" name="reason" value="VIBE" checked="" id="vibe" style="position: absolute; visibility: hidden;">Vibe<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
-                                <div class="iradio_lineblock-green"><input type="radio" name="reason" value="Service Feedback" id="service-feedback" style="position: absolute; visibility: hidden;">Đánh giá dịch vụ<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green" data="Service Feedback"><input type="radio" name="reason" value="Service Feedback" id="service-feedback" style="position: absolute; visibility: hidden;"><localize>Service Feedback</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
-                                <div class="iradio_lineblock-green"><input type="radio" name="reason" value="Product Feedback" id="product-feedback" style="position: absolute; visibility: hidden;">Đánh giá sản phẩm<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green" data="Product Feedback"><input type="radio" name="reason" value="Product Feedback" id="product-feedback" style="position: absolute; visibility: hidden;"><localize>Product Feedback</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
-                                <div class="iradio_lineblock-green"><input type="radio" name="reason" value="General Store" id="general-store" style="position: absolute; visibility: hidden;">Đánh giá cửa hàng<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green" data="General Store"><input type="radio" name="reason" value="General Store" id="general-store" style="position: absolute; visibility: hidden;"><localize>General/Store Feedback</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
-                                <div class="iradio_lineblock-green"><input type="radio" name="reason" value="Other Queries" id="other-queries" style="position: absolute; visibility: hidden;">Yêu cầu khác<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green" data="Other Queries"><input type="radio" name="reason" value="Other Queries" id="other-queries" style="position: absolute; visibility: hidden;"><localize>Other Queries</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
                             </div>
-
-                            <input type="button" name="next" class="next1 action-button" value="Tiếp theo">
+                                
+                            <input type="button" name="next" class="next1 action-button" value="@_loc["Next"]">
                         </fieldset>
                         <fieldset class="tab form-step-2" >
-                            <input type="text" name="fullname" placeholder="Họ tên" id="fullname">
-                            <input type="email" name="email" placeholder="Email" id="email">
-                            <input type="text" name="phone" placeholder="Số điện thoại" id="phone">
+                            <input type="text" name="fullname" placeholder="@_loc["fullname"]" id="fullname">
+                            <input type="email" name="email" placeholder="@_loc["email"]" id="email" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$">
+                            <input type="text" name="phone" placeholder="@_loc["phone"]" id="phone">
 
                             <div class="custom-inputs">
-                                <div class="iradio_lineblock-green checked" id="memberbtn"><input type="radio" name="vibe" id="vibe_yes" checked="" value="" style="position: absolute; visibility: hidden;">Tôi biết số thành viên Vibe<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green checked" id="memberbtn"><input type="radio" name="vibe" id="vibe_yes" checked="" value="" style="position: absolute; visibility: hidden;"><localize>I Know My Vibe Number</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
-                                <div class="iradio_lineblock-green" id="guestbtn"><input type="radio" name="vibe" id="vibe_no" value="No" style="position: absolute; visibility: hidden;">Tôi không phải là thành viên của vibe<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                <div class="iradio_lineblock-green" id="guestbtn"><input type="radio" name="vibe" id="vibe_no" value="No" style="position: absolute; visibility: hidden;"><localize>Im Not A Vibe Member</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
 
                             </div>
-                            <input type="text" name="vibe_member" placeholder="Số thành viên Vibe" id="vibe_member">
-                            <input type="button" name="previous" class="previous action-button" value="Trước" id="prebtn1">
-                            <input type="button" name="next" class="next2 action-button" value="Tiếp theo" id="nextbtn">
+                            <input type="text" name="vibe_member" placeholder="@_loc["vibemember"]" id="vibe_member">
+                            <input type="button" name="previous" class="previous action-button" value="@_loc["Previous"]" id="prebtn1">
+                            <input type="button" name="next" class="next2 action-button" value="@_loc["Next"]" id="nextbtn">
 
                         </fieldset>
                          
@@ -70,7 +100,7 @@
                             <div class="form-elements">
                                 <input type="hidden" name="state" value="028">
                                 <select id="store" name="store_name">
-                                    <option value="">Tên cửa hàng</option>
+                                    <option value=""><localize>StoresName</localize></option>
                                     <option value="Boost Juice - Thao Dien Square">Boost Juice - Thao Dien Square – Ho Chi Minh</option>
                                     <option value="Boost Juice - Diamond">Boost Juice - Diamond – Ho Chi Minh</option>
                                     <option value="Boost Juice - Cresent Mall">Boost Juice - Cresent Mall – Ho Chi Minh</option>
@@ -78,23 +108,19 @@
                                     <option value="Boost Juice - Nguyen Thai Hoc">Boost Juice - Nguyen Thai Hoc – Ho Chi Minh</option>
                                     <option value="Boost Juice - Ngo Duc Ke">Boost Juice - Ngo Duc Ke – Ho Chi Minh</option>
                                 </select>
-                                <input type="text" name="date" placeholder="Ngày" id="date" autocomplete="off" value="20/10/2023" class="hideMe">
-                                <input type="text" name="time" placeholder="Giờ" id="time" autocomplete="off" class="hideMe">
-                                <input type="text" name="team_member" placeholder="Tên/mô tả thành viên" id="tem-member" autocomplete="off" class="hideMe">
-                                <input type="text" name="drink_purchased" placeholder="Loại thức uống đã mua" id="drink-purchased" class="hideMe">
-                                <textarea name="message" rows="6" placeholder="Tin nhắn" id="message"></textarea>
+                                <textarea name="message" rows="6" placeholder="@_loc["message"]" id="message"></textarea>
 
                                 <div class="errorbox2"></div>
 
                             </div>
                             <div class="thank-you" style="display:none">
-                                <h3>Cảm ơn bạn!</h3>
-                                <p>Chúng tôi sẽ liên lạc lại với bạn.</p>
-                                <a class="button" id="resetForm">Hoàn tất</a>
+                                <h3><localize>Thank You!</localize></h3>
+                                <p><localize>We Will Get Back To You Soon.</localize></p>
+                                <a class="button" onclick="window.location.reload()"><localize>Done</localize></a>
                             </div>
 
-                            <input type="button" name="previous" class="previous action-button form-elements" value="Trước" id="prebtn2">
-                            <input name ="submit" class="submit action-button form-elements" value="Gửi"  type="submit">
+                            <input type="button" name="previous" class="previous action-button form-elements" value="@_loc["Previous"]" id="prebtn2">
+                            <input name ="submit" class="submit action-button form-elements" value="@_loc["submit"]"  >
 
                         </fieldset> 
                     </form>
@@ -104,19 +130,30 @@
         </div>
         <div class="row contact-us-info">
             <div class="six columns">
-                <strong>Địa chỉ</strong>
-                <p>
-                    56 Ngô Đức Kế<br>
-                    Phường Bến Nghé<br>
-                    Quận 1, TP. HCM
+                <strong>
+                    <localize>
+                        Postal address
+                    </localize> 
+                </strong>
+                <p> <localize>
+                        58 Ngo Duc Ke Street
+                       
+                    </localize><br>
+                    <localize>
+                        Ben Nghe Ward, District 1
+                    </localize><br>
+                    <localize>
+                        Ho Chi Minh City, Vietnam
+                    </localize>
                 </p>
             </div>
             <div class="six columns">
-                <strong>Muốn liên lạc với chúng tôi?</strong>
-                <p>
-                    Thứ Hai – Chủ Nhật (9:00 – 20:00)<br>
+                <strong><localize>Call us maybe?</localize></strong>
+                <p><localize>
+                        Monday – Sunday (9:00 – 20:00)<br>
+                    </localize>
                     Hotline: 1800 282890<br>
-                    Email: info@boostjuice.vn
+                    Email: info@boostjuice.com.vn
                 </p>
             </div>
         </div>
@@ -125,7 +162,7 @@
                 <div class="row fix-content">
                     <div class="columns text-center">
                         <img src="https://www.boostjuice.vn/app/themes/boostjuice/dist/img/placeholders/title_around_the_world.png">
-                        <p>Nhiệm vụ của Boost Juice là trở thành một trong những thương hiệu Smoothies và Nước trái cây được yêu thích và nổi tiếng nhất thế giới và chúng tôi đang trên đường hoàn thành nhiệm vụ đây! Boost Juice thực sự là một thương hiệu toàn cầu với hơn 450 cửa hàng đang hoạt động và đang ấp ủ các kế hoạch mở rộng thị trường quốc tế đầy thú vị.</p>
+                        <p><localize>It is our mission to become one of the worlds most loved and famous smoothie and juice brands and we are well on the way! Boost Juice is a truly global brand with over 450 stores in operation and exciting international expansion plans.</localize></p>
                     </div>
                 </div>
             </div>
@@ -553,16 +590,16 @@
         $(this).addClass("checked");
         var e = $(".form-step-1 .custom-inputs .iradio_lineblock-green").index(this);
         $('.form-step-1 .custom-inputs .iradio_lineblock-green').not(':eq("' + e + '")').removeClass("checked");
-         console.log(e);
-
+        localStorage.setItem("reason",$(this).attr("data") );
     });
     $(".form-step-2 .custom-inputs .iradio_lineblock-green").on("click", function () {
         $(this).addClass("checked");
         var e = $(".form-step-2 .custom-inputs .iradio_lineblock-green").index(this);
         $('.form-step-2 .custom-inputs .iradio_lineblock-green').not(':eq("' + e + '")').removeClass("checked");
-        console.log(e);
-
     });
+
+
+
     $("#memberbtn").on("click", function () {
         $("#vibe_member").css("display", "block");
     });
@@ -587,6 +624,8 @@
 
         });
         $('#progressbar li:nth-child(2)').addClass("active");
+        var x = localStorage.getItem("reason");
+        console.log(x);
     });
     $("#prebtn1").on("click", function () {
         $(".boostform").css("height", "457px");
@@ -655,8 +694,39 @@
 
     })
     $(".submit").on("click", function () {
-        $(".thank-you").show();
-            $(".form-elements").hide();
+        selectElement = document.querySelector('#store');
+        output = selectElement.value;
+        console.log(localStorage.getItem("reason"));
+        console.log($("#fullname").val());
+        console.log($("#email").val());
+        console.log($("#phone").val());
+        console.log($("#message").val());
+        console.log($("#vibe_member").val());
+        console.log(output);
+        $.ajax({
+            type: 'POST',
+            url: '/Home/Contact',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: 
+            {
+                reason: localStorage.getItem("reason"),
+                fullname: $("#fullname").val(),
+                email: $("#email").val(),
+                phone: $("#phone").val(),
+                vibe_member: $("#vibe_member").val(),
+                store_name: output,
+                message: $("#message").val()
+            
+            },
+            success: function (result) {
+                $(".thank-you").show();
+                $(".form-elements").hide();
+            },
+            error: function () {
+                console.log('Failed ');
+            }
+        })
+
     })
     
 </script>

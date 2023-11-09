@@ -1,16 +1,12 @@
-﻿using BJ.Application.Helper;
-using BJ.Application.Service;
+﻿using BJ.Application.Service;
 using BJ.Contract;
 using BJ.Contract.Category;
 using BJ.Contract.Product;
 using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
 using BJ.Contract.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
-using System.Data;
-using System.Security;
 
 namespace BJ.Api.Controllers
 {
@@ -35,7 +31,7 @@ namespace BJ.Api.Controllers
         [HttpPost("import")]
         [Consumes("multipart/form-data")]
         public async Task<string> Import([FromForm] ImportResponse importResponse, bool category, bool subCategory, bool size, bool product,
-                                bool blog,bool news, CancellationToken cancellationToken)
+                                bool blog, bool news, CancellationToken cancellationToken)
         {
 
             if (importResponse.File == null || importResponse.File.Length <= 0)
@@ -61,7 +57,7 @@ namespace BJ.Api.Controllers
 
                         ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
                         var rowCount = worksheet.Dimension.Rows;
-                       
+
                         for (int row = 2; row <= rowCount; row++)
                         {
 
@@ -202,8 +198,8 @@ namespace BJ.Api.Controllers
                                     MetaDesc = worksheet.Cells[row, 9].Value.ToString().Trim(),
                                     MetaKey = worksheet.Cells[row, 10].Value.ToString().Trim(),
                                 },
-                               Size = sizeSpecificProduct,
-                               SubCat = subCatSpecificProduct,
+                                Size = sizeSpecificProduct,
+                                SubCat = subCatSpecificProduct,
 
                             });
 
@@ -241,11 +237,11 @@ namespace BJ.Api.Controllers
 
                             createBlogAdminViewsDtos.Add(new CreateBlogAdminView
                             {
-                                CreateBlog = new Contract.Blog.CreateBlogDto() 
+                                CreateBlog = new Contract.Blog.CreateBlogDto()
                                 {
                                     Active = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 4].Value.ToString().Trim())),
                                     Popular = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 5].Value.ToString().Trim())),
-                                    
+
                                 },
                                 CreateBlogTranslation = new Contract.Translation.Blog.CreateBlogTranslationDto()
                                 {

@@ -5,7 +5,6 @@ using BJ.Contract.Category;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
-using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
@@ -586,7 +585,7 @@ namespace BJ.Application.Service
         public async Task<Guid> GetIdOfCategorỵ(string code)
         {
             var r = await _context.Categories.FirstOrDefaultAsync(x => x.Code == code);
-            if(r == null) return Guid.Empty;
+            if (r == null) return Guid.Empty;
 
             return r.Id;
         }

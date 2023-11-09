@@ -13,6 +13,7 @@ namespace BJ.Contract.ViewModel
         public bool Popular { get; set; }
 
         public bool Home { get; set; }
+        public bool Promotion { get; set; }
 
         public DateTime? DateCreated { get; set; }
 

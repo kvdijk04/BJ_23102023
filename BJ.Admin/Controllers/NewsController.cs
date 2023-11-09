@@ -116,6 +116,7 @@ namespace BJ.Admin.Controllers
                     ImagePath = item.ImagePath,
                     Popular = item.Popular,
                     Home = item.Home,
+                    Promotion = item.Promotion,
                 },
                 UpdateNewsTranslation = new Contract.Translation.News.UpdateNewsTranslationDto()
                 {

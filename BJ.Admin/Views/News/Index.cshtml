@@ -39,6 +39,8 @@
                             <th>Hoạt động</th>
                             <th>Ở trang chủ</th>
                             <th>Phổ biến</th>
+                            <th>Khuyến mãi</th>
+
                             <th></th>
                         </tr>
                     </thead>
@@ -80,7 +82,7 @@
                                             else
                                             {
                                                 <div class="badge badge-danger badge-dot m-r-10"></div>
-                                                <div>Khóa</div>
+                                                <div>Không</div>
                                             }
 
                                         </div>
@@ -88,6 +90,21 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @if (item.Popular == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Không</div>
+                                            }
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.Promotion == true)
                                             {
                                                 <div class="badge badge-success badge-dot m-r-10"></div>
                                                 <div>Có</div>

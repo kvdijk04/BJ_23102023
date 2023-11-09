@@ -1,4 +1,5 @@
-﻿using BJ.Application.Mapping;
+﻿using BJ.Application.Email;
+using BJ.Application.Mapping;
 using BJ.Application.Service;
 using BJ.Contract.Config;
 using BJ.Persistence.ApplicationContext;
@@ -17,8 +18,6 @@ namespace BJ.Application
         {
             services.AddDbContext<BJContext>(options => options.UseSqlServer(configuration.GetConnectionString("BJConnection")));
 
-
-            ;
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
@@ -28,6 +27,7 @@ namespace BJ.Application
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddAutoMapper(typeof(CategoryMappingProfile).Assembly);
             services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);

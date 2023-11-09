@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BJ.Application.Helper;
 using BJ.Application.Ultities;
-using BJ.Contract.Blog;
 using BJ.Contract.News;
 using BJ.Contract.Translation.News;
 using BJ.Contract.ViewModel;
@@ -17,6 +16,10 @@ namespace BJ.Application.Service
     {
 
         Task<IEnumerable<NewsUserViewModel>> GetNewss(string culture, bool popular);
+        Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture);
+
+
+
         Task CreateNews(CreateNewsAdminView createNewsAdminView);
         Task CreateNewsTranslate(CreateNewsTranslationDto createNewsTranslationDto);
 
@@ -157,10 +160,13 @@ namespace BJ.Application.Service
                                     .Take(pageResult)
                                     .Select(x => new NewsDto()
                                     {
+                                        Id = x.n.Id,
                                         Code = x.n.Code,
                                         ImagePath = x.n.ImagePath,
                                         Active = x.n.Active,
                                         Popular = x.n.Popular,
+                                        Home = x.n.Home,
+                                        Promotion = x.n.Promotion,
                                         Title = x.nt.Title,
                                     }).AsNoTracking().ToListAsync();
             var newsResponse = new PagedViewModel<NewsDto>
@@ -201,6 +207,7 @@ namespace BJ.Application.Service
                 Home = item.Home,
                 ImagePath = item != null ? item.ImagePath : null,
                 Popular = item.Popular,
+                Promotion = item.Promotion,
                 NewsTranslationDtos = _mapper.Map<List<NewsTranslationDto>>(await _context.NewsTranslations.Where(x => x.NewsId.Equals(id)).ToListAsync()),
             };
             return newsViewModel;
@@ -212,7 +219,7 @@ namespace BJ.Application.Service
             var query = from b in _context.News
                         join bt in _context.NewsTranslations on b.Id equals bt.NewsId into ppic
                         from bt in ppic.DefaultIfEmpty()
-                        where bt.LanguageId == culture && b.Active == true
+                        where bt.LanguageId == culture && b.Active == true && b.Promotion == false
                         select new { b, bt };
             var data = await query.OrderByDescending(x => x.b.DateCreated)
                 .Select(x => new NewsUserViewModel()
@@ -364,6 +371,34 @@ namespace BJ.Application.Service
                     ImagePath = x.b.ImagePath,
                 }).ToListAsync();
             return data.Take(1);
+        }
+
+        public async Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture)
+        {
+            var query = from b in _context.News
+                        join bt in _context.NewsTranslations on b.Id equals bt.NewsId into ppic
+                        from bt in ppic.DefaultIfEmpty()
+                        where bt.LanguageId == culture && b.Active == true && b.Promotion == true
+                        select new { b, bt };
+            var data = await query.OrderByDescending(x => x.b.DateCreated)
+                .Select(x => new NewsUserViewModel()
+                {
+                    Id = x.b.Id,
+                    DateCreated = x.b.DateCreated,
+                    Description = x.bt.Description,
+                    ShortDesc = x.bt.ShortDesc,
+                    Title = x.bt.Title,
+                    Alias = x.bt.Alias,
+                    MetaDesc = x.bt.MetaDesc,
+                    MetaKey = x.bt.MetaKey,
+                    DateUpdated = x.b.DateUpdated,
+                    Active = x.b.Active,
+                    Home = x.b.Home,
+                    Promotion = x.b.Promotion,
+                    ImagePath = x.b.ImagePath,
+                    Popular = x.b.Popular,
+                }).ToListAsync();
+            return data;
         }
     }
 }

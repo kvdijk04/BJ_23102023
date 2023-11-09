@@ -1,4 +1,5 @@
 using BJ.Application;
+using BJ.Application.Email;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
@@ -60,6 +61,13 @@ builder.Services.Configure<ForwardedHeadersOptions>(opt =>
 {
     opt.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
+
+var emailConfig = builder.Configuration
+        .GetSection("EmailConfiguration")
+        .Get<EmailConfiguration>();
+builder.Services.AddSingleton(emailConfig);
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -71,6 +79,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Boost Juice System");
     });
 }
+
 
 app.UseFileServer(new FileServerOptions
 {

@@ -12,7 +12,17 @@ var cultures = new[]
     new CultureInfo("en"),
     new CultureInfo("vi"),
 };
-// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowOrigin",
+        builder =>
+        {
+            builder.WithOrigins("*", "https://order.boostjuice.com.vn:446/swagger/index.html", "https://www.facebook.com/", "https://web.facebook.com/", "https://www.google-analytics.com/")
+            .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});// Add services to the container.
 builder.Services.AddControllersWithViews().AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
 {
     // When using all the culture providers, the localization process will
@@ -59,12 +69,11 @@ builder.Services.AddScoped<ISizeServiceConnection, SizeServiceConnection>();
 builder.Services.AddScoped<IStoreLocationServiceConnection, StoreLocationServiceConnection>();
 builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
+builder.Services.AddScoped<IEmailServiceConnection, EmailServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
-
-
 
 
 
@@ -84,7 +93,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseCors("AllowOrigin"); // allow credentials
 app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
@@ -259,5 +268,33 @@ app.MapControllerRoute(
     {
         controller = "Home",
         action = "TermOfUse"
+    });
+app.MapControllerRoute(
+    name: "Promotion En",
+    pattern: "{culture}/promotion", new
+    {
+        controller = "Promotion",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Promotion Vi",
+    pattern: "{culture}/khuyen-mai", new
+    {
+        controller = "Promotion",
+        action = "Index"
+    });
+app.MapControllerRoute(
+    name: "Promotion Detail En",
+    pattern: "{culture}/promotion/{id}/{Alias}", new
+    {
+        controller = "Promotion",
+        action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "Promotion Detail Vi",
+    pattern: "{culture}/khuyen-mai/{id}/{Alias}", new
+    {
+        controller = "Promotion",
+        action = "Detail"
     });
 app.Run();

@@ -82,11 +82,18 @@
         transition: all .5s ease 0s;
         text-transform: uppercase;
         letter-spacing: .11rem;
-        max-width:50%;
+        max-width:70%;
     }
-
-
-
+    @@media(max-width: 375px){
+        .button{
+            max-width:100%;
+            top:10px;
+        }
+    }
+    .button:after{
+        content: "";
+        clear: both;
+    }
     .drink-block:hover .button {
         opacity: 1;
         -webkit-transition: all .3s ease .3s;
@@ -106,7 +113,115 @@
         }
     }
 
+    /* CSS nền hiển thị Modal */
+    .nenmodal .nenmodal2 {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.7);
+        z-index: 1;
+        display: none;
+    }
+    /* CSS bảng nội dung Modal */
+    .nenmodal .ndmodal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%) scale(0);
+        background-color: #ed6b06;
+        color:#ffff;
+        width: 1000px;
+        z-index: 2;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 20px;
+        display: block;
+        position: fixed;
+        box-shadow: 0px 0px 10px #111;
+    }
 
+
+    @@media (max-width: 870px) {
+        .nenmodal .ndmodal {
+            width: 90%;
+        }
+    }
+
+
+    /* CSS bao bọc của nút tắt Modal */
+    .nenmodal .closemodal {
+        text-align: center;
+        margin-top: -40px;
+        margin-bottom: 10px;
+    }
+    /* CSS nút tắt modal */
+    .closemodal button {
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+        padding: 0px;
+        border-radius: 100%;
+        background: #de4436;
+        color: #fff;
+        border: none;
+    }
+
+    .nenmodal.active .nenmodal2 {
+        display: block;
+    }
+    /* CSS hiệu ứng hiển thị Modal */
+    .nenmodal.active .ndmodal {
+        transition: all 300ms ease-in-out;
+        transform: translate(-50%,-50%) scale(1);
+    }
+
+    .footer:before {
+       z-index:auto;
+    }
+
+    
+    .container {
+        position: relative;
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .notify.column, .notify.columns {
+        width: 100%;
+        float: left;
+        box-sizing: border-box;
+    }
+
+    @@media (min-width: 400px) {
+        .container {
+            width: 85%;
+            padding: 0;
+        }
+    }
+
+    @@media (min-width: 769px) {
+        .container {
+            width: 90%;
+        }
+
+        .six.columns {
+            width: 48%;
+        }
+
+        .column:first-child, .columns:first-child {
+            margin-left: 0;
+        }
+
+        .column, .columns {
+            margin-left: 4%;
+        }
+    }
 </style>
 
 <div class="page-wrapper">
@@ -164,7 +279,7 @@
                         <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:70px">
                             <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-proName="@product.ProductName" data-catName="@product.CatName" @* onclick="openTab('@product.Id');" *@>
                                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" />
-                                <img src="https://www.boostjuice.com.au/img/cup_shadow.png" />
+                                <img src="~/images/cup_shadow.png" />
                                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" />
                                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" />
                                 <ul>
@@ -188,7 +303,7 @@
                                 </ul>
 
                                 <span>@product.ProductName</span>
-                                <a class="button" asp-action="Buy" asp-controller="Product">
+                                <a class="button" onclick="momodal()">
                                     <localize>BUY</localize>
                                 </a>
                             </a>
@@ -225,15 +340,63 @@
     </div>
     
 </div>
-<div class="drinks_legend">
-    <p><strong>The average adult daily energy intake is 8700 kJ </strong></p> <p>Please note that sometimes some products may not be available in all stores.</p><p> </p><p><strong>^</strong> Contains caffeine.</p> <p><strong>†</strong> Boosters not suitable for children under 15 years or pregnant women, except for chia and lucuma powder.</p> <p>Boosters are not a sole source of nutrition and should be consumed in conjunction with a healthy nutritious diet.</p> <p><strong>‡</strong> Contains vitamin A, C and zinc necessary for normal immune function as part of a healthy nutritious diet.</p> <p><strong>~</strong> Under 200 calories in a medium size</p> <div class="text-center">
-        <p>
-            <a style="color:#7ac142" href="/@culture/wellbeing/nutrition-facts/"><strong>GO TO NUTRITION FACTS</strong></a>
-        </p>
+<div class="nenmodal" id="nenmodal-1">
+    <div class="nenmodal2"></div>
+    <div class="ndmodal">
+        <div class="closemodal"><button onclick="momodal()">×</button></div>
+        <div class="vibe-options">
+            <div class="container">
+
+                <div class="row">
+                    <div class="notify six columns">
+                        <div>
+                            <p class="sub-title">
+                                <localize>
+                                    OPTION 1
+                                </localize>
+                            </p>
+                            <h3><localize>Download the<br>Boost Juice App</localize></h3>
+                            <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
+                            <p>
+                                <a href="http://bit.ly/1yqA2a2" target="_blank">
+                                    <img src="~/images/ios.png"
+                                         width="160">
+                                </a>
+                                <a href="http://bit.ly/USKKXP" target="_blank">
+                                    <img src="~/images/ggplay.png"
+                                         width="160">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="notify six columns">
+                        <div>
+                            <p class="sub-title">
+                                <localize>
+                                    OPTION 2
+                                </localize>
+                            </p>
+                            <h3><localize>Call us maybe?</localize></h3>
+                            <a href="tel:1800 282890" style="color:#FFFF" >Hotline: 1800 282890</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<div class="drinks_legend">
+    <p><strong><localize>The average adult daily energy intake is 8700 kJ</localize></strong></p>
+    <p><strong>†</strong><localize>Boosters not suitable for children under 15 years or pregnant women, except for chia and lucuma powder.</localize></p>
+    <p><localize>Boosters are not a sole source of nutrition and should be consumed in conjunction with a healthy nutritious diet.</localize></p>
+    <p><localize>Are you reading this seriously? We don't know whether to congratulate you for your efforts, or just because you have nothing better to do... either way, you're here, which is good for you.</localize></p>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
+    function momodal() {
+        document.getElementById("nenmodal-1").classList.toggle("active");
+    }
     var first = $(location).attr('pathname');
 
     first.indexOf(1);
@@ -242,7 +405,6 @@
 
     first = first.split("/")[1];
     $(".drink-block .grid_item").on("click", function (i) {
-
         var nameCat = $(this).attr("data-catName");
         var idPro = $(this).attr("data-masp");
         var namePro = $(this).attr("data-proName");

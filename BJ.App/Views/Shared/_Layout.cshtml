@@ -14,10 +14,11 @@
     <meta name="keywords" content="Boost Juice, is one of Australia's most famous and loved juice and smoothie brands, nước ép, healthy, sinh tố, trái cây tươi" />
     <meta name="author" content="Magentech">
     <meta name="robots" content="index, follow" />
+    <meta name="zalo-platform-site-verification" content="VuIt8Ak7PGzPci0HkB9oCtYavHYKqZT4CZaq" />
     <meta property="og:site_name" content="Boost Juice" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Boost Juice" />
-    <meta property="og:image" content="~/BoostJuice/images/cropped-iconboostweb-270x270.png" />
+    <meta property="og:image" content="../../BoostJuice/images/cropped-iconboostweb-270x270.png" />
     <meta property="og:description" content="Boost Juice is one of Australia&#039;s most famous and loved juice and smoothie brands." />
     @*     <meta property="og:url" content="" />*@
     <link href="~/BoostJuice/images/favicon.png" rel="shortcut icon">
@@ -270,38 +271,30 @@
             -webkit-box-shadow: inset 0 0 6px #70b046;
         }
     </style>
-    <link rel="stylesheet" href="~/css/boostjuice.css">
+    <link rel="stylesheet" href="~/BoostJuice/css/boostjuice.css">
     <link rel="stylesheet" href="~/BoostJuice/css/home.css">
     @await RenderSectionAsync("Styles", required: false)
     @await RenderSectionAsync("metatags", required: false)
 
-    <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="~/css/aos.css" />
+    <link rel="stylesheet" href="~/BoostJuice/css/style.css">
+    <link rel="stylesheet" href="~/BoostJuice/css/aos.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
     <!--Google tag-->
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCVYLYJRTR">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-JCVYLYJRTR');
-    </script>
-
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BPFXFS750"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7CH690S69Y"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'G-6BPFXFS750');
+        gtag('config', 'G-7CH690S69Y');
     </script>
+    
+
 </head>
 <body class="boost-home">
     <!-- Messenger Plugin chat Code -->
@@ -313,7 +306,7 @@
 
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "169987209524629");
+        chatbox.setAttribute("page_id", "162029313658221");
         chatbox.setAttribute("attribution", "biz_inbox");
     </script>
 
@@ -330,10 +323,12 @@
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js"></script>
+
     <header class="boost-main"> 
         <nav class="boost-main-nav-wrapper"> 
             <ul class="boost-main-nav">
@@ -360,6 +355,8 @@
             <ul>
                 <li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]"><localize>Our Drinks</localize></a></li>
                 <li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]"><localize>Find Us</localize></a></li>
+                <li id="menu-item-502" class="remove-me"><a href="/@culture/@_loc["promotionUrl"]"><localize>Promotion</localize></a></li>
+
                 <li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>
                 <li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]"><localize>Wellbeing</localize></a></li>
                 <li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]"><localize>News</localize></a></li>
@@ -419,7 +416,7 @@
            
         </div>
     </footer>
-    <div class="hotline-phone-ring-wrap" style="z-index:21">
+    <div class="hotline-phone-ring-wrap" style="z-index:31">
         <div class="hotline-phone-ring">
             <div class="hotline-phone-ring-circle"></div>
             <div class="hotline-phone-ring-circle-fill"></div>
@@ -435,6 +432,7 @@
             </a>
         </div>
     </div>
+
 
 
 
@@ -565,5 +563,6 @@
         // });
         
     </script>
+
 </body>
 </html>

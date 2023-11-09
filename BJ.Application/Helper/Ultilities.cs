@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using BJ.Application.Email;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -210,6 +210,55 @@ namespace BJ.Application.Helper
                     return result;
                 }
             }
+        }
+        public static Message MailFeedBack(string reason, string fullname, string email, string emailTo, string phone, string vibe_member, string store_name, string desc, DateTime dateSend)
+        {
+            var body = "<div class=\"\">" +
+                            "<div class=\"aHl\">" +
+                            "</div><div id=\":pl\" tabindex=\"-1\"></div><div id=\":pa\" class=\"ii gt\" jslog=\"20277; u014N:xr6bB; 1:WyIjdGhyZWFkLWY6MTc1OTk0MzE2OTU1MDk1NjgzOCIsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsW11d; 4:WyIjbXNnLWY6MTc1OTk0MzE2OTU1MDk1NjgzOCIsbnVsbCxbXV0.\"><div id=\":p9\" class=\"a3s aiL \"><u></u>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div style=\"background-color:#e5e5e5;font-family:sans-serif;font-size:12px;line-height:1.4;margin:0;padding:0\">\r\n" +
+                            "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:separate;width:100%;padding:0;background-color:#ffffff\">\r\n<tbody>\r\n<tr>\r\n<td style=\"font-family:sans-serif;font-size:12px;vertical-align:top\">&nbsp;</td>\r\n<td style=\"font-family:sans-serif;font-size:12px;vertical-align:top;display:block;margin:0 auto;max-width:800px;padding:0;width:800px\">\r\n<div style=\"box-sizing:border-box;display:block;Margin:0;max-width:800px;padding:0\">\r\n\r\n\r\n" +
+                            "<div style=\"display:inline-block;clear:both;text-align:center;width:100%;background-size:cover;background:rgba(233,234,247,0.5);\">\r\n" +
+                            "<img src=\"https://imgur.com/pFFMz6l.png\" alt=\"VXH.Booking\" style=\"float:left;padding:5% 0 4% 5%;max-width:18%;height:auto;min-height:12px\" class=\"CToWUd\" data-bit=\"iit\">\r\n" +
+                            "</div>\r\n<table style=\"border-collapse:separate;width:100%;background:#ffffff;border-radius:3px\">\r\n\r\n\r\n<tbody><tr>\r\n" +
+                            "<td style=\"font-family:sans-serif;font-size:12px;vertical-align:top;box-sizing:border-box;padding:5%;padding-bottom:0\">\r\n" +
+                            "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:separate;width:100%\">\r\n<tbody><tr>\r\n" +
+                            "<td style=\"font-family:sans-serif;font-size:12px;vertical-align:top\">\r\n" +
+                            "<h1 style=\"font-weight:bold;font-size:18px;line-height:24px;color: #70b046;margin-bottom:24px;margin-top:0\">" +
+                            "Xin chào,</h1>\r\n" +
+                            "<div style=\"background:rgba(233,234,247,0.5);margin-bottom:16px;text-align:left;padding:24px 30px 24px\">\r\n" +
+                            "<p style=\"font-weight:500;margin-top:0;margin-bottom:16px;font-size:14px;line-height:20px;color:#70b046\">\r\n\t\t\t\t\t\t\t\t\t\t\t<b>\r\n\t\t\t\t\t\t\t\t\t\t\t<span>" +
+                            "Bạn có một phản hồi từ: </span>\r\n" +
+                            "\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t</b>" +
+                            "<b style=\"font-size:14px;color: #70b046\"><a style=\"font-size:14px;color: #70b046\" href=mailto:" + email + ">" + email + "</a></b></p><br>" +
+                            "<b style=\"font-size:14px;color: #70b046\"><a style=\"font-size:14px;color: #70b046\">Người phản hồi: </a></b>" + "<span style=\"color: #70b046;font-size:14px\"> " + fullname + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+                            "<b style=\"font-size:14px;color: #70b046\"><a style=\"font-size:14px;color: #70b046\">Email: </a></b>" + "<span style=\"color: #70b046;font-size:14px\"> " + email + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+                            "<b style=\"font-size:14px;color: #70b046\"><a style=\"font-size:14px;color: #70b046\">Mã thành viên: </a></b>" + "<span style=\"color: #70b046;font-size:14px\"> " + vibe_member + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+                            "<b style=\"font-size:14px;color: #70b046\"><a style=\"font-size:14px;color: #70b046\">Số điện thoại: </a></b>" + "<span style=\"color: #70b046;font-size:14px\"> " + phone + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+
+
+                            "<b style=\"font-size:14px;color: #70b046\"><a style=\"font-size:14px;color: #70b046\">Tiêu đề: </a></b>" + "<span style=\"color: #70b046;font-size:14px\"> " + reason + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+
+                            "<b style=\"font-size:14px;color: #70b046\"<a style=\"font-size:14px;color: #70b046\">Nội dung: </a></b><br>" + "<span style=\"color: #70b046;font-size:14px\"> " + desc + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+                            "<b style=\"font-size:14px;color: #70b046\"<a style=\"font-size:14px;color: #70b046\">Cửa hàng: </a></b><br>" + "<span style=\"color: #70b046;font-size:14px\"> " + store_name + "</span><br>\r\n\t\t\t\t\t\t\t\t\t" +
+
+                            "<div>\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t" +
+                            "<p style=\"font-weight:500;margin-top:0;margin-bottom:4px;font-size:14px;line-height:18px;color:red\">" +
+                            "</p>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t" +
+                            "<div> \r\n\r\n\t\t\t\t\t\t\t\t\t\t<p style=\"font-weight:bold;margin-top:0;margin-bottom:4px;font-size:16px;text-decoration:underline;line-height:18px;color:#71787e\">" +
+                            "Thời gian gửi phản hồi:</p>\r\n" +
+                            "<p style=\"font-weight:bold;font-size:14px\">Thời gian gửi: <b style=\"color:red\">" + dateSend + "</b></p>\r\n" +
+
+                            "\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<br>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n</div>\r\n" +
+                            "</td>\r\n</tr>\r\n</tbody></table>\r\n</td>\r\n</tr>\r\n" +
+                            "<p style=\"font-weight:600;font-size:13px;line-height:18px;margin-top:0;margin-bottom:4px\">GIỚI THIỆU VỀ BOOST JUICE</p>\r\n<p style=\"color:#71787e;font-weight:normal;font-size:12px;line-height:18px;margin-top:0;margin-bottom:10px\">Về Thương hiệu Smoothie và Nước ép trái cây được ưa chuộng nhất tại Úc.</p>\r\n" +
+
+                            "<div class=\"yj6qo\"></div><div class=\"adL\">\r\n</div></div><div class=\"adL\">\r\n\r\n\r\n</div></div></div><div id=\":pp\" class=\"ii gt\" style=\"display:none\"><div id=\":pq\" class=\"a3s aiL \"></div></div><div class=\"hi\"></div>" +
+            "</div>";
+
+            var message = new Message(new string[] { $"{emailTo}" }, "PHẢN HỒI BOOSTJUICE", $"{body}");
+
+            return message;
+
         }
     }
 

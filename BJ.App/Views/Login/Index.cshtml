@@ -1,7 +1,8 @@
-﻿
+﻿@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Vibe";
+    var culture = CultureInfo.CurrentCulture.Name;
 
 }
 
@@ -30,10 +31,10 @@
                     <p>
                     <p><localize>Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register.</localize></p>
                     </p>
-                    <div class="row">
+                   @*  <div class="row">
                         <div class="columns six"><a href="https://order.boostjuice.com.vn/customer/account/login/" class="button"><localize>Sign In</localize></a></div>
                         <div class="columns six"><a href="https://order.boostjuice.com.vn/customer/account/create/" class="button button-primary"><localize>Register</localize></a></div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -90,7 +91,10 @@
                                     Oh you little hipster thing you! If tech is too cool at the moment, then scoot on over to your nearest Boost store, get yourself a Vibe card and register your details. Do it quickly before it becomes mainstream.
                                 </localize>
                             </p>
-                            <a href="https://order.boostjuice.com.vncustomer/account/create/" class="button"><localize>Register</localize></a>
+@*                             <a href="https://order.boostjuice.com.vncustomer/account/create/" class="button"><localize>Register</localize></a>
+*@
+                            <a href="tel:1800 282890" class="button"><localize>Register</localize></a>
+
                         </div>
                     </div>
                 </div>
@@ -100,8 +104,12 @@
             <div class="row">
                 <div class="columns text-center">
                     <div class="fix-content">
-                        <h2>Cảm nhận của Khách hàng</h2>
-                        <p class="hide-mobile">&quot;Một ngày nọ, tôi cảm thấy không được khoẻ, vì vậy tôi đã đến khám tại văn phòng bác sĩ. Bác sĩ bảo tôi download ngay ứng dụng Boost Juice và bây giờ tôi cảm thấy thật tuyệt. Ứng dụng này đích thực là dược liệu!&quot;</p>
+                        <h2>
+                            <localize>
+                                Testimonials
+                            </localize> 
+                        </h2>
+                        <p class="hide-mobile"><localize>&quot;I wasn’t feeling well the other day, so I went and visited the Doctor. He told me to download the Boost app and now I feel great. This app is medicinal magic!&quot;</localize></p>
                     </div>
                 </div>
             </div>
@@ -111,88 +119,97 @@
         <div class="container">
             <div class="row">
                 <ul id="vibe-learn-more-triggers">
-                    <li id="trigget-faq" clicked="false">các câu hỏi thường gặp</li>
-                    <li id="trigger-terms" clicked="false">Điều khoản sử dụng thẻ Vibe</li>
+                    <li id="trigget-faq" clicked="false"><localize>Frequently Asked Questions</localize></li>
+                    <li id="trigger-terms" clicked="false"><localize>VIBE CLUB TERMS & CONDITIONS</localize></li>
                 </ul>
                 <div id="faq" class="">
-                    <h3>Các câu hỏi thường gặp</h3>
+                    <h3><localize>Frequently Asked Questions</localize></h3>
                     <ul class="expander">
                         <li class="" clicked="false">
-                            Tại sao phải đăng ký?
+                            <localize>Why register?</localize>
                             <div>
                                 <p>
                                 <p>
-                                    À, thì bởi vì thành viên Vibe rất là tuyệt? Cập nhật thông báo về những thử thách, quà tặng và ưu đãi (bởi vì chúng tôi rất là rộng lượng và hào phóng) và sẽ là công cụ đắc lực giúp bạn không cần phải chờ đợi xếp hàng và nhận ngay ly Boost bạn đã đặt trước với chức năng &#8220;Order Ngay&#8221;.<br />
-                                    Và rất nhiều ưu đãi hay ho khác đang chờ bạn:<br />
-                                    &#8211; Trò chơi tên của bạn &#8211; Chúng tôi gọi tên bạn và bạn sẽ nhận được ngay 1 ly Boost miễn phí! Bạn hãy cảm ơn Ba Mẹ bạn nhé :).<br />
-                                    &#8211; Điểm Boost của tôi &#8211; Thu thập điểm mỗi khi bạn mua Boost, 10 điểm và bạn nhận được 1 ly miễn phí.<br />
-                                    &#8211; CÒN NỮA! NGÀY SINH NHẬT của bạn, bạn sẽ nhận được ngay 1 ly BOOST MIỄN PHÍ. Một lần nữa, cảm ơn Ba Mẹ mình nào!<br />
-                                    Vẫn không chắc chắn chuyện gì đang xảy ra? Chúng tôi đã có tất cả câu trả lời cho bạn ngay dưới đây.
+                                    <localize>
+                                        Ah, ‘cos it’s awesome? Keep your alerts on and get the low down on random challenges, freebies and discounts (because we’re a generous bunch of coconuts) and the power to strut your stuff pass the queue and grab your pre-ordered Boost drink with our Order Now feature.<br />
+                                        Other deliciously entices things that may tickle your pickle:<br />
+                                        &#8211; What’s Your Name Game – We call out your name, and you get a free Boost, simples! Thank your folks later.<br />
+                                        &#8211; My Boost Points – Collect points every time you buy a Boost, 10 points and you get a Freebie Find Us<br />
+                                        &#8211; Our Menu – What’s in our drinks? Nothing artificial that’s for sure but you can find out all about it FREE birthday drink just for being born! And again<br />
+                                        yay for parents! Still not sure what the fruit is going on? We’ve dumbed it all down in our FAQ’s.
+                                    </localize>
                                 </p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Điểm Boost của tôi là gì?
+                           <localize></localize>
                             <div>
                                 <p>
-                                <p>Mua một ly, được một điểm. Mua hai ly, được hai điểm. Dễ dàng như vắt chanh! Áp dụng cho cả ly Small, Medium và Original, miễn sao bạn chỉ cần mua một ly. Điểm Boost chỉ áp dụng cho nguyên giá của thức uống (vì vậy không áp dụng tích điểm khi đang có chương trình ưu đãi hoặc giảm giá) và chỉ ở những nơi có chương trình thành viên Vibe.</p>
+                                <p><localize>Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded.</localize></p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Tôi đã có ly Boost miễn phí chưa?
+                            <localize>Can I get a free drink yet?</localize>
                             <div>
                                 <p>
-                                <p>Bạn có 10 điểm hoặc hơn? Vậy hãy nhảy ngay điệu nhảy vui vẻ nào vì bạn đã có một ly Boost miễn phí! Bạn chỉ cần có 10 điểm để có được ly Boost miễn phí! Ly Boost free dành cho bất kỳ size ly nào và không bao gồm sữa đậu nành, trái cây thêm hoặc extra thêm nào!</p>
+                                <p><localize>Got 10 or more points? Then do a happy dance because you have a free Boost! You only need 10 points to get your freebie! Free Boost is for original size only and does not include soy, double fruit or any extras!</localize></p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Điểm có mức giới hạn và chúng có hết hạn không?
+                            <localize>Is there a limit on points and do they expire?</localize>
                             <div>
                                 <p>
-                                <p>Bạn có thể thu thập bao nhiêu điểm tuỳ thích và điểm của bạn không có thời hạn hết hạn, vì vậy hãy thu thập và cuối cùng bạn có thể lấp đầy bồn tắm của bạn với Mango Magic!</p>
+                                <p><localize>You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!</localize> </p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Khi nào thẻ của tôi được cập nhật điểm?
+                           <localize>When will my card update with the points?</localize>
                             <div>
                                 <p>
-                                <p>Nếu như điểm của bạn không được tự động cập nhật, hãy refresh lại trang web hoặc ứng dụng. Vẫn không được ư? Đừng ném điện thoại của bạn vào người lạ, hãy gửi email cho chúng tôi tại info@boostjuice.com.vn và chúng tôi sẽ điều chỉnh ngay cho bạn!</p>
+                                <p>
+                                    <localize>If your points haven’t refreshed automatically, refresh the Boost Juice website or app. Cheeky thing still not working? Don’t throw your phone at that random stranger, just send an email our way to info@boostjuice.vn and we will fix it for you!</localize>
+                                    </p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Sự khác biệt giữa thẻ thành viên tôi được phát và thẻ trong Ứng dụng?
+                            <localize>What is the difference between my physical card and the one in the app?</localize>
+                            
                             <div>
                                 <p>
-                                <p>Ứng dụng thì hấp dẫn, đẹp và hơn rất nhiều so với một chiếc thẻ! Ứng dụng này vẫn làm tất cả những việc tương tự như thẻ của bạn nhưng còn nhiều hơn thế nữa!</p>
+                                <p>
+                                    <localize>The app is snazzy and pretty and so much more than a card! It still does all the same stuff as your card but also much much more!</localize>
+                                    </p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Khi tôi đăng ký làm thành viên với lựa chọn "không có thẻ", tôi có nhận được thẻ thành viên không?
+                            <localize>If I have registered using the "without a card" option, will I receive a physical one?</localize>
+                            
                             <div>
                                 <p>
-                                <p>Không nhé! Tất cả mọi thứ bạn cần là ở ngay trong ứng dụng tiện lợi này!</p>
+                                <p><localize>Nope! Everything you need is right here in this handy dandy app.</localize></p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Khi tôi đăng ký làm thành viên và sử dụng thẻ thành viên mà tôi được phát, tôi có cần giữ lại thẻ không hay thẻ trong ứng dụng của tôi là đủ?
+                            <localize>If I have registered in the app using the plastic card, do I still need to keep the physical one or is the one in my app sufficient?</localize>
                             <div>
                                 <p>
-                                <p>Ứng dụng của bạn sẽ thay thế cho thẻ của bạn nhưng nếu như bạn thích tích trữ hoặc không thích nói lời tạm biệt thì hãy giữ lại thẻ nhé</p>
+                                <p><localize>Your app will do the job but if you’re a bit of a hoarder or don’t like saying goodbyes then keep the card.</localize></p>
                                 </p>
                             </div>
                         </li>
                         <li class="" clicked="false">
-                            Tôi sẽ phải làm gì khi thông tin cá nhân của tôi có sự thay đổi?
+                            <localize>What do I do if my personal details change?</localize>
+                            
                             <div>
                                 <p>
-                                <p>Bạn chuyển nhà? Kết hôn? Đừng lo lắng! Tất cả các chi tiết bạn nhập khi bạn đăng ký có thể được thay đổi bất cứ khi nào bạn muốn. Chỉ cần đăng nhập vào ứng dụng, đến phần Hồ sơ của tôi, thay đổi các thông tin và lưu lại!</p>
+                                <p><localize>Moved? Made a boo boo? Tied the knot? No worries! All the details you entered when you registered can be changed whenever you feel the need. Just log into the app, head to the My Profile section, change your deets and save it!</localize></p>
                                 </p>
                             </div>
                         </li>
@@ -200,43 +217,46 @@
                 </div>
                 <div id="vibe-terms" class="">
                     <div>
-                        <h3>Điều khoản sử dụng thẻ Vibe</h3>
+                        <h3><localize>Vibe Card - Terms & Conditions</localize></h3>
                         <ol>
                             <li>
-                                Bằng việc đăng ký và/hoặc sử dụng thẻ thành viên VIBE, bạn đã đồng ý với các điều khoản thỏa thuận này.
+                                <localize>By registering and/or using your Boost VIBE Card, you consent to the terms of this agreement.</localize>
                             </li>
                             <li>
-                                Điểm VIBE sẽ được tích cho khách hàng khi mua Boost nguyên giá dòng Smoothies, Crushes hoặc Nước ép trái cây, trừ khi có quy định khác. Điểm sẽ không được áp dụng khi đang sử dụng các chương trình ưu đãi hoặc giảm giá khác. Số dư điểm không được chuyển nhượng cho thành viên khác hoặc quy đổi thành tiền mặt.
+                                <localize>VIBE Points will be awarded to customers for full price smoothies, crushes or freshly squeezed juice products only, unless expressly specified. Points will not be awarded in association with any other offer or discount. Point balances are not transferable or redeemable for cash.</localize>
                             </li>
                             <li>
-                                Mặc dù mọi nỗ lực sẽ được thực hiện ở cửa hàng để đảm bảo điểm VIBE được bảo lưu chính xác, Boost Juice Vietnam không chịu trách nhiệm đối với các lỗi kỹ thuật liên quan đến việc tích điểm vào thẻ VIBE.
+                                <localize>While every effort will be made in store to ensure VIBE Points are correctly awarded, Boost Juice Bars takes no responsibility for technical errors associated with crediting points onto the VIBE Card.</localize>
                             </li>
                             <li>
-                                Thẻ VIBE của BOOST nên được coi như là tiền mặt. Trừ khi có quy định khác của pháp luật hoặc được cho phép theo thỏa thuận này, mọi điểm trong Thẻ VIBE sẽ không được hoàn trả và không được quy đổi thành tiền mặt. Không có lãi suất hoặc bất kỳ khoản thu nhập nào khác đối với các loại điểm được gửi vào Thẻ VIBE sẽ được tích lũy, thanh toán hoặc được ghi có cho bạn bởi Boost Juice Vietnam.
+                                <localize>The Boost VIBE Card should be treated like cash. Unless otherwise required by law or permitted by this agreement, any points on your VIBE Card is non-refundable and may not be redeemed for cash. No interest or any other points deposited to a VIBE card will accrue, be paid or be credited to you by Boost Juice Vietnam.</localize>
                             </li>
                             <li>
-                                Trong trường hợp Thẻ VIBE bị mất hoặc bị đánh cắp; Thành viên VIBE nên liên hệ Boost Juice Vietnam và yêu cầu Thẻ VIBE mới. Các thành viên có thể đăng nhập vào phần thành viên đã đăng ký của Trang web Boost để Chuyển thông tin thẻ hiện tại của mình bao gồm Điểm Vibe, bằng cách gửi thông tin chi tiết. Mọi nỗ lực sẽ được thực hiện để đảm bảo rằng số dư điểm đầy đủ cũng được chuyển sang thẻ mới; tuy nhiên Boost Juice Vietnam sẽ không chịu trách nhiệm cho bất kỳ điểm tích lũy nào bị mất trong quá trình chuyển đổi. Thẻ được báo cáo là bị mất hoặc bị đánh cắp sẽ ngay lập tức bị hủy và sẽ không được sử dụng nữa. Nếu Thẻ VIBE bị mất hoặc bị đánh cắp, Thành viên VIBE có trách nhiệm đăng nhập vào trang website của Boost để thực hiện quy trình thẻ bị mất và chuyển tất cả tín dụng Vibe Points hiện tại sang Thẻ Vibe mới. Một thẻ VIBE mới có thể được lấy từ bất kỳ cửa hàng Boost Juice nào ở Vietnam.
+                                <localize>
+                                    In the case of a lost or stolen Vibe Card; Vibe Members should visit a Boost Juice store and request a new Vibe Card. They can log onto the registered members section of the Boost Juice Vietnam website where they can Transfer their existing card information including Vibe Points, to their new card by submitting their details. Every endeavour will be made to ensure that the full points balance is also transferred to the new card; however Boost Juice Vietnam will not be responsible for any points accrued that are lost in the transfer. Cards that are reported as lost or stolen will immediately be cancelled and will be no longer able to be used. If a Vibe Card is lost or stolen, the Vibe Member is responsible for logging onto the website to perform a lost card process and transfer all existing Vibe Points to a new Vibe Card. A new card can be acquired from any Boost Juice Outlet in Vietnam.
+                                </localize>
                             </li>
                             <li>
-                                Chúng tôi có quyền không chấp nhận Thẻ VIBE nếu chúng tôi tin rằng việc sử dụng là trái phép, lừa đảo hoặc trái pháp luật.
+                                <localize>We reserve the right not to accept a VIBE Card should we believe that the use is unauthorised, fraudulent or otherwise unlawful.</localize>
                             </li>
                             <li>
-                                Thành viên VIBE được tặng miễn phí một ly Boost Juice vào ngày sinh nhật của họ sau khi xuất trình Thẻ VIBE xác nhận ngày sinh của họ được đăng ký trên thẻ phù hợp với ngày ghé thăm cửa hàng. Ly Boost Juice miễn phí vào ngày sinh nhật này không thể được đổi vào bất kỳ ngày nào khác bất kể hoàn cảnh bao gồm nhưng không giới hạn vào các ngày lễ, ngày cửa hàng đóng cửa... Ly Boost Juice Sinh nhật miễn phí này không thể chuyển nhượng và không thể đổi thành tiền mặt. Boost Juice không chịu trách nhiệm về ngày sinh không chính xác trong quá trình đăng ký.
+                                <localize>VIBE Members are entitled to a free Birthday Boost Juice on the day of their birthday upon presentation of their VIBE Card confirming their birth date registered on the card matches the date of visit to the store. This free Birthday Boost Juice cannot be redeemed on any other day regardless of external circumstances including but not limited to public holidays, store closures etc. This free Birthday Boost is non-transferable and cannot be exchanged for cash. Boost Juice do not take responsibility for incorrectly entered birth dates during the registration process.</localize>
                             </li>
                             <li>
-                                Thẻ VIBE được cấp cho bạn bởi Boost Juice Vietnam.
+                                <localize>The VIBE Card is issued to you by Boost Juice Vietnam.</localize>
                             </li>
                             <li>
-                                Thành viên sẽ không bị tính phí bởi Boost Juice Vietnam khi đăng ký, kích hoạt hay sử dụng thẻ VIBE.
+                                <localize>No fees will be charged by Boost Juice Vietnam for the issue, registration, activation or use of the VIBE Card.</localize>
                             </li>
                             <li>
-                                Nếu bạn bị mất hoặc quên mật khẩu, các thành viên VIBE nên vào phần thành viên đã đăng ký của trang website Boost Juice để nhập địa chỉ email của mình và nhấp vào 'mật khẩu bị mất'. Mật khẩu mới của bạn sau đó sẽ được gửi đến địa chỉ email được chỉ định.
+                                <localize>Should a password be lost or forgotten, VIBE members should go to the registered members section of the Boost Juice Vietnam website where they can enter their email address and click on 'lost password'. Their password will then be sent to their nominated email address.</localize>
                             </li>
                             <li>
-                                Boost Juice Vietnam có quyền thay đổi các điều khoản và điều kiện của chương trình Thành viên VIBE bất cứ lúc nào bằng cách thông báo cho các thành viên qua email hoặc trang website.
+                                <localize>Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website.</localize>
                             </li>
                             <li>
-                                Thông tin được thu thập từ các thành viên tại thời điểm đăng ký chương trình Thành viên VIBE phải tuân theo Chính Sách Bảo Mật được liệt kê tại <a href="https://boostjuice.com.vn/chinh-sach-bao-mat/" target=”_blank>boostjuice.com.vn/chinh-sach-bao-mat</a>
+                                <localize>Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at </localize>
+                                <a href="/@culture/@_loc["privacyPolicyUrl"]"><localize> PRIVACY POLICY</localize></a>
                             </li>
                         </ol>
                     </div>

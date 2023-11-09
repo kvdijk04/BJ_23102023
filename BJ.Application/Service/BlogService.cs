@@ -63,7 +63,7 @@ namespace BJ.Application.Service
 
                 createBlogAdminView.CreateBlog.ImagePath = await Utilities.UploadFile(createBlogAdminView.FileUpload, "ImageBlog", image);
 
-            }           
+            }
             var code = _configuration.GetValue<string>("Code:Blog");
 
             var total = await _context.Blogs.OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
@@ -157,6 +157,7 @@ namespace BJ.Application.Service
                                     .Take(getListPagingRequest.PageSize)
                                     .Select(x => new BlogDto()
                                     {
+                                        Id = x.b.Id,
                                         Code = x.b.Code,
                                         ImagePath = x.b.ImagePath,
                                         Active = x.b.Active,

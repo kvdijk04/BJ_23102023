@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using BJ.Application.Helper;
 using BJ.Contract.StoreLocation;
-using BJ.Contract.SubCategory;
-using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.EntityFrameworkCore;
