@@ -4,8 +4,8 @@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 <style>
-    
-    
+
+
 
 </style>
 @{
@@ -13,9 +13,9 @@
 }
 <div class="og-expander-inner">
     <span class="og-close" data-proId="@Model.Id"></span>
-    <div class="drink-info-box" style="display: block;" >
+    <div class="drink-info-box" style="display: block;">
         <div class="quick-overview">
-            <h2 >@Model.ProductName</h2>
+            <h2>@Model.ProductName</h2>
             <p class="shortDesc">@Model.ShortDesc</p>
 
             <ul class="nutriimage">
@@ -25,11 +25,11 @@
                     {
                         if (sub != null)
                         {
-                            <li><span><img  src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
                         }
                         else
                         {
-                            <li><span><img  src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
 
 
                         }
@@ -39,18 +39,18 @@
             </ul>
             <p class="description">@Model.Description</p>
 
- 
 
-@*             <h4><localize>Download the<br>Boost Juice App</localize></h4>
- *@            @* <p>
-                <a href="http://bit.ly/1yqA2a2" target="_blank">
-                    <img src="~/images/ios.png"
-                         width="100">
-                </a>
-                <a href="http://bit.ly/USKKXP" target="_blank">
-                    <img src="~/images/ggplay.png"
-                         width="100">
-                </a>
+
+            @*             <h4><localize>Download the<br>Boost Juice App</localize></h4>
+            *@            @* <p>
+            <a href="http://bit.ly/1yqA2a2" target="_blank">
+            <img src="~/images/ios.png"
+            width="100">
+            </a>
+            <a href="http://bit.ly/USKKXP" target="_blank">
+            <img src="~/images/ggplay.png"
+            width="100">
+            </a>
             </p> *@
 
 
@@ -87,8 +87,8 @@
                 </div>
 
             }
-            
-            
+
+
         </div>
 
     </div>
@@ -102,7 +102,7 @@
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
     }
     $(".buy_product button").on("click", function () {
-        
+
     })
     $(".tablinks:nth-of-type(1)").addClass("active");
     $(".info-table:nth-of-type(2)").css("display", "block");

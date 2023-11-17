@@ -1,6 +1,7 @@
 ﻿using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -56,15 +57,18 @@ namespace BJ.ApiConnection.Services
 
 
             var requestContent = new MultipartFormDataContent();
-
-            byte[] data;
-            using (var br = new BinaryReader(createCategoryDto.Image.OpenReadStream()))
+            if (createCategoryDto.Image != null)
             {
-                data = br.ReadBytes((int)createCategoryDto.Image.OpenReadStream().Length);
-            }
-            ByteArrayContent bytes = new ByteArrayContent(data);
+                byte[] data;
 
-            requestContent.Add(bytes, "createCategoryDto.Image", createCategoryDto.Image.FileName);
+                using (var br = new BinaryReader(createCategoryDto.Image.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)createCategoryDto.Image.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+
+                requestContent.Add(bytes, "createCategoryDto.Image", createCategoryDto.Image.FileName);
+            }
 
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.CatName) ? "" : createCategoryDto.CatName.ToString()), "createCategoryDto.catName");

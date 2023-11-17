@@ -1,15 +1,19 @@
 ﻿@using BJ.Application.Ultities;
 @model ProductUserViewModel
+@using BJ.Contract.Product;
 @using BJ.Contract.ViewModel;
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+
 @section Styles{
     <link rel="stylesheet" href="~/BoostJuice/css/product.css">
+
 }
 @{
     ViewBag.Title = "Menu - Boost Juice";
     var culture = CultureInfo.CurrentCulture.Name;
-
+    var count = 0;
 }
 
 <style>
@@ -144,6 +148,7 @@
     }
 
 
+
     @@media (max-width: 870px) {
         .nenmodal .ndmodal {
             width: 90%;
@@ -198,6 +203,7 @@
         box-sizing: border-box;
     }
 
+
     @@media (min-width: 400px) {
         .container {
             width: 85%;
@@ -205,6 +211,12 @@
         }
     }
 
+    @@media (max-width: 390px) {
+        .vibe-options {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+    }
     @@media (min-width: 769px) {
         .container {
             width: 90%;
@@ -229,27 +241,22 @@
         <div class="banner"></div><a id="contentarea" tabindex="-1"></a>
         <div class="columns">
             <div class="column main">
-                <div class="main-filter-wrapper">
+                <div class="main-filter-wrapper" itemscope itemtype="https://schema.org/ItemList">
                     <div class="main-filter__section-row">
                         <div class="main-filter-section__tab main-filter-section__tab--active" popular="true">
                             <a href="#" class="main-filter-section__tab-link"><localize>Choose drink type</localize></a>
                         </div>
 
                     </div>
-                    <div class="main-filter__set-row">
-                        <div class="main-filter__set  popular" popular="true">
-                            <span class="main-filter__set-info">
-                                <img class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/popular.png" src="@Configuration["BaseAddress"]/ImageCategory/popular.png">
-                            </span>
-                            MOST POPULAR
-                        </div>
+                    <div class="main-filter__set-row" itemscope itemtype="https://schema.org/ProductModel">
+                       
                         @if(Model.UserCategoryDtos != null && Model.UserCategoryDtos.Count() > 0)
                         {
                             @foreach (var cat in Model.UserCategoryDtos.Where(x => x.Active == true))
                             {
-                                <div data-category-id="@cat.Id" class="main-filter__set" popular="false" data-catId="@cat.Id">
+                                <div data-category-id="@cat.Id" class="main-filter__set" popular="false" data-catId="@cat.Id" itemprop="name" >
                                     <span class="main-filter__set-info">
-                                        <img class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath" asp-append-version="true" src="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath">
+                                        <img itemprop="image" class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath" asp-append-version="true" src="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath">
                                     </span>
                                     @cat.CatName
                                 </div>
@@ -271,17 +278,17 @@
         <div class="main">
             @if (Model.UserProductDtos != null && Model.UserProductDtos.Count() > 0)
             {
-            <ul id="og-grid" class="og-grid">
+                <ul id="og-grid" class="og-grid" itemscope itemtype="https://schema.org/ItemList">
                
                     @foreach (var product in Model.UserProductDtos)
                     {
-
-                        <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:70px">
-                            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-proName="@product.ProductName" data-catName="@product.CatName" @* onclick="openTab('@product.Id');" *@>
-                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" />
-                                <img src="~/images/cup_shadow.png" />
-                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" />
-                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" />
+                        count++;
+                        <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
+                            <a class="grid_item show-ing" no="@count" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-proName="@product.ProductName" data-catName="@product.CatName" data-alias="@product.Alias" >
+                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image"/>
+                                <img src="~/images/cup_shadow.png" itemprop="image" />
+                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
+                                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" itemprop="image" />
                                 <ul>
                                     @foreach (var subCat in product.UserSubCategorySpecificProductDto)
                                     {
@@ -289,11 +296,11 @@
                                         {
                                             if (sub != null)
                                             {
-                                                <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                                <li itemprop="category"><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
                                             }
                                             else
                                             {
-                                                <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+                                                <li><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
 
 
                                             }
@@ -302,13 +309,14 @@
                                     }
                                 </ul>
 
-                                <span>@product.ProductName</span>
+                                <span itemprop="name">@product.ProductName</span>
                                 <a class="button" onclick="momodal()">
                                     <localize>BUY</localize>
                                 </a>
                             </a>
 
                             <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
+                               
                             </div>
 
                         </li>
@@ -350,11 +358,7 @@
                 <div class="row">
                     <div class="notify six columns">
                         <div>
-                            <p class="sub-title">
-                                <localize>
-                                    OPTION 1
-                                </localize>
-                            </p>
+                            
                             <h3><localize>Download the<br>Boost Juice App</localize></h3>
                             <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
                             <p>
@@ -371,11 +375,7 @@
                     </div>
                     <div class="notify six columns">
                         <div>
-                            <p class="sub-title">
-                                <localize>
-                                    OPTION 2
-                                </localize>
-                            </p>
+
                             <h3><localize>Call us maybe?</localize></h3>
                             <a href="tel:1800 282890" style="color:#FFFF" >Hotline: 1800 282890</a>
 
@@ -393,7 +393,9 @@
     <p><localize>Are you reading this seriously? We don't know whether to congratulate you for your efforts, or just because you have nothing better to do... either way, you're here, which is good for you.</localize></p>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
 <script>
+
     function momodal() {
         document.getElementById("nenmodal-1").classList.toggle("active");
     }
@@ -404,6 +406,9 @@
     first.toLowerCase();
 
     first = first.split("/")[1];
+
+
+
     $(".drink-block .grid_item").on("click", function (i) {
         var nameCat = $(this).attr("data-catName");
         var idPro = $(this).attr("data-masp");
@@ -414,8 +419,8 @@
 
         if ($(this).attr("clicked") == "false") {
 
-            $(".drink-block .og-expander:eq( " + e + " )").css("height", "1150");
-            $(".drink-block:eq( " + e + " )").css("height", "1530");
+            $(".drink-block .og-expander:eq( " + e + " )").css("height", "1000");
+            $(".drink-block:eq( " + e + " )").css("height", "1430");
             $(".drink-block:eq( " + e + " )").addClass(" og-expanded");
             $(".drink-block .grid_item:eq( " + e + " )").attr("clicked", "true");
 
@@ -428,21 +433,20 @@
             
 
             document.getElementById(idPro).style.display = "block";
-            $("#li_" + idPro).css("height", "1530px");
+            $("#li_" + idPro).css("height", "1430");
+
             $.ajax({
-                url: '/singleproduct',
+                url: '@Url.Action("Detail")',
                 datatype: "json",
                 type: "get",
                 data: { proId: idPro, culture: first },
 
                 async: true,
                 success: function (results) {
-                    jQuery("#" + idPro).fadeOut(200, function () {
-                        
+                    jQuery("#" + idPro).fadeOut(200, function () {    
                         $("#" + idPro).html();
                         $("#" + idPro).html(results);
                     }).fadeIn(350);
-
 
                 },
                 error: function (xhr) {
@@ -453,6 +457,7 @@
             $("#li_" + idPro).addClass(" og-expanded");
             $(this).attr("clicked", "true");
 
+            
         }
         else {
 
@@ -463,13 +468,13 @@
             $(this).attr("clicked", "false");
             $("#li_" + namePro).css("display", "none");
             $("#" + idPro).css("height", "");
+
         }
         i.preventDefault()
 
 
-
     });
-
+    
     $('.main-filter__set-row > .main-filter__set').on("click", function () {
         var idCat = $(this).attr("data-catId");
         var popular = $(this).attr("popular");

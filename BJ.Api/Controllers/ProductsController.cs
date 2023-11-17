@@ -213,13 +213,13 @@ namespace BJ.Api.Controllers
 
         [HttpGet("category/filter")]
 
-        public async Task<IActionResult> GetProductByCatId(Guid catId, bool popular, string languageId)
+        public async Task<IActionResult> GetProductByCatId(Guid catId, string languageId)
         {
-            if (await _productService.GetProductByCatId(catId, popular, languageId) == null)
+            if (await _productService.GetProductByCatId(catId, languageId) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _productService.GetProductByCatId(catId, popular, languageId));
+            return Ok(await _productService.GetProductByCatId(catId, languageId));
 
         }
     }

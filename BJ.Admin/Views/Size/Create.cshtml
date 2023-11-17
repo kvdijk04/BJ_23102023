@@ -19,15 +19,7 @@
     </div>
     <div class="page-header no-gutters has-tab">
         <div class="d-md-flex m-b-15 align-items-center justify-content-between">
-            <div class="media align-items-center m-b-15">
-                <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
-                    <img src="assets/images/others/thumb-16.jpg" alt="">
-                </div>
-                <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: </h4>
-                    <p class="text-muted m-b-0">Code: </p>
-                </div>
-            </div>
+
             <div class="m-b-15">
                 <button type="submit" class="btn btn-primary">
                     <i class="anticon anticon-save"></i>
@@ -50,8 +42,17 @@
                         <input type="text" class="form-control" id="name" placeholder="Tên size" asp-for="@Model.Name" required>
                     </div>
                     <div class="form-group">
+                        <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
+                        <select class="select2" asp-for="@Model.CategoryId" asp-items="ViewBag.CategoryId" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="font-weight-semibold" for="price">Giá</label>
-                        <input type="text" class="form-control" id="price" placeholder="Tên size" asp-for="@Model.Price" required>
+                        <input type="number" min="0" class="form-control" id="price" placeholder="Gía tiền" asp-for="@Model.Price" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="name">Ghi chú</label>
+                        <input type="text" class="form-control" id="note" placeholder="Ghi chú" asp-for="@Model.Note">
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <div class="switch m-r-10">

@@ -17,12 +17,14 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowOrigin",
         builder =>
         {
-            builder.WithOrigins("*", "https://order.boostjuice.com.vn:446/swagger/index.html", "https://www.facebook.com/", "https://web.facebook.com/", "https://www.google-analytics.com/")
-            .AllowAnyOrigin()
+            builder.WithOrigins("*")
+                .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
-});// Add services to the container.
+});
+
+// Add services to the container.
 builder.Services.AddControllersWithViews().AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
 {
     // When using all the culture providers, the localization process will
@@ -70,6 +72,7 @@ builder.Services.AddScoped<IStoreLocationServiceConnection, StoreLocationService
 builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
 builder.Services.AddScoped<IEmailServiceConnection, EmailServiceConnection>();
+builder.Services.AddScoped<ILanguageServiceConnection, LanguageServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -91,13 +94,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseMiddleware(typeof(VisitorCounterMiddleware));
 
 app.UseRouting();
-app.UseCors("AllowOrigin"); // allow credentials
 app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
-
+app.UseCors("AllowOrigin");
 app.MapControllerRoute(
     name: "default",
     pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
@@ -115,6 +118,20 @@ app.MapControllerRoute(
         controller = "Product",
         action = "Index"
     });
+//app.MapControllerRoute(
+//    name: "Product Detail En",
+//    pattern: "{culture}/drinks/{Alias}", new
+//    {
+//        controller = "Product",
+//        action = "Detail"
+//    });
+//app.MapControllerRoute(
+//    name: "Product List Vi",
+//    pattern: "{culture}/thuc-uong/{Alias}", new
+//    {
+//        controller = "Product",
+//        action = "Detail"
+//    });
 app.MapControllerRoute(
     name: "Store List En",
     pattern: "{culture}/stores", new

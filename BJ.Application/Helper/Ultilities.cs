@@ -255,7 +255,7 @@ namespace BJ.Application.Helper
                             "<div class=\"yj6qo\"></div><div class=\"adL\">\r\n</div></div><div class=\"adL\">\r\n\r\n\r\n</div></div></div><div id=\":pp\" class=\"ii gt\" style=\"display:none\"><div id=\":pq\" class=\"a3s aiL \"></div></div><div class=\"hi\"></div>" +
             "</div>";
 
-            var message = new Message(new string[] { $"{emailTo}" }, "PHẢN HỒI BOOSTJUICE", $"{body}");
+            var message = new Message(new string[] { $"{emailTo}" }, "PHẢN HỒI BOOST JUICE", $"{body}");
 
             return message;
 

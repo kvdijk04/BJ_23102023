@@ -4,6 +4,7 @@ using BJ.Persistence.ApplicationContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BJ.Persistence.Migrations
 {
     [DbContext(typeof(BJContext))]
-    partial class BJContextModelSnapshot : ModelSnapshot
+    [Migration("20231111040210_AddNoteToSize")]
+    partial class AddNoteToSize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -397,9 +400,6 @@ namespace BJ.Persistence.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("Created")
                         .HasColumnType("datetime2");
 
@@ -416,8 +416,6 @@ namespace BJ.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Size", (string)null);
                 });
@@ -683,16 +681,6 @@ namespace BJ.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("BJ.Domain.Entities.Size", b =>
-                {
-                    b.HasOne("BJ.Domain.Entities.Category", "Category")
-                        .WithMany("Sizes")
-                        .HasForeignKey("CategoryId")
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("BJ.Domain.Entities.SizeSpecificEachProduct", b =>
                 {
                     b.HasOne("BJ.Domain.Entities.Product", "Product")
@@ -758,8 +746,6 @@ namespace BJ.Persistence.Migrations
                     b.Navigation("CategoryTranslations");
 
                     b.Navigation("Products");
-
-                    b.Navigation("Sizes");
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.Language", b =>

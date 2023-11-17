@@ -12,6 +12,8 @@ namespace BJ.ApiConnection.Services
     public interface ISizeServiceConnection
     {
         public Task<IEnumerable<SizeDto>> GetAllSizes();
+        public Task<IEnumerable<SizeDto>> GetAllSizesByCatId(Guid catId);
+
         Task<SizeSpecificProductDto> GetSize(Guid productId, int sizeId);
         public Task<PagedViewModel<SizeDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<SizeDto> GetSizeById(int id);
@@ -56,6 +58,11 @@ namespace BJ.ApiConnection.Services
         {
             return await GetListAsync<SizeDto>($"/api/Sizes");
 
+        }
+
+        public async Task<IEnumerable<SizeDto>> GetAllSizesByCatId(Guid catId)
+        {
+            return await GetListAsync<SizeDto>($"/api/Sizes/catId?catId={catId}");
         }
 
         public async Task<PagedViewModel<SizeDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)

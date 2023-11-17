@@ -265,6 +265,12 @@ label, legend {
     width:30%;
     text-align:center;
 }
+.previous{
+    float:left;
+}
+.next2, .submit{
+    float:right;
+}
 .hideMe {
     display: none;
 }

@@ -1,5 +1,6 @@
 ﻿@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
-
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
     var culture = CultureInfo.CurrentCulture.Name;
 }
@@ -10,17 +11,42 @@
     <title><localize>@ViewBag.Title</localize></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Boost Juice is one of Australia&#039;s most famous and loved juice and smoothie brands.">
-    <meta name="keywords" content="Boost Juice, is one of Australia's most famous and loved juice and smoothie brands, nước ép, healthy, sinh tố, trái cây tươi" />
+    <meta name="keywords" content="Boost Juice, is one of Australia's most famous and loved juice and smoothie brands, nước ép, healthy, sinh tố, trái cây tươi,boost
+                                    boost juice
+                                    boost juice menu
+                                    boost juice vietnam
+                                    boost juice vietnam menu
+                                    boost juice bars
+                                    boost juice menu vietnam
+                                    boost 500
+                                    boost around me
+                                    the order 2017" />
     <meta name="author" content="Magentech">
     <meta name="robots" content="index, follow" />
     <meta name="zalo-platform-site-verification" content="VuIt8Ak7PGzPci0HkB9oCtYavHYKqZT4CZaq" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+    <!--Xác minh với google search console-->
+    <meta name="google-site-verification" content="NrlBdnAzdQSrgBWAGmhMyESwtZrH_oYP5pYckV55IRs" />
+    <!---->
+
     <meta property="og:site_name" content="Boost Juice" />
+    <meta name="title" content="Boost Juice" />
+    <meta name="description" content="Boost Juice is one of Australia's most famous and loved juice and smoothie brands." />
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Boost Juice" />
-    <meta property="og:image" content="../../BoostJuice/images/cropped-iconboostweb-270x270.png" />
-    <meta property="og:description" content="Boost Juice is one of Australia&#039;s most famous and loved juice and smoothie brands." />
-    @*     <meta property="og:url" content="" />*@
+    <meta property="og:image" content="@Configuration["MetaImage"]" />
+    <meta property="og:image" content="@Configuration["MetaImage"]" />
+    <meta property="og:image:secure_url" content="@Configuration["MetaImage"]" />
+    <meta property="og:image:secure_url" content="@Configuration["MetaImage"]" />
+    <meta property="og:description" content="Boost Juice is one of Australia's most famous and loved juice and smoothie brands." />
+    <meta property="og:url" content="@Configuration["CurrentDomain"]" />
+    <meta property="og:site_name" content="Boost Juice" />
+
+
+
     <link href="~/BoostJuice/images/favicon.png" rel="shortcut icon">
     <link rel="icon" href="~/BoostJuice/images/cropped-iconboostweb-32x32.png" sizes="32x32" />
     <link rel="icon" href="~/BoostJuice/images/cropped-iconboostweb-192x192.png" sizes="192x192" />
@@ -49,8 +75,8 @@
 
         .hotline-phone-ring-wrap {
             position: fixed;
-            bottom: 50px;
-            right: 10%;
+            bottom: 120px;
+            right: -5px;
             z-index: 1;
         }
 
@@ -270,6 +296,11 @@
             border-radius: 10px;
             -webkit-box-shadow: inset 0 0 6px #70b046;
         }
+
+        .zalo-chat-widget {
+            bottom: 90px !important;
+            right: 20px !important;
+        }
     </style>
     <link rel="stylesheet" href="~/BoostJuice/css/boostjuice.css">
     <link rel="stylesheet" href="~/BoostJuice/css/home.css">
@@ -294,6 +325,8 @@
         gtag('config', 'G-7CH690S69Y');
     </script>
     
+    <meta name="facebook-domain-verification" content="a476z6m9dvi0og7yb0xyxb60ymj50t" />
+    <meta property="fb:app_id" content="1465544450736878" />
 
 </head>
 <body class="boost-home">
@@ -306,7 +339,7 @@
 
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "162029313658221");
+        chatbox.setAttribute("page_id", "235424973732353");
         chatbox.setAttribute("attribution", "biz_inbox");
     </script>
 
@@ -327,7 +360,11 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js"></script>
+
+
+    <div class="zalo-chat-widget" data-oaid="4575834268601353901" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 
     <header class="boost-main"> 
         <nav class="boost-main-nav-wrapper"> 
@@ -426,11 +463,11 @@
                 </a>
             </div>
         </div>
-        <div class="hotline-bar">
+        @* <div class="hotline-bar">
             <a href="tel:1800 282890">
                 <span class="text-hotline">1800282890</span>
             </a>
-        </div>
+        </div> *@
     </div>
 
 

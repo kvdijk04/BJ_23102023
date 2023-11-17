@@ -290,7 +290,7 @@
                             {
                                 @:checked
                             } disabled />
-                            <label for="checkbox-size_@size.Id">@size.Name - </label>
+                            <label for="checkbox-size_@size.Id">@size.Name - <strong>@size.Price.ToString("#,##0")&nbsp;₫</strong><small>(@size.Note)</small></label>
                             @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id ))
                                         {
                                 <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="confignutri">Xem chi tiết</label>

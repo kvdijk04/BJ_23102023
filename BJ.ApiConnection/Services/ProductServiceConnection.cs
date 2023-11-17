@@ -23,10 +23,9 @@ namespace BJ.ApiConnection.Services
 
         public Task<ProductDto> GetProductById(Guid id);
 
-        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular, string culture);
+        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, string culture);
         public Task<ProductUserViewModel> GetAllUserProduct(string cultrue);
         public Task<UserProductDto> GetUserProductById(Guid id, string culture);
-
         public Task<ProductTranslationDto> GetProductTranslationnById(Guid id);
 
         Task<bool> CreateLanguage(CreateProductTranslationDto createProductTranslationDto);
@@ -160,9 +159,9 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, bool popular, string culture)
+        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, string culture)
         {
-            return await GetListAsync<UserProductDto>($"/api/Products/category/filter?catId={catId}&popular={popular}&languageId={culture}");
+            return await GetListAsync<UserProductDto>($"/api/Products/category/filter?catId={catId}&languageId={culture}");
         }
 
         public async Task<ProductUserViewModel> GetAllUserProduct(string cultrue)
@@ -205,7 +204,6 @@ namespace BJ.ApiConnection.Services
         {
             return await GetAsync<UserProductDto>($"/api/Products/userpage/{id}/{culture}");
         }
-
         public async Task<bool> UpdateProduct(Guid id, UpdateProductAdminView updateProductAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");

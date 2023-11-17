@@ -8,6 +8,11 @@ namespace BJ.Domain.Entities
         public int Id { get; set; }
 
         public string Name { get; set; }
+        [ForeignKey("Category")]
+        public Guid CategoryId { get; set; }
+
+        public string Note { get;set; }
+        
 
         public int? Price { get; set; }
 
@@ -16,7 +21,7 @@ namespace BJ.Domain.Entities
         public DateTime? Updated { get; set; }
 
         public bool Active { get; set; }
-
+        public Category Category { get; set; }
         public virtual ICollection<SizeSpecificEachProduct> SizeSpecificProducts { get; set; }
     }
 }

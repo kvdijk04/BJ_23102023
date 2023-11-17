@@ -16,6 +16,6 @@
         public DateTime? DateUpdated { get; set; }
         public virtual List<Product> Products { get; set; }
         public virtual List<CategoryTranslation> CategoryTranslations { get; set; }
-
+        public virtual List<Size> Sizes { get; set; }
     }
 }

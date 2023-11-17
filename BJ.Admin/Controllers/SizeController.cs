@@ -1,8 +1,10 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using BJ.ApiConnection.Services;
+using BJ.Application.Service;
 using BJ.Application.Ultities;
 using BJ.Contract.Size;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BJ.Admin.Controllers
 {
@@ -11,11 +13,13 @@ namespace BJ.Admin.Controllers
         private readonly ILogger<SizeController> _logger;
         private readonly ISizeServiceConnection _sizeServiceConnection;
         private readonly INotyfService _notyfService;
-        public SizeController(ILogger<SizeController> logger, ISizeServiceConnection sizeServiceConnection, INotyfService notyfService)
+        private readonly ICategoryServiceConnection _categoryServiceConnection;
+        public SizeController(ILogger<SizeController> logger, ISizeServiceConnection sizeServiceConnection, INotyfService notyfService, ICategoryServiceConnection categoryServiceConnection)
         {
             _logger = logger;
             _sizeServiceConnection = sizeServiceConnection;
             _notyfService = notyfService;
+            _categoryServiceConnection = categoryServiceConnection;
         }
         [Route("/tat-ca-size.html")]
         [HttpGet]
@@ -56,7 +60,7 @@ namespace BJ.Admin.Controllers
         }
         [HttpGet]
         [Route("/tao-moi-size.html")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var token = HttpContext.Session.GetString("Token");
 
@@ -64,7 +68,9 @@ namespace BJ.Admin.Controllers
             {
                 return Redirect("/dang-nhap.html");
             }
+            var listCat = await _categoryServiceConnection.GetAllCategories();
 
+            ViewData["CategoryId"] = new SelectList(listCat, "Id", "CatName");
             return View();
         }
         [HttpPost]
@@ -100,7 +106,7 @@ namespace BJ.Admin.Controllers
                 Active = item.Active,
                 Name = item.Name,
                 Price = item.Price,
-
+                Note = item.Note
             };
             ViewBag.SizeId = id;
             return View(updateSizeDto);
@@ -120,6 +126,12 @@ namespace BJ.Admin.Controllers
                 _notyfService.Error("Cập nhật thất bại");
             }
             return Redirect("/tat-ca-size.html");
+        }
+        public async Task<ActionResult> SizeList(Guid catId)
+        {
+            var result = await _sizeServiceConnection.GetAllSizesByCatId(catId);
+
+            return Json(result);
         }
     }
 }

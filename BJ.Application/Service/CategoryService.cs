@@ -5,6 +5,7 @@ using BJ.Contract.Category;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
+using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
@@ -106,11 +107,15 @@ namespace BJ.Application.Service
 
                 createCategoryDto.Code = code + s;
             }
-            string extension = Path.GetExtension(createCategoryDto.Image.FileName);
+            if (createCategoryDto.Image != null)
+            {
+                string extension = Path.GetExtension(createCategoryDto.Image.FileName);
 
-            string image = Utilities.SEOUrl(createCategoryDto.CatName) + extension;
+                string image = Utilities.SEOUrl(createCategoryDto.CatName) + extension;
 
-            createCategoryDto.ImagePath = await Utilities.UploadFile(createCategoryDto.Image, "ImageCategory", image);
+                createCategoryDto.ImagePath = await Utilities.UploadFile(createCategoryDto.Image, "ImageCategory", image);
+            }
+
 
             createCategoryDto.DateCreated = DateTime.Now;
             createCategoryDto.DateUpdated = DateTime.Now;
@@ -512,22 +517,28 @@ namespace BJ.Application.Service
 
                 await _context.SaveChangesAsync();
 
-                var category = await _context.Categories.FindAsync(catId);
+                var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-                var updateCategoryDto = new UpdateCategoryDto()
+                if (item.LanguageId == culture)
                 {
-                    Active = category.Active,
-                    Alias = updateCategoryTranslationDto.CatName,
-                    Description = updateCategoryTranslationDto.Description,
-                    ImagePath = category.ImagePath,
-                    DateUpdated = DateTime.Now,
-                    MetaDesc = updateCategoryTranslationDto.MetaDesc,
-                    MetaKey = category.MetaKey,
-                    CatName = updateCategoryTranslationDto.CatName,
-                };
-                _context.Update(_mapper.Map(updateCategoryDto, category));
+                    var category = await _context.Categories.FindAsync(catId);
 
-                await _context.SaveChangesAsync();
+                    var updateCategoryDto = new UpdateCategoryDto()
+                    {
+                        Active = category.Active,
+                        Alias = updateCategoryTranslationDto.CatName,
+                        Description = updateCategoryTranslationDto.Description,
+                        ImagePath = category.ImagePath,
+                        DateUpdated = DateTime.Now,
+                        MetaDesc = updateCategoryTranslationDto.MetaDesc,
+                        MetaKey = category.MetaKey,
+                        CatName = updateCategoryTranslationDto.CatName,
+                    };
+                    _context.Update(_mapper.Map(updateCategoryDto, category));
+
+                    await _context.SaveChangesAsync();
+                }
+                
                 await transaction.CommitAsync();
             }
         }
@@ -565,19 +576,24 @@ namespace BJ.Application.Service
                 _context.Update(_mapper.Map(updateSubCategoryTranslationDto, item));
 
                 await _context.SaveChangesAsync();
+                var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-                var subCategory = await _context.SubCategories.FindAsync(subCatId);
-                var updateSubCategoryDto = new UpdateSubCategoryDto()
+                if (item.LanguageId == culture)
                 {
-                    Active = subCategory.Active,
-                    Description = updateSubCategoryTranslationDto.Description,
-                    ImagePath = subCategory.ImagePath,
-                    DateUpdated = DateTime.Now,
-                    SubCatName = updateSubCategoryTranslationDto.SubCatName,
-                };
-                _context.Update(_mapper.Map(updateSubCategoryDto, subCategory));
+                    var subCategory = await _context.SubCategories.FindAsync(subCatId);
+                    var updateSubCategoryDto = new UpdateSubCategoryDto()
+                    {
+                        Active = subCategory.Active,
+                        Description = updateSubCategoryTranslationDto.Description,
+                        ImagePath = subCategory.ImagePath,
+                        DateUpdated = DateTime.Now,
+                        SubCatName = updateSubCategoryTranslationDto.SubCatName,
+                    };
+                    _context.Update(_mapper.Map(updateSubCategoryDto, subCategory));
 
-                await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
+                }
+
                 await transaction.CommitAsync();
             }
         }

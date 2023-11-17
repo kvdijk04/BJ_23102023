@@ -91,14 +91,14 @@ namespace BJ.Admin.Controllers
 
             var listCat = await _categoryService.GetAllCategories();
             var subCat = await _subCategoryService.GetAllSubCategories();
+            var result = await _productService.GetProductById(id);
 
-            var size = await _sizeService.GetAllSizes();
+            var size = await _sizeService.GetAllSizesByCatId(result.CategoryId);
 
             ViewData["CategoryId"] = new SelectList(listCat, "Id", "CatName");
             ViewBag.SizeDtos = size.ToList();
             ViewBag.SubCategoryDtos = subCat.ToList();
             ViewBag.ProductId = id;
-            var result = await _productService.GetProductById(id);
             var updateResult = new UpdateProductAdminView()
             {
                 UpdateProductDto = new()

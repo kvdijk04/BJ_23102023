@@ -41,8 +41,7 @@ namespace BJ.App.Controllers
 
             return View(result);
         }
-        [Route("/singleproduct", Name = "UserProductDetail")]
-        public async Task<IActionResult> Detail(Guid proId, string culture)
+        public async Task<IActionResult> Detail(Guid proId, string culture,string alias)
         {
             //var token = HttpContext.Session.GetString("Token");
 
@@ -57,11 +56,11 @@ namespace BJ.App.Controllers
                 return Redirect("/khong-tim-thay-trang.html");
             }
 
-            return PartialView("_SingleProduct", product);
+            return View(product);
         }
 
         [Route("/filtercategory", Name = "UserFilterCategory")]
-        public async Task<IActionResult> FilterByCategoryId(Guid catId, bool popular, string culture)
+        public async Task<IActionResult> FilterByCategoryId(Guid catId, string culture)
         {
             //var token = HttpContext.Session.GetString("Token");
 
@@ -69,7 +68,7 @@ namespace BJ.App.Controllers
             //{
             //    return Redirect("/dang-nhap.html");
             //}
-            var Size = await _productService.GetAllProductByCatId(catId, popular, culture);
+            var Size = await _productService.GetAllProductByCatId(catId, culture);
 
             if (Size == null)
             {

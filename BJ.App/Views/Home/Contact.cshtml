@@ -27,7 +27,16 @@
             padding-top: 6px;
             padding-bottom: 6px;
         }
+
+        input.error {
+            border: 2px solid #f00;
+        }
+        
     </style>
+}
+@section Scripts{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="~/BoostJuice/js/jquery.validate.js" type="text/javascript"></script>
 }
 @{
     ViewBag.Title = "Contact Us";
@@ -46,7 +55,8 @@
                     <h3><localize>Boy we hope</localize><br class="hide-desktop"><localize>it's something good!</localize></h3>
                     <p><localize>Just select which option below is most relevant to you and we’ll take it from there.</localize></p>
                     <!-- multistep form -->
-                    <form class="boostform"  enctype="multipart/form-data" id="contact" novalidate="novalidate" style="height: 472px;">
+                    <label id="error" style="color:red"></label>
+                    <form class="boostform"  enctype="multipart/form-data" id="contact"  style="height: 472px;">
 
 
                         <!-- progressbar -->
@@ -78,9 +88,9 @@
                             <input type="button" name="next" class="next1 action-button" value="@_loc["Next"]">
                         </fieldset>
                         <fieldset class="tab form-step-2" >
-                            <input type="text" name="fullname" placeholder="@_loc["fullname"]" id="fullname">
-                            <input type="email" name="email" placeholder="@_loc["email"]" id="email" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$">
-                            <input type="text" name="phone" placeholder="@_loc["phone"]" id="phone">
+                            <input type="text" name="fullname" placeholder="@_loc["fullname"]" id="fullname" >
+                            <input type="email" name="email" placeholder="@_loc["email"]" id="email" >
+                            <input type="text" name="phone" placeholder="@_loc["phone"]" id="phone" >
 
                             <div class="custom-inputs">
                                 <div class="iradio_lineblock-green checked" id="memberbtn"><input type="radio" name="vibe" id="vibe_yes" checked="" value="" style="position: absolute; visibility: hidden;"><localize>I Know My Vibe Number</localize><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
@@ -90,7 +100,7 @@
                             </div>
                             <input type="text" name="vibe_member" placeholder="@_loc["vibemember"]" id="vibe_member">
                             <input type="button" name="previous" class="previous action-button" value="@_loc["Previous"]" id="prebtn1">
-                            <input type="button" name="next" class="next2 action-button" value="@_loc["Next"]" id="nextbtn">
+                            <input type="button" name="next" clicked="false" class="next2 action-button" value="@_loc["Next"]" id="nextbtn">
 
                         </fieldset>
                          
@@ -120,7 +130,7 @@
                             </div>
 
                             <input type="button" name="previous" class="previous action-button form-elements" value="@_loc["Previous"]" id="prebtn2">
-                            <input name ="submit" class="submit action-button form-elements" value="@_loc["submit"]"  >
+                            <input type="button" class="submit action-button form-elements" value="@_loc["submit"]"  >
 
                         </fieldset> 
                     </form>
@@ -582,7 +592,30 @@
             map.setCenter(center);
         });
     }
-
+    $().ready(function () {
+        $("#contact").validate({
+            rules: {
+                "fullname": {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50
+                },
+                "phone": {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength:11,
+                },
+                "email": {
+                    required: true,
+                    email: true,
+                },
+               
+            },
+          
+            
+        });
+    });
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTv4Z_nGhpi5GAzj3cDpcRf43HyonXxYA&callback=initialize"></script>
 <script>
@@ -624,8 +657,6 @@
 
         });
         $('#progressbar li:nth-child(2)').addClass("active");
-        var x = localStorage.getItem("reason");
-        console.log(x);
     });
     $("#prebtn1").on("click", function () {
         $(".boostform").css("height", "457px");
@@ -645,35 +676,47 @@
 
 
     })
-
+    $(".form-step-2 input[typpe=text]").on("keyup", function () {
+        $("#fullname").css("border", "2px solid #ccc");
+        $("#email").css("border", "2px solid #ccc");
+        $("#phone").css("border", "2px solid #ccc");
+    });
 
     $(".next2").on("click", function () {
         // $(".boostform").css("height", "344px");
+        if (($("#fullname").hasClass("error") == false && $("#email").hasClass("error") == false && $("#phone").hasClass("error") == false) && ($("#fullname").val() != "" 
+            && $("#email").val() != "" && $("#phone").val() != "")) {
+            $('.form-step-1').hide();
+            $(".form-step-1").animate({
+                opacity: '0',
+                transform: 'scale(0.8)',
+            });
 
-        $('.form-step-1').hide();
-        $(".form-step-1").animate({
-            opacity: '0',
-            transform: 'scale(0.8)',
-        });
+            $(".form-step-2").css("display", "none");
 
-        $(".form-step-2").css("display", "none");
+            $(".form-step-2").animate({
+                left: '0%',
+                opacity: '0',
+                transform: 'scale(0.8)',
 
-        $(".form-step-2").animate({
-            left: '0%',
-            opacity: '0',
-            transform: 'scale(0.8)',
+            });
 
-        });
+            $(".form-step-3").css("display", "block");
 
-        $(".form-step-3").css("display", "block");
+            $(".form-step-3").animate({
+                left: '0%',
+                opacity: '1',
 
-        $(".form-step-3").animate({
-            left: '0%',
-            opacity: '1',
+            });
 
-        });
+            $('#progressbar li:nth-child(3)').addClass("active");
+            $("#error").text("");
 
-        $('#progressbar li:nth-child(3)').addClass("active");
+        }
+        else{
+           $("#error").text("Vui lòng liền đầy đủ thông tin");
+
+        }
     });
     $("#prebtn2").on("click", function () {
         $(".boostform").css("height", "436px");
@@ -696,18 +739,11 @@
     $(".submit").on("click", function () {
         selectElement = document.querySelector('#store');
         output = selectElement.value;
-        console.log(localStorage.getItem("reason"));
-        console.log($("#fullname").val());
-        console.log($("#email").val());
-        console.log($("#phone").val());
-        console.log($("#message").val());
-        console.log($("#vibe_member").val());
-        console.log(output);
         $.ajax({
             type: 'POST',
             url: '/Home/Contact',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-            data: 
+            data:
             {
                 reason: localStorage.getItem("reason"),
                 fullname: $("#fullname").val(),
@@ -716,16 +752,18 @@
                 vibe_member: $("#vibe_member").val(),
                 store_name: output,
                 message: $("#message").val()
-            
+
             },
             success: function (result) {
                 $(".thank-you").show();
                 $(".form-elements").hide();
+                localStorage.removeItem("reason");
             },
             error: function () {
                 console.log('Failed ');
             }
         })
+        
 
     })
     

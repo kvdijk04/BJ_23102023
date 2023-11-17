@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
-                        <select class="select2" asp-for="@Model.CreateProduct.CategoryId" asp-items="ViewBag.CategoryId">
+                        <select class="select2" asp-for="@Model.CreateProduct.CategoryId" id="categoryId" asp-items="ViewBag.CategoryId">
                         </select>
                     </div>
                     <div class="form-group d-flex align-items-center">
@@ -99,14 +99,18 @@
 
                                 <label for="checkbox-size_all">Chọn tất cả</label>
                             </div>
-                            @foreach (var size in ViewBag.SizeDtos)
+@*                             @foreach (var size in ViewBag.SizeDtos)
                             {
                                 
-                                <div>
+                                <div id="sizeList">
                                     <input id="checkbox-size_@size.Id" type="checkbox" name="Size" value="@size.Id">
-                                    <label for="checkbox-size_@size.Id">@size.Name</label>
+                                    <label for="checkbox-size_@size.Id">@size.Name - @size.Note - @size.Price.ToString("#,##0")&nbsp;₫</label>
                                 </div>
-                            }
+                            } *@
+                            <div id="sizeList">
+                               @*  <input id="checkbox-size_@size.Id" type="checkbox" name="Size" value="@size.Id">
+                                <label for="checkbox-size_@size.Id">@size.Name - @size.Note - @size.Price.ToString("#,##0")&nbsp;₫</label> *@
+                            </div>
                         </div>
                         <div class="form-group col-md-6" id="subcatproduct">
 
@@ -201,10 +205,28 @@
         $('.select2').select2();
         $("#checkbox-size_all").on("click", function () {
             $("#sizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
-        })
+        });
         $("#checkbox-subcat_all").on("click", function () {
             $("#subcatproduct input[type=checkbox]").not(this).prop('checked', this.checked);
-        })
+        });
+        $("#categoryId").change(function () {
+            var catId = $("#categoryId").val();
+            $.ajax({
+                url: '/Size/SizeList',
+                type: "GET",
+                dataType: "JSON",
+                data: { catId: catId },
+                success: function (sizes) {
+                    console.log(sizes);
+                    $('#sizeList').empty();
+                    $.each(sizes, function (i, item) {
+                        var option = '<div><input id="checkbox-size_'+item.id+'" type="checkbox" name="Size" value="'+item.id+'"><label for= "checkbox-size_'+item.id+'" >'+item.name +'</label></div>';
+                        $('#sizeList').append(option);
+                    });
+                    
+                }
+            });
+        });
     </script>
     <script>
         document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {

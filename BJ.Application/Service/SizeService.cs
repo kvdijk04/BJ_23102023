@@ -13,6 +13,8 @@ namespace BJ.Application.Service
     {
 
         Task<IEnumerable<SizeDto>> GetSizes();
+        Task<IEnumerable<SizeDto>> GetSizesByCatId(Guid catId);
+
         Task<SizeSpecificProductDto> GetSize(int id, Guid productId);
         Task CreateSize(CreateSizeDto createSizeDto);
         Task UpdateSize(int id, UpdateSizeDto updateSizeDto);
@@ -80,6 +82,7 @@ namespace BJ.Application.Service
                                         Id = x.Id,
                                         Name = x.Name,
                                         Active = x.Active,
+                                        Note= x.Note,
                                         Price = x.Price,
                                     }).ToListAsync();
             var subCategoryResponse = new PagedViewModel<SizeDto>
@@ -111,6 +114,13 @@ namespace BJ.Application.Service
         public async Task<IEnumerable<SizeDto>> GetSizes()
         {
             var size = await _context.Sizes.Include(x => x.SizeSpecificProducts).Where(x => x.Active == true).OrderByDescending(x => x.Created).AsNoTracking().ToListAsync();
+            var sizeDto = _mapper.Map<List<SizeDto>>(size);
+            return sizeDto;
+        }
+
+        public async Task<IEnumerable<SizeDto>> GetSizesByCatId(Guid catId)
+        {
+            var size = await _context.Sizes.Where(x => x.Active == true && x.CategoryId.Equals(catId)).OrderBy(x => x.Created).AsNoTracking().ToListAsync();
             var sizeDto = _mapper.Map<List<SizeDto>>(size);
             return sizeDto;
         }

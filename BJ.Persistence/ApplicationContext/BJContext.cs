@@ -56,7 +56,8 @@ namespace BJ.Persistence.ApplicationContext
 
 
             modelBuilder.Entity<Product>().ToTable("Product");
-            modelBuilder.Entity<Category>().ToTable("Category");
+            modelBuilder.Entity<Category>().ToTable("Category").HasMany<Size>(x => x.Sizes).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId)
+                                                        .OnDelete(DeleteBehavior.ClientSetNull); ;
             modelBuilder.Entity<CategoryTranslation>().ToTable("CategoryTranslation");
             modelBuilder.Entity<ProductTranslation>().ToTable("ProductTranslation");
             modelBuilder.Entity<SubCategoryTranslation>().ToTable("SubCategoryTranslation");
@@ -64,7 +65,7 @@ namespace BJ.Persistence.ApplicationContext
             modelBuilder.Entity<NewsTranslation>().ToTable("NewsTranslation");
 
             modelBuilder.Entity<Language>().ToTable("Language");
-            modelBuilder.Entity<StoreLocation>().ToTable("StoreLocation").Property(sc => sc.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<StoreLocation>().ToTable("StoreLocation").Property(sc => sc.Id).ValueGeneratedOnAdd(); 
 
         }
 

@@ -40,6 +40,17 @@ namespace BJ.Api.Controllers
 
         }
         /// <summary>
+        /// Danh sách size theo loại sản phẩm
+        /// </summary>
+        [HttpGet("catId")]
+
+        public async Task<IEnumerable<SizeDto>> GetSizesByCat(Guid catId)
+        {
+
+            return await _sizeService.GetSizesByCatId(catId);
+
+        }
+        /// <summary>
         /// Thêm mới size
         /// </summary>
         /// 

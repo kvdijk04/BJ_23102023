@@ -16,16 +16,16 @@
 <div class="boost-main-content">
     <div class="main-fold-angle bg-image ">
     </div>
-    <div id="blog-posts" class="container">
+    <div id="blog-posts" class="container" itemscope itemtype="https://schema.org/ItemList">
         @if (Model.Count() > 0 && Model != null)
         {
             foreach (var item in Model)
             {
-                <div class="row" style="display: block;">
+                <div class="row" style="display: block;" itemscope itemtype="https://schema.org/Article">
                     <div class="six columns">
                         <p>
-                            <a href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias">
-                                <img src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" title="@item.Title" alt="@item.Title" class="blog-cover">
+                            <a href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias" itemprop="url">
+                                <img src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" itemprop="image" title="@item.Title" alt="@item.Title" class="blog-cover">
                             </a>
                         </p>
                     </div>
@@ -33,9 +33,9 @@
 
 
 
-                        <h2> @Html.Raw(item.Title)</h2>
-                        <p>@Html.Raw(item.ShortDesc)</p>
-                        <a href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
+                        <h2 itemprop="name"> @Html.Raw(item.Title)</h2>
+                        <p itemprop="description">@Html.Raw(item.ShortDesc)</p>
+                        <a itemprop="url" href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
                     </div>
                 </div>
             }

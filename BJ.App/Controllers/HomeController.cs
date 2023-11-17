@@ -16,7 +16,10 @@ namespace BJ.App.Controllers
         private readonly IConfiguration _configuration;
         private readonly IEmailServiceConnection _emailServiceConnection;
         private readonly INotyfService _notyfService;
-        public HomeController(ILogger<HomeController> logger, IStoreLocationServiceConnection storeLocationServiceConnection, INewsServiceConnection newsServiceConnection, IConfiguration configuration, IEmailServiceConnection emailServiceConnection, INotyfService notyfService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public HomeController(ILogger<HomeController> logger, IStoreLocationServiceConnection storeLocationServiceConnection, INewsServiceConnection newsServiceConnection, IConfiguration configuration, IEmailServiceConnection emailServiceConnection, INotyfService notyfService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _storeLocationServiceConnection = storeLocationServiceConnection;
@@ -24,12 +27,18 @@ namespace BJ.App.Controllers
             _configuration = configuration;
             _emailServiceConnection = emailServiceConnection;
             _notyfService = notyfService;
+            _httpContextAccessor = httpContextAccessor;
 
         }
         public async Task<IActionResult> Index(string culture)
         {
             if (culture == null) { culture = _configuration.GetValue<string>("DefaultLanguageId"); }
+
             var news = await _newsServiceConnection.GetNewsAtHome(culture);
+
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+
             return View(news);
         }
         public IActionResult About()
@@ -75,6 +84,8 @@ namespace BJ.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Contact(string reason, string fullname, string email, string phone, string vibe_member, string store_name, string message)
         {
+           
+            
             FeedBack feedBack = new()
             {
                 Email = email,

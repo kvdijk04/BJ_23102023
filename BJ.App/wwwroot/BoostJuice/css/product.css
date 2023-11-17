@@ -1247,7 +1247,8 @@ ul#og-grid li {
 		background-color: #67b94c;
 		position: absolute;
 		width: 100%;
-		height: 400px;
+/*		height: 400px;
+*/		
 		left: 0;
 		bottom: 0;
 		z-index: -1;
@@ -1287,16 +1288,19 @@ ul#og-grid li {
 
 	.og-grid > li {
 		width: 47%;
-		max-height: 2000px;
+		max-height: /*2000px*/ 1800px;
 		margin: 0;
 		min-height: 360px
 	}
 
-	.og-expander {
+/*	.og-expander {
 		max-height: 1600px;
 		height: 2000px !important
+	}*/
+	.og-expander {
+		max-height: 1400px;
+		height: 2000px !important
 	}
-
 	.og-expanded {
 		height: 2000px !important
 	}
@@ -1494,7 +1498,7 @@ ul#og-grid li {
 
 	.og-grid > li {
 		min-height: 260px;
-		max-height: 1600px
+		max-height: /*1600px*/ 1450px;
 	}
 	.shortdesc, .description {
 		-webkit-line-clamp: 3;
@@ -1502,9 +1506,13 @@ ul#og-grid li {
 		overflow: hidden;
 		display: -webkit-box;
 	}
-	.og-expander {
+/*	.og-expander {
 		max-height: 1340px;
 		height: 1340px !important
+	}*/
+	.og-expander {
+		max-height: 1140px;
+		height: 1140px !important
 	}
 }
 
@@ -1526,14 +1534,17 @@ ul#og-grid li {
 
 	.og-grid > li {
 		min-height: 220px;
-		max-height: 1460px
+		max-height: /*1460px*/ 1300px;
 	}
 
-	.og-expander {
+/*	.og-expander {
 		max-height: 1280px;
 		height: 1280px !important
+	}*/
+	.og-expander {
+		max-height: 1030px;
+		height: 1030px !important
 	}
-
 	.og-grid li ul + span {
 		bottom: 15px;
 		font-size: 13px

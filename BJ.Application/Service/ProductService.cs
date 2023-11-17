@@ -26,7 +26,7 @@ namespace BJ.Application.Service
         Task<UserProductDto> GetUserProductById(Guid id, string languageId);
         Task<ProductTranslationDto> GetProductTranslationDto(Guid id);
 
-        Task<IEnumerable<UserProductDto>> GetProductByCatId(Guid catId, bool popular, string languageId);
+        Task<IEnumerable<UserProductDto>> GetProductByCatId(Guid catId, string languageId);
         Task CreateProductAdminView(CreateProductAdminView createProductAdminView);
         Task CreateProductTranslate(CreateProductTranslationDto createProductTranslationDto);
 
@@ -319,7 +319,7 @@ namespace BJ.Application.Service
         {
             if (languageId == null) languageId = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var queryCat = from c in _context.Categories
+            var queryCat = from c in _context.Categories.OrderByDescending(x => x.DateCreated).ThenByDescending(x => x.CatName)
                            join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
                            from ct in cl.DefaultIfEmpty()
 
@@ -332,10 +332,9 @@ namespace BJ.Application.Service
                 ImagePath = x.c.ImagePath,
                 Id = x.c.Id,
 
+            }).AsNoTracking().ToListAsync();
 
-            }).ToListAsync();
-
-            var queryPro = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId)).AsSplitQuery()
+            var queryPro = from p in _context.Products.OrderByDescending(x => x.Category.DateCreated).Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId)).AsNoTracking().AsSplitQuery()
                            join c in _context.Categories on p.CategoryId equals c.Id
                            join ct in _context.CategoryTranslations.Where(x => x.LanguageId == languageId) on c.Id equals ct.CategoryId into cd
                            from ct in cd.DefaultIfEmpty()
@@ -347,8 +346,51 @@ namespace BJ.Application.Service
             {
                 Id = x.p.Id,
                 Active = x.p.Active,
+                CategoryId = x.p.CategoryId,
+                Description = x.pt.Description,
+                HomeTag = x.p.HomeTag,
+                Alias = x.pt.Alias,
+                ImagePathCup = x.p.ImagePathCup,
+                ImagePathHero = x.p.ImagePathHero,
+                ImagePathIngredients = x.p.ImagePathIngredients,
+                ProductName = x.pt.ProductName,
+                UserSubCategorySpecificProductDto = _mapper.Map<List<UserSubCategorySpecificProductDto>>(x.p.SubCategorySpecificProducts.Where(x => x.Active == true)),
+
+            }).AsNoTracking().ToListAsync();
+
+            var a = new ProductUserViewModel
+            {
+                UserCategoryDtos = cat,
+                UserProductDtos = productDto,
+            };
+            return a;
+        }
+
+        public async Task<IEnumerable<UserProductDto>> GetProductByCatId(Guid catId, string languageId)
+        {
+            //var product = await _context.Products.Include(x => x.Category).Include(x => x.SubCategorySpecificProducts).ThenInclude(x => x.SubCategory).OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
+            //if(catId != Guid.Empty && popular == false) { product = product.Where(x => x.CategoryId.Equals(catId)).ToList(); }
+            //else { product = product.Where(x => x.BestSeller == popular).ToList(); }
+            //var productDto = _mapper.Map<List<UserProductDto>>(product);
+            //return productDto;
+
+            var query = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId))
+                        join c in _context.Categories on p.CategoryId equals c.Id
+                        join ct in _context.CategoryTranslations.Where(x => x.LanguageId == languageId) on c.Id equals ct.CategoryId into cd
+                        from ct in cd.DefaultIfEmpty()
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+
+                        where pt.LanguageId == languageId && p.Active == true && p.CategoryId.Equals(catId) /*sct.LanguageId == languageId*/
+                        select new { c, p, pt, ct /*scsp*/ };
+
+
+            var productDto = await query.Select(x => new UserProductDto()
+            {
+                Id = x.p.Id,
+                Active = x.p.Active,
                 CatName = x.ct.CatName,
                 BestSeller = x.p.BestSeller,
+                Alias = x.pt.Alias,
                 CategoryId = x.p.CategoryId,
                 Description = x.pt.Description,
                 HomeTag = x.p.HomeTag,
@@ -360,86 +402,10 @@ namespace BJ.Application.Service
                 UserSubCategorySpecificProductDto = _mapper.Map<List<UserSubCategorySpecificProductDto>>(x.p.SubCategorySpecificProducts.Where(x => x.Active == true)),
 
             }).AsNoTracking().ToListAsync();
-            var count = productDto.Count();
-            var a = new ProductUserViewModel
-            {
-                UserCategoryDtos = cat,
-                UserProductDtos = productDto,
-            };
-            return a;
-        }
 
-        public async Task<IEnumerable<UserProductDto>> GetProductByCatId(Guid catId, bool popular, string languageId)
-        {
-            //var product = await _context.Products.Include(x => x.Category).Include(x => x.SubCategorySpecificProducts).ThenInclude(x => x.SubCategory).OrderByDescending(x => x.DateCreated).AsNoTracking().ToListAsync();
-            //if(catId != Guid.Empty && popular == false) { product = product.Where(x => x.CategoryId.Equals(catId)).ToList(); }
-            //else { product = product.Where(x => x.BestSeller == popular).ToList(); }
-            //var productDto = _mapper.Map<List<UserProductDto>>(product);
-            //return productDto;
-            if (catId != Guid.Empty && popular == false)
-            {
-                var query = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId))
-                            join c in _context.Categories on p.CategoryId equals c.Id
-                            join ct in _context.CategoryTranslations.Where(x => x.LanguageId == languageId) on c.Id equals ct.CategoryId into cd
-                            from ct in cd.DefaultIfEmpty()
-                            join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+            return productDto;
 
-                            where pt.LanguageId == languageId && p.Active == true && p.CategoryId.Equals(catId) /*sct.LanguageId == languageId*/
-                            select new { c, p, pt, ct /*scsp*/ };
-
-
-                var productDto = await query.Select(x => new UserProductDto()
-                {
-                    Id = x.p.Id,
-                    Active = x.p.Active,
-                    CatName = x.ct.CatName,
-                    BestSeller = x.p.BestSeller,
-                    CategoryId = x.p.CategoryId,
-                    Description = x.pt.Description,
-                    HomeTag = x.p.HomeTag,
-                    ImagePathCup = x.p.ImagePathCup,
-                    ImagePathHero = x.p.ImagePathHero,
-                    ImagePathIngredients = x.p.ImagePathIngredients,
-                    ProductName = x.pt.ProductName,
-                    ShortDesc = x.pt.ShortDesc,
-                    UserSubCategorySpecificProductDto = _mapper.Map<List<UserSubCategorySpecificProductDto>>(x.p.SubCategorySpecificProducts.Where(x => x.Active == true)),
-
-                }).AsNoTracking().ToListAsync();
-
-                return productDto;
-
-            }
-            else
-            {
-                var query = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == languageId))
-                            join c in _context.Categories on p.CategoryId equals c.Id
-                            join ct in _context.CategoryTranslations.Where(x => x.LanguageId == languageId) on c.Id equals ct.CategoryId into cd
-                            from ct in cd.DefaultIfEmpty()
-                            join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-
-                            where pt.LanguageId == languageId && p.Active == true && p.BestSeller == true /*sct.LanguageId == languageId*/
-                            select new { c, p, pt, ct /*scsp*/ };
-
-                var productDto = await query.Select(x => new UserProductDto()
-                {
-                    Id = x.p.Id,
-                    Active = x.p.Active,
-                    CatName = x.ct.CatName,
-                    BestSeller = x.p.BestSeller,
-                    CategoryId = x.p.CategoryId,
-                    Description = x.pt.Description,
-                    HomeTag = x.p.HomeTag,
-                    ImagePathCup = x.p.ImagePathCup,
-                    ImagePathHero = x.p.ImagePathHero,
-                    ImagePathIngredients = x.p.ImagePathIngredients,
-                    ProductName = x.pt.ProductName,
-                    ShortDesc = x.pt.ShortDesc,
-                    UserSubCategorySpecificProductDto = _mapper.Map<List<UserSubCategorySpecificProductDto>>(x.p.SubCategorySpecificProducts.Where(x => x.Active == true)),
-
-                }).AsNoTracking().ToListAsync();
-
-                return productDto;
-            }
+            
 
         }
 
@@ -483,6 +449,7 @@ namespace BJ.Application.Service
                 CategoryId = product.CategoryId,
                 Description = productTranslation.Description,
                 HomeTag = product.HomeTag,
+                Alias = productTranslation.Alias,
                 ImagePathCup = product.ImagePathCup,
                 ImagePathHero = product.ImagePathHero,
                 ImagePathIngredients = product.ImagePathIngredients,
@@ -616,29 +583,35 @@ namespace BJ.Application.Service
 
                 await _context.SaveChangesAsync();
 
-                var product = await _context.Products.FindAsync(proId);
-                var updateProductDto = new UpdateProductDto()
+                var culture = _configuration.GetValue<string>("DefaultLanguageId");
+
+                if (item.LanguageId == culture)
                 {
-                    Active = product.Active,
-                    Alias = updateProductTranslationDto.Alias,
-                    BestSeller = product.BestSeller,
-                    CategoryId = product.CategoryId,
-                    DateModified = DateTime.Now,
-                    Description = updateProductTranslationDto.Description,
-                    Discount = product.Discount,
-                    HomeTag = product.HomeTag,
-                    ImagePathCup = product.ImagePathCup,
-                    ImagePathHero = product.ImagePathHero,
-                    ImagePathIngredients = product.ImagePathIngredients,
-                    MetaDesc = updateProductTranslationDto.MetaDesc,
-                    MetaKey = updateProductTranslationDto.MetaKey,
-                    ProductName = updateProductTranslationDto.ProductName,
-                    ShortDesc = updateProductTranslationDto.ShortDesc,
+                    var product = await _context.Products.FindAsync(proId);
+                    var updateProductDto = new UpdateProductDto()
+                    {
+                        Active = product.Active,
+                        Alias = updateProductTranslationDto.Alias,
+                        BestSeller = product.BestSeller,
+                        CategoryId = product.CategoryId,
+                        DateModified = DateTime.Now,
+                        Description = updateProductTranslationDto.Description,
+                        Discount = product.Discount,
+                        HomeTag = product.HomeTag,
+                        ImagePathCup = product.ImagePathCup,
+                        ImagePathHero = product.ImagePathHero,
+                        ImagePathIngredients = product.ImagePathIngredients,
+                        MetaDesc = updateProductTranslationDto.MetaDesc,
+                        MetaKey = updateProductTranslationDto.MetaKey,
+                        ProductName = updateProductTranslationDto.ProductName,
+                        ShortDesc = updateProductTranslationDto.ShortDesc,
 
-                };
-                _context.Update(_mapper.Map(updateProductDto, product));
+                    };
+                    _context.Update(_mapper.Map(updateProductDto, product));
 
-                await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
+                }
+
                 await transaction.CommitAsync();
             }
         }
