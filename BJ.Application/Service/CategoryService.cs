@@ -5,7 +5,6 @@ using BJ.Contract.Category;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Category;
 using BJ.Contract.Translation.SubCategory;
-using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
@@ -538,7 +537,7 @@ namespace BJ.Application.Service
 
                     await _context.SaveChangesAsync();
                 }
-                
+
                 await transaction.CommitAsync();
             }
         }

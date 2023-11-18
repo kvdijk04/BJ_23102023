@@ -73,6 +73,7 @@ builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
 builder.Services.AddScoped<IEmailServiceConnection, EmailServiceConnection>();
 builder.Services.AddScoped<ILanguageServiceConnection, LanguageServiceConnection>();
+builder.Services.AddScoped<IVisitorCounterServiceConnection, VisitorCounterServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 

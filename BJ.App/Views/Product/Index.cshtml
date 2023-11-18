@@ -315,8 +315,8 @@
                                 </a>
                             </a>
 
-                            <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
-                               
+                            <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
+                                
                             </div>
 
                         </li>
@@ -410,6 +410,7 @@
 
 
     $(".drink-block .grid_item").on("click", function (i) {
+
         var nameCat = $(this).attr("data-catName");
         var idPro = $(this).attr("data-masp");
         var namePro = $(this).attr("data-proName");
@@ -432,8 +433,31 @@
             $('.drink-block .grid_item').not(':eq("' + e + '")').attr("clicked", "false");
             
 
-            document.getElementById(idPro).style.display = "block";
+            document.getElementById(alias).style.display = "block";
+
+
             $("#li_" + idPro).css("height", "1430");
+
+
+            // // // Make sure this.hash has a value before overriding default behavior
+            // if (this.hash !== "") {
+            //     // Prevent default anchor click behavior
+            //     event.preventDefault();
+
+            //     // Store hash
+            //     var hash = this.hash;
+
+            //     // Using jQuery's animate() method to add smooth page scroll
+            //     // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            //     $('html, body').animate({
+            //         scrollTop: $(hash).offset().top
+            //     }, 800, function () {
+            //         window.location.href = hash;
+            //     });
+            // } // End if
+
+
+            
 
             $.ajax({
                 url: '@Url.Action("Detail")',
@@ -443,11 +467,11 @@
 
                 async: true,
                 success: function (results) {
-                    jQuery("#" + idPro).fadeOut(200, function () {    
-                        $("#" + idPro).html();
-                        $("#" + idPro).html(results);
-                    }).fadeIn(350);
-
+                    // jQuery("#" + alias).fadeOut(200, function () {
+                       
+                    // }).fadeIn(350);
+                    $("#" + alias).html();
+                    $("#" + alias).html(results);
                 },
                 error: function (xhr) {
                     alert('error');
@@ -461,16 +485,17 @@
         }
         else {
 
-            document.getElementById(idPro).style.display = "none";
-
+            document.getElementById(alias).style.display = "none";
+            $('html, body').animate({
+                scrollTop: $("#li_" + idPro).offset().top - 100
+            }, 1000);
             $("#li_" + idPro).removeClass(" og-expanded");
             $("#li_" + idPro).css("height", "380px");
             $(this).attr("clicked", "false");
             $("#li_" + namePro).css("display", "none");
-            $("#" + idPro).css("height", "");
+            $("#" + alias).css("height", "");
 
         }
-        i.preventDefault()
 
 
     });

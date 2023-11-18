@@ -28,6 +28,7 @@ namespace BJ.Application
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IVisitorCounterService, VisitorCounterService>();
 
             services.AddAutoMapper(typeof(CategoryMappingProfile).Assembly);
             services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
@@ -37,6 +38,7 @@ namespace BJ.Application
             services.AddAutoMapper(typeof(LanguageMappingProfile).Assembly);
             services.AddAutoMapper(typeof(BlogMappingProfile).Assembly);
             services.AddAutoMapper(typeof(NewsMappingProfile).Assembly);
+            services.AddAutoMapper(typeof(VisitorCounterMappingProfile).Assembly);
 
 
             //Config AppSetting

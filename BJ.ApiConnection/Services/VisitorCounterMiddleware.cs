@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BJ.ApiConnection.Services
 {
@@ -28,7 +23,7 @@ namespace BJ.ApiConnection.Services
                     Path = "/",
                     HttpOnly = false,
                     Secure = true,
-                    Expires = DateTime.Now.AddMinutes(30),
+                    Expires = DateTime.Now.AddMinutes(2),
                 });
 
             }

@@ -12,7 +12,7 @@ namespace BJ.App.Controllers
         private readonly IBlogServiceConnection _blogServiceConnection;
         private readonly IConfiguration _configuration;
         private readonly ILanguageServiceConnection _languageServiceConnection;
-        public SiteMapController(IProductServiceConnection productServiceConnection,INewsServiceConnection newsServiceConnection, IBlogServiceConnection blogServiceConnection, IConfiguration configuration, ILanguageServiceConnection languageServiceConnection)
+        public SiteMapController(IProductServiceConnection productServiceConnection, INewsServiceConnection newsServiceConnection, IBlogServiceConnection blogServiceConnection, IConfiguration configuration, ILanguageServiceConnection languageServiceConnection)
         {
             _productServiceConnection = productServiceConnection;
             _newsServiceConnection = newsServiceConnection;
@@ -56,9 +56,9 @@ namespace BJ.App.Controllers
             foreach (var language in allLanguage.Select(x => x.Id))
             {
                 var listProduct = await _productServiceConnection.GetAllUserProduct(language);
-                foreach(var item in listProduct.UserProductDtos)
+                foreach (var item in listProduct.UserProductDtos)
                 {
-                    sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + item.Alias , modified: DateTime.UtcNow, changeFrequency: null, priority: 0.9);
+                    sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + item.Alias, modified: DateTime.UtcNow, changeFrequency: null, priority: 0.9);
 
                 }
             }

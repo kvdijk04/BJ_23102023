@@ -12,7 +12,7 @@
     Layout = null;
 }
 <div class="og-expander-inner">
-    <span class="og-close" data-proId="@Model.Id"></span>
+    <span class="og-close" data-proId="@Model.Id" data-alias="@Model.Alias"></span>
     <div class="drink-info-box" style="display: block;">
         <div class="quick-overview">
             <h2>@Model.ProductName</h2>
@@ -111,13 +111,17 @@
         var namePro = $(this).attr("data-proName");
         var catName = $(this).attr("data-catName");
         var idPro = $(this).attr("data-proId");
+        var alias = $(this).attr("data-alias");
+
         console.log(idPro);
         $("#li_" + idPro).removeClass(" og-expanded");
         $("#li_" + idPro).css("height", "380px");
         $("#grid_" + idPro).attr("clicked", false);
-        $("#" + idPro).css("height", "");
-        $("#" + idPro).css("display", "none");
-
+        $("#" + alias).css("height", "");
+        $("#" + alias).css("display", "none");
+        $('html, body').animate({
+            scrollTop: $("#li_" + idPro).offset().top - 100
+        }, 1000);
     });
     function openNutri(evt, sizeId) {
         // Declare all variables

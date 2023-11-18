@@ -43,6 +43,7 @@ namespace BJ.Persistence.ApplicationContext
 
         public virtual DbSet<StoreLocation> StoreLocations { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<VisitorCounter> VisitorCounters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,7 +66,15 @@ namespace BJ.Persistence.ApplicationContext
             modelBuilder.Entity<NewsTranslation>().ToTable("NewsTranslation");
 
             modelBuilder.Entity<Language>().ToTable("Language");
-            modelBuilder.Entity<StoreLocation>().ToTable("StoreLocation").Property(sc => sc.Id).ValueGeneratedOnAdd(); 
+            modelBuilder.Entity<StoreLocation>().ToTable("StoreLocation").Property(sc => sc.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<VisitorCounter>().ToTable("VisitorCounter").HasData(
+                new VisitorCounter
+                {
+                    Id = Guid.NewGuid(),
+                    Count = 0,
+                    Year = DateTime.Now.Year
+                }
+                );
 
         }
 

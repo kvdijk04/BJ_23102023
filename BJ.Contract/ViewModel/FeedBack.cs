@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BJ.Contract.ViewModel
+﻿namespace BJ.Contract.ViewModel
 {
     public class FeedBack
     {

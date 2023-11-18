@@ -14,7 +14,7 @@ namespace BJ.Contract.Product
         public bool BestSeller { get; set; }
         public bool HomeTag { get; set; }
         public bool Active { get; set; }
-        public string Alias { get;set; }
+        public string Alias { get; set; }
         public string ImagePathCup { get; set; }
 
         public string ImagePathHero { get; set; }

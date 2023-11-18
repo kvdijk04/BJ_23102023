@@ -11,8 +11,8 @@ namespace BJ.Domain.Entities
         [ForeignKey("Category")]
         public Guid CategoryId { get; set; }
 
-        public string Note { get;set; }
-        
+        public string Note { get; set; }
+
 
         public int? Price { get; set; }
 

@@ -149,11 +149,11 @@ else
 
                 async: true,
                 success: function (results) {
-                    jQuery("#" + idPro).fadeOut(100, function () {
-                        $("#" + idPro).html();
-                        $("#" + idPro).html(results);
-                    }).fadeIn(300);
-
+                    // jQuery("#" + idPro).fadeOut(100, function () {
+                       
+                    // }).fadeIn(300);
+                    $("#" + idPro).html();
+                    $("#" + idPro).html(results);
 
                 },
                 error: function (xhr) {
@@ -167,7 +167,9 @@ else
         else {
 
             document.getElementById(idPro).style.display = "none";
-
+            $('html, body').animate({
+                scrollTop: $("#li_" + idPro).offset().top - 100
+            }, 1000);
             $("#li_" + idPro).removeClass(" og-expanded");
             $("#li_" + idPro).css("height", "380px");
             $(this).attr("clicked", "false");

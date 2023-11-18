@@ -301,6 +301,7 @@
             bottom: 90px !important;
             right: 20px !important;
         }
+
     </style>
     <link rel="stylesheet" href="~/BoostJuice/css/boostjuice.css">
     <link rel="stylesheet" href="~/BoostJuice/css/home.css">
@@ -447,7 +448,36 @@
                 </p>
                 <p>&nbsp;</p>
                 <div align="Center">Our Visitor</div>
-
+                <div align="Center">
+                    <div>
+                        <table class="table-borderless table-primary" style="margin-bottom: 20px; ">
+                            <tbody>
+@*                                 <tr>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Today</td>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">12</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Yesterday</td>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">51</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Past 7 Days</td>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">342</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Month of November</td>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">&nbsp;905</td>
+                                </tr> *@
+                                <tr>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">
+                                        Year @DateTime.Now.Year
+                                    </td>
+                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">@ViewBag.Counter</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
             </div>
            

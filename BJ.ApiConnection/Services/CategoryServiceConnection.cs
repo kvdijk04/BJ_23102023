@@ -1,7 +1,6 @@
 ﻿using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
-using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

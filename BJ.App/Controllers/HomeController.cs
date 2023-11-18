@@ -2,6 +2,7 @@
 using BJ.ApiConnection.Services;
 using BJ.App.Models;
 using BJ.Contract.ViewModel;
+using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -17,9 +18,9 @@ namespace BJ.App.Controllers
         private readonly IEmailServiceConnection _emailServiceConnection;
         private readonly INotyfService _notyfService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private readonly IVisitorCounterServiceConnection _visitorCounterServiceConnection;
         public HomeController(ILogger<HomeController> logger, IStoreLocationServiceConnection storeLocationServiceConnection, INewsServiceConnection newsServiceConnection, IConfiguration configuration, IEmailServiceConnection emailServiceConnection, INotyfService notyfService,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor, IVisitorCounterServiceConnection visitorCounterServiceConnection)
         {
             _logger = logger;
             _storeLocationServiceConnection = storeLocationServiceConnection;
@@ -28,6 +29,7 @@ namespace BJ.App.Controllers
             _emailServiceConnection = emailServiceConnection;
             _notyfService = notyfService;
             _httpContextAccessor = httpContextAccessor;
+            _visitorCounterServiceConnection = visitorCounterServiceConnection;
 
         }
         public async Task<IActionResult> Index(string culture)
@@ -38,15 +40,40 @@ namespace BJ.App.Controllers
 
             string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
 
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
 
             return View(news);
         }
-        public IActionResult About()
+        public async Task<IActionResult> About()
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
             return View();
         }
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
             return View();
         }
 
@@ -55,24 +82,64 @@ namespace BJ.App.Controllers
         {
             if (culture == null) { culture = _configuration.GetValue<string>("DefaultLanguageId"); }
             var news = await _newsServiceConnection.GetNewsAtHome(culture);
+
             return PartialView("_NewsHomePage", news);
         }
-        public IActionResult Privacy(string culture)
+        public async Task<IActionResult> Privacy(string culture)
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
             if (culture == "vi") return View("Views/Home/Language/vi/CSBM.cshtml");
+
+
             return View();
         }
-        public IActionResult UsePolicy(string culture)
+        public async Task<IActionResult> UsePolicy(string culture)
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
+
             if (culture == "vi") return View("Views/Home/Language/vi/CSSD.cshtml");
             return View();
         }
-        public IActionResult Delivery()
+        public async Task<IActionResult> Delivery()
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
             return View();
         }
-        public IActionResult TermOfUse(string culture)
+        public async Task<IActionResult> TermOfUse(string culture)
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
             if (culture == "vi") return View("Views/Home/Language/vi/DKTT.cshtml");
             return View();
         }
@@ -84,8 +151,8 @@ namespace BJ.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Contact(string reason, string fullname, string email, string phone, string vibe_member, string store_name, string message)
         {
-           
-            
+
+
             FeedBack feedBack = new()
             {
                 Email = email,

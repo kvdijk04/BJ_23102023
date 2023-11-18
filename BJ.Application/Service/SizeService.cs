@@ -82,7 +82,7 @@ namespace BJ.Application.Service
                                         Id = x.Id,
                                         Name = x.Name,
                                         Active = x.Active,
-                                        Note= x.Note,
+                                        Note = x.Note,
                                         Price = x.Price,
                                     }).ToListAsync();
             var subCategoryResponse = new PagedViewModel<SizeDto>

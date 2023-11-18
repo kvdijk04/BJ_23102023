@@ -1,4 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
+using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.App.Controllers
@@ -8,18 +9,30 @@ namespace BJ.App.Controllers
         private readonly ILogger<StoreController> _logger;
         private readonly IStoreLocationServiceConnection _storeLocationServiceConnection;
         private readonly IConfiguration _configuration;
-
-        public StoreController(ILogger<StoreController> logger, IStoreLocationServiceConnection storeLocationServiceConnection, IConfiguration configuration)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IVisitorCounterServiceConnection _visitorCounterServiceConnection;
+        public StoreController(ILogger<StoreController> logger, IStoreLocationServiceConnection storeLocationServiceConnection, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IVisitorCounterServiceConnection visitorCounterServiceConnection)
         {
             _logger = logger;
             _storeLocationServiceConnection = storeLocationServiceConnection;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
+            _visitorCounterServiceConnection = visitorCounterServiceConnection;
 
         }
-        public Task<IActionResult> Index(string culture)
+        public async Task<IActionResult> Index(string culture)
         {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
 
-            return Task.FromResult<IActionResult>(View());
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Counter = a;
+
+            return View();
         }
 
         [Route("/store")]
