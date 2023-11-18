@@ -23,7 +23,7 @@ namespace BJ.ApiConnection.Services
                     Path = "/",
                     HttpOnly = false,
                     Secure = true,
-                    Expires = DateTime.Now.AddMinutes(2),
+                    Expires = DateTime.Now.AddMinutes(10),
                 });
 
             }

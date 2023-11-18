@@ -95,13 +95,28 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseMiddleware(typeof(VisitorCounterMiddleware));
-
 app.UseRouting();
+app.UseCors("AllowOrigin");
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
-app.UseCors("AllowOrigin");
+app.UseMiddleware(typeof(VisitorCounterMiddleware));
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/robots.txt"))
+    {
+        var robotsTxtPath = Path.Combine(app.Environment.ContentRootPath, "robots.txt");
+        string output = "User-agent: *  \nDisallow: /";
+        if (File.Exists(robotsTxtPath))
+        {
+            output = await File.ReadAllTextAsync(robotsTxtPath);
+        }
+        context.Response.ContentType = "text/plain";
+        await context.Response.WriteAsync(output);
+    }
+    else await next();
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
