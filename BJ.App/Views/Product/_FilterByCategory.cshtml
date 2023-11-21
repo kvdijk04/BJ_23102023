@@ -10,7 +10,7 @@
     @foreach (var product in Model.Where(x => x.Active == true))
     {
         <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
-            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-proName="@product.ProductName" data-catName="@product.CatName">
+            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image" />
                 <img src="~/images/cup_shadow.png" itemprop="image" />
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
@@ -41,7 +41,7 @@
                 </a>
             </a>
 
-            <div class="og-expander" id="@product.Id" style="transition: height 100ms ease 0s;display:none">
+            <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
             </div>
 
         </li>
@@ -118,9 +118,7 @@ else
     first = first.split("/")[1];
     $(".drink-block .grid_item").on("click", function (i) {
 
-        var nameCat = $(this).attr("data-catName");
         var idPro = $(this).attr("data-masp");
-        var namePro = $(this).attr("data-proName");
 
         var alias = $(this).attr("data-alias");
         var e = $(".drink-block .grid_item").index(this);
@@ -138,8 +136,7 @@ else
             $('.drink-block').not(':eq("' + e + '")').css("height", "380px");
             $('.drink-block').not(':eq("' + e + '")').removeClass(" og-expanded");
             $('.drink-block .grid_item').not(':eq("' + e + '")').attr("clicked", "false");
-
-            document.getElementById(idPro).style.display = "block";
+            document.getElementById(alias).style.display = "block";
             $("#li_" + idPro).css("height", "1430");
             $.ajax({
                 url: '@Url.Action("Detail")',
@@ -149,11 +146,11 @@ else
 
                 async: true,
                 success: function (results) {
-                    // jQuery("#" + idPro).fadeOut(100, function () {
+                    // jQuery("#" + alias).fadeOut(100, function () {
                        
                     // }).fadeIn(300);
-                    $("#" + idPro).html();
-                    $("#" + idPro).html(results);
+                    $("#" + alias).html();
+                    $("#" + alias).html(results);
 
                 },
                 error: function (xhr) {
@@ -166,7 +163,7 @@ else
         }
         else {
 
-            document.getElementById(idPro).style.display = "none";
+            document.getElementById(alias).style.display = "none";
             $('html, body').animate({
                 scrollTop: $("#li_" + idPro).offset().top - 100
             }, 1000);
@@ -174,7 +171,7 @@ else
             $("#li_" + idPro).css("height", "380px");
             $(this).attr("clicked", "false");
             $("#li_" + namePro).css("display", "none");
-            $("#" + idPro).css("height", "");
+            $("#" + alias).css("height", "");
         }
         i.preventDefault()
 

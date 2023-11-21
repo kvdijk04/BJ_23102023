@@ -25,55 +25,159 @@ namespace BJ.App.Controllers
             return $"{(Request.IsHttps ? "https" : "http")}://{Request.Host.ToString()}";
         }
         [Route("Sitemap.xml")]
-        public IActionResult Index()
+        public async Task<IActionResult >Index()
         {
             string baseUrl = GetHost();
             List<string> ls = new List<string>();
+            string pathname = null;
+
+
             //thêm các danh sách sitemap
-            ls.Add(baseUrl + "/Sitemap-product.xml");
-            ls.Add(baseUrl + "/Sitemap-posts.xml");
+            ls.Add(baseUrl + "/vi/ve-boost-juice");
+            //ls.Add(baseUrl + "/vi/thuc-uong.xml");
+            ls.Add(baseUrl + "/vi/cua-hang");
+            ls.Add(baseUrl + "/vi/thuc-uong");
+
+            ls.Add(baseUrl + "/promotion.xml");
+            ls.Add(baseUrl + "/vi/vibe.html");
+            ls.Add(baseUrl + "/blog.xml");
+            ls.Add(baseUrl + "/news.xml");
+            ls.Add(baseUrl + "/vi/lien-he");
+            ls.Add(baseUrl + "/en/drinks");
+
+            ls.Add(baseUrl + "/en/about");
+            ls.Add(baseUrl + "/en/stores");
+            ls.Add(baseUrl + "/en/vibe.html");
+            ls.Add(baseUrl + "/en/contact");
+
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("<?xml version=\'1.0\' encoding=\'UTF-8\'?>");
-            stringBuilder.AppendLine("<sitemapindex xmlns =\'http://www.sitemaps.org/schemas/sitemap/0.9'>");
-            foreach (var item in ls)
-            {
-                string link = "<loc>" + item + "</loc>";
-                stringBuilder.AppendLine("<sitemap>");
-                stringBuilder.AppendLine(link);
-                stringBuilder.AppendLine("<lastmod>" + DateTime.Now.ToString("MMMM-dd-yyyy HH:mm:ss tt") + "</lastmod>");
-                stringBuilder.AppendLine("</sitemap>");
-            }
-            stringBuilder.AppendLine("</sitemapindex>");
-            return Content(stringBuilder.ToString(), "text/xml", Encoding.UTF8);
-        }
-        [Route("/Sitemap-product.xml")]
-        public async Task<IActionResult> SiteMapProduct()
-        {
-            string baseUrl = _configuration.GetValue<string>("CurrentDomain");
+            stringBuilder.AppendLine("<urlset xmlns =\'http://www.sitemaps.org/schemas/sitemap/0.9' xmlns:content=\"http://www.google.com/schemas/sitemap-content/1.0\" xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\">");
             var allLanguage = await _languageServiceConnection.GetAllLanguages();
-            var sitemapBuilder = new SitemapBuilder();
-            sitemapBuilder.AddUrl(baseUrl, modified: DateTime.UtcNow, changeFrequency: ChangeFrequency.Weekly, priority: 1.0);
+
             foreach (var language in allLanguage.Select(x => x.Id))
             {
-                var listProduct = await _productServiceConnection.GetAllUserProduct(language);
-                foreach (var item in listProduct.UserProductDtos)
+ 
+
+                var listPromotion = await _newsServiceConnection.GetPromotions(language);
+                foreach (var item in listPromotion)
                 {
-                    sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + item.Alias, modified: DateTime.UtcNow, changeFrequency: null, priority: 0.9);
+                    if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
+                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+
+                }
+
+                var listBlog = await _blogServiceConnection.GetAllBlogs(language, false);
+                foreach (var item in listBlog)
+                {
+                    if (language == "vi") { pathname = "song-khoe"; } else { pathname = "wellbeing"; };
+                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+
+                }
+
+                var listNews = await _newsServiceConnection.GetAllNews(language, false);
+                foreach (var item in listNews)
+                {
+                    if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
+                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
                 }
             }
-            string xml = sitemapBuilder.ToString();
-            return Content(xml, "text/xml");
+
+           
+            foreach (var item in ls)
+            {
+                string link = "<loc>" + item + "</loc>";
+                stringBuilder.AppendLine("<url>");
+                stringBuilder.AppendLine(link);
+                stringBuilder.AppendLine("<lastmod>" + DateTime.Now + "</lastmod>");
+                stringBuilder.AppendLine("</url>");
+            }
+
+            stringBuilder.AppendLine("</urlset>");
+            return Content(stringBuilder.ToString(), "application/xml", Encoding.UTF8);
         }
-        //[Route("/Sitemap-posts.xml")]
-        //public IActionResult SiteMapPost()
+        //[Route("/product.xml")]
+        //public async Task<IActionResult> SiteMapProduct()
         //{
-        //    var lsproduct = _context.Posts.Where(x => x.Published == true).ToList();
+        //    string baseUrl = _configuration.GetValue<string>("CurrentDomain");
+        //    var allLanguage = await _languageServiceConnection.GetAllLanguages();
+        //    var sitemapBuilder = new SitemapBuilder();
+        //    foreach (var language in allLanguage.Select(x => x.Id))
+        //    {
+        //        string pathname = null;
+        //        if (language == "vi") { pathname = "thuc-uong"; } else { pathname = "drinks"; };
+        //        var listProduct = await _productServiceConnection.GetAllUserProduct(language);
+        //        foreach (var item in listProduct.UserProductDtos)
+        //        {
+        //            sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + pathname + "/" + item.Alias, modified: DateTime.UtcNow, changeFrequency: ChangeFrequency.Monthly, priority: 0.9);
+
+        //        }
+        //    }
+        //    string xml = sitemapBuilder.ToString();
+
+        //    return Content(xml, "text/xml");
+        //}
+        //[Route("/promotion.xml")]
+        //public async Task<IActionResult> SiteMapPromotion()
+        //{
+        //    string baseUrl = _configuration.GetValue<string>("CurrentDomain");
+        //    var allLanguage = await _languageServiceConnection.GetAllLanguages();
+        //    var sitemapBuilder = new SitemapBuilder();
+        //    foreach (var language in allLanguage.Select(x => x.Id))
+        //    {
+        //        string pathname = null;
+        //        if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
+
+        //        var listPromotion = await _newsServiceConnection.GetPromotions(language);
+        //        foreach (var item in listPromotion)
+        //        {
+        //            sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias + ".html", modified: DateTime.Now, changeFrequency: ChangeFrequency.Monthly, priority: 0.9);
+
+        //        }
+        //    }
+        //    string xml = sitemapBuilder.ToString();
+        //    return Content(xml, "text/xml");
+        //}
+        //[Route("/blog.xml")]
+        //public async Task<IActionResult> SiteMapBlog()
+        //{
+        //    string baseUrl = _configuration.GetValue<string>("CurrentDomain");
+        //    var allLanguage = await _languageServiceConnection.GetAllLanguages();
         //    var sitemapBuilder = new SitemapBuilder();
         //    sitemapBuilder.AddUrl(baseUrl, modified: DateTime.UtcNow, changeFrequency: ChangeFrequency.Weekly, priority: 1.0);
-        //    foreach (var p in lsproduct)
+        //    foreach (var language in allLanguage.Select(x => x.Id))
         //    {
-        //        sitemapBuilder.AddUrl(GetHost() + p.Alias, modified: DateTime.UtcNow, changeFrequency: null, priority: 0.8);
+        //        string pathname = null;
+        //        if (language == "vi") { pathname = "song-khoe"; } else { pathname = "wellbeing"; };
+        //        var listPromotion = await _blogServiceConnection.GetAllBlogs(language, false);
+        //        foreach (var item in listPromotion)
+        //        {
+        //            sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias + ".html", modified: DateTime.Now, changeFrequency: ChangeFrequency.Yearly, priority: 0.9);
+
+        //        }
+        //    }
+        //    string xml = sitemapBuilder.ToString();
+        //    return Content(xml, "text/xml");
+        //}
+        //[Route("/news.xml")]
+        //public async Task<IActionResult> SiteMapNews()
+        //{
+        //    string baseUrl = _configuration.GetValue<string>("CurrentDomain");
+        //    var allLanguage = await _languageServiceConnection.GetAllLanguages();
+        //    var sitemapBuilder = new SitemapBuilder();
+        //    sitemapBuilder.AddUrl(baseUrl, modified: DateTime.UtcNow, changeFrequency: ChangeFrequency.Weekly, priority: 1.0);
+        //    foreach (var language in allLanguage.Select(x => x.Id))
+        //    {
+        //        string pathname = null;
+        //        if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
+
+        //        var listPromotion = await _newsServiceConnection.GetAllNews(language, false);
+        //        foreach (var item in listPromotion)
+        //        {
+        //            sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias + ".html", modified: DateTime.Now, changeFrequency: ChangeFrequency.Weekly, priority: 0.9);
+
+        //        }
         //    }
         //    string xml = sitemapBuilder.ToString();
         //    return Content(xml, "text/xml");

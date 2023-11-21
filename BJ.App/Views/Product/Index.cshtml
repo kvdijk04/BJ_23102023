@@ -13,7 +13,6 @@
 @{
     ViewBag.Title = "Menu - Boost Juice";
     var culture = CultureInfo.CurrentCulture.Name;
-    var count = 0;
 }
 
 <style>
@@ -282,9 +281,8 @@
                
                     @foreach (var product in Model.UserProductDtos)
                     {
-                        count++;
                         <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
-                            <a class="grid_item show-ing" no="@count" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-proName="@product.ProductName" data-catName="@product.CatName" data-alias="@product.Alias" >
+                            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias" >
                                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image"/>
                                 <img src="~/images/cup_shadow.png" itemprop="image" />
                                 <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
@@ -411,9 +409,7 @@
 
     $(".drink-block .grid_item").on("click", function (i) {
 
-        var nameCat = $(this).attr("data-catName");
         var idPro = $(this).attr("data-masp");
-        var namePro = $(this).attr("data-proName");
 
         var alias = $(this).attr("data-alias");
         var e = $(".drink-block .grid_item").index(this);
