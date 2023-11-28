@@ -51,7 +51,14 @@ namespace BJ.Application.Service
             createAccountDto.ModifiedDate = DateTime.Now;
 
             createAccountDto.HasedPassword = Password.HashedPassword(createAccountDto.Password);
-
+            if (createAccountDto.Role == 1)
+            {
+                createAccountDto.AuthorizeRole = Contract.AuthorizeRole.AdminRole;
+            }
+            if (createAccountDto.Role == 2)
+            {
+                createAccountDto.AuthorizeRole = Contract.AuthorizeRole.MarketingRole;
+            }
             Account account = _mapper.Map<Account>(createAccountDto);
 
             _context.Add(account);
@@ -120,6 +127,16 @@ namespace BJ.Application.Service
                 updateAccountDto.HasedPassword = Password.HashedPassword(updateAccountDto.Password);
 
                 updateAccountDto.ModifiedDate = DateTime.Now;
+
+                if (updateAccountDto.Role == 1)
+                {
+                    updateAccountDto.AuthorizeRole = Contract.AuthorizeRole.AdminRole;
+                }
+                if (updateAccountDto.Role == 2)
+                {
+                    updateAccountDto.AuthorizeRole = Contract.AuthorizeRole.MarketingRole;
+                }
+
                 _context.Update(_mapper.Map(updateAccountDto, item));
 
                 await _context.SaveChangesAsync();
@@ -144,6 +161,7 @@ namespace BJ.Application.Service
                 {
                     Subject = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Email, account.UserName),
+                        new Claim(ClaimTypes.Role, account.AuthorizeRole.ToString()),
                         new Claim(ClaimTypes.Name, account.UserName),
                     }),
 

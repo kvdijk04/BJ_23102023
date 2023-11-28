@@ -1,4 +1,5 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
 using BJ.Contract;
 using BJ.Contract.Category;
 using BJ.Contract.Product;
@@ -27,7 +28,7 @@ namespace BJ.Api.Controllers
             _blogService = blogService;
             _newsService = newsService;
         }
-
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost("import")]
         [Consumes("multipart/form-data")]
         public async Task<string> Import([FromForm] ImportResponse importResponse, bool category, bool subCategory, bool size, bool product,

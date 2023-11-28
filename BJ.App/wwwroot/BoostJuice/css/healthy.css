@@ -15,7 +15,7 @@
 }
 
 .bg-image {
-    background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-desktop.jpg');
+    background-image: url('../../images/surfers-beach-desktop.jpg');
 }
 
 .main-fold-angle {
@@ -100,7 +100,7 @@
 }
 @media (max-width: 1440px) {
     .bg-image {
-        background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-desktop-small-1.jpg');
+        background-image: url('../../images/surfers-beach-desktop-small-1.jpg');
     }
 
     .main-fold-angle {
@@ -110,7 +110,7 @@
 
 @media (max-width: 1024px) {
     .bg-image {
-        background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-tablet.jpg');
+        background-image: url('../../images/surfers-beach-tablet.jpg');
     }
     .main-fold-angle {
         min-height: 40vw;
@@ -147,7 +147,7 @@
 
 @media (max-width: 660px) {
     .bg-image {
-        background-image: url('https://boostjuice.com.vn/app/uploads/2019/02/surfers-beach-mobile.jpg');
+        background-image: url('../../images/surfers-beach-mobile.jpg');
     }
     .main-fold-angle {
         min-height: 56vw;

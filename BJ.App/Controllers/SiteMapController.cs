@@ -59,29 +59,29 @@ namespace BJ.App.Controllers
             {
  
 
-                var listPromotion = await _newsServiceConnection.GetPromotions(language);
-                foreach (var item in listPromotion)
-                {
-                    if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
-                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+                //var listPromotion = await _newsServiceConnection.GetPromotions(language);
+                //foreach (var item in listPromotion)
+                //{
+                //    if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
+                //    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
-                }
+                //}
 
-                var listBlog = await _blogServiceConnection.GetAllBlogs(language, false);
-                foreach (var item in listBlog)
-                {
-                    if (language == "vi") { pathname = "song-khoe"; } else { pathname = "wellbeing"; };
-                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+                //var listBlog = await _blogServiceConnection.GetAllBlogs(language, false);
+                //foreach (var item in listBlog)
+                //{
+                //    if (language == "vi") { pathname = "song-khoe"; } else { pathname = "wellbeing"; };
+                //    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
-                }
+                //}
 
-                var listNews = await _newsServiceConnection.GetAllNews(language, false);
-                foreach (var item in listNews)
-                {
-                    if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
-                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+                ////var listNews = await _newsServiceConnection.GetAllNews(language, false);
+                //foreach (var item in listNews)
+                //{
+                //    if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
+                //    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
-                }
+                //}
             }
 
            

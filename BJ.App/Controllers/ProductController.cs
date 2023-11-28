@@ -1,4 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
+using BJ.Application.Ultities;
 using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,8 @@ namespace BJ.App.Controllers
             _httpContextAccessor = httpContextAccessor;
             _visitorCounterServiceConnection = visitorCounterServiceConnection;
         }
-
-        public async Task<IActionResult> Index(string culture, string keyword, int pageIndex = 1)
-        {
+        public async Task<IActionResult> Index(string culture)
+        {   
 
             string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
 
@@ -29,13 +29,16 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
-
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
             TempData["Cul"] = culture;
+          
             var result = await _productService.GetAllUserProduct(culture);
 
             return View(result);
         }
+
         public async Task<IActionResult> Detail(Guid proId, string culture, string alias)
         {
             string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
@@ -46,8 +49,9 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
-
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
             var product = await _productService.GetUserProductById(proId, culture);
 
             if (product == null)
@@ -62,15 +66,17 @@ namespace BJ.App.Controllers
         public async Task<IActionResult> FilterByCategoryId(Guid catId, string culture)
         {
 
-            var Size = await _productService.GetAllProductByCatId(catId, culture);
+            var rs = await _productService.GetAllProductByCatId(culture,catId);
 
-            if (Size == null)
+            if (rs == null)
             {
                 return Redirect("/khong-tim-thay-trang.html");
             }
+            ViewBag.CatName = rs.Select(x => x.CatName).First();
 
-            return PartialView("_FilterByCategory", Size);
+            return PartialView("_FilterByCategory", rs);
         }
+       
         //public async Task<IActionResult> Buy(string culture)
         //{
         //    //< a href =/ " + a+" / xem - chi - tiet > Xem chi tiết</ a >

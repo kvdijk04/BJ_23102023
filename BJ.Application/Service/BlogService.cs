@@ -7,6 +7,7 @@ using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -15,13 +16,14 @@ namespace BJ.Application.Service
     public interface IBlogService
     {
 
-        Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture, bool popular);
+        Task<IEnumerable<BlogUserViewModel>> GetBlogsPopular(string culture, bool popular);
         Task CreateBlog(CreateBlogAdminView createBlogAdminView);
         Task CreateBlogTranslate(CreateBlogTranslationDto createBlogTranslationDto);
 
         Task UpdateBlog(Guid id, UpdateBlogAdminView updateBlogAdminView);
         Task<BlogUserViewModel> GetBlogById(Guid id, string culture);
         Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+        Task<PagedViewModel<BlogUserViewModel>> GetPagingUser([FromQuery] GetListPagingRequest getListPagingRequest);
 
         Task<BlogTranslationDto> GetBlogTransalationById(Guid id);
 
@@ -206,34 +208,6 @@ namespace BJ.Application.Service
             return blogViewModel;
 
         }
-
-        public async Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture, bool popular)
-        {
-            var query = from b in _context.Blogs
-                        join bt in _context.BlogTranslations on b.Id equals bt.BlogId into ppic
-                        from bt in ppic.DefaultIfEmpty()
-                        where bt.LanguageId == culture && b.Active == true
-                        select new { b, bt };
-            var data = await query.OrderByDescending(x => x.b.DateCreated)
-                .Select(x => new BlogUserViewModel()
-                {
-                    Id = x.b.Id,
-                    DateCreated = x.b.DateCreated,
-                    Description = x.bt.Description,
-                    ShortDesc = x.bt.ShortDesc,
-                    Title = x.bt.Title,
-                    Alias = x.bt.Alias,
-                    MetaDesc = x.bt.MetaDesc,
-                    MetaKey = x.bt.MetaKey,
-                    DateUpdated = x.b.DateUpdated,
-                    Active = x.b.Active,
-                    ImagePath = x.b.ImagePath,
-                    Popular = x.b.Popular,
-                }).ToListAsync();
-            if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
-            return data;
-        }
-
         public async Task UpdateBlog(Guid id, UpdateBlogAdminView updateBlogAdminView)
         {
             var item = await _context.Blogs.FirstOrDefaultAsync(x => x.Id.Equals(id));
@@ -343,6 +317,74 @@ namespace BJ.Application.Service
 
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<BlogUserViewModel>> GetBlogsPopular(string culture, bool popular)
+        {
+            var query = from b in _context.Blogs
+                        join bt in _context.BlogTranslations on b.Id equals bt.BlogId into ppic
+                        from bt in ppic.DefaultIfEmpty()
+                        where bt.LanguageId == culture && b.Active == true
+                        select new { b, bt };
+            var data = await query.OrderByDescending(x => x.b.DateCreated)
+                .Select(x => new BlogUserViewModel()
+                {
+                    Id = x.b.Id,
+                    DateCreated = x.b.DateCreated,
+                    Description = x.bt.Description,
+                    ShortDesc = x.bt.ShortDesc,
+                    Title = x.bt.Title,
+                    Alias = x.bt.Alias,
+                    MetaDesc = x.bt.MetaDesc,
+                    MetaKey = x.bt.MetaKey,
+                    DateUpdated = x.b.DateUpdated,
+                    Active = x.b.Active,
+                    ImagePath = x.b.ImagePath,
+                    Popular = x.b.Popular,
+                }).ToListAsync();
+            if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
+            return data;
+        }
+
+        public async Task<PagedViewModel<BlogUserViewModel>> GetPagingUser([FromQuery] GetListPagingRequest getListPagingRequest)
+        {
+            if (getListPagingRequest.PageSize == 0)
+            {
+                getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSizeUser:Blog"));
+            }
+
+            var query = from b in _context.Blogs
+                        join bt in _context.BlogTranslations on b.Id equals bt.BlogId into ppic
+                        from bt in ppic.DefaultIfEmpty()
+                        where bt.LanguageId == getListPagingRequest.LanguageId && b.Active == true
+                        select new { b, bt };
+            var pageCount = Math.Ceiling(await query.CountAsync() / (double)getListPagingRequest.PageSize);
+
+            var data = await query.Skip((getListPagingRequest.PageIndex - 1) * getListPagingRequest.PageSize)
+                                    .Take(getListPagingRequest.PageSize)
+                                    .Select(x => new BlogUserViewModel()
+                                    {
+                                        Id = x.b.Id,
+                                        DateCreated = x.b.DateCreated,
+                                        Description = x.bt.Description,
+                                        ShortDesc = x.bt.ShortDesc,
+                                        Title = x.bt.Title,
+                                        Alias = x.bt.Alias,
+                                        MetaDesc = x.bt.MetaDesc,
+                                        MetaKey = x.bt.MetaKey,
+                                        DateUpdated = x.b.DateUpdated,
+                                        Active = x.b.Active,
+                                        ImagePath = x.b.ImagePath,
+                                        Popular = x.b.Popular,
+                                    }).AsNoTracking().ToListAsync();
+            var blogResponse = new PagedViewModel<BlogUserViewModel>
+            {
+                Items = data,
+                PageIndex = getListPagingRequest.PageIndex,
+                PageSize = getListPagingRequest.PageSize,
+                TotalRecord = (int)pageCount,
+            };
+            return blogResponse;
         }
     }
 }

@@ -276,17 +276,6 @@
         ::-webkit-scrollbar {
             width: 5px;
         }
-/* 
-        ::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px #67b94c;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px #70b046;
-        } */
-
         ::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px ;
             border-radius: 5px;
@@ -302,6 +291,7 @@
             right: 20px !important;
         }
 
+
     </style>
     <link rel="stylesheet" href="~/BoostJuice/css/boostjuice.css">
     <link rel="stylesheet" href="~/BoostJuice/css/home.css">
@@ -313,24 +303,44 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+   
+    <!--Template with season-->
+    <script async defer src="~/BoostJuice/Template/winter.js"></script>
+    <style>
 
-    <!--Google tag-->
+    </style>
+    <!--end template-->
+
+
     <!-- Google tag (gtag.js) -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7CH690S69Y"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?@Configuration["GoogleAnalytics"]"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'G-7CH690S69Y');
+        gtag('config', '@Configuration["GoogleAnalytics"]');
     </script>
-    
-    <meta name="facebook-domain-verification" content="a476z6m9dvi0og7yb0xyxb60ymj50t" />
-    <meta property="fb:app_id" content="1465544450736878" />
-
+    <!-- Google Tag Manager -->
+    <script>        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '@Configuration["GoogleTagManager"]');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body class="boost-home">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=@Configuration["GoogleTagManager"]"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
 
@@ -340,7 +350,7 @@
 
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "235424973732353");
+        chatbox.setAttribute("page_id", "@Configuration["Facebook:PageId"]");
         chatbox.setAttribute("attribution", "biz_inbox");
     </script>
 
@@ -349,7 +359,7 @@
         window.fbAsyncInit = function () {
             FB.init({
                 xfbml: true,
-                version: 'v18.0'
+                version: '@Configuration["Facebook:Version"]'
             });
         };
 
@@ -361,26 +371,25 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-
-
+   
+   
 
 
     <header class="boost-main"> 
         <nav class="boost-main-nav-wrapper"> 
             <ul class="boost-main-nav">
-                <li class="first-item" style="margin-left:7%"><a class="boost-subnav-trigger-off" href="/@culture/@_loc["aboutUrl"]"><localize>About Boost Juice</localize></a></li>
-
-
-                 <li><a class="boost-subnav-trigger-off" href="#">Own a Boost</a></li>
-                <li><a class="boost-subnav-trigger-off" href="#">Work at Boost</a></li>
-
+                <li>
+                    <a class="boost-subnav-trigger-off" href="/@culture/@_loc["aboutUrl"]"><localize>About Boost Juice</localize></a>
+                </li>
+                <li><a class="boost-subnav-trigger-off" href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
+@*                 <li><a class="boost-subnav-trigger-off" href="/@culture/@_loc["promotionUrl"]"><localize>Promotion</localize></a></li>
+ *@
+                <li></li>
                 <li id="lgcontainer">
                     <a class="gift-card" href="/en/Home/SetCultureCookie?cltr=en&amp;returnUrl=/en"><img src="~/images/us.png" width="20"> en</a>
                     <a class="gift-card" href="/vi/Home/SetCultureCookie?cltr=vi&amp;returnUrl=/vi" id="vnlng"><img src="~/images/vn.png" width="20"> vi</a>
-
+                    <a href="/@culture/vibe.html" class="my-vibe" data-open="0"><span>VIBE</span></a>
                 </li>
-
-                <li><a href="/@culture/vibe.html" class="my-vibe" data-open="0"><span>VIBE</span></a></li>
 
             </ul> 
         </nav>
@@ -391,13 +400,15 @@
             <ul>
                 <li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]"><localize>Our Drinks</localize></a></li>
                 <li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]"><localize>Find Us</localize></a></li>
-                <li id="menu-item-502" class="remove-me"><a href="/@culture/@_loc["promotionUrl"]"><localize>Promotion</localize></a></li>
-
                 <li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>
+
+                
                 <li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]"><localize>Wellbeing</localize></a></li>
                 <li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]"><localize>News</localize></a></li>
-                <li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
+                <li id="menu-item-502" class="remove-me"><a href="/@culture/@_loc["promotionUrl"]"><localize>Promotion</localize></a></li>
 
+@*                 <li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
+ *@
             </ul>
         </nav>
         </header>
@@ -405,7 +416,6 @@
 
     <!-- END nav -->
         @RenderBody()
-
     
     <footer class="footer" role="contentinfo">
         <a href="https://www.facebook.com/BoostJuiceVietnam/" target="_blank"><img src="~/images/icon_facebook.png" alt="Boost Juice - Facebook"></a>
@@ -413,17 +423,23 @@
         <a href="https://www.instagram.com/boostjuicevietnam/" target="_blank"><img src="~/images/icon_instagram.png" alt="Boost Juice - Instagram"></a>
         <nav class="footer-nav">
             <ul>
-                <li><a href="#">Hướng dẫn Đặt hàng &amp; Thanh toán</a></li>
-                <li><a href="/@culture/@_loc["deliveryUrl"]"><localize>DELIVERY &amp; RETURN POLICY</localize></a></li>
+                <li>
+                    <a href="/@culture/@_loc["instructionUrl"]">
+                        <localize>
+                            Order & Payment Instruction
+                        </localize>
+                    </a>
+                </li>
+                <li><a href="/@culture/@_loc["deliveryUrl"]"><localize>Delivery & return policy</localize></a></li>
             </ul>
         </nav>
         <p class="copyright">
             © 2023 Copyright Boost Juice - VietNam                                    <span class="hide-mobile">|</span>
-            <a href="/@culture/@_loc["termOfUseUrl"]"><localize>TERMS OF USE</localize></a>
+            <a href="/@culture/@_loc["termOfUseUrl"]"><localize>Terms of use</localize></a>
             <span class="hide-mobile">|</span>
-            <a href="/@culture/@_loc["privacyPolicyUrl"]"><localize>PRIVACY POLICY</localize></a>
+            <a href="/@culture/@_loc["privacyPolicyUrl"]"><localize>Privacy policy</localize></a>
             <span class="hide-mobile">|</span>
-            <a href="/@culture/@_loc["acceptableUsePolicyUrl"]"><localize>ACCEPTABLE USE POLICY</localize></a>
+            <a href="/@culture/@_loc["acceptableUsePolicyUrl"]"><localize>Acceptable use policy</localize></a>
         </p>
         <div class="footer-extra">
             <div class="footer__app">
@@ -435,7 +451,7 @@
                 </a>
             </div>
             <div class="footer__content">
-                <p><localize>VAN XUAN FMCG INVESTMENT COMPANY LIMITED</localize></p>
+                <p><localize>BOOST JUICE VIETNAM COMPANY LIMITED</localize></p>
                 <p>
                     <localize>
                         Certificate of Business Registration No. 0317934150 issued by
@@ -445,38 +461,8 @@
                     <br /><localize>Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn</localize>
                 </p>
                 <p>&nbsp;</p>
-                <div align="Center">Our Visitor</div>
-                <div align="Center">
-                    <div>
-                        <table class="table-borderless table-primary" style="margin-bottom: 20px; ">
-                            <tbody>
-@*                                 <tr>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Today</td>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">12</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Yesterday</td>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">51</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Past 7 Days</td>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">342</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">Month of November</td>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">&nbsp;905</td>
-                                </tr> *@
-                                <tr>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;">
-                                        Year @DateTime.Now.Year
-                                    </td>
-                                    <td style="padding: 12px 15px;text-align: left;border-bottom: 1px solid #E1E1E1;" align="right">@ViewBag.Counter</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
+                <div align="Center"><localize>Access times</localize></div><br />
+                
             </div>
            
         </div>
@@ -491,15 +477,7 @@
                 </a>
             </div>
         </div>
-        @* <div class="hotline-bar">
-            <a href="tel:1800 282890">
-                <span class="text-hotline">1800282890</span>
-            </a>
-        </div> *@
     </div>
-
-
-
 
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/aos.js"></script>
@@ -516,22 +494,11 @@
     <script src="~/js/bootstrap-datepicker.js"></script>
     <script src="~/js/scrollax.min.js"></script>
     <script src="~/js/main.js"></script>
-    <!-- Google Analytics -->
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-126319440-2', 'auto');  // Replace with your property ID.
-        ga('send', 'pageview');
-    </script>
-    <!-- End Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11004042599"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'AW-11004042599');</script>
-    <div class="zalo-chat-widget" data-oaid="4575834268601353901" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/BoostJuice/js/UsersOnline.js"></script>
+    
+    <div class="zalo-chat-widget" data-oaid="@Configuration["Zalo"]" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
 
     <script async defer src="https://sp.zalo.me/plugins/sdk.js"></script>
 
@@ -539,96 +506,28 @@
     @RenderSection("Scripts", required: false)
 
     <script>
-        var type = window.location; // get information of all url
-        if ((type.pathname).includes("/vi") || (type.pathname) === ("/")) {
-            $(".boost-logo img").attr('style', 'margin-left: 10px');
-            function myFunction(x) {
+        function myFunction(x) {
+            x.classList.toggle("change");
+            if (($(".boost-nav-trigger").attr("clicked")) == "false") {
+                $('.boost-home').addClass('nav-active');
+                $('.boost-main').addClass('nav-is-visible');
+                $('.boost-main-nav').addClass('nav-is-visible');
 
+                $(".boost-nav-trigger").attr("clicked", "true");
+                $('.boost-logo').addClass('is-visible');
+                $('.sub-navi ul').children().insertBefore('#lgcontainer');
 
-                x.classList.toggle("change");
-                if (($(".boost-nav-trigger").attr("clicked")) == "false") {
-                    $('.boost-home').addClass('nav-active');
-                    $('.boost-main').addClass('nav-is-visible');
-                    $('.boost-main-nav').addClass('nav-is-visible');
+            } else {
+                $('.boost-home').removeClass('nav-active');
+                $('.boost-main').removeClass('nav-is-visible');
+                $('.boost-main-nav').removeClass('nav-is-visible');
 
-                    $(".boost-nav-trigger").attr("clicked", "true");
-                    $('.boost-logo').addClass('is-visible');
-
-                    $('<li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]">Thức uống</a></li>'+
-                        '<li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]">Cửa hàng</a></li>' +
-                        '<li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>' +
-                        '<li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]">Sống khỏe</a></li>' +
-                        '<li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]">Tin tức</a></li>' +
-                        '<li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]">Liên hệ</a></li>').insertBefore('#lgcontainer');
-
-                } else {
-                    $('.boost-home').removeClass('nav-active');
-                    $('.boost-main').removeClass('nav-is-visible');
-                    $('.boost-main-nav').removeClass('nav-is-visible');
-
-                    $(".boost-nav-trigger").attr("clicked", "false");
-                    $('.boost-logo').removeClass('is-visible');
-                    $(".boost-main-nav .remove-me").remove();
-
-
-                }
-
-
-            }
-
-        } else {
-            function myFunction(x) {
-
-
-                x.classList.toggle("change");
-                if (($(".boost-nav-trigger").attr("clicked")) == "false") {
-                    $('.boost-home').addClass('nav-active');
-                    $('.boost-main').addClass('nav-is-visible');
-                    $('.boost-main-nav').addClass('nav-is-visible');
-
-                    $(".boost-nav-trigger").attr("clicked", "true");
-                    $('.boost-logo').addClass('is-visible');
-
-                    $('<li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]">Our Drinks</a></li>' +
-                        '<li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]">Find Us</a></li>' +
-                        '<li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>' +
-                        '<li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]">Wellbeing</a></li>' +
-                        '<li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]">News</a></li>' +
-                        '<li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]">Contact</a></li>').insertBefore('#lgcontainer');
-
-                } else {
-                    $('.boost-home').removeClass('nav-active');
-                    $('.boost-main').removeClass('nav-is-visible');
-                    $('.boost-main-nav').removeClass('nav-is-visible');
-
-                    $(".boost-nav-trigger").attr("clicked", "false");
-                    $('.boost-logo').removeClass('is-visible');
-                    $(".boost-main-nav .remove-me").remove();
-
-
-                }
+                $(".boost-nav-trigger").attr("clicked", "false");
+                $('.boost-logo').removeClass('is-visible');
 
 
             }
         }
-        
-        
-
-        // var position = $(window).scrollTop();
-
-        // // should start at 0
-
-        // $(window).scroll(function () {
-        //     var scroll = $(window).scrollTop();
-        //     if (scroll > position) {
-        //         console.log('scrollDown');
-        //         $('.boost-main').addClass('is-fixed');
-        //     } else if(position = scroll){
-        //         console.log('scrollUp');
-        //         $('.boost-main').removeClass('is-fixed');
-        //     }
-        // });
-        
     </script>
 
 </body>

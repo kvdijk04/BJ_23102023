@@ -1,8 +1,10 @@
 ﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
-    ViewBag.Title = "PRIVACY POLICY";
+    ViewBag.Title = "Privacy policy";
 
 }
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
     <style>
@@ -54,7 +56,7 @@
                 <div class="column">
                     <h1 style="text-align: center;"><span style="color: #70b046;"><strong>PRIVACY POLICY</strong></span></h1>
                     <p><strong>GENERAL CONDITION</strong></p>
-                    <p>Van Xuan FMCG Investment Company Limited, (“We” or “Us” or “Our”) is the operator of&nbsp;<a href="https://boostjuice.com.vn/en/home/" target="_blank" rel="noopener">www.boostjuice.com.vn</a>&nbsp;(the “Site”) and we are committed to safeguarding the personal data of&nbsp; users of the Site (“You”) by implementing this Privacy Policy (“Policy”).</p>
+                    <p>Boost Juice VietNam Company Limited, (“We” or “Us” or “Our”) is the operator of&nbsp;<a href="@Configuration["CurrentDomain"]en" target="_blank" rel="noopener">www.boostjuice.com.vn</a>&nbsp;(the “Site”) and we are committed to safeguarding the personal data of&nbsp; users of the Site (“You”) by implementing this Privacy Policy (“Policy”).</p>
                     <p>This Privacy Policy (together with our Terms of Use and any other documents referred to in it) sets out how personal data that we collect from you, or that you provide to us, will be used, processed or disclosed by us, including how certain information would be used to personalise advertising directed at you. This Privacy Policy also sets out the types of personal data we collect, how we keep it secure, as well as how you can access or alter your personal data stored by us. This Privacy Policy covers use of the Site and any other way you may connect to or interact with us through the use of our Site and services.</p>
                     <p>Please read the following carefully to understand our policy and practices how we collect your personal data and how we will treat it.</p>
                     <p>Unless restricted by applicable law, you agree that any and all personal data relating to you collected by us or provided by you from time to time may be used, processed, and disclosed for such purposes and to such persons as set out in this Privacy Policy.</p>
@@ -135,7 +137,7 @@
                     <p>22. Access to certain personal information that is collected from our Site and that we maintained may be available to you. You can access and update your personal information by logging in to the account on The Site.</p>
                     <p>23. In addition, all requests for information or requests for the amendment of personal data held by us can be sent via e-mail or letter to the following e-mail or street address requesting access to or correction of your personal information. Please include your registration information for such service such as first name, last name and e-mail address in the request. We may ask you to provide additional information for identity verification purposes, or to verify that you are in possession of an applicable e-mail account.</p>
                     <p>
-                        <strong>Van Xuan FMCG Investment Company Limited</strong><br>
+                        <strong>Boost Juice VietNam Company Limited</strong><br>
                         Attention: Privacy Policy Coordinator<br>
                         110-112 Kinh Duong Vuong, Ward 13, District 6, Ho Chi Minh City<br>
                         E-mail: info@boostjuice.com.vn

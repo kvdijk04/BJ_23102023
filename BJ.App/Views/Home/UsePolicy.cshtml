@@ -1,8 +1,10 @@
 ﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
-    ViewBag.Title = "ACCEPTABLE USE POLICY";
+    ViewBag.Title = "Acceptable use policy";
 
 }
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
     <style>
@@ -53,7 +55,7 @@
             <div class="layoutArea">
                 <div class="column">
                     <h1 style="text-align: center;"><span style="color: #70b046;"><strong>ACCEPTABLE USE POLICY</strong></span></h1>
-                    <p>Your use of&nbsp;<a href="https://boostjuice.com.vn/en/home/" target="_blank" rel="noopener">www.boostjuice.com.vn</a>&nbsp;(the “Site”), is subject to this Acceptable Use Policy set out by Van Xuan FMCG Investment Company Limited (“We”, “Us” or “Our”). If you are found to be in violation of our policies at any time, as determined by us in our sole discretion, we may warn you or suspend or terminate your account. Please note that we may change our Acceptable Use Policy at any time, and pursuant to the Terms of Use, it is your responsibility to keep up-to-date with and adhere to the policies posted on the Site.</p>
+                    <p>Your use of&nbsp;<a href="@Configuration["CurrentDomain"]en" target="_blank" rel="noopener">www.boostjuice.com.vn</a>&nbsp;(the “Site”), is subject to this Acceptable Use Policy set out by Boost Juice VietNam Company Limited (“We”, “Us” or “Our”). If you are found to be in violation of our policies at any time, as determined by us in our sole discretion, we may warn you or suspend or terminate your account. Please note that we may change our Acceptable Use Policy at any time, and pursuant to the Terms of Use, it is your responsibility to keep up-to-date with and adhere to the policies posted on the Site.</p>
                     <p><strong>In using the services provided by us on the Site, you agree not to:</strong></p>
                     <p>1. Violate any law, statute or regulation;</p>
                     <p>2. Participate, engage in or encourage potentially fraudulent, suspicious or illegal activity and/or transactions (e.g. money laundering, gambling) or immoral activities, include but not limited to pornography, prostitution or exploitation of minors;</p>

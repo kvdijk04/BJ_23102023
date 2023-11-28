@@ -1,0 +1,145 @@
+﻿@using BJ.Contract.StoreLocation;
+@model StoreLocationDto
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h2 class="header-title">Chi tiết cửa hàng</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-cua-hang.html " class="breadcrumb-item">Tất cả cửa hàng</a>
+
+            <span class="breadcrumb-item active">Chi tiết cửa hàng</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="media align-items-center m-b-15">
+            <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
+                <img src="@Configuration["BaseAddress"]/ImageStore/@Model.ImagePath" alt="">
+            </div>
+            <div class="m-l-15">
+                <h4 class="m-b-0">@Model.Name</h4>
+                <p class="text-muted m-b-0">Code: @Model.Code</p>
+            </div>
+        </div>
+        <div class="m-b-15">
+            <button class="btn btn-warning" onclick="location.href='/cap-nhat-cua-hang/@Model.Id'" type="button">
+                <i class="anticon anticon-edit"></i>
+                <span>Cập nhật</span>
+            </button>
+           
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-overview">Tổng quan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-images">Ảnh</a>
+        </li>
+       
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-overview">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td>	@Model.Name</td>
+                                </tr>
+                                <tr>
+                                    <td>Đóng cửa:</td>
+                                    <td>
+                                        @if (Model.Closed == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sửa chữa:</td>
+                                    <td>
+                                        @if (Model.Repaired == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin thêm</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Code:</td>
+                                    <td>@Model.Code</td>
+                                </tr>
+                                <tr>
+                                    <td>Latitude</td>
+                                    <td>@Model.Latitude</td>
+                                </tr>
+                                <tr>
+                                    <td>Longitude</td>
+                                    <td>@Model.Longitude</td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <td>Địa chỉ</td>
+                                    <td>@Model.Address</td>
+                                </tr>
+                                <tr>
+                                    <td>Thành phố</td>
+                                    <td>@Model.City</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="tab-pane fade" id="product-images">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3" style="background-color:gray">
+                            <img class="img-fluid" src="@Configuration["BaseAddress"]/ImageStore/@Model.ImagePath" alt="">
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

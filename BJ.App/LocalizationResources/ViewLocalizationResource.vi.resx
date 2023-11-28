@@ -121,6 +121,14 @@
     <value>&amp;quot;Một ngày nọ, tôi cảm thấy không được khoẻ, vì vậy tôi đã đến khám tại văn phòng bác sĩ. Bác sĩ bảo tôi download ngay ứng dụng Boost Juice và bây giờ tôi cảm thấy thật tuyệt. Ứng dụng này đích thực là dược liệu!&amp;quot;</value>
     <comment>Home/Vibe</comment>
   </data>
+  <data name="- After logging in to the application fellowship, enter all information here on the delivery information screen." xml:space="preserve">
+    <value>- Sau khi đăng nhập thông công ứng dụng, tiến hàng nhập thông tin đây đủ ở màn hình thông tin giao hàng.</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="- After selecting the drinks, select the Payment Button and choose the Payment method" xml:space="preserve">
+    <value>- Sau khi chọn các sản phẩm, chọn Nút Thanh Toán và chọn hình thức Thanh Toán</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="58 Ngo Duc Ke Street" xml:space="preserve">
     <value>56 Ngô Đức Kế</value>
     <comment>Contact</comment>
@@ -154,12 +162,16 @@
     <value>ve-boost-juice</value>
     <comment>_Layout</comment>
   </data>
-  <data name="ACCEPTABLE USE POLICY" xml:space="preserve">
-    <value>Chính Sách Sử Dụng Được Chấp Nhận</value>
+  <data name="Acceptable use policy" xml:space="preserve">
+    <value>Chính sách sử dụng được chấp nhận</value>
     <comment>Home/UsePolicy</comment>
   </data>
   <data name="acceptableUsePolicyUrl" xml:space="preserve">
     <value>chinh-sach-su-dung-duoc-chap-nhan</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Access times" xml:space="preserve">
+    <value>Lượt truy cập</value>
     <comment>_Layout</comment>
   </data>
   <data name="Ah, ‘cos it’s awesome? Keep your alerts on and get the low down on random challenges, freebies and discounts (because we’re a generous bunch of coconuts) and the power to strut your stuff pass the queue and grab your pre-ordered Boost drink with our Order Now feature.&lt;br /&gt;&#xA;                                        Other deliciously entices things that may tickle your pickle:&lt;br /&gt;&#xA;                                        &amp;#8211; What’s Your Name Game – We call out your name, and you get a free Boost, simples! Thank your folks later.&lt;br /&gt;&#xA;                                        &amp;#8211; My Boost Points – Collect points every time you buy a Boost, 10 points and you get a Freebie Find Us&lt;br /&gt;&#xA;                                        &amp;#8211; Our Menu – What’s in our drinks? Nothing artificial that’s for sure but you can find out all about it FREE birthday drink just for being born! And again&lt;br /&gt;&#xA;                                        yay for parents! Still not sure what the fruit is going on? We’ve dumbed it all down in our FAQ’s." xml:space="preserve">
@@ -190,6 +202,10 @@
   <data name="Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life." xml:space="preserve">
     <value>Boost Juice đã đi một chặng đường dài từ những ngày khởi đầu khiêm tốn. Nhưng có một điều không bao giờ thay đổi đó chính là cam kết của chúng tôi cho một cuộc sống đầy sức khoẻ, niềm vui và yêu thương.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="BOOST JUICE VIETNAM COMPANY LIMITED" xml:space="preserve">
+    <value>CÔNG TY TNHH THỰC PHẨM VÀ NƯỚC GIẢI KHÁT BOOST JUICE VIỆT NAM</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website." xml:space="preserve">
     <value>Boost Juice Vietnam có quyền thay đổi các điều khoản và điều kiện của chương trình Thành viên VIBE bất cứ lúc nào bằng cách thông báo cho các thành viên qua email hoặc trang website.</value>
@@ -247,6 +263,22 @@
     <value>Chọn dòng sản phẩm</value>
     <comment>Product/Index</comment>
   </data>
+  <data name="CHOOSE DRINKS AND SIZE THEN GO TO CART" xml:space="preserve">
+    <value>CHỌN SẢN PHẨM VÀ SIZE SAU ĐÓ VÀO GIỎ HÀNG</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="CHOOSE EXTRA" xml:space="preserve">
+    <value>CHỌN THÊM EXTRA</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="CHOOSE PAYMENT METHOD" xml:space="preserve">
+    <value>CHỌN HÌNH THỨC THANH TOÁN</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="CHOOSE TYPE OF DRINKS" xml:space="preserve">
+    <value>CHỌN DÒNG SẢN PHẨM.</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="Contact Us" xml:space="preserve">
     <value>Liên hệ</value>
     <comment>Layout</comment>
@@ -255,16 +287,20 @@
     <value>lien-he</value>
     <comment>_Layout</comment>
   </data>
-  <data name="DELIVERY &amp;amp; RETURN POLICY" xml:space="preserve">
-    <value>Chính sách Giao hàng  &amp;amp; Đổi trả</value>
+  <data name="Delivery &amp; return policy" xml:space="preserve">
+    <value>Chính sách giao hàng &amp; đổi trả</value>
     <comment>_Layout/Footer</comment>
+  </data>
+  <data name="Delivery and return policy" xml:space="preserve">
+    <value>Chính sách giao hàng và hoàn trả</value>
+    <comment>Title of delivery and return policy page</comment>
   </data>
   <data name="DELIVERY FEE" xml:space="preserve">
     <value>MỨC PHÍ GIAO HÀNG</value>
     <comment>Home/Delivery</comment>
   </data>
-  <data name="DELIVERY POLICY" xml:space="preserve">
-    <value>CHÍNH SÁCH GIAO HÀNG</value>
+  <data name="Delivery policy" xml:space="preserve">
+    <value>Chính sách giao hàng</value>
     <comment>Home/Delivery</comment>
   </data>
   <data name="deliveryUrl" xml:space="preserve">
@@ -274,6 +310,14 @@
   <data name="Department of Planning and Investment of Ho Chi Minh City on 14/07/2023." xml:space="preserve">
     <value>Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 14/07/2023.</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="detailUrl" xml:space="preserve">
+    <value>Xem thêm</value>
+    <comment>Blog,News,Promotion,Wellbeing</comment>
+  </data>
+  <data name="direction" xml:space="preserve">
+    <value>Chỉ đường</value>
+    <comment>Home,Store</comment>
   </data>
   <data name="Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register." xml:space="preserve">
     <value>Bạn có ghét việc chờ đợi? Bạn có thích mọi thứ thực sự nhanh chóng? Bạn đang trở nên thiếu kiên nhẫn chờ đợi khi chúng tôi vẫn chưa đưa ra quan điểm của chúng tôi? Thôi không cần chờ nữa! Khi bạn trở thành thành viên của Vibe, bạn không cần phải chờ xếp hàng nữa khi bạn đặt hàng qua Ứng dụng của chúng tôi! Thành viên Vibe sẽ nhận được rất nhiều quà tặng miễn phí và tất cả những gì bạn phải làm là Đăng ký.</value>
@@ -295,12 +339,20 @@
     <value>Email</value>
     <comment>Contact</comment>
   </data>
+  <data name="EndOfPage" xml:space="preserve">
+    <value>Đây là trang cuối bài viết</value>
+    <comment>Blog,News,Promotion,Wellbeing</comment>
+  </data>
+  <data name="ENTER DELIVERY INFORMATION." xml:space="preserve">
+    <value>NHẬP THÔNG TIN GIAO HÀNG.</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
     <value>Đối mặt với việc cửa hàng nước trái cây mà không thể bán nước trái cây, đội ngũ nhân viên đã phải gấp rút đến cửa hàng bách hoá bán lẻ Myer của Úc để mua những máy ép nội địa. Tất cả đều hư hỏng chỉ sau một ngày sử dụng, nhưng trước khi những thiết bị mới được nhập về, công việc cuối cùng cũng được hoàn thành. Những rào cản là để chúng ta vượt qua.</value>
     <comment>Home/About</comment>
   </data>
-  <data name="Find a Boost Juice Store" xml:space="preserve">
-    <value>Tìm cửa hàng Boost Juice</value>
+  <data name="Find a Boost Juice Store near you" xml:space="preserve">
+    <value>Tìm cửa hàng Boost Juice gần bạn</value>
     <comment>Home/Index</comment>
   </data>
   <data name="Find Us" xml:space="preserve">
@@ -351,6 +403,10 @@
     <value>Trang chủ - Boost Juice</value>
     <comment>_Layout</comment>
   </data>
+  <data name="How close am I to putting a Boost in my belly?" xml:space="preserve">
+    <value>Tôi đang cách cửa hàng Boost Juice gần nhất bao xa?</value>
+    <comment>Store</comment>
+  </data>
   <data name="How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy." xml:space="preserve">
     <value>Tôi đang cách cửa hàng Boost Juice gần nhất bao xa?&lt;br/&gt;Hãy nhập vị trí của bạn bằng cách sử dụng thanh tìm kiếm nhỏ xinh phía dưới. Rất dễ dàng.</value>
     <comment>Home/Index</comment>
@@ -391,6 +447,10 @@
     <value>Thông tin được thu thập từ các thành viên tại thời điểm đăng ký chương trình Thành viên VIBE phải tuân theo Chính Sách Bảo Mật được liệt kê tại</value>
     <comment>Home/Vibe</comment>
   </data>
+  <data name="instructionUrl" xml:space="preserve">
+    <value>huong-dan-dat-hang-va-thanh-toan</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="Is there a limit on points and do they expire?" xml:space="preserve">
     <value>Điểm có mức giới hạn và chúng có hết hạn không?</value>
     <comment>Home/Vibe</comment>
@@ -422,6 +482,10 @@
   <data name="Just one problem: the banks wouldn’t touch a business that just sold liquid. But as they say, when life hands you lemons, make lemonade. Or juices and smoothies, as the case may be." xml:space="preserve">
     <value>Nhưng vấn đề duy nhất ở đây là: các ngân hàng sẽ không đầu tư vào một doanh nghiệp chỉ bán thức uống. Nhưng người ta thường có câu, khi cuộc đời ném cho bạn một quả chanh, hãy pha ngay một ly nước chanh. Hoặc trong trường hợp này, nước ép và smoothies.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Just search your address using the little search bar thingy below. Easy." xml:space="preserve">
+    <value>Hãy nhập vị trí của bạn bằng cách sử dụng thanh tìm kiếm nhỏ xinh phía dưới. Rất dễ dàng.</value>
+    <comment>Store</comment>
   </data>
   <data name="Just select which option below is most relevant to you and we’ll take it from there." xml:space="preserve">
     <value>Hãy chọn một lựa chọn dưới đây và chúng tôi sẽ xử lý.</value>
@@ -484,6 +548,14 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Trong chuyến đi đến Mỹ vào năm 1999, có một điều đã thu hút sự chú ý của Janine. Smoothies và nước ép trái cây tươi đang là xu hướng của tất cả mọi người – trong khi đó tại Úc, thị trường thức ăn nhanh cũng không lành mạnh và không thú vị. Janine vừa sinh con trai thứ ba và cũng như những bà mẹ trẻ khác, bận rộn và không có thời gian, cô muốn linh hoạt hơn để có thể hoàn thành cuộc đua của chính mình.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Online" xml:space="preserve">
+    <value>Hoạt động</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="openTime" xml:space="preserve">
+    <value>Giờ mở cửa</value>
+    <comment>Home,Store</comment>
+  </data>
   <data name="Operating from her kitchen table in Melbourne, Janine consulted nutritionists and naturopaths to create a menu free from preservatives and artificial colours and flavourings." xml:space="preserve">
     <value>Bắt nguồn từ chính căn bếp của gia đình mình tại Melbourne, Janine, với sự tư vấn và ý kiến của những chuyên gia dinh dưỡng, đã áp dụng những liệu pháp thiên nhiên để sáng tạo nên một thực đơn không chứa chất bảo quản, chất tạo màu và chất tạo vị nhân tạo.</value>
     <comment>Home/About</comment>
@@ -495,6 +567,18 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="OPTION 2" xml:space="preserve">
     <value>LỰA CHỌN 2</value>
     <comment>Vibe/Index</comment>
+  </data>
+  <data name="Order &amp; Payment Instruction" xml:space="preserve">
+    <value>Hướng dẫn Đặt hàng &amp; Thanh toán</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Order and payment instruction" xml:space="preserve">
+    <value>Hướng dẫn đặt hàng và thanh toán</value>
+    <comment>Title of instruction  page</comment>
+  </data>
+  <data name="Order instruction" xml:space="preserve">
+    <value>Hướng dẫn đặt hàng</value>
+    <comment>Instruction</comment>
   </data>
   <data name="Orders over 1.000.000 VND, free shipping" xml:space="preserve">
     <value>Đơn hàng từ 1.000.000 trở lên sẽ miễn phí vận chuyển</value>
@@ -516,6 +600,18 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Yêu cuộc sống chính là năng lượng của chúng tôi. Triết lý này truyền cảm hứng vào tất cả mọi việc chúng tôi làm. Và khi chúng tôi liên tục đổi mới và phát triển, không phải vì mục đích thay đổi thế giới, mà là chỉ để làm cho khách hàng của chúng tôi cảm thấy “tốt hơn một chút” mà thôi.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="page" xml:space="preserve">
+    <value>trang</value>
+    <comment>Pagination</comment>
+  </data>
+  <data name="Payment on delivery." xml:space="preserve">
+    <value>Thanh toán khi nhận hàng.</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="Payment wallets such as: Momo, Vnpay, ZaloPay" xml:space="preserve">
+    <value>Các ví thanh toán Momo, Vnpay, ZaloPay</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="phone" xml:space="preserve">
     <value>Số điện thoại</value>
     <comment>Contact</comment>
@@ -536,8 +632,8 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Trước</value>
     <comment>Contact</comment>
   </data>
-  <data name="PRIVACY POLICY" xml:space="preserve">
-    <value>Chính Sách Bảo Mật</value>
+  <data name="Privacy policy" xml:space="preserve">
+    <value>Chính sách bảo mật</value>
     <comment>Home/Privacy</comment>
   </data>
   <data name="privacyPolicyUrl" xml:space="preserve">
@@ -588,6 +684,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Đôi khi, cách tốt nhất để học là đẩy bản thân mình đến tận cùng khó khăn. Đó là những gì xảy ra tiếp theo. Janine và Jeff đã kí hợp đồng với chuỗi Trung tâm Mua sắm Westfield để mở thêm 28 cửa hàng tại đây. Điều này đồng nghĩa với một món nợ cá nhân hơn 5 triệu đô và thời hạn phải hoàn thành tất cả các cửa hàng này chỉ vỏn vẹn 18 tháng. Nhờ vào quyết tâm tuyệt đối cùng với những đối tác nhượng quyền tuyệt vời, các cửa hàng đã được hoàn thành đúng thời hạn và nằm trong ngân sách.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Step" xml:space="preserve">
+    <value>Bước</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="Stores" xml:space="preserve">
     <value>Cửa hàng</value>
     <comment>Home/Index</comment>
@@ -608,12 +708,16 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>GỬI</value>
     <comment>Contact</comment>
   </data>
+  <data name="TAKE A NOTE" xml:space="preserve">
+    <value>GHI CHÚ VÀO ĐƠN HÀNG</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="termOfUseUrl" xml:space="preserve">
     <value>dieu-khoan-thoa-thuan</value>
     <comment>_Layout</comment>
   </data>
-  <data name="TERMS OF USE" xml:space="preserve">
-    <value>Điều Khoản Thoả Thuận</value>
+  <data name="Terms of use" xml:space="preserve">
+    <value>Điều khoản thoả thuận</value>
     <comment>Home/TermOfUse</comment>
   </data>
   <data name="Testimonials" xml:space="preserve">
@@ -684,9 +788,21 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Đây chính là câu lạc bộ tuyệt vời nhất mà bạn đã từng tham gia. Nơi đây còn hào nhoáng hơn cuộc sống của Mariah Carey, với hàng trăm lợi ích tiềm ẩn hơn cả Illuminati và nếu bạn tải xuống ứng dụng BOOST của chúng tôi thì bạn sẽ “ngập” trong vô vàn quà tặng miễn phí và ưu đãi ngọt ngào cho quãng đời còn lại của bạn…. hoặc cho đến khi bạn làm mất thẻ hoặc xóa ứng dụng này.</value>
     <comment>Layout</comment>
   </data>
+  <data name="This month" xml:space="preserve">
+    <value>Tháng này</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="titleNearestBoost" xml:space="preserve">
+    <value>Boost gần nhất</value>
+    <comment>Home,Store</comment>
+  </data>
   <data name="to" xml:space="preserve">
     <value>đến</value>
     <comment>Home/Delivery</comment>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hôm nay</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story." xml:space="preserve">
     <value>Hiện nay, Boost Juice đang là xu hướng của thế giới nên đối với thế giới, Boost Juice không bao giờ là đủ. Sự kết hợp hương vị trái cây tươi, xay và ép thành những thức uống smoothies và nước ép ngon tuyệt là câu chuyện thành công mang dấu ấn rất đặc biệt.</value>
@@ -699,10 +815,6 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="User current location" xml:space="preserve">
     <value>Vị trí hiện tại của bạn</value>
     <comment>Home/Index</comment>
-  </data>
-  <data name="VAN XUAN FMCG INVESTMENT COMPANY LIMITED" xml:space="preserve">
-    <value>CÔNG TY TNHH THỰC PHẨM VÀ NƯỚC GIẢI KHÁT BOOST JUICE VIỆT NAM</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Vibe Card - Terms &amp; Conditions" xml:space="preserve">
     <value>Điều khoản sử dụng thẻ Vibe</value>
@@ -779,6 +891,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="Why register?" xml:space="preserve">
     <value>Tại sao phải đăng ký?</value>
     <comment>Home/Vibe</comment>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Năm</value>
+    <comment>_Layout</comment>
   </data>
   <data name="You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!" xml:space="preserve">
     <value>Bạn có thể thu thập bao nhiêu điểm tuỳ thích và điểm của bạn không có thời hạn hết hạn, vì vậy hãy thu thập và cuối cùng bạn có thể lấp đầy bồn tắm của bạn với Mango Magic!</value>

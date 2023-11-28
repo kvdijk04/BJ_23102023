@@ -10,7 +10,7 @@ namespace BJ.ApiConnection.Services
     public interface IVisitorCounterServiceConnection
     {
 
-        Task<long> GetVisitorCounter();
+        Task<VisitorCounterDto> GetVisitorCounter();
 
         Task<bool> UpdateVisitorCounter(UpdateVisitorCounterDto updateVisitorCounterDto);
 
@@ -30,9 +30,9 @@ namespace BJ.ApiConnection.Services
         }
 
 
-        public async Task<long> GetVisitorCounter()
+        public async Task<VisitorCounterDto> GetVisitorCounter()
         {
-            return await GetAsync<long>($"/api/VisitorCounters");
+            return await GetAsync<VisitorCounterDto>($"/api/VisitorCounters");
 
         }
 

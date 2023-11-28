@@ -14,8 +14,12 @@ namespace BJ.ApiConnection.Services
 {
     public interface IBlogServiceConnection
     {
-        public Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, bool popular);
+        public Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, int pageIndex);
         public Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+        public Task<PagedViewModel<BlogUserViewModel>> GetPagingUser([FromQuery] GetListPagingRequest getListPagingRequest);
+
+        public Task<IEnumerable<BlogUserViewModel>> GetBlogsPopular(string culture, bool popular);
+
         Task<BlogUserViewModel> GetBlogById(Guid id, string culture);
         Task<bool> CreateBlog(CreateBlogAdminView createBlogAdminView);
         Task<bool> UpdateBlog(Guid id, string culture, UpdateBlogAdminView updateBlogAdminView);
@@ -91,9 +95,9 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, bool popular)
+        public async Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, int pageIndex)
         {
-            return await GetListAsync<BlogUserViewModel>($"/api/Blogs?culture={culture}&popular={popular}");
+            return await GetListAsync<BlogUserViewModel>($"/api/Blogs?culture={culture}&pageIndex={pageIndex}");
 
         }
 
@@ -108,7 +112,7 @@ namespace BJ.ApiConnection.Services
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
             var response = await client.GetAsync($"/api/Blogs/paging?PageIndex=" +
-        $"{getListPagingRequest.PageIndex}&PageBlog={getListPagingRequest.PageSize}&Keyword={getListPagingRequest.Keyword}");
+        $"{getListPagingRequest.PageIndex}&PageSize={getListPagingRequest.PageSize}&Keyword={getListPagingRequest.Keyword}");
 
             var body = await response.Content.ReadAsStringAsync();
 
@@ -214,6 +218,29 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<IEnumerable<BlogUserViewModel>> GetBlogsPopular(string culture, bool popular)
+        {
+            return await GetListAsync<BlogUserViewModel>($"/api/Blogs/popular?culture={culture}&popular={popular}");
+        }
 
+        public async Task<PagedViewModel<BlogUserViewModel>> GetPagingUser([FromQuery] GetListPagingRequest getListPagingRequest)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var response = await client.GetAsync($"/api/Blogs/paginguser?LanguageId={getListPagingRequest.LanguageId}&PageIndex=" +
+        $"{getListPagingRequest.PageIndex}&PageSize={getListPagingRequest.PageSize}&Keyword={getListPagingRequest.Keyword}");
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var size = JsonConvert.DeserializeObject<PagedViewModel<BlogUserViewModel>>(body);
+
+            return size;
+        }
     }
 }

@@ -116,6 +116,13 @@ app.UseFileServer(new FileServerOptions
     RequestPath = "/ImageSubCategory",
     EnableDirectoryBrowsing = true
 });
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(Directory.GetCurrentDirectory(), "ImageStore")),
+    RequestPath = "/ImageStore",
+    EnableDirectoryBrowsing = true
+});
 app.UseHttpsRedirection();
 app.UseRouting();
 

@@ -1,6 +1,7 @@
 ﻿@using BJ.Contract.ViewModel;
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
+
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/new.css">
 
@@ -65,9 +66,8 @@
 
         async: true,
         success: function (results) {
-            jQuery("#popular-posts").fadeOut(100, function () {
-                $("#popular-posts").append(results);
-            }).fadeIn(300);
+            $("#popular-posts").append(results);
+
 
 
         },

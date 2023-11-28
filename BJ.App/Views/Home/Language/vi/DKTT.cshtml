@@ -1,8 +1,10 @@
 ﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
-    ViewBag.Title = "TERMS OF USE";
+    ViewBag.Title = "Điều khoản thỏa thuận";
 
 }
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
     <style>
@@ -53,19 +55,19 @@
         <p>
             <strong>
                 CHẤP NHẬN THỎA THUẬN<br>
-            </strong><a href="https://boostjuice.com.vn/">www.boostjuice.com.vn</a>&nbsp;(sau đây được gọi là “Trang Web”) được sở hữu và điều hành bởi Công ty TNHH Vạn Xuân FMCG Investment (sau đây được gọi là “Chúng tôi” hoặc “Của Chúng tôi”). Những điều kiện được quy định tại Điều Khoản Thỏa Thuận được áp dụng cho tất cả các dịch vụ, bao gồm thông tin, phương tiện kết nối, các đường dẫn, phần mềm, bản tin e-newsletter điện tử, sản phẩm bất động sản, dịch vụ và các công cụ khác và tất cả các dịch vụ có thể được bổ sung thêm, được tặng và cung cấp thêm (sau đây được gọi là “Dịch vụ”) cho người dùng (sau đây được gọi là “Bạn”) thông qua Trang Web tùy từng thời điểm.<strong>
+            </strong><a href="@Configuration["CurrentDomain"]vi">www.boostjuice.com.vn</a>&nbsp;(sau đây được gọi là “Trang Web”) được sở hữu và điều hành bởi Công ty TNHH thực phẩm và nước giải khát Boost Juice Việt Nam(sau đây được gọi là “Chúng tôi” hoặc “Của Chúng tôi”). Những điều kiện được quy định tại Điều Khoản Thỏa Thuận được áp dụng cho tất cả các dịch vụ, bao gồm thông tin, phương tiện kết nối, các đường dẫn, phần mềm, bản tin e-newsletter điện tử, sản phẩm bất động sản, dịch vụ và các công cụ khác và tất cả các dịch vụ có thể được bổ sung thêm, được tặng và cung cấp thêm (sau đây được gọi là “Dịch vụ”) cho người dùng (sau đây được gọi là “Bạn”) thông qua Trang Web tùy từng thời điểm.<strong>
                 <br>
             </strong>
         </p>
         <p>Bằng việc truy cập và sử dụng Trang Web, bạn đã chấp nhập tuân thủ và chịu sự ràng buộc pháp lý bởi các Điều Khoản Thỏa Thuận.</p>
         <p>Bạn chấp nhận không giới hạn các điều khoản của Điều Khoản Thỏa Thuận, bao gồm cả Chính Sách Bảo Mật.</p>
         <p>Bạn đồng ý chấp thuận, đồng thời không đề xuất bất kỳ hạn chế nào đối với Điều khoản sử dụng, bao gồm cả Chính Sách Bảo Mật.</p>
-        <p>Những điều khoản thỏa thuận này có thể được điều chỉnh và cập nhật vào bất kỳ thời điểm nào bằng việc cập nhật Điều Khoản Thỏa Thuận trên Trang Web và việc tiếp tục sử dụng Trang Web sẽ được xem là sự đồng ý của bạn và chấp nhận ràng buộc trách nhiệm của bản Điều Khoản Thỏa Thuận đã được cập nhật và điều chỉnh. Bạn có thể đọc bản Điều Khoản Thỏa Thuận mới nhất tại&nbsp;<a href="https://boostjuice.com.vn/dieu-khoan-thoa-thuan/">đây</a>. Trong trường hợp bạn không đồng ý với các điều khoản thỏa thuận mới được cập nhật, xin vui lòng ngưng sử dụng tất cả các Dịch vụ của Trang Web.</p>
+        <p>Những điều khoản thỏa thuận này có thể được điều chỉnh và cập nhật vào bất kỳ thời điểm nào bằng việc cập nhật Điều Khoản Thỏa Thuận trên Trang Web và việc tiếp tục sử dụng Trang Web sẽ được xem là sự đồng ý của bạn và chấp nhận ràng buộc trách nhiệm của bản Điều Khoản Thỏa Thuận đã được cập nhật và điều chỉnh. Bạn có thể đọc bản Điều Khoản Thỏa Thuận mới nhất tại&nbsp;<a href="@Configuration["CurrentDomain"]vi/dieu-khoan-thoa-thuan/">đây</a>. Trong trường hợp bạn không đồng ý với các điều khoản thỏa thuận mới được cập nhật, xin vui lòng ngưng sử dụng tất cả các Dịch vụ của Trang Web.</p>
         <p>Ngoài ra, một số dịch vụ riêng được thêm, tặng, hoặc cung cấp thông qua Trang Web, có thể sẽ phụ thuộc vào hướng dẫn hoặc/và quy tắc bổ sung thêm. Những hướng dẫn hoặc/và quy tắc bổ sung thêm sẽ được kết hợp vào Điều Khoản Thỏa Thuận này.</p>
         <p>
             <strong>
                 TRÁCH NHIỆM SỬ DỤNG TRANG WEB<br>
-            </strong>Bạn đồng ý sẽ tuân thủ theo <a href="https://boostjuice.com.vn/chinh-sach-su-dung-duoc-chap-nhan/" target="_blank" rel="noopener">Chính Sách Sử Dụng Được Chấp Nhận</a> trong quá trình sử dụng Trang Web. Chúng tôi có toàn quyền xóa bỏ những thông tin mà bạn cung cấp trong Trang Web nếu chúng tôi nghi ngờ rằng bạn đã vi phạm <a href="https://boostjuice.com.vn/chinh-sach-su-dung-duoc-chap-nhan/" target="_blank" rel="noopener">Chính Sách Sử Dụng Được Chấp Nhận</a>.<strong>
+            </strong>Bạn đồng ý sẽ tuân thủ theo <a href="@Configuration["CurrentDomain"]vi/chinh-sach-su-dung-duoc-chap-nhan/" target="_blank" rel="noopener">Chính Sách Sử Dụng Được Chấp Nhận</a> trong quá trình sử dụng Trang Web. Chúng tôi có toàn quyền xóa bỏ những thông tin mà bạn cung cấp trong Trang Web nếu chúng tôi nghi ngờ rằng bạn đã vi phạm <a href="@Configuration["CurrentDomain"]vi/chinh-sach-su-dung-duoc-chap-nhan/" target="_blank" rel="noopener">Chính Sách Sử Dụng Được Chấp Nhận</a>.<strong>
                 <br>
             </strong>
         </p>
@@ -164,8 +166,8 @@
         <p>
             <strong>
                 CHÍNH SÁCH BẢO MẬT<br>
-            </strong>Tất cả các dữ liệu thông tin cá nhân của bạn đều được tuân theo&nbsp;<a href="https://boostjuice.com.vn/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a>&nbsp;của chúng tôi.<br>
-            <a href="https://boostjuice.com.vn/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a>&nbsp;được kết hợp vào và là một phần không thể tách rời của Điều Khoản Thỏa Thuận dưới mục này.
+            </strong>Tất cả các dữ liệu thông tin cá nhân của bạn đều được tuân theo&nbsp;<a href="@Configuration["CurrentDomain"]vi/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a>&nbsp;của chúng tôi.<br>
+            <a href="@Configuration["CurrentDomain"]vi/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a>&nbsp;được kết hợp vào và là một phần không thể tách rời của Điều Khoản Thỏa Thuận dưới mục này.
         </p>
         <p>
             <strong>

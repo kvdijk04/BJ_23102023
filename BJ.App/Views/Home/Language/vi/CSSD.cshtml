@@ -3,6 +3,8 @@
     ViewBag.Title = "Chính sách sử dụng";
 
 }
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
     <style>
@@ -60,7 +62,7 @@
                             </strong>
                         </span>
                     </h1>
-                    <p>Việc bạn sử dụng&nbsp;<a href="https://boostjuice.com.vn/">www.boostjuice.com.vn</a>&nbsp;(sau đây được gọi là “Trang Web”) phải tuân theo Chính Sách Sử Dụng Được Chấp Nhận của Công ty TNHH Vạn Xuân FMCG Investment (sau đây được gọi là “Chúng tôi” hoặc “Của Chúng tôi”). Nếu như chúng tôi phát hiện bạn vi phạm Chính sách của chúng tôi vào bất kỳ lúc nào, chúng tôi có toàn quyền quyết định cảnh báo bạn hoặc tạm dừng hoặc chấm dứt tài khoản của bạn. Xin lưu ý chúng tôi sẽ thay đổi, điều chỉnh Chính Sách Sử Dụng Được Chấp Nhận vào bất kỳ thời điểm nào, và theo như Điều Khoản Thỏa Thuận, bạn có trách nhiệm cập nhập và tuân thủ theo các chính sách được đăng tại Trang Web.</p>
+                    <p>Việc bạn sử dụng&nbsp;<a href="@Configuration["CurrentDomain"]vi">www.boostjuice.com.vn</a>&nbsp;(sau đây được gọi là “Trang Web”) phải tuân theo Chính Sách Sử Dụng Được Chấp Nhận của Công ty TNHH thực phẩm và nước giải khát Boost Juice Việt Nam (sau đây được gọi là “Chúng tôi” hoặc “Của Chúng tôi”). Nếu như chúng tôi phát hiện bạn vi phạm Chính sách của chúng tôi vào bất kỳ lúc nào, chúng tôi có toàn quyền quyết định cảnh báo bạn hoặc tạm dừng hoặc chấm dứt tài khoản của bạn. Xin lưu ý chúng tôi sẽ thay đổi, điều chỉnh Chính Sách Sử Dụng Được Chấp Nhận vào bất kỳ thời điểm nào, và theo như Điều Khoản Thỏa Thuận, bạn có trách nhiệm cập nhập và tuân thủ theo các chính sách được đăng tại Trang Web.</p>
                     <p><strong>Trong quá trình sử dụng các dịch vụ được cung cấp bởi chúng tôi trên Trang Web, bạn đồng ý sẽ không:</strong></p>
                     <p>1. Vi phạm bất kỳ luật, quy chế hoặc quy định nào;</p>
                     <p>2. Tham gia, thúc đẩy hoặc khuyến khích các hoạt động và/hoặc giao dịch có nguy cơ gian lận, bất hợp pháp (ví dụ như rửa tiền, cờ bạc) hoặc trái đạo đức, bao gồm nhưng không giới hạn hoạt động khiêu dâm, mại dâm hay bóc lột trẻ vị thành niên;</p>

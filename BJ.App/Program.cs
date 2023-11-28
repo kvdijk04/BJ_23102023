@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification;
 using BJ.ApiConnection.Services;
+using BJ.App.Hubs;
 using BJ.App.LocalizationResources;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Localization;
@@ -17,7 +18,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowOrigin",
         builder =>
         {
-            builder.WithOrigins("*")
+            builder.WithOrigins("*", "https://localhost:7030")
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
@@ -78,6 +79,7 @@ builder.Services.AddScoped<IVisitorCounterServiceConnection, VisitorCounterServi
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+builder.Services.AddSignalR();
 
 
 
@@ -117,6 +119,9 @@ app.Use(async (context, next) =>
     }
     else await next();
 });
+app.MapHub<MsgHub>("/MsgHub");
+app.MapHub<UsersOnlineHub>("/UsersOnlineHub");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
@@ -134,20 +139,7 @@ app.MapControllerRoute(
         controller = "Product",
         action = "Index"
     });
-//app.MapControllerRoute(
-//    name: "Product Detail En",
-//    pattern: "{culture}/drinks/{Alias}", new
-//    {
-//        controller = "Product",
-//        action = "Detail"
-//    });
-//app.MapControllerRoute(
-//    name: "Product List Vi",
-//    pattern: "{culture}/thuc-uong/{Alias}", new
-//    {
-//        controller = "Product",
-//        action = "Detail"
-//    });
+
 app.MapControllerRoute(
     name: "Store List En",
     pattern: "{culture}/stores", new
@@ -164,14 +156,16 @@ app.MapControllerRoute(
     });
 app.MapControllerRoute(
     name: "Wellbeing List En",
-    pattern: "{culture}/wellbeing", new
+    pattern: "{culture}/wellbeing/", new
     {
         controller = "Blog",
         action = "Index"
+        
     });
+
 app.MapControllerRoute(
     name: "Wellbeing List Vi",
-    pattern: "{culture}/song-khoe", new
+    pattern: "{culture}/song-khoe/", new
     {
         controller = "Blog",
         action = "Index"
@@ -259,6 +253,20 @@ app.MapControllerRoute(
     {
         controller = "Home",
         action = "Privacy"
+    });
+app.MapControllerRoute(
+    name: "Instruction Vi",
+    pattern: "{culture}/huong-dan-dat-hang-va-thanh-toan", new
+    {
+        controller = "Home",
+        action = "Instruction"
+    });
+app.MapControllerRoute(
+    name: "Instruction En",
+    pattern: "{culture}/order-payment-instruction", new
+    {
+        controller = "Home",
+        action = "Instruction"
     });
 app.MapControllerRoute(
     name: "UsePolicy En",

@@ -1,5 +1,7 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
 using BJ.Application.Ultities;
+using BJ.Contract;
 using BJ.Contract.Blog;
 using BJ.Contract.Translation.Blog;
 using BJ.Contract.ViewModel;
@@ -30,20 +32,33 @@ namespace BJ.Api.Controllers
 
         }
         /// <summary>
-        /// Danh sách blog
+        /// Phân trang blog sản phẩm
         /// </summary>
-        [HttpGet]
+        [HttpGet("paginguser")]
 
-        public async Task<IEnumerable<BlogUserViewModel>> GetBlogs(string culture, bool popular)
+        public async Task<PagedViewModel<BlogUserViewModel>> GetPagingUser([FromQuery] GetListPagingRequest getListPagingRequest)
         {
 
-            return await _blogService.GetBlogs(culture, popular);
+            return await _blogService.GetPagingUser(getListPagingRequest);
+
+        }
+       
+        /// <summary>
+        /// Danh sách blog phổ biến
+        /// </summary>
+        [HttpGet("popular")]
+
+        public async Task<IEnumerable<BlogUserViewModel>> GetBlogsPopular(string culture, bool popular)
+        {
+
+            return await _blogService.GetBlogsPopular(culture, popular);
 
         }
         /// <summary>
         /// Thêm mới blog
         /// </summary>
         /// 
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
 
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] CreateBlogAdminView createBlogAdminView)
@@ -69,6 +84,8 @@ namespace BJ.Api.Controllers
         /// Thêm mới ngôn ngữ blog
         /// </summary>
         /// 
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
+
         [HttpPost("language")]
         public async Task<IActionResult> CreateLanguage([FromBody] CreateBlogTranslationDto createBlogTranslationDto)
         {
@@ -109,7 +126,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Cập nhật blog bằng id
         /// </summary>
-
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
         [HttpPut("{id}")]
 
         public async Task<IActionResult> UpdateBlog(Guid id, string culture, [FromForm] UpdateBlogAdminView updateBlogAdminView)
@@ -158,7 +175,7 @@ namespace BJ.Api.Controllers
         /// Tạo mới blog theo từng ngôn ngữ
         /// </summary>
         /// 
-
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
         [HttpPost("language/create")]
         public async Task<IActionResult> CreateTranslate([FromBody] CreateBlogTranslationDto createBlogTranslationDto)
         {
@@ -183,6 +200,7 @@ namespace BJ.Api.Controllers
         /// Cập nhật blog theo từng ngôn ngữ
         /// </summary>
         /// 
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
 
         [HttpPut("language/{id}/update")]
         public async Task<IActionResult> UpdateTranslate(Guid id, [FromBody] UpdateBlogTranslationDto updateBlogTranslationDto)

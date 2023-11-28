@@ -1,4 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
+using BJ.Application.Ultities;
 using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,34 +18,25 @@ namespace BJ.App.Controllers
             _httpContextAccessor = httpContextAccessor;
             _visitorCounterServiceConnection = visitorCounterServiceConnection;
         }
-        public async Task<IActionResult> Index(string culture)
+        public async Task<IActionResult> Index(string culture, string keyword, int pageIndex = 1)
         {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+            if (keyword != null) ViewBag.Keyword = keyword;
 
-            if (visitorId == null)
+            var request = new GetListPagingRequest()
             {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                LanguageId = culture
 
-            var promotion = await _promotionService.GetPromotions(culture);
+            };
+            var r = await _promotionService.GetPagingPromotion(request);
 
-            return View(promotion);
+            //ViewBag.Keyword = keyword;
+            return View(r);
         }
+
         public async Task<IActionResult> Detail(Guid id, string culture)
         {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
-
             ViewBag.Culture = culture;
             var item = await _promotionService.GetNewsById(id, culture);
             return View(item);

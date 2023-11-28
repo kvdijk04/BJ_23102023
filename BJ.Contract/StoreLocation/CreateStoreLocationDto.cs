@@ -1,4 +1,6 @@
-﻿namespace BJ.Contract.StoreLocation
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BJ.Contract.StoreLocation
 {
     public class CreateStoreLocationDto
     {
@@ -8,6 +10,8 @@
         public string City { get; set; }
 
         public string IconPath { get; set; }
+        public string ImagePath { get; set; }
+
         public float Latitude { get; set; }
 
         public float Longitude { get; set; }
@@ -16,6 +20,8 @@
 
         public bool Repaired { get; set; }
         public string Code { get; set; }
+        public IFormFile ImageStore { get; set; }
+
 
     }
 }

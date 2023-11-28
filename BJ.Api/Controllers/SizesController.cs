@@ -1,5 +1,7 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
 using BJ.Application.Ultities;
+using BJ.Contract;
 using BJ.Contract.Size;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +22,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Phân trang size sản phẩm
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpGet("paging")]
 
         public async Task<PagedViewModel<SizeDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -54,7 +57,7 @@ namespace BJ.Api.Controllers
         /// Thêm mới size
         /// </summary>
         /// 
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpPost]
         public async Task<IActionResult> Post(CreateSizeDto createSizeDto)
@@ -111,7 +114,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Cập nhật size bằng id
         /// </summary>
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpPut("{id}")]
 

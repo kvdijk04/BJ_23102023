@@ -14,7 +14,7 @@ namespace BJ.ApiConnection.Services
 {
     public interface IProductServiceConnection
     {
-        public Task<PagedViewModel<ViewAllProduct>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+        public Task<PagedViewModel<ViewAllProduct>> GetPaging(GetListPagingRequest getListPagingRequest);
 
         Task<bool> CreateProduct(CreateProductAdminView createProductAdminView);
 
@@ -23,8 +23,8 @@ namespace BJ.ApiConnection.Services
 
         public Task<ProductDto> GetProductById(Guid id);
 
-        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, string culture);
-        public Task<ProductUserViewModel> GetAllUserProduct(string cultrue);
+        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(string culture,Guid catId);
+        public Task<ProductUserViewModel> GetAllUserProduct(string culture);
         public Task<UserProductDto> GetUserProductById(Guid id, string culture);
         public Task<ProductTranslationDto> GetProductTranslationnById(Guid id);
 
@@ -159,14 +159,14 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(Guid catId, string culture)
+        public async Task<IEnumerable<UserProductDto>> GetAllProductByCatId(string culture, Guid catId)
         {
-            return await GetListAsync<UserProductDto>($"/api/Products/category/filter?catId={catId}&languageId={culture}");
+            return await GetListAsync<UserProductDto>($"/api/Products/category/filter?culture={culture}&catId={catId}");
         }
 
-        public async Task<ProductUserViewModel> GetAllUserProduct(string cultrue)
+        public async Task<ProductUserViewModel> GetAllUserProduct(string culture)
         {
-            return await GetAsync<ProductUserViewModel>($"/api/Products/userpage?languageId={cultrue}");
+            return await GetAsync<ProductUserViewModel>($"/api/Products/userpage?culture={culture}");
         }
 
         public async Task<PagedViewModel<ViewAllProduct>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)

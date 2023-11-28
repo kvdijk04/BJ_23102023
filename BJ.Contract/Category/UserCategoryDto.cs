@@ -9,6 +9,7 @@ namespace BJ.Contract.Category
         public string CatName { get; set; }
         public bool Active { get; set; }
         public string ImagePath { get; set; }
+        public string Alias { get;set; }
         public virtual List<UserProductDto> UserProductDtos { get; set; }
         public virtual List<CategoryTranslationDto> CategoryTranslationDtos { get; set; }
 

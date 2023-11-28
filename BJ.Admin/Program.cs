@@ -39,6 +39,7 @@ builder.Services.AddScoped<ILanguageServiceConnection, LanguageServiceConnection
 builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
 builder.Services.AddScoped<IImportExcelServiceConnection, ImportExcelServiceConnection>();
+builder.Services.AddScoped<IStoreLocationServiceConnection, StoreLocationServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });

@@ -1,4 +1,6 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
+using BJ.Contract;
 using BJ.Contract.Size;
 using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +23,7 @@ namespace BJ.Api.Controllers
         /// Thêm mới dinh dưỡng của từng size cho từng sản phẩm
         /// </summary>
         /// 
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost("sizespecific/nutrition")]
         public async Task<IActionResult> SizeSpecificProduct([FromBody] CreateSizeSpecificProductDto createSizeSpecificProduct)
         {
@@ -45,6 +47,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Lấy thông tin size có sẵn cho từng sản phẩm
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpGet("sizespecific/{id}/nutrition")]
 
@@ -61,7 +64,7 @@ namespace BJ.Api.Controllers
         /// Cập nhật dinh dưỡng của từng size cho từng sản phẩm
         /// </summary>
         /// 
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPut("sizespecific/{id}/nutrition")]
         public async Task<IActionResult> SizeSpecificProduct(Guid id, [FromBody] UpdateSizeSpecificProductDto updateSizeSpecificProductDto)
         {
@@ -91,7 +94,7 @@ namespace BJ.Api.Controllers
         /// Điều chỉnh dinh dưỡng từng size và danh mục con cho từng sản phẩm
         /// </summary>
         /// 
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpPost("product/subcategory/sizespecific/nutrition")]
         public async Task<IActionResult> EditSizeAndSubCat(ConfigProduct configProduct)

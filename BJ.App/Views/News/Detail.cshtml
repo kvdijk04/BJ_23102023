@@ -62,9 +62,10 @@
 
         async: true,
         success: function (results) {
-            jQuery("#popular-posts").fadeOut(100, function () {
-                $("#popular-posts").append(results);
-            }).fadeIn(300);
+            // jQuery("#popular-posts").fadeOut(100, function () {
+            //     $("#popular-posts").append(results);
+            // }).fadeIn(300);
+            $("#popular-posts").append(results);
 
 
         },

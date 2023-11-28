@@ -121,6 +121,14 @@
     <value>&amp;quot;I wasn’t feeling well the other day, so I went and visited the Doctor. He told me to download the Boost app and now I feel great. This app is medicinal magic!&amp;quot;</value>
     <comment>Home/Vibe</comment>
   </data>
+  <data name="- After logging in to the application fellowship, enter all information here on the delivery information screen." xml:space="preserve">
+    <value>- After logging in to the application fellowship, enter all information here on the delivery information screen.</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="- After selecting the drinks, select the Payment Button and choose the Payment method" xml:space="preserve">
+    <value>- After selecting the drinks, select the Payment Button and choose the Payment method</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="58 Ngo Duc Ke Street" xml:space="preserve">
     <value>58 Ngo Duc Ke Street</value>
     <comment>Contact</comment>
@@ -153,12 +161,16 @@
     <value>about</value>
     <comment>_Layout</comment>
   </data>
-  <data name="ACCEPTABLE USE POLICY" xml:space="preserve">
-    <value>ACCEPTABLE USE POLICY</value>
+  <data name="Acceptable use policy" xml:space="preserve">
+    <value>Acceptable use policy</value>
     <comment>Home/UsePolicy</comment>
   </data>
   <data name="acceptableUsePolicyUrl" xml:space="preserve">
     <value>acceptable-use-policy</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Access times" xml:space="preserve">
+    <value>Access times</value>
     <comment>_Layout</comment>
   </data>
   <data name="Ah, ‘cos it’s awesome? Keep your alerts on and get the low down on random challenges, freebies and discounts (because we’re a generous bunch of coconuts) and the power to strut your stuff pass the queue and grab your pre-ordered Boost drink with our Order Now feature.&lt;br /&gt;&#xA;                                        Other deliciously entices things that may tickle your pickle:&lt;br /&gt;&#xA;                                        &amp;#8211; What’s Your Name Game – We call out your name, and you get a free Boost, simples! Thank your folks later.&lt;br /&gt;&#xA;                                        &amp;#8211; My Boost Points – Collect points every time you buy a Boost, 10 points and you get a Freebie Find Us&lt;br /&gt;&#xA;                                        &amp;#8211; Our Menu – What’s in our drinks? Nothing artificial that’s for sure but you can find out all about it FREE birthday drink just for being born! And again&lt;br /&gt;&#xA;                                        yay for parents! Still not sure what the fruit is going on? We’ve dumbed it all down in our FAQ’s." xml:space="preserve">
@@ -189,6 +201,10 @@
   <data name="Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life." xml:space="preserve">
     <value>Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="BOOST JUICE VIETNAM COMPANY LIMITED" xml:space="preserve">
+    <value>BOOST JUICE VIETNAM COMPANY LIMITED</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website." xml:space="preserve">
     <value>Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website.</value>
@@ -242,6 +258,22 @@
     <value>Choose drink type</value>
     <comment>Product/Index</comment>
   </data>
+  <data name="CHOOSE DRINKS AND SIZE THEN GO TO CART" xml:space="preserve">
+    <value>CHOOSE DRINKS AND SIZE THEN GO TO CART</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="CHOOSE EXTRA" xml:space="preserve">
+    <value>CHOOSE EXTRA</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="CHOOSE PAYMENT METHOD" xml:space="preserve">
+    <value>CHOOSE PAYMENT METHOD</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="CHOOSE TYPE OF DRINKS" xml:space="preserve">
+    <value>CHOOSE TYPE OF DRINKS</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="Contact Us" xml:space="preserve">
     <value>Contact us</value>
     <comment>Layout</comment>
@@ -250,16 +282,20 @@
     <value>contact</value>
     <comment>_Layout</comment>
   </data>
-  <data name="DELIVERY &amp;amp; RETURN POLICY" xml:space="preserve">
-    <value>DELIVERY &amp;amp; RETURN POLICY</value>
+  <data name="Delivery &amp; return policy" xml:space="preserve">
+    <value>Delivery &amp; return policy</value>
     <comment>_Layout/Footer</comment>
+  </data>
+  <data name="Delivery and return policy" xml:space="preserve">
+    <value>Delivery and return policy</value>
+    <comment>_Layout</comment>
   </data>
   <data name="DELIVERY FEE" xml:space="preserve">
     <value>DELIVERY FEE</value>
     <comment>Home/Delivery</comment>
   </data>
-  <data name="DELIVERY POLICY" xml:space="preserve">
-    <value>DELIVERY POLICY</value>
+  <data name="Delivery policy" xml:space="preserve">
+    <value>Delivery policy</value>
     <comment>Home/Delivery</comment>
   </data>
   <data name="deliveryUrl" xml:space="preserve">
@@ -269,6 +305,14 @@
   <data name="Department of Planning and Investment of Ho Chi Minh City on 14/07/2023." xml:space="preserve">
     <value>Department of Planning and Investment of Ho Chi Minh City on 14/07/2023.</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="detailUrl" xml:space="preserve">
+    <value>Read more</value>
+    <comment>Blog,News,Promotion,Wellbeing</comment>
+  </data>
+  <data name="direction" xml:space="preserve">
+    <value>Get directions</value>
+    <comment>Home,Store</comment>
   </data>
   <data name="Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register." xml:space="preserve">
     <value>Do you hate waiting? Do you like things really fast? Are you becoming impatient waiting for us to make our point? Well wait no more! When you become a Vibe member, you get to cut the queue forever when you order through the App! Vibe members get a ton of free stuff and all you have to do is register.</value>
@@ -290,12 +334,20 @@
     <value>Email</value>
     <comment>Contact</comment>
   </data>
+  <data name="EndOfPage" xml:space="preserve">
+    <value>This Is End Post Page</value>
+    <comment>Blog,News,Promotion,Wellbeing</comment>
+  </data>
+  <data name="ENTER DELIVERY INFORMATION." xml:space="preserve">
+    <value>ENTER DELIVERY INFORMATION.</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome." xml:space="preserve">
     <value>Faced with the juice shop job and not being able to sell juice, the team had to rush to Australian retail department store Myer to buy domestic juicers. All were damaged after just a day of use, but before the new equipment was brought in, the job was finally completed. These barriers are for us to overcome.</value>
     <comment>Home/About</comment>
   </data>
-  <data name="Find a Boost Juice Store" xml:space="preserve">
-    <value>Find a Boost Juice Store</value>
+  <data name="Find a Boost Juice Store near you" xml:space="preserve">
+    <value>Find a Boost Juice Store near you</value>
     <comment>Home/Index</comment>
   </data>
   <data name="Find Us" xml:space="preserve">
@@ -346,6 +398,10 @@
     <value>Home page - Boost Juice</value>
     <comment>_Layout</comment>
   </data>
+  <data name="How close am I to putting a Boost in my belly?" xml:space="preserve">
+    <value>How close am I to putting a Boost in my belly?</value>
+    <comment>Store</comment>
+  </data>
   <data name="How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy." xml:space="preserve">
     <value>How close am I to putting a Boost in my belly?&lt;br/&gt;Just search your address using the little search bar thingy below. Easy.</value>
     <comment>Home/Index</comment>
@@ -386,6 +442,10 @@
     <value>Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at</value>
     <comment>Home/Vibe</comment>
   </data>
+  <data name="instructionUrl" xml:space="preserve">
+    <value>order-payment-instruction</value>
+    <comment>_Layout</comment>
+  </data>
   <data name="Is there a limit on points and do they expire?" xml:space="preserve">
     <value>Is there a limit on points and do they expire?</value>
     <comment>Home/Vibe</comment>
@@ -413,6 +473,10 @@
   <data name="Just one problem: the banks wouldn’t touch a business that just sold liquid. But as they say, when life hands you lemons, make lemonade. Or juices and smoothies, as the case may be." xml:space="preserve">
     <value>Just one problem: the banks wouldn’t touch a business that just sold liquid. But as they say, when life hands you lemons, make lemonade. Or juices and smoothies, as the case may be.</value>
     <comment>Home/About</comment>
+  </data>
+  <data name="Just search your address using the little search bar thingy below. Easy." xml:space="preserve">
+    <value>Just search your address using the little search bar thingy below. Easy.</value>
+    <comment>Store</comment>
   </data>
   <data name="Just select which option below is most relevant to you and we’ll take it from there." xml:space="preserve">
     <value>Just select which option below is most relevant to you and we’ll take it from there.</value>
@@ -474,6 +538,14 @@
     <value>On a trip to the United States back in 1999, something caught Janine's attention. Everyone was into healthy smoothies and fresh juices - while in Australia, the fast food market was uninspiring and unhealthy. Janine had just had her third son and, like many young mothers, wanted more flexibility to run her own race..</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="openTime" xml:space="preserve">
+    <value>Opening hours</value>
+    <comment>Home,Store</comment>
+  </data>
   <data name="Operating from her kitchen table in Melbourne, Janine consulted nutritionists and naturopaths to create a menu free from preservatives and artificial colours and flavourings." xml:space="preserve">
     <value>Operating from her kitchen table in Melbourne, Janine consulted nutritionists and naturopaths to create a menu free from preservatives and artificial colours and flavourings.</value>
     <comment>Home/About</comment>
@@ -485,6 +557,18 @@
   <data name="OPTION 2" xml:space="preserve">
     <value>OPTION 2</value>
     <comment>Vibe/Index</comment>
+  </data>
+  <data name="Order &amp; Payment Instruction" xml:space="preserve">
+    <value>Order &amp; Payment Instruction</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Order and payment instruction" xml:space="preserve">
+    <value>Order and payment instruction</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="Order instruction" xml:space="preserve">
+    <value>Order instruction</value>
+    <comment>Instruction</comment>
   </data>
   <data name="Orders over 1.000.000 VND, free shipping" xml:space="preserve">
     <value>Orders over 1.000.000 VND, free shipping</value>
@@ -506,6 +590,18 @@
     <value>Our primary life requires energy. This philosophy inspires everything we do. And as we continually innovate and grow, it's not with the goal of changing the world, but just to make our customers feel “a little better.”</value>
     <comment>Home/About</comment>
   </data>
+  <data name="page" xml:space="preserve">
+    <value>page</value>
+    <comment>Pagination</comment>
+  </data>
+  <data name="Payment on delivery." xml:space="preserve">
+    <value>Payment on delivery.</value>
+    <comment>Instruction</comment>
+  </data>
+  <data name="Payment wallets such as: Momo, Vnpay, ZaloPay" xml:space="preserve">
+    <value>Payment wallets such as: Momo, Vnpay, ZaloPay</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="phone" xml:space="preserve">
     <value>Phone</value>
     <comment>Contact</comment>
@@ -526,8 +622,8 @@
     <value>Previous</value>
     <comment>Contact</comment>
   </data>
-  <data name="PRIVACY POLICY" xml:space="preserve">
-    <value>PRIVACY POLICY</value>
+  <data name="Privacy policy" xml:space="preserve">
+    <value>Privacy policy</value>
     <comment>Home/Privacy</comment>
   </data>
   <data name="privacyPolicyUrl" xml:space="preserve">
@@ -578,6 +674,10 @@
     <value>Sometimes, the best way to learn is to jump in at the deep end, and that’s exactly what happened next. Janine and Jeff signed on for 28 leases at Westfield Shopping Centres. It meant a personal liability of over $5 million and a deadline to open every store in just 18 months. Thanks to sheer determination and amazing franchise partners, it happened on time and on budget.</value>
     <comment>Home/About</comment>
   </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+    <comment>Instruction</comment>
+  </data>
   <data name="Stores" xml:space="preserve">
     <value>Stores</value>
     <comment>Home/Index</comment>
@@ -590,37 +690,20 @@
     <value>stores</value>
     <comment>_Layout</comment>
   </data>
-  <data name="String" xml:space="preserve">
-    <value>Home/Vibe</value>
-  </data>
-  <data name="String10" xml:space="preserve">
-    <value>Home/Vibe</value>
-    <comment>Home/Vibe</comment>
-  </data>
-  <data name="String11" xml:space="preserve">
-    <value>Home/Vibe</value>
-    <comment>Home/Vibe</comment>
-  </data>
-  <data name="String12" xml:space="preserve">
-    <value>Home/Vibe</value>
-  </data>
-  <data name="String13" xml:space="preserve">
-    <value>Home/Vibe</value>
-  </data>
-  <data name="String9" xml:space="preserve">
-    <value>Home/Vibe</value>
-    <comment>Home/Vibe</comment>
-  </data>
   <data name="submit" xml:space="preserve">
     <value>SUBMIT</value>
     <comment>Contact</comment>
+  </data>
+  <data name="TAKE A NOTE" xml:space="preserve">
+    <value>TAKE A NOTE</value>
+    <comment>Instruction</comment>
   </data>
   <data name="termOfUseUrl" xml:space="preserve">
     <value>terms-of-use</value>
     <comment>_Layout</comment>
   </data>
-  <data name="TERMS OF USE" xml:space="preserve">
-    <value>TERMS OF USE</value>
+  <data name="Terms of use" xml:space="preserve">
+    <value>Terms of use</value>
     <comment>Home/TermOfUse</comment>
   </data>
   <data name="Testimonials" xml:space="preserve">
@@ -687,9 +770,21 @@
     <value>This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app.</value>
     <comment>Layout</comment>
   </data>
+  <data name="This month" xml:space="preserve">
+    <value>This month</value>
+    <comment>_Layout</comment>
+  </data>
+  <data name="titleNearestBoost" xml:space="preserve">
+    <value>Your closest Boost Juice Bar is</value>
+    <comment>Home,Store</comment>
+  </data>
   <data name="to" xml:space="preserve">
     <value>to</value>
     <comment>Home/Delivery</comment>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+    <comment>_Layout</comment>
   </data>
   <data name="Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story." xml:space="preserve">
     <value>Today, the world can’t get enough of Boost Juice. The brand’s winning combination of fresh fruit and veg, tasty products and innovative marketing campaigns has been a remarkable success story.</value>
@@ -702,10 +797,6 @@
   <data name="User current location" xml:space="preserve">
     <value>User current location</value>
     <comment>Home/Index</comment>
-  </data>
-  <data name="VAN XUAN FMCG INVESTMENT COMPANY LIMITED" xml:space="preserve">
-    <value>VAN XUAN FMCG INVESTMENT COMPANY LIMITED</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Vibe Card - Terms &amp; Conditions" xml:space="preserve">
     <value>Vibe Card - Terms &amp; Conditions</value>
@@ -773,6 +864,10 @@
   <data name="Why register?" xml:space="preserve">
     <value>Why register?</value>
     <comment>Home/Vibe</comment>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+    <comment>_Layout</comment>
   </data>
   <data name="You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!" xml:space="preserve">
     <value>You can collect as many points as you want to and your points have no expiry date, so collect away and eventually you could have enough to fill your bath with Mango Magic!</value>

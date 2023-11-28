@@ -1,5 +1,7 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
 using BJ.Application.Ultities;
+using BJ.Contract;
 using BJ.Contract.Product;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
@@ -35,15 +37,17 @@ namespace BJ.Api.Controllers
         /// </summary>
         [HttpGet("userpage")]
 
-        public async Task<ProductUserViewModel> GetClientProducts(string languageId)
+        public async Task<ProductUserViewModel> GetClientProducts(string culture)
         {
 
-            return await _productService.GetProduct(languageId);
+            return await _productService.GetProduct(culture);
 
         }
         /// <summary>
         /// Phân trang sản phẩm
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
+
         [HttpGet("paging")]
 
         public async Task<PagedViewModel<ViewAllProduct>> GetProducts([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -56,7 +60,7 @@ namespace BJ.Api.Controllers
         /// Thêm mới sản phẩm
         /// </summary>
         /// 
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] CreateProductAdminView createProductAdminView)
         {
@@ -81,7 +85,7 @@ namespace BJ.Api.Controllers
         /// Thêm mới ngôn ngữ cho từng sản phẩm
         /// </summary>
         /// 
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost("language")]
         public async Task<IActionResult> CreateLanguage([FromBody] CreateProductTranslationDto createProductTranslationDto)
         {
@@ -120,7 +124,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Cập nhật ngôn ngữ sản phẩm
         /// </summary>
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpPut("{proId}/language/{id}/update")]
         public async Task<IActionResult> EditProduct(Guid proId, Guid id, [FromBody] UpdateProductTranslationDto updateProductTranslationDto)
@@ -150,7 +154,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Cập nhật sản phẩm
         /// </summary>
-        [Authorize]
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditProduct(Guid id, [FromForm] UpdateProductAdminView updateProductAdminView)
@@ -213,13 +217,13 @@ namespace BJ.Api.Controllers
 
         [HttpGet("category/filter")]
 
-        public async Task<IActionResult> GetProductByCatId(Guid catId, string languageId)
+        public async Task<IActionResult> GetProductByCatId(string culture, Guid catId)
         {
-            if (await _productService.GetProductByCatId(catId, languageId) == null)
+            if (await _productService.GetProductByCatId(culture,catId) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _productService.GetProductByCatId(catId, languageId));
+            return Ok(await _productService.GetProductByCatId(culture, catId));
 
         }
     }

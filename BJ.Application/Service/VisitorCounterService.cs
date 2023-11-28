@@ -8,7 +8,7 @@ namespace BJ.Application.Service
 {
     public interface IVisitorCounterService
     {
-        Task<long> GetVisitorCounter();
+        Task<VisitorCounterDto> GetVisitorCounter();
 
         Task UpdateCount(UpdateVisitorCounterDto updateVisitorCounterDto);
     }
@@ -26,30 +26,48 @@ namespace BJ.Application.Service
             _configuration = configuration;
         }
 
-        public async Task<long> GetVisitorCounter()
+        public async Task<VisitorCounterDto> GetVisitorCounter()
         {
             var visitor = await _context.VisitorCounters.ToListAsync();
             var visitorDto = _mapper.Map<List<VisitorCounterDto>>(visitor);
 
-            return visitorDto[0].Count;
+            return visitorDto[0];
         }
 
         public async Task UpdateCount(UpdateVisitorCounterDto updateVisitorCounterDto)
         {
 
-            var item = await _context.VisitorCounters.ToListAsync();
+            var item = await _context.VisitorCounters.FirstOrDefaultAsync(x => x.Year == DateTime.Now.Year);
 
-            if (item[0] != null)
+            if (item != null)
             {
-                updateVisitorCounterDto.Count = item[0].Count + 1;
-                updateVisitorCounterDto.Year = item[0].Year;
+                updateVisitorCounterDto.MonthCount = item.MonthCount + 1;
+                updateVisitorCounterDto.DayCount = item.DayCount + 1;
+                updateVisitorCounterDto.YearCount = item.YearCount + 1;
+
+                updateVisitorCounterDto.Year = item.Year;
+                updateVisitorCounterDto.Day = item.Day;
+                updateVisitorCounterDto.Month = item.Month;  
+
+                if (updateVisitorCounterDto.Day != DateTime.Now.Day)
+                {
+                    updateVisitorCounterDto.DayCount = 1;
+                    updateVisitorCounterDto.Day = DateTime.Now.Day;
+                }
+                if (updateVisitorCounterDto.Month != DateTime.Now.Month)
+                {
+                    updateVisitorCounterDto.MonthCount = 1;
+                    updateVisitorCounterDto.Month = DateTime.Now.Month;
+
+                }
                 if (updateVisitorCounterDto.Year != DateTime.Now.Year)
                 {
-                    updateVisitorCounterDto.Count = 1;
+                    updateVisitorCounterDto.YearCount = 1;
                     updateVisitorCounterDto.Year = DateTime.Now.Year;
+
                 }
 
-                _context.Update(_mapper.Map(updateVisitorCounterDto, item[0]));
+                _context.Update(_mapper.Map(updateVisitorCounterDto, item));
 
                 await _context.SaveChangesAsync();
             }

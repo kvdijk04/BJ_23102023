@@ -13,6 +13,8 @@ namespace BJ.Domain.Entities
         public DateTime? LastLogin { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public AuthorizeRoles AuthorizeRole { get; set; }
+
 
     }
 }

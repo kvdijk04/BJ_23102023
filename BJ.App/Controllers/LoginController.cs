@@ -26,7 +26,9 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
 
             return View();
         }

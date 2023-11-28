@@ -1,4 +1,5 @@
-﻿using BJ.Domain.Entities;
+﻿using BJ.Domain;
+using BJ.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -51,7 +52,11 @@ namespace BJ.Persistence.ApplicationContext
             modelBuilder.Entity<Size>().ToTable("Size").Property(sc => sc.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<SubCategory>().ToTable("SubCategory").Property(sc => sc.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<SubCategorySpecificProduct>().ToTable("SubCategorySpecificProduct");
-            modelBuilder.Entity<Account>().ToTable("Account");
+            modelBuilder.Entity<Account>().ToTable("Account")
+                                            .Property(e => e.AuthorizeRole)
+                                            .HasConversion(
+                                            v => v.ToString(),
+                                            v => (AuthorizeRoles)Enum.Parse(typeof(AuthorizeRoles), v)) ;
             modelBuilder.Entity<Blog>().ToTable("Blog");
             modelBuilder.Entity<News>().ToTable("News");
 
@@ -71,8 +76,12 @@ namespace BJ.Persistence.ApplicationContext
                 new VisitorCounter
                 {
                     Id = Guid.NewGuid(),
-                    Count = 0,
-                    Year = DateTime.Now.Year
+                    DayCount = 0,
+                    MonthCount = 0,
+                    YearCount = 0,
+                    Day = DateTime.Now.Day,
+                    Month = DateTime.Now.Month,
+                    Year = DateTime.Now.Year,   
                 }
                 );
 

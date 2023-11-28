@@ -1,0 +1,105 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
+    <style>
+
+        .simple-inner {
+            max-width: 760px;
+            margin: 0px auto;
+            padding: 0px 15px 100px 15px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #E1E1E1;
+        }
+
+        .simple-inner ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .simple-inner li {
+            padding-left: 25px;
+            position: relative;
+        }
+
+        li {
+            margin-bottom: 1rem;
+        }
+
+        .simple-inner li::before {
+            position: absolute;
+            top: -6px;
+            left: 0px;
+            content: "• ";
+            font-size: 32px;
+            line-height: 32px;
+            color: rgb(120, 193, 72);
+        }
+        .column label{
+            padding: 10px;
+            background-color: #ee923f;
+            font-size:18px;
+            color: #fff;
+            border-radius:10px;
+        }
+        .column p{
+            text-align:center;
+        }
+        .column .responsive-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin:auto
+        }
+    </style>
+}
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    ViewBag.Title = "Order and payment instruction";
+
+}
+<div class="boost-main-content">
+    <div class="main-fold-angle bg-image ">
+    </div>
+    <div class="container simple-inner">
+        <div class="page" title="Page 1">
+            <div class="layoutArea">
+                <div class="column">
+                    <h1 style="text-align: center;"><span style="color: #70b046;text-transform:uppercase"><strong><localize>Order instruction</localize></strong></span></h1>
+                    <label><localize>Step</localize> 1</label>
+                    <strong><localize>ENTER DELIVERY INFORMATION.</localize></strong><br />
+                    <span><localize>- After logging in to the application fellowship, enter all information here on the delivery information screen.</localize></span>
+                    <p><img src="~/images/1.jpg" alt="step1" class="responsive-image" /></p>
+                     <label><localize>Step</localize> 2</label>
+                    <strong><localize>CHOOSE TYPE OF DRINKS</localize></strong>
+                    <p><img src="~/images/2.png" alt="step2" class="responsive-image" /></p>
+                    <label><localize>Step</localize> 3</label>
+                    <strong><localize>CHOOSE DRINKS AND SIZE THEN GO TO CART</localize></strong>
+                    <p><img src="~/images/3.jpg" alt="step3" class="responsive-image" /></p>
+                    <label><localize>Step</localize> 4</label>
+                    <strong><localize>CHOOSE EXTRA</localize></strong>
+                    <p><img src="~/images/4.jpg" alt="step4" class="responsive-image" /></p>
+                    <label><localize>Step</localize> 5</label>
+                    <strong><localize>TAKE A NOTE</localize></strong>
+                    <p><img src="~/images/5.png" alt="step5" class="responsive-image" /></p>
+                    <label><localize>Step</localize> 6</label>
+                    <strong>
+                        <localize>
+                            CHOOSE PAYMENT METHOD
+                        </localize>
+                    </strong><br/>
+                    <span><localize>- After selecting the drinks, select the Payment Button and choose the Payment method</localize></span>
+                    <ul style="margin-top:5px">
+                        <li><localize>Payment on delivery.</localize></li>
+                        <li><localize>Payment wallets such as: Momo, Vnpay, ZaloPay</localize></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--CusAds0-->
+        <div style="font-size: 0px; height: 0px; line-height: 0px; margin: 0; padding: 0; clear: both;"></div>
+    </div>
+</div>

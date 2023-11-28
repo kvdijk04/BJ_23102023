@@ -1,12 +1,97 @@
-﻿@using Microsoft.Extensions.Configuration
+﻿@using BJ.Application.Ultities;
+@using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @{
     var culture = CultureInfo.CurrentCulture.Name;
 }
 @using BJ.Contract.ViewModel;
-@model IEnumerable<NewsUserViewModel>
+@model PagedViewModel<NewsUserViewModel>
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
+    <style>
+        .boost-main-content #blog-posts .preloader {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            background-color: transparent;
+            top: auto;
+            bottom: 40px;
+        }
+
+        #blog-posts .preloader {
+            margin: 100px 0px 60px 0px;
+        }
+
+        .boost-main-content .preloader {
+            background-color: #fff;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .double-bounce1, .double-bounce2 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #67b94c;
+            opacity: 0.6;
+            position: absolute;
+            top: 40%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+            animation: sk-bounce 2.0s infinite ease-in-out;
+        }
+
+        .double-bounce1, .double-bounce2 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #67b94c;
+            opacity: 0.6;
+            position: absolute;
+            top: 40%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+            animation: sk-bounce 2.0s infinite ease-in-out;
+        }
+
+        .double-bounce2 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+
+        @@-webkit-keyframes sk-bounce {
+            0%, 100% {
+                -webkit-transform: scale(0)
+            }
+
+            50% {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        #end {
+            display: none;
+            background-color: #eee;
+            padding: 20px 0 80px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+    </style>
 }
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
 @{
@@ -17,9 +102,15 @@
     <div class="main-fold-angle bg-image ">
     </div>
     <div id="blog-posts" class="container" itemscope itemtype="https://schema.org/ItemList">
-        @if (Model.Count() > 0 && Model != null)
+        <div class="preloader" style="display:none">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+        @if (Model.Items.Count() > 0 && Model.Items != null)
         {
-            foreach (var item in Model)
+            foreach (var item in Model.Items)
             {
                 <div class="row" style="display: block;" itemscope itemtype="https://schema.org/Article">
                     <div class="six columns">
@@ -47,6 +138,7 @@
 
         }
 
+        @await Component.InvokeAsync("Pager" , Model)
 
 
 
@@ -57,3 +149,22 @@
 
 
 </div>
+<script>
+    var culture = $(location).attr('pathname');
+
+    culture.indexOf(1);
+
+    culture.toLowerCase();
+
+    culture = culture.split("/")[1];
+
+    var newsUrl = $(location).attr('pathname');
+
+    newsUrl.indexOf(1);
+
+    newsUrl.toLowerCase();
+
+    newsUrl = newsUrl.split("/")[2];
+
+    
+</script>

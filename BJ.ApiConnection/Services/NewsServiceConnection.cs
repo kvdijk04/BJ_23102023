@@ -14,11 +14,13 @@ namespace BJ.ApiConnection.Services
 {
     public interface INewsServiceConnection
     {
-        public Task<IEnumerable<NewsUserViewModel>> GetAllNews(string culture, bool popular);
         public Task<IEnumerable<NewsUserViewModel>> GetNewsAtHome(string culture);
-        public Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture);
+        public Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular);
 
         public Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+        public Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest);
+        public Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest);
+
         Task<NewsUserViewModel> GetNewsById(Guid id, string culture);
         Task<bool> CreateNews(CreateNewsAdminView createNewsAdminView);
         Task<bool> UpdateNews(Guid id, string culture, UpdateNewsAdminView updateNewsAdminView);
@@ -96,12 +98,6 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetAllNews(string culture, bool popular)
-        {
-            return await GetListAsync<NewsUserViewModel>($"/api/Newss?culture={culture}&popular={popular}");
-
-        }
-
         public async Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
         {
             var client = _httpClientFactory.CreateClient();
@@ -117,9 +113,9 @@ namespace BJ.ApiConnection.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var size = JsonConvert.DeserializeObject<PagedViewModel<NewsDto>>(body);
+            var news = JsonConvert.DeserializeObject<PagedViewModel<NewsDto>>(body);
 
-            return size;
+            return news;
         }
 
 
@@ -226,9 +222,49 @@ namespace BJ.ApiConnection.Services
             return await GetListAsync<NewsUserViewModel>($"/api/Newss/homepage?culture={culture}");
         }
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture)
+        public async Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular)
         {
-            return await GetListAsync<NewsUserViewModel>($"/api/Newss/promotion?culture={culture}");
+            return await GetListAsync<NewsUserViewModel>($"/api/Newss/popular?culture={culture}&popular={popular}");
+        }
+
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var response = await client.GetAsync($"/api/Newss/newspaging?LanguageId={getListPagingRequest.LanguageId}&PageIndex=" +
+        $"{getListPagingRequest.PageIndex}&PageNews={getListPagingRequest.PageSize}&Keyword={getListPagingRequest.Keyword}");
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var news = JsonConvert.DeserializeObject<PagedViewModel<NewsUserViewModel>>(body);
+
+            return news;
+        }
+
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var response = await client.GetAsync($"/api/Newss/promotionpaging?LanguageId={getListPagingRequest.LanguageId}&PageIndex=" +
+        $"{getListPagingRequest.PageIndex}&PageNews={getListPagingRequest.PageSize}&Keyword={getListPagingRequest.Keyword}");
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var news = JsonConvert.DeserializeObject<PagedViewModel<NewsUserViewModel>>(body);
+
+            return news;
         }
     }
 }

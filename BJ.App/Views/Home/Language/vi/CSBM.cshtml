@@ -1,8 +1,10 @@
 ﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
-    ViewBag.Title = "PRIVACY POLICY";
+    ViewBag.Title = "Chính sách bảo mật";
 
 }
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
     <style>
@@ -54,7 +56,7 @@
                 <div class="column">
                     <h1 style="text-align: center;"><span style="color: #70b046;"><strong>CHÍNH SÁCH BẢO MẬT</strong></span></h1>
                     <p><strong>ĐIỀU KIỆN CHUNG</strong></p>
-                    <p>Công ty TNHH Vạn Xuân FMCG Investment (sau đây được gọi là “Chúng tôi” hoặc “Của Chúng tôi”) là Công ty điều hành trang web&nbsp;<a href="http://www.nuocmamhoanggia.com.vn/">www.boostjuice.com.vn</a>&nbsp;(sau đây được gọi là “Trang Web”) và chúng tôi cam kết bảo vệ dữ liệu thông tin cá nhân của người dùng (sau đây được gọi là “Bạn”) thông qua việc ban hành Chính Sách Bảo Mật (có thể được gọi tắt là “Chính sách”).</p>
+                    <p>Công ty TNHH thực phẩm và nước giải khát Boost Juice Việt Nam (sau đây được gọi là “Chúng tôi” hoặc “Của Chúng tôi”) là Công ty điều hành trang web&nbsp;<a href="@Configuration["CurrentDomain"]vi">www.boostjuice.com.vn</a>&nbsp;(sau đây được gọi là “Trang Web”) và chúng tôi cam kết bảo vệ dữ liệu thông tin cá nhân của người dùng (sau đây được gọi là “Bạn”) thông qua việc ban hành Chính Sách Bảo Mật (có thể được gọi tắt là “Chính sách”).</p>
                     <p>Chính Sách Bảo Mật này (kết hợp cùng với Điều Khoản Thỏa Thuận của chúng tôi và các văn bản khác được nhắc đến trong chính sách này) giúp cho bạn hiểu được cách thức chúng tôi thu thập thông tin cá nhân của bạn, hoặc thông tin mà bạn cung cấp cho chúng tôi, sẽ được sử dụng, xử lý hoặc tiết lộ bởi chúng tôi, bao gồm cả hình thức sử dụng thông tin vào việc marketing được cá nhân hóa cho từng đối tượng Khách hàng. Chính Sách Bảo Mật này cũng cho bạn biết những loại thông tin nào chúng tôi thu thập, cách chúng tôi bảo mật thông tin, cũng như cách bạn truy cập hoặc thay đổi thông tin của bạn mà chúng tôi lưu trữ. Chính Sách Bảo Mật này bao gồm cả việc sử dụng Trang Web và bất kỳ cách nào khác mà bạn có thể kết nối hoặc tương tác với chúng tôi thông qua việc sử dụng Trang Web và dịch vụ của chúng tôi.</p>
                     <p>Xin vui lòng đọc cẩn thận chính sách dưới đây để hiểu rõ hơn về chính sách và điều lệ của chúng tôi về việc thu thập thông tin cá nhân của bạn và cách chúng tôi xử lý thông tin đó.</p>
                     <p>Nếu như không bị giới hạn bởi luật hiện hành, bạn đồng ý rằng bất kỳ và tất cả thông tin cá nhân liên quan đến bạn được thu thập bởi chúng tôi hoặc cung cấp bởi bạn bất kỳ thời điểm nào đều được sử dụng, xử lý, và tiết lộ cho những mục đích và các bên được quy định trong Chính Sách Bảo Mật này.</p>
@@ -150,7 +152,7 @@
                     <p>23. Ngoài ra, tất cả mọi yêu cầu về thông tin hoặc yêu cầu về thay đổi thông tin cá nhân mà chúng tôi lưu trữ về truy cập thông tin hoặc cập nhật thông tin cá nhân đều có thể gửi qua email hoặc văn bản đến địa chỉ như dưới. Xin vui lòng bao gồm thông tin đăng ký của bạn bao gồm họ tên, địa chỉ email trong yêu cầu của bạn. Chúng tôi có thể sẽ yêu cầu bạn cung cấp thêm một số thông tin khác nhằm mục đích xác minh danh tính, hoặc nhằm chứng minh rằng bạn sở hữu tài khỏan email đạt yêu cầu.</p>
                     <p>
                         <strong>
-                            Công ty TNHH Vạn Xuân FMCG Investment<br>
+                            Công ty TNHH thực phẩm và nước giải khát Boost Juice Việt Nam<br>
                         </strong>Người nhận: Bộ phận Bảo mật thông tin<br>
                         110-112 Kinh Dương Vương, Phường 13, Quận 6, TP.HCM<br>
                         Email:&nbsp;info@boostjuice.com.vn

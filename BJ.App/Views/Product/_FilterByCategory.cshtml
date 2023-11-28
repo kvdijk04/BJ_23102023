@@ -5,66 +5,84 @@
 }
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
-@if (Model != null && Model.Count() > 0)
-{
-    @foreach (var product in Model.Where(x => x.Active == true))
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+<div class="main">
+    @if (Model != null && Model.Count() > 0)
     {
-        <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
-            <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
-                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image" />
-                <img src="~/images/cup_shadow.png" itemprop="image" />
-                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
-                <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" itemprop="image" />
-                <ul>
-                    @foreach (var subCat in product.UserSubCategorySpecificProductDto)
-                    {
-                        @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
-                        {
-                            if (sub != null)
+        <div class="title category">
+            <h1 class="h1 display text-uppercase">
+                @ViewBag.CatName
+            </h1>
+        </div>
+        <ul id="og-grid" class="og-grid" itemscope itemtype="https://schema.org/ItemList">
+
+            @foreach (var product in Model)
+            {
+                <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
+                    <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
+                        <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image" />
+                        <img src="~/images/cup_shadow.png" itemprop="image" />
+                        <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
+                        <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" itemprop="image" />
+                        <ul>
+                            @foreach (var subCat in product.UserSubCategorySpecificProductDto)
                             {
-                                <li itemprop="category"><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
+                                {
+                                    if (sub != null)
+                                    {
+                                        <li itemprop="category"><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                    }
+                                    else
+                                    {
+                                        <li><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+
+
+                                    }
+
+                                }
                             }
-                            else
-                            {
-                                <li><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+                        </ul>
+
+                        <span itemprop="name">@product.ProductName</span>
+                        <a class="button" onclick="momodal()">
+                            <localize>BUY</localize>
+                        </a>
+                    </a>
+
+                    <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
+                    </div>
+
+                </li>
+
+            }
 
 
-                            }
 
-                        }
-                    }
-                </ul>
-
-                <span itemprop="name">@product.ProductName</span>
-                <a  class="button" onclick="momodal()">
-                    <localize>BUY</localize>
-                </a>
-            </a>
-
-            <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
-            </div>
-
-        </li>
+        </ul>
 
     }
-}
-else
-{
-    <section id="hints" style="display: block;">
-        <p> <img src="~/images/title_wait.png"> </p>
-        <h3><localize>You want find drinks in this category?</localize></h3>
-        <p><localize>There are no drinks in this category. Please come back later.</localize></p>
-        <ul>
-            <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li>
-            <li class="filter2"><img src="~/images/hint-2.png">Chocolate</li>
-            <li class="filter3"><img src="~/images/hint-3.png">Pineapple</li>
-            <li class="filter4"><img src="~/images/hint-4.png">Green Tea</li>
-            <li class="filter5"><img src="~/images/hint-5.png">Coconut</li>
-            <li class="filter6"><img src="~/images/hint-6.png">Milk</li>
-            <li class="filter7"><img src="~/images/hint-7.png">Lemon</li>
-        </ul>
-    </section>
-}
+    else
+    {
+        <section id="hints" style="display: block;">
+            <p> <img src="~/images/title_wait.png"> </p>
+            <h3><localize>There are currently no products</localize></h3>
+            <p><localize>Please come back later. Sorry for this inconvenience</localize></p>
+            <ul>
+                <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li>
+                <li class="filter2"><img src="~/images/hint-2.png">Chocolate</li>
+                <li class="filter3"><img src="~/images/hint-3.png">Pineapple</li>
+                <li class="filter4"><img src="~/images/hint-4.png">Green Tea</li>
+                <li class="filter5"><img src="~/images/hint-5.png">Coconut</li>
+                <li class="filter6"><img src="~/images/hint-6.png">Milk</li>
+                <li class="filter7"><img src="~/images/hint-7.png">Lemon</li>
+            </ul>
+        </section>
+    }
+</div>
+
+
+
 <div class="nenmodal" id="nenmodal-1">
     <div class="nenmodal2"></div>
     <div class="ndmodal">
@@ -116,7 +134,9 @@ else
     first.toLowerCase();
 
     first = first.split("/")[1];
-    $(".drink-block .grid_item").on("click", function (i) {
+
+
+    $("#og-grid").on("click", ".drink-block .grid_item", function (i) {
 
         var idPro = $(this).attr("data-masp");
 
@@ -154,7 +174,7 @@ else
 
                 },
                 error: function (xhr) {
-                    alert('error');
+                    alert(xhr);
                 }
             });
             $("#li_" + idPro).addClass(" og-expanded");
@@ -170,7 +190,7 @@ else
             $("#li_" + idPro).removeClass(" og-expanded");
             $("#li_" + idPro).css("height", "380px");
             $(this).attr("clicked", "false");
-            $("#li_" + namePro).css("display", "none");
+            // $("#li_" + namePro).css("display", "none");
             $("#" + alias).css("height", "");
         }
         i.preventDefault()

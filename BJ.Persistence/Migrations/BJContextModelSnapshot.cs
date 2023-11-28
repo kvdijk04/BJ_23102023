@@ -31,6 +31,10 @@ namespace BJ.Persistence.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<string>("AuthorizeRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -502,6 +506,9 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("IconPath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("Latitude")
                         .HasColumnType("real");
 
@@ -610,11 +617,23 @@ namespace BJ.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("Count")
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<long>("DayCount")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<long>("MonthCount")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
+
+                    b.Property<long>("YearCount")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -623,9 +642,13 @@ namespace BJ.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("28617664-5332-49c8-99d6-699393b4cc1e"),
-                            Count = 0L,
-                            Year = 2023
+                            Id = new Guid("05d73632-243f-4d09-ad09-2701b0dcb8d0"),
+                            Day = 24,
+                            DayCount = 0L,
+                            Month = 11,
+                            MonthCount = 0L,
+                            Year = 2023,
+                            YearCount = 0L
                         });
                 });
 

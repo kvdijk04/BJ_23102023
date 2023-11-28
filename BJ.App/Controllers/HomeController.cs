@@ -46,7 +46,9 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
 
             return View(news);
         }
@@ -60,7 +62,10 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
             return View();
         }
         public async Task<IActionResult> Contact()
@@ -73,7 +78,10 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
             return View();
         }
 
@@ -95,7 +103,10 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
             if (culture == "vi") return View("Views/Home/Language/vi/CSBM.cshtml");
 
 
@@ -111,7 +122,10 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
 
             if (culture == "vi") return View("Views/Home/Language/vi/CSSD.cshtml");
             return View();
@@ -126,7 +140,26 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
+            return View();
+        }
+        public async Task<IActionResult> Instruction()
+        {
+            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+
+            if (visitorId == null)
+            {
+                UpdateVisitorCounterDto updateVisitorCounterDto = new();
+                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
+            }
+            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
             return View();
         }
         public async Task<IActionResult> TermOfUse(string culture)
@@ -139,7 +172,10 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+
             if (culture == "vi") return View("Views/Home/Language/vi/DKTT.cshtml");
             return View();
         }

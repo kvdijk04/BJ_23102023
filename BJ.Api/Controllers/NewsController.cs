@@ -1,5 +1,7 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
 using BJ.Application.Ultities;
+using BJ.Contract;
 using BJ.Contract.News;
 using BJ.Contract.Translation.News;
 using BJ.Contract.ViewModel;
@@ -29,28 +31,35 @@ namespace BJ.Api.Controllers
             return await _blogService.GetPaging(getListPagingRequest);
 
         }
-        /// <summary>
-        /// Danh sách tin tức
-        /// </summary>
-        [HttpGet]
+        [HttpGet("newspaging")]
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetNewss(string culture, bool popular)
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery]  GetListPagingRequest getListPagingRequest)
         {
 
-            return await _blogService.GetNewss(culture, popular);
+            return await _blogService.GetPagingNews(getListPagingRequest);
 
         }
-        /// <summary>
-        /// Danh sách tin khuyến mãi
-        /// </summary>
-        [HttpGet("promotion")]
+        [HttpGet("promotionpaging")]
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetPromotion(string culture)
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest)
         {
 
-            return await _blogService.GetPromotions(culture);
+            return await _blogService.GetPagingPromotion(getListPagingRequest);
 
         }
+        
+        /// <summary>
+        /// Danh sách tin tức phổ biến
+        /// </summary>
+        [HttpGet("popular")]
+
+        public async Task<IEnumerable<NewsUserViewModel>> GetNewssPopular(string culture, bool popular)
+        {
+
+            return await _blogService.GetNewsPopular(culture, popular);
+
+        }
+       
         /// <summary>
         /// Danh sách tin tức tại trang chủ
         /// </summary>
@@ -66,6 +75,7 @@ namespace BJ.Api.Controllers
         /// Thêm mới tin tức
         /// </summary>
         /// 
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
 
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] CreateNewsAdminView createNewsAdminView)
@@ -91,6 +101,8 @@ namespace BJ.Api.Controllers
         /// Thêm mới ngôn ngữ tin tức
         /// </summary>
         /// 
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
+
         [HttpPost("language")]
         public async Task<IActionResult> CreateLanguage([FromBody] CreateNewsTranslationDto createNewsTranslationDto)
         {
@@ -131,7 +143,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Cập nhật tin tức bằng id
         /// </summary>
-
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
         [HttpPut("{id}")]
 
         public async Task<IActionResult> UpdateNews(Guid id, string culture, [FromForm] UpdateNewsAdminView updateNewsAdminView)
@@ -180,7 +192,7 @@ namespace BJ.Api.Controllers
         /// Tạo mới tin tức theo từng ngôn ngữ
         /// </summary>
         /// 
-
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
         [HttpPost("language/create")]
         public async Task<IActionResult> CreateTranslate([FromBody] CreateNewsTranslationDto createNewsTranslationDto)
         {
@@ -205,7 +217,7 @@ namespace BJ.Api.Controllers
         /// Cập nhật tin tức theo từng ngôn ngữ
         /// </summary>
         /// 
-
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
         [HttpPut("language/{id}/update")]
         public async Task<IActionResult> UpdateTranslate(Guid id, [FromBody] UpdateNewsTranslationDto updateNewsTranslationDto)
         {

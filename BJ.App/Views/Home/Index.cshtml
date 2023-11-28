@@ -17,7 +17,7 @@
     }
 
     #boost-stores {
-        max-width: 1200px;
+        max-width: 100%;
         margin: 0px auto;
     }
 
@@ -73,9 +73,14 @@
             margin: 0px 0px 10px 0px;
             font-size: inherit;
             font-weight: 600;
-            color: inherit
+            color: inherit;
+            cursor: pointer;
         }
-
+        .store-list h3:hover{
+            color: #79C339;
+            opacity: 0.6;
+            transition: 0.3s;
+        }   
         .store-list h3 em {
             color: #79C339;
             margin-left: 45px;
@@ -180,15 +185,15 @@
         background-color: rgba(255, 255, 255, 0.85);
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: 150%;
         z-index: 5;
     }
 
     .boost-store-finder .preloader {
         -webkit-transform: skewY(1deg);
         transform: skewY(1deg);
-        margin-top: -15px;
-    }
+/*         margin-top: -15px;
+ */    }
 
     .boost-main-content .preloader {
         background-color: #fff;
@@ -323,17 +328,25 @@
                 <div class="boostjuice-search">
 
                     <img src="~/images/icon-boost-cup.png" alt="Boost juice cup">
-                    <h2><localize>Find a Boost Juice Store</localize></h2>
+                    <h2><localize>Find a Boost Juice Store near you</localize></h2>
                     <p></p><p>
                         <localize>How close am I to putting a Boost in my belly?<br/>Just search your address using the little search bar thingy below. Easy.</localize>
                     </p>
                     <p></p>
-                    <a id="get-my-location" class="button" style="margin-bottom:30px"><localize>User current location</localize></a>
+                    <a id="get-my-location" class="button" clicked="false" style="margin-bottom:30px"><localize>User current location</localize></a>
 
                 </div>
                 
             </div>
-            <div id="boost-stores" style="display:none">
+            <input type="text" value="@Configuration["BaseAddress"]" id="imagesrc" hidden />
+
+            <div id="boost-stores" @* style="display:none" *@>
+                <div class="preloader" id="boost-stores-loading">
+                    <div class="spinner">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                    </div>
+                </div>
                 <div id="boostjuice-result-list">
                     <div id="boostjuice-stores">
                     </div>
@@ -358,10 +371,421 @@
         $("#boostjuice-stores .wpsl-opening-hours:eq( " + e + " )").addClass("show");
         $('#boostjuice-stores .wpsl-opening-hours').not(':eq("' + e + '")').removeClass("show");
 
+
     });
 
 </script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTv4Z_nGhpi5GAzj3cDpcRf43HyonXxYA&#038&callback=initMap" async defer></script>
-<script src="~/BoostJuice/js/ggmap_boost.js"></script>
 
+<script>
+    let map, infoWindow;
+    let markers = [];
+    let markersAll = [];
+    let infoWindows = [];
+    const iconBase = "/images/";
+    let currentDomain = $("#imagesrc").val();
+
+    function distance(lat1, lon1, lat2, lon2, unit) {
+        var radlat1 = Math.PI * lat1 / 180
+        var radlat2 = Math.PI * lat2 / 180
+        var theta = lon1 - lon2
+        var radtheta = Math.PI * theta / 180
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist)
+        dist = dist * 180 / Math.PI
+        dist = dist * 60 * 1.1515
+        if (unit == "K") { dist = dist * 1.609344 }
+        if (unit == "N") { dist = dist * 0.8684 }
+        return dist
+    }
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: new google.maps.LatLng(10.777502919418838, 106.69500171298014),
+            zoom: 12,
+        });
+        infoWindow = new google.maps.InfoWindow();
+        if (!markersAll.length) {
+            var html = "";
+            let list = [];
+            $.ajax({
+                url: '/store',
+                datatype: "json",
+                type: "get",
+                async: true,
+                success: function (results) {
+
+                    const icons = {
+                        info: {
+                            icon: {
+                            }
+                        },
+                        current: {
+                            icon: {
+                                scaledSize: new google.maps.Size(34, 60), // scaled size
+                                origin: new google.maps.Point(0, 0), // origin
+                                anchor: new google.maps.Point(0, 0) // anchor
+                            },
+
+                        }
+                    };
+                    for (var i = 0; i < results.length; i++) {
+
+                        if (results[i].id != 1) { results[i].type = "info", icons.info.icon.url = iconBase + results[i].iconPath }
+                        else {
+                            icons.current.icon.url = iconBase + results[i].iconPath, results[i].type = "current";
+                        }
+                    }
+                    for (let i = 0; i < results.length; i++) {
+                        const marker = new google.maps.Marker({
+                            draggable: false,
+                            position: new google.maps.LatLng(results[i].latitude, results[i].longitude),
+                            icon: icons[results[i].type].icon,
+                            title: results[i].name,
+                            animation: google.maps.Animation.DROP,
+                            address: results[i].address,
+                            code: results[i].code,
+                            lat: results[i].latitude,
+                            lng: results[i].longitude,
+                            map: map,
+                            city: results[i].city,
+                            imagePath: results[i].imagePath,
+                        });
+                        markersAll.push(marker);
+
+                        const contentString = `<div class="item infobox">
+                                                    <div class="item_infobox_thumb">
+                                                    <img src="@Configuration["BaseAddress"]/ImageStore/` + marker.imagePath + `" alt=""></div>
+                                                    <div class="item_infobox_infor">
+                                                    <h3>`+ marker.title + `</h3>
+                                                    <p>`+ marker.address + `</p><a href="https://www.google.com/maps/dir/?api=1&destination='` + marker.address + `,` + marker.city + `&travelmode=driving" target="_blank" rel="nofollow">Chỉ Đường</a></div></div>`;
+
+                        const infowindow = new google.maps.InfoWindow({
+                            content: contentString,
+                            maxHeight: 500,
+                            ariaLabel: marker.title,
+
+                        });
+                        infoWindows.push(infowindow);
+
+                        map.addListener("click", (event) => {
+                            infowindow.close();
+                        });
+
+                        marker.addListener("click", () => {
+                            infowindow.open({
+                                anchor: marker,
+                                map,
+                            });
+
+                        });
+
+                        marker.addListener("click", toggleBounce);
+
+                        function toggleBounce() {
+                            if (marker.getAnimation() !== null) {
+                                marker.setAnimation(null);
+                            } else {
+                                marker.setAnimation(google.maps.Animation.BOUNCE);
+                            }
+                        };
+
+                    }
+                    for (let i = 1; i < markersAll.length; i++) {
+                        html += `<div style="display:flex"><div style="width:25%;margin:10px">
+                            <img itemprop="image" src="@Configuration["BaseAddress"]/ImageStore/${results[i].imagePath}" style="max-width:100%;max-height:100%;" /></div><div class="item store-list"  id="` + i + `" data-store-id="` + results[i].id + `">
+                            <h3 id="store-name" data-markerid="` + i + `">` + results[i].name + `</h3><span class="boostjuice-street">` + results[i].address + `<br>` + results[i].city + `</span>
+                            <table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>
+                            <td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>
+                            <tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>
+                            <a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="` + results[i].latitude + `" lng="` + results[i].longitude + `" >@_loc["openTime"]</a>
+                                <a data-url="https://www.google.com/maps/dir/?api=1&destination=` + results[i].address + `, ` + results[i].city + `&travelmode=driving" target="_blank" class="marker-link" data-markerid="` + i + `" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">@_loc["direction"]</a></div></div>`;
+
+                    }
+
+                    $('#boostjuice-stores').append(html);
+                    $('.marker-link').on('click', function () {
+                        var e = $(".marker-link").index(this);
+                        console.log($(this).data('markerid'));
+                        for (var i = 0; i < infoWindows.length; i++) {
+                            if (markersAll[$(this).data('markerid')] != i) {
+                                infoWindows[i].close();
+                            }
+                        }
+                        google.maps.event.trigger(markersAll[$(this).data('markerid')], 'click');
+                        window.open($(this).attr('data-url'), '_blank');
+
+                    });
+                    $('#boostjuice-stores').on('click', '#store-name', function () {
+                        var e = $("#store-name").index(this);
+                        for (var i = 0; i < infoWindows.length; i++) {
+                            if (markersAll[$(this).data('markerid')] != i) {
+                                infoWindows[i].close();
+                            }
+                        }
+                        google.maps.event.trigger(markersAll[$(this).data('markerid')], 'click');
+
+                    });
+
+
+                },
+                error: function (xhr) {
+                    console.log("error");
+                },
+
+            });
+        }
+        $("#get-my-location").on("click", function (event) {
+            for (let i = 0; i < markersAll.length; i++) {
+                markersAll[i].setMap(null);
+            }
+
+            markersAll = [];
+
+            if (navigator.geolocation) {
+                var a = {};
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+
+                        map.setCenter(pos);
+                        if (!markers.length) {
+                            var html = "";
+                            let list = [];
+                            var $loading = $('#boost-stores-loading');
+                            $.ajax({
+                                url: '/store',
+                                datatype: "json",
+                                type: "get",
+                                async: true,
+                                beforeSend: function () {
+                                    $loading.show();
+                                },
+                                success: function (results) {
+
+                                    const icons = {
+                                        info: {
+                                            icon: {
+                                            }
+                                        },
+                                        current: {
+                                            icon: {
+                                                scaledSize: new google.maps.Size(34, 60), // scaled size
+                                                origin: new google.maps.Point(0, 0), // origin
+                                                anchor: new google.maps.Point(0, 0) // anchor
+                                            },
+
+                                        }
+                                    };
+                                    for (var i = 0; i < results.length; i++) {
+
+                                        if (results[i].id != 1) { results[i].type = "info", icons.info.icon.url = iconBase + results[i].iconPath }
+                                        else { icons.current.icon.url = iconBase + results[i].iconPath, results[i].type = "current"; results[i].latitude = position.coords.latitude; results[i].longitude = position.coords.longitude };
+                                        var e = Math.round((distance(position.coords.latitude, position.coords.longitude, results[i].latitude, results[i].longitude, "K")) * 100) / 100;
+                                        results[i].distance = e;
+                                    }
+                                    results.sort(function (a, b) { return a.distance - b.distance });
+                                    for (let i = 0; i < results.length; i++) {
+                                        const marker = new google.maps.Marker({
+                                            draggable: false,
+                                            position: new google.maps.LatLng(results[i].latitude, results[i].longitude),
+                                            icon: icons[results[i].type].icon,
+                                            title: results[i].name,
+                                            animation: google.maps.Animation.DROP,
+                                            address: results[i].address,
+                                            code: results[i].code,
+                                            lat: results[i].latitude,
+                                            lng: results[i].longitude,
+                                            map: map,
+                                            distance: results[i].distance,
+                                            city: results[i].city,
+                                            imagePath: results[i].imagePath,
+
+                                        });
+                                        markers.push(marker);
+
+
+                                        const contentString = `<div class="item infobox">
+                                                        <div class="item_infobox_thumb">
+                                                        <img src="@Configuration["BaseAddress"]/ImageStore/` + marker.imagePath + `" alt=""></div>
+                                                        <div class="item_infobox_infor">
+                                                        <h3>`+ marker.title + `</h3>
+                                                        <p>`+ marker.address + `</p><a href="https://www.google.com/maps/dir/?api=1&destination='` + marker.address + `,` + marker.city + `&travelmode=driving" target="_blank" rel="nofollow">Chỉ Đường</a></div></div>`;
+
+                                        const infowindow = new google.maps.InfoWindow({
+                                            content: contentString,
+                                            maxHeight: 500,
+                                            ariaLabel: marker.title,
+
+                                        });
+                                        infoWindows.push(infowindow);
+
+                                        map.addListener("click", (event) => {
+                                            infowindow.close();
+                                        });
+
+                                        marker.addListener("click", () => {
+                                            infowindow.open({
+                                                anchor: marker,
+                                                map,
+                                            });
+
+                                        });
+
+                                        marker.addListener("click", toggleBounce);
+
+                                        function toggleBounce() {
+                                            if (marker.getAnimation() !== null) {
+                                                marker.setAnimation(null);
+                                            } else {
+                                                marker.setAnimation(google.maps.Animation.BOUNCE);
+                                            }
+                                        };
+
+                                    }
+                                    $('#boostjuice-stores').html('<h2 style="color: #79C339;margin-bottom: 20px;font-weight: 600;text-align:center">@_loc["titleNearestBoost"] ' + results[1].distance + ' km</h2>');
+
+                                    for (let i = 1; i < markers.length; i++) {
+                                        html += `<div style="display:flex"><div style="width:25%;margin:10px">
+                                        <img itemprop="image" src="@Configuration["BaseAddress"]/ImageStore/${results[i].imagePath}" style="max-width:100%;max-height:100%;" /></div><div class="item store-list"  id="` + i + `" data-store-id="` + results[i].id + `">
+                                            <h3 id="store-name" data-markerid="` + i + `"><em>`+ results[i].distance + `km</em>` + results[i].name + `</h3><span class="boostjuice-street">` + results[i].address + `<br>` + results[i].city + `</span>
+                                        <table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>
+                                        <td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>
+                                        <tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>
+                                        <a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="` + results[i].latitude + `" lng="` + results[i].longitude + `" >@_loc["openTime"]</a>
+                                            <a data-url="https://www.google.com/maps/dir/?api=1&destination=` + results[i].address + `, ` + results[i].city + `&travelmode=driving" target="_blank" class="marker-link" data-markerid="` + i + `" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">@_loc["direction"]</a></div></div>`;
+
+                                    }
+                                    
+
+                                    $('#boostjuice-stores').append(html);
+
+                                    $('.marker-link').on('click', function () {
+                                        var e = $(".marker-link").index(this);
+                                        for (var i = 0; i < infoWindows.length; i++) {
+                                            if (markers[$(this).data('markerid')] != i) {
+                                                infoWindows[i].close();
+                                            }
+                                        }
+                                        google.maps.event.trigger(markers[$(this).data('markerid')], 'click');
+                                        window.open($(this).attr('data-url'), '_blank');
+
+                                    });
+
+                                    $('#boostjuice-stores').on('click', '#store-name', function () {
+                                        var e = $("#store-name").index(this);
+                                        for (var i = 0; i < infoWindows.length; i++) {
+                                            if (markers[$(this).data('markerid')] != i) {
+                                                infoWindows[i].close();
+                                            }
+                                        }
+                                        google.maps.event.trigger(markers[$(this).data('markerid')], 'click');
+
+                                    });
+
+                                },
+                                error: function (xhr) {
+                                    console.log("error");
+                                },
+                                complete: function () {
+                                    $loading.fadeOut(3000, function () {
+                                        $('#boost-stores').fadeIn();
+
+                                        $('.boost-home .footer').css("margin-top", "60px");
+                                    });
+                                },
+                            });
+                        }
+                    },
+                    () => {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    },
+                );
+
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+            event.preventDefault(); // <-- that should not be used in passive
+        });
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(
+                browserHasGeolocation
+                    ? "Error: The Geolocation service failed."
+                    : "Error: Your browser doesn't support geolocation.",
+            );
+            infoWindow.open(map);
+        }
+        map.setOptions({
+            styles: [{
+                featureType: "administrative",
+                elementType: "labels.text.fill",
+                stylers: [{
+                    color: "#444444"
+                }]
+            }, {
+                featureType: "landscape",
+                elementType: "all",
+                stylers: [{
+                    color: "#f2f2f2"
+                }]
+            }, {
+                featureType: "poi",
+                elementType: "all",
+                stylers: [{
+                    visibility: "off"
+                }]
+            }, {
+                featureType: "poi.business",
+                elementType: "geometry.fill",
+                stylers: [{
+                    visibility: "on"
+                }]
+            }, {
+                featureType: "road",
+                elementType: "all",
+                stylers: [{
+                    saturation: -100
+                }, {
+                    lightness: 45
+                }]
+            }, {
+                featureType: "road.highway",
+                elementType: "all",
+                stylers: [{
+                    visibility: "simplified"
+                }]
+            }, {
+                featureType: "road.arterial",
+                elementType: "labels.icon",
+                stylers: [{
+                    visibility: "off"
+                }]
+            }, {
+                featureType: "transit",
+                elementType: "all",
+                stylers: [{
+                    visibility: "off"
+                }]
+            }, {
+                featureType: "water",
+                elementType: "all",
+                stylers: [{
+                    color: "#b4d4e1"
+                }, {
+                    visibility: "on"
+                }]
+            }]
+        });
+
+    }
+
+    window.initMap = initMap;
+</script>

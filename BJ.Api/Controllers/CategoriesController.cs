@@ -1,5 +1,7 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
 using BJ.Application.Ultities;
+using BJ.Contract;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
 using Microsoft.AspNetCore.Authorization;
@@ -21,8 +23,8 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Phân trang loại sản phẩm
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpGet("paging")]
-
         public async Task<PagedViewModel<CategoryDto>> GetCategories([FromQuery] GetListPagingRequest getListPagingRequest)
         {
 
@@ -32,8 +34,9 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Danh sách loại
         /// </summary>
+        /// 
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpGet]
-
         public async Task<IEnumerable<CategoryDto>> GetCategories()
         {
 
@@ -43,6 +46,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Danh sách loại trang user
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpGet("userpage")]
 
         public async Task<IEnumerable<UserCategoryDto>> GetUserCategories(string languageId)
@@ -55,8 +59,7 @@ namespace BJ.Api.Controllers
         /// Tạo mới loại
         /// </summary>
         /// 
-        [Authorize]
-
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] CreateCategoryDto createCategoryDto)
         {
@@ -82,6 +85,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Lấy thông tin ngôn ngữ của loại bằng Id
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
 
         [HttpGet("language/{id}/detail")]
 
@@ -99,8 +103,9 @@ namespace BJ.Api.Controllers
         /// Tạo mới loại theo từng ngôn ngữ
         /// </summary>
         /// 
-
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost("language/create")]
+
         public async Task<IActionResult> CreateTranslate([FromBody] CreateCategoryTranslationDto createCategoryTranslationDto)
         {
             try
@@ -124,8 +129,9 @@ namespace BJ.Api.Controllers
         /// Cập nhật loại theo từng ngôn ngữ
         /// </summary>
         /// 
-
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPut("{proId}/language/{id}/update")]
+
         public async Task<IActionResult> UpdateTranslate(Guid proId, Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
             try
@@ -152,8 +158,7 @@ namespace BJ.Api.Controllers
         /// Cập nhật loại
         /// </summary>
         /// 
-        [Authorize]
-
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditCategory(Guid id, [FromForm] UpdateCategoryDto updateCategoryDto)
         {
@@ -182,7 +187,7 @@ namespace BJ.Api.Controllers
         /// <summary>
         /// Lấy thông tin loại bằng Id
         /// </summary>
-
+        [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetCategoryById(Guid id)

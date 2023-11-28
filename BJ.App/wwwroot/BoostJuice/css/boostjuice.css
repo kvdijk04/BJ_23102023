@@ -12909,8 +12909,8 @@ body.body-fixed .main-header {
 @media(min-width:1200px) {
     .main-filter__set-row {
         margin: 0 10%;
-/*        flex-wrap: wrap;
-*/
+        flex-wrap: wrap;
+
     }
 }
 @media(max-width:1280px) {
@@ -12943,10 +12943,14 @@ body.body-fixed .main-header {
 
 .main-filter__set {
     padding: 1rem;
-    width: 16.7%;
+    /*    width: 16.7%;
+*/
+    width: 15.7%;
     -webkit-box-flex: 0;
     -ms-flex: 0 1 16.7%;
-    flex: 0 1 16.7%;
+    /*    flex: 0 1 16.7%;
+*/
+    flex: 0 1 15.7%;
     cursor: pointer;
     min-height: 150px;
     margin: 0;

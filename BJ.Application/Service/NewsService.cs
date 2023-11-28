@@ -15,9 +15,8 @@ namespace BJ.Application.Service
     public interface INewsService
     {
 
-        Task<IEnumerable<NewsUserViewModel>> GetNewss(string culture, bool popular);
-        Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture);
 
+        Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular);
 
 
         Task CreateNews(CreateNewsAdminView createNewsAdminView);
@@ -26,6 +25,9 @@ namespace BJ.Application.Service
         Task UpdateNews(Guid id, UpdateNewsAdminView updateNewsAdminView);
         Task<NewsUserViewModel> GetNewsById(Guid id, string culture);
         Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+
+        Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery]GetListPagingRequest getListPagingRequest);
+        Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest);
 
         Task<NewsTranslationDto> GetNewsTransalationById(Guid id);
         Task<IEnumerable<NewsUserViewModel>> GetNewsAtHome(string culture);
@@ -179,8 +181,6 @@ namespace BJ.Application.Service
             return newsResponse;
         }
 
-
-
         public async Task<NewsUserViewModel> GetNewsById(Guid id, string culture)
         {
             var item = await _context.News.FindAsync(id);
@@ -212,35 +212,6 @@ namespace BJ.Application.Service
             };
             return newsViewModel;
 
-        }
-
-        public async Task<IEnumerable<NewsUserViewModel>> GetNewss(string culture, bool popular)
-        {
-            var query = from b in _context.News
-                        join bt in _context.NewsTranslations on b.Id equals bt.NewsId into ppic
-                        from bt in ppic.DefaultIfEmpty()
-                        where bt.LanguageId == culture && b.Active == true && b.Promotion == false
-                        select new { b, bt };
-            var data = await query.OrderByDescending(x => x.b.DateCreated)
-                .Select(x => new NewsUserViewModel()
-                {
-                    Id = x.b.Id,
-                    DateCreated = x.b.DateCreated,
-                    Description = x.bt.Description,
-                    ShortDesc = x.bt.ShortDesc,
-                    Title = x.bt.Title,
-                    Alias = x.bt.Alias,
-                    MetaDesc = x.bt.MetaDesc,
-                    MetaKey = x.bt.MetaKey,
-                    DateUpdated = x.b.DateUpdated,
-                    Active = x.b.Active,
-                    Home = x.b.Home,
-
-                    ImagePath = x.b.ImagePath,
-                    Popular = x.b.Popular,
-                }).ToListAsync();
-            if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
-            return data;
         }
 
         public async Task UpdateNews(Guid id, UpdateNewsAdminView updateNewsAdminView)
@@ -373,12 +344,102 @@ namespace BJ.Application.Service
             return data.Take(1);
         }
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetPromotions(string culture)
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews( [FromQuery]GetListPagingRequest getListPagingRequest)
         {
+            if (getListPagingRequest.PageSize == 0)
+            {
+                getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSizeUser:News"));
+            }
+            var pageResult = getListPagingRequest.PageSize;
+
+            var query = from n in _context.News.OrderByDescending(x => x.DateCreated)
+                        join nt in _context.NewsTranslations on n.Id equals nt.NewsId
+                        where nt.LanguageId == getListPagingRequest.LanguageId && n.Id.Equals(nt.NewsId) && n.Promotion == false
+                        select new { n, nt };
+            var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
+
+            var data = await query.Skip((getListPagingRequest.PageIndex - 1) * pageResult)
+                                    .Take(pageResult)
+                                    .Select(x => new NewsUserViewModel()
+                                    {
+                                        Id = x.n.Id,
+                                        DateCreated = x.n.DateCreated,
+                                        Description = x.nt.Description,
+                                        ShortDesc = x.nt.ShortDesc,
+                                        Title = x.nt.Title,
+                                        Alias = x.nt.Alias,
+                                        MetaDesc = x.nt.MetaDesc,
+                                        MetaKey = x.nt.MetaKey,
+                                        DateUpdated = x.n.DateUpdated,
+                                        Active = x.n.Active,
+                                        Home = x.n.Home,
+                                        Promotion = x.n.Promotion,
+                                        ImagePath = x.n.ImagePath,
+                                        Popular = x.n.Popular,
+                                    }).AsNoTracking().ToListAsync();
+            //if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
+
+            var newsResponse = new PagedViewModel<NewsUserViewModel>
+            {
+                Items = data,
+                PageIndex = getListPagingRequest.PageIndex,
+                PageSize = getListPagingRequest.PageSize,
+                TotalRecord = (int)pageCount,
+            };
+            return newsResponse;
+        }
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest)
+        {
+            if (getListPagingRequest.PageSize == 0)
+            {
+                getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSizeUser:Promotion"));
+            }
+            var pageResult = getListPagingRequest.PageSize;
+
+            var query = from n in _context.News.OrderByDescending(x => x.DateCreated)
+                        join nt in _context.NewsTranslations on n.Id equals nt.NewsId
+                        where nt.LanguageId == getListPagingRequest.LanguageId && n.Id.Equals(nt.NewsId) && n.Promotion == true
+                        select new { n, nt };
+            var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
+
+            var data = await query.Skip((getListPagingRequest.PageIndex - 1) * pageResult)
+                                    .Take(pageResult)
+                                    .Select(x => new NewsUserViewModel()
+                                    {
+                                        Id = x.n.Id,
+                                        DateCreated = x.n.DateCreated,
+                                        Description = x.nt.Description,
+                                        ShortDesc = x.nt.ShortDesc,
+                                        Title = x.nt.Title,
+                                        Alias = x.nt.Alias,
+                                        MetaDesc = x.nt.MetaDesc,
+                                        MetaKey = x.nt.MetaKey,
+                                        DateUpdated = x.n.DateUpdated,
+                                        Active = x.n.Active,
+                                        Home = x.n.Home,
+                                        Promotion = x.n.Promotion,
+                                        ImagePath = x.n.ImagePath,
+                                        Popular = x.n.Popular,
+                                    }).AsNoTracking().ToListAsync();
+            //if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
+
+            var newsResponse = new PagedViewModel<NewsUserViewModel>
+            {
+                Items = data,
+                PageIndex = getListPagingRequest.PageIndex,
+                PageSize = getListPagingRequest.PageSize,
+                TotalRecord = (int)pageCount,
+            };
+            return newsResponse;
+        }
+        public async  Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular)
+        {
+
+
             var query = from b in _context.News
                         join bt in _context.NewsTranslations on b.Id equals bt.NewsId into ppic
                         from bt in ppic.DefaultIfEmpty()
-                        where bt.LanguageId == culture && b.Active == true && b.Promotion == true
+                        where bt.LanguageId == culture && b.Active == true && b.Promotion == false
                         select new { b, bt };
             var data = await query.OrderByDescending(x => x.b.DateCreated)
                 .Select(x => new NewsUserViewModel()
@@ -394,10 +455,11 @@ namespace BJ.Application.Service
                     DateUpdated = x.b.DateUpdated,
                     Active = x.b.Active,
                     Home = x.b.Home,
-                    Promotion = x.b.Promotion,
+
                     ImagePath = x.b.ImagePath,
                     Popular = x.b.Popular,
                 }).ToListAsync();
+            if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
             return data;
         }
     }

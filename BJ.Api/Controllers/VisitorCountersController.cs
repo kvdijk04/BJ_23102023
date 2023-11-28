@@ -21,7 +21,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         [HttpGet]
 
-        public async Task<long> GetVisitorCounters()
+        public async Task<VisitorCounterDto> GetVisitorCounters()
         {
 
             return await _visitorCounterService.GetVisitorCounter();

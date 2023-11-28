@@ -1,7 +1,10 @@
 ﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
-    ViewBag.Title = "TERMS OF USE";
+    ViewBag.Title = "Terms of use";
 }
+
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
     <style>
@@ -50,20 +53,20 @@
         <p>
             <strong>
                 ACCEPTANCE OF TERMS<br>
-            </strong><a href="https://boostjuice.vn/en/home/" target="_blank" rel="noopener">www.boostjuice.vn</a>&nbsp;(the “Site”) is owned and managed by Van Xuan FMCG Investment Company Limited (“We” or “Us”). These Terms of Use apply to various services, including all information, communications, links, software, e-newsletter, products, services, other materials and any and all other services that maybe added, offered or provided to you from time to time (the “Services”) through this Site.<strong>
+            </strong><a href="@Configuration["CurrentDomain"]en" target="_blank" rel="noopener">www.boostjuice.vn</a>&nbsp;(the “Site”) is owned and managed by Boost Juice VietNam Company Limited (“We” or “Us”). These Terms of Use apply to various services, including all information, communications, links, software, e-newsletter, products, services, other materials and any and all other services that maybe added, offered or provided to you from time to time (the “Services”) through this Site.<strong>
                 <br>
             </strong>
         </p>
         <p>By using and accessing the Site, you agree to legally bounnd by these Terms of Use.</p>
         <p>
             You accept without limitation or qualification the Terms of Use, including the Privacy Policy.<br>
-            These Terms of Use may be revises and updated from time to time by posting a revised version on the Site and your continued use of the Site shall be deemed as your constitute and binding acceptance of the revised and updated terms. You can review the most recent version any time of the Terms of Use&nbsp;<a href="https://boostjuice.vn/en/terms-of-use/">here</a>. If you do not agree to the revision of the Terms of Use, you should immediately cease use of any of the Services on the Site.<br>
+            These Terms of Use may be revises and updated from time to time by posting a revised version on the Site and your continued use of the Site shall be deemed as your constitute and binding acceptance of the revised and updated terms. You can review the most recent version any time of the Terms of Use&nbsp;<a href="@Configuration["CurrentDomain"]en/terms-of-use/">here</a>. If you do not agree to the revision of the Terms of Use, you should immediately cease use of any of the Services on the Site.<br>
             In addition, particular service(s) added, offered or provided through the Site, may subject to additional guidelines and/or rules. All such guidelines and/or rules shall be incorporated in these Terms of Use by reference.
         </p>
         <p>
             <strong>
                 USE OF THE WEBSITE<br>
-            </strong>You agree to comply with the&nbsp;<a href="https://boostjuice.vn/en/acceptable-use-policy/" target="_blank" rel="noopener">Policy of Acceptable Use</a>&nbsp;in using the Site. We may remove or delete any content that you have provided on the Site if we, in our absolute discretion, suspect that you have violated the&nbsp;<a href="https://boostjuice.vn/en/acceptable-use-policy/" target="_blank" rel="noopener">Policy of Acceptable Use</a>.<strong>
+            </strong>You agree to comply with the&nbsp;<a href="@Configuration["CurrentDomain"]en/acceptable-use-policy/" target="_blank" rel="noopener">Policy of Acceptable Use</a>&nbsp;in using the Site. We may remove or delete any content that you have provided on the Site if we, in our absolute discretion, suspect that you have violated the&nbsp;<a href="@Configuration["CurrentDomain"]en/acceptable-use-policy/" target="_blank" rel="noopener">Policy of Acceptable Use</a>.<strong>
                 <br>
             </strong>
         </p>
@@ -169,8 +172,8 @@
         <p>
             <strong>
                 PRIVACY POLICY<br>
-            </strong>All personal data about you is subject to our&nbsp;<a href="https://boostjuice.vn/en/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.<br>
-            The&nbsp;<a href="https://boostjuice.vn/en/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>&nbsp;is deemed incorporated into the Terms of Use by reference to this Clause.
+            </strong>All personal data about you is subject to our&nbsp;<a href="@Configuration["CurrentDomain"]en/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.<br>
+            The&nbsp;<a href="@Configuration["CurrentDomain"]en/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>&nbsp;is deemed incorporated into the Terms of Use by reference to this Clause.
         </p>
         <p>
             <strong>

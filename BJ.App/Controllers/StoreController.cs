@@ -30,9 +30,12 @@ namespace BJ.App.Controllers
                 await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
             }
             var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Counter = a;
+            var store = await _storeLocationServiceConnection.GetAllStoreLocations();
 
-            return View();
+            ViewBag.Day = a.DayCount;
+            ViewBag.Month = a.MonthCount;
+            ViewBag.Year = a.YearCount;
+            return View(store);
         }
 
         [Route("/store")]
@@ -42,5 +45,6 @@ namespace BJ.App.Controllers
 
             return Json(store);
         }
+        
     }
 }
