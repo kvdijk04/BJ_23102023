@@ -1,0 +1,59 @@
+﻿@using BJ.Contract.ViewModel
+@model IEnumerable<ConfigWebViewModel>
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<header class="boost-main">
+    <nav class="boost-main-nav-wrapper">
+        <ul class="boost-main-nav">
+            @if (Model.FirstOrDefault(x => x.SortOrder == 1) != null)
+            {
+                <li>
+                    <a class="boost-subnav-trigger-off" href="/@culture/@Model.FirstOrDefault(x => x.SortOrder == 1).Url">@Model.FirstOrDefault(x => x.SortOrder == 1).Title</a>
+                </li>
+            }
+            @if (Model.FirstOrDefault(x => x.SortOrder == 2) != null)
+            {
+                <li><a class="boost-subnav-trigger-off" href="/@culture/@Model.FirstOrDefault(x => x.SortOrder == 2).Url">@Model.FirstOrDefault(x => x.SortOrder == 2).Title</a></li>
+
+            }
+
+
+            <li></li>
+            <li id="lgcontainer">
+                <a class="gift-card" href="/en/Home/SetCultureCookie?cltr=en&amp;returnUrl=/en"><img src="~/images/us.png" width="20"> en</a>
+                <a class="gift-card" href="/vi/Home/SetCultureCookie?cltr=vi&amp;returnUrl=/vi" id="vnlng"><img src="~/images/vn.png" width="20"> vi</a>
+                @if (Model.FirstOrDefault(x => x.SortOrder == 5) != null)
+                {
+                    <a href="/@culture/@Model.FirstOrDefault(x => x.SortOrder == 5).Url" class="my-vibe" data-open="0"><span>VIBE</span></a>
+
+                }
+            </li>
+
+        </ul>
+    </nav>
+
+    <a class="boost-nav-trigger" clicked="false" onclick="myFunction(this)"><span></span></a>
+    <a href="/@culture/" class="boost-logo" id="boostlogo"><img src="~/images/boost-juice-logo.png" alt="Boost Juice" id="boost-logo"></a>
+    <nav class="sub-navi">
+        <ul>
+            @if(Model != null && Model.Count() > 0)
+            {
+                @foreach (var item in Model.Where(x => x.SortOrder > 2))
+                {
+                    <li id="menu-item" class="remove-me"><a href="/@culture/@item.Url">@item.Title</a></li>
+                    
+                }
+
+            }
+
+
+            @*                 <li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
+            *@
+        </ul>
+    </nav>
+
+</header>

@@ -1,0 +1,89 @@
+﻿@using BJ.Contract.ViewModel
+@model ConfigWebViewModel;
+@{
+    ViewBag.Title = Model.Title;
+
+    var culture = CultureInfo.CurrentCulture.Name;
+
+}
+@section Styles {
+    <link rel="stylesheet" href="~/BoostJuice/css/healthy.css">
+    <style>
+        .simple-inner {
+            max-width: 760px;
+            margin: 0px auto;
+            padding: 0px 15px 100px 15px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #E1E1E1;
+        }
+
+        .simple-inner ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .simple-inner li {
+            padding-left: 25px;
+            position: relative;
+        }
+
+        li {
+            margin-bottom: 1rem;
+        }
+
+        .simple-inner li::before {
+            position: absolute;
+            top: -6px;
+            left: 0px;
+            content: "• ";
+            font-size: 32px;
+            line-height: 32px;
+            color: rgb(120, 193, 72);
+        }
+
+        .column label {
+            padding: 10px;
+            background-color: #ee923f;
+            font-size: 18px;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+
+        .column .responsive-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: auto
+        }
+    </style>
+}
+<div class="boost-main-content">
+    <div class="main-fold-angle bg-image ">
+    </div>
+    <div class="container simple-inner">
+        <div class="page" title="Page 1">
+            <div class="layoutArea">
+                <div class="column">
+                    <h2 style="text-align: center;">
+                        <span style="color: #70b046;text-transform:uppercase">
+                            <strong>
+                                @Model.Title
+                            </strong>
+                        </span>
+                    </h2>
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+        </div>
+        <!--CusAds0-->
+        <div style="font-size: 0px; height: 0px; line-height: 0px; margin: 0; padding: 0; clear: both;"></div>
+    </div>
+
+</div>
+

@@ -30,7 +30,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -51,7 +51,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -66,7 +66,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -92,7 +92,16 @@ namespace BJ.Admin.Controllers
         [Route("/cap-nhat-danh-muc-con/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
+            {
+                return Redirect("/dang-nhap.html");
+            }
+
             var item = await _subCategoryServiceConnection.GetSubCategoryById(id);
+
             UpdateSubCategoryDto updateSubCategoryDto = new()
             {
                 Active = item.Active,
@@ -101,7 +110,7 @@ namespace BJ.Admin.Controllers
                 Description = item.Description,
                 ImagePath = item.ImagePath,
             };
-            ViewBag.Id = id;
+            ViewBag.SubCatId = id;
 
             return View(updateSubCategoryDto);
         }
@@ -144,7 +153,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -162,7 +171,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -201,7 +210,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }

@@ -1,5 +1,9 @@
-﻿using BJ.Application.Service;
+﻿using BJ.Application.Helper;
+using BJ.Application.Service;
+using BJ.Application.Ultities;
+using BJ.Contract;
 using BJ.Contract.Account;
+using BJ.Contract.Size;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +19,18 @@ namespace BJ.Api.Controllers
         {
             _logger = logger;
             _accountService = accountService;
+        }
+        /// <summary>
+        /// Phân trang tài khoản
+        /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole)]
+        [HttpGet("paging")]
+
+        public async Task<PagedViewModel<AccountDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
+        {
+
+            return await _accountService.GetPaging(getListPagingRequest);
+
         }
         /// <summary>
         /// Danh sách tài khoản
@@ -43,6 +59,22 @@ namespace BJ.Api.Controllers
             return Ok(await _accountService.GetAccountById(id));
 
         }
+        /// <summary>
+        /// Lấy thông tin tài khoản bằng email
+        /// </summary>
+
+        [HttpGet("email")]
+
+        public async Task<IActionResult> GetAccountByEmail(string email)
+        {
+            if (await _accountService.GetAccountByEmail(email) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            return Ok(await _accountService.GetAccountByEmail(email));
+
+        }
+
         /// <summary>
         /// Cập nhật tài khoản
         /// </summary>

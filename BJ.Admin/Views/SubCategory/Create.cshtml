@@ -8,13 +8,13 @@
 @model CreateSubCategoryDto
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="page-header">
-        <h2 class="header-title">Tạo mới danh mục con</h2>
+        <h2 class="header-title">Tạo mới loại dinh dưỡng</h2>
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
                 <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
-                <a href="/tat-ca-danh-muc-con.html " class="breadcrumb-item">Tất cả danh mục con</a>
+                <a href="/tat-ca-danh-muc-con.html " class="breadcrumb-item">Tất cả loại dinh dưỡng</a>
 
-                <span class="breadcrumb-item active">Tạo mới danh mục con</span>
+                <span class="breadcrumb-item active">Tạo mới loại dinh dưỡng</span>
             </nav>
         </div>
     </div>
@@ -38,7 +38,7 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin danh mục con</a>
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin loại dinh dưỡng</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#product-edit-option">Ảnh</a>
@@ -53,8 +53,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="font-weight-semibold" for="subCatName">Tên danh mục con</label>
-                        <input type="text" class="form-control" id="subCatName" placeholder="Tên danh mục con" asp-for="@Model.SubCatName" required>
+                        <label class="font-weight-semibold" for="subCatName">Tên loại dinh dưỡng</label>
+                        <input type="text" class="form-control" id="subCatName" placeholder="Tên loại dinh dưỡng" asp-for="@Model.SubCatName" required>
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <div class="switch m-r-10">

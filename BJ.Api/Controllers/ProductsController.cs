@@ -5,7 +5,6 @@ using BJ.Contract;
 using BJ.Contract.Product;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.Api.Controllers
@@ -110,7 +109,7 @@ namespace BJ.Api.Controllers
         /// Lấy thông tin ngôn ngữ sản phẩm bằng Id
         /// </summary>
 
-        [HttpGet("language/{id}/detail")]
+        [HttpGet("language/{id}")]
 
         public async Task<IActionResult> GetProductTranslationById(Guid id)
         {
@@ -126,7 +125,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         [SecurityRole(AuthorizeRole.AdminRole)]
 
-        [HttpPut("{proId}/language/{id}/update")]
+        [HttpPut("{proId}/language/{id}")]
         public async Task<IActionResult> EditProduct(Guid proId, Guid id, [FromBody] UpdateProductTranslationDto updateProductTranslationDto)
         {
             try
@@ -219,7 +218,7 @@ namespace BJ.Api.Controllers
 
         public async Task<IActionResult> GetProductByCatId(string culture, Guid catId)
         {
-            if (await _productService.GetProductByCatId(culture,catId) == null)
+            if (await _productService.GetProductByCatId(culture, catId) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }

@@ -10,12 +10,12 @@
 }
 <form asp-action="Index" asp-controller="C" method="get">
     <div class="page-header">
-        <h2 class="header-title">Danh sách danh mục con</h2>
+        <h2 class="header-title">Danh sách loại dinh dưỡng</h2>
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
                 <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
 
-                <span class="breadcrumb-item active">Tất cả danh mục con</span>
+                <span class="breadcrumb-item active">Tất cả loại dinh dưỡng</span>
             </nav>
         </div>
     </div>
@@ -74,6 +74,9 @@
                                         </button>
                                         <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-danh-muc-con/@item.Id'">
                                             <i class="anticon anticon-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-danh-muc-con/@item.Id/them-moi-ngon-ngu/'">
+                                            <i class="fas fa-language"></i>
                                         </button>
                                     </td>
                                 </tr>

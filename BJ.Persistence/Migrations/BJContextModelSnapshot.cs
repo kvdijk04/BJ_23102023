@@ -200,6 +200,80 @@ namespace BJ.Persistence.Migrations
                     b.ToTable("CategoryTranslation", (string)null);
                 });
 
+            modelBuilder.Entity("BJ.Domain.Entities.ConfigWebsite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfigWebsite", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.DetailConfigWebsite", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ConfigWebId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfigWebId");
+
+                    b.ToTable("DetailConfigWebsite", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.DetailConfigWebsiteTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DetailConfigWebId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DetailConfigWebId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("DetailConfigWebsiteTranslation", (string)null);
+                });
+
             modelBuilder.Entity("BJ.Domain.Entities.Language", b =>
                 {
                     b.Property<string>("Id")
@@ -638,18 +712,6 @@ namespace BJ.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VisitorCounter", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("05d73632-243f-4d09-ad09-2701b0dcb8d0"),
-                            Day = 24,
-                            DayCount = 0L,
-                            Month = 11,
-                            MonthCount = 0L,
-                            Year = 2023,
-                            YearCount = 0L
-                        });
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.BlogTranslation", b =>
@@ -682,6 +744,34 @@ namespace BJ.Persistence.Migrations
                         .HasForeignKey("LanguageId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.DetailConfigWebsite", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.ConfigWebsite", "ConfigWeb")
+                        .WithMany("DetailConfigWeb")
+                        .HasForeignKey("ConfigWebId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ConfigWeb");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.DetailConfigWebsiteTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.DetailConfigWebsite", "DetailConfigWeb")
+                        .WithMany("DetailConfigWebTranslations")
+                        .HasForeignKey("DetailConfigWebId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId");
+
+                    b.Navigation("DetailConfigWeb");
 
                     b.Navigation("Language");
                 });
@@ -808,6 +898,16 @@ namespace BJ.Persistence.Migrations
                     b.Navigation("Products");
 
                     b.Navigation("Sizes");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.ConfigWebsite", b =>
+                {
+                    b.Navigation("DetailConfigWeb");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.DetailConfigWebsite", b =>
+                {
+                    b.Navigation("DetailConfigWebTranslations");
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.Language", b =>

@@ -1,0 +1,101 @@
+﻿@model AccountDto;
+@using BJ.Contract.Account;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="page-header">
+    <h2 class="header-title">Chi tiết tài khoản</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-tai-khoan.html " class="breadcrumb-item">Tất cả tài khoản</a>
+
+            <span class="breadcrumb-item active">Chi tiết tài khoản</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="media align-items-center m-b-15">
+            <div class="m-l-15">
+                <h4 class="m-b-0">@Model.EmployeeName</h4>
+                <p class="text-muted m-b-0">Code: @Model.Id</p>
+            </div>
+        </div>
+        <div class="m-b-15">
+            <button class="btn btn-warning" onclick="location.href='/cap-nhat-tai-khoan/@Model.Id'" type="button">
+                <i class="anticon anticon-edit"></i>
+                <span>Cập nhật</span>
+            </button>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-overview">Tổng quan</a>
+        </li>
+
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-overview">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td>	@Model.EmployeeName</td>
+                                </tr>
+                                <tr>
+                                    <td>UserName:</td>
+                                    <td>	@Model.UserName</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày tạo:</td>
+                                    <td>@Model.CreatedDate</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày cập nhật:</td>
+                                    <td>@Model.ModifiedDate</td>
+                                </tr>
+                                <tr>
+                                    <td>Lần đăng nhập cuối:</td>
+                                    <td>@Model.LastLogin</td>
+                                </tr>
+                                <tr>
+                                    <td>Quyền truy cập:</td>
+                                    <td>@Model.AuthorizeRole</td>
+                                </tr>
+                                <tr>
+                                    <td>Hoạt động:</td>
+                                    <td>
+                                        @if (Model.Active == true)
+                                        {
+                                            <span class="badge badge-pill badge-cyan">Có</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-red">Không</span>
+
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+</div>

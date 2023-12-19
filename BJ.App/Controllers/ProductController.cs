@@ -1,6 +1,4 @@
 ﻿using BJ.ApiConnection.Services;
-using BJ.Application.Ultities;
-using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.App.Controllers
@@ -19,21 +17,9 @@ namespace BJ.App.Controllers
             _visitorCounterServiceConnection = visitorCounterServiceConnection;
         }
         public async Task<IActionResult> Index(string culture)
-        {   
-
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
+        {
             TempData["Cul"] = culture;
-          
+
             var result = await _productService.GetAllUserProduct(culture);
 
             return View(result);
@@ -41,17 +27,7 @@ namespace BJ.App.Controllers
 
         public async Task<IActionResult> Detail(Guid proId, string culture, string alias)
         {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
 
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
             var product = await _productService.GetUserProductById(proId, culture);
 
             if (product == null)
@@ -66,7 +42,7 @@ namespace BJ.App.Controllers
         public async Task<IActionResult> FilterByCategoryId(Guid catId, string culture)
         {
 
-            var rs = await _productService.GetAllProductByCatId(culture,catId);
+            var rs = await _productService.GetAllProductByCatId(culture, catId);
 
             if (rs == null)
             {
@@ -76,7 +52,7 @@ namespace BJ.App.Controllers
 
             return PartialView("_FilterByCategory", rs);
         }
-       
+
         //public async Task<IActionResult> Buy(string culture)
         //{
         //    //< a href =/ " + a+" / xem - chi - tiet > Xem chi tiết</ a >

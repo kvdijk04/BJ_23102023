@@ -1,6 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
-using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.App.Controllers

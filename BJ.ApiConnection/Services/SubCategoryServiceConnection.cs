@@ -156,7 +156,7 @@ namespace BJ.ApiConnection.Services
 
         public async Task<SubCategoryTranslationDto> GetSubCategoryTranslationnById(Guid id)
         {
-            return await GetAsync<SubCategoryTranslationDto>($"/api/SubCategories/language/{id}/detail");
+            return await GetAsync<SubCategoryTranslationDto>($"/api/SubCategories/language/{id}");
         }
 
         public async Task<bool> UpdateSubCategory(int id, UpdateSubCategoryDto updateSubCategoryDto)
@@ -219,7 +219,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/SubCategories/{subCatId}/language/{id}/update", httpContent);
+            var response = await client.PutAsync($"/api/SubCategories/{subCatId}/language/{id}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

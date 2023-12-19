@@ -48,16 +48,21 @@ namespace BJ.Admin.Controllers
 
 
             var token = await _loginService.Login(loginDto);
+            var account = await _loginService.GetByEmail(loginDto.UserName);
+
             if (token == "" || token == null)
             {
                 TempData["Error"] = "Tài khoản không đúng";
                 return Redirect("/dang-nhap.html");
             }
             var claim = new List<Claim>
-            {
-            new Claim(ClaimTypes.Email,loginDto.UserName),
-            new Claim(ClaimTypes.GivenName,loginDto.UserName),
-            new Claim(ClaimTypes.Name,loginDto.UserName)
+                {
+                new Claim(ClaimTypes.Email,loginDto.UserName),
+                new Claim(ClaimTypes.GivenName,account.UserName),
+                new Claim(ClaimTypes.Name,account.UserName),
+                new Claim("Role", account.AuthorizeRole.ToString()),
+
+
             };
             var identity = new ClaimsIdentity(claim, CookieAuthenticationDefaults.AuthenticationScheme);
             var principle = new ClaimsPrincipal(identity);

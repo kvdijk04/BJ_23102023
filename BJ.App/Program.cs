@@ -75,6 +75,7 @@ builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
 builder.Services.AddScoped<IEmailServiceConnection, EmailServiceConnection>();
 builder.Services.AddScoped<ILanguageServiceConnection, LanguageServiceConnection>();
 builder.Services.AddScoped<IVisitorCounterServiceConnection, VisitorCounterServiceConnection>();
+builder.Services.AddScoped<IDetailConfigWebServiceConnection, DetailConfigWebServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -125,6 +126,7 @@ app.MapHub<UsersOnlineHub>("/UsersOnlineHub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "Product List En",
     pattern: "{culture}/drinks", new
@@ -160,7 +162,7 @@ app.MapControllerRoute(
     {
         controller = "Blog",
         action = "Index"
-        
+
     });
 
 app.MapControllerRoute(
@@ -240,76 +242,76 @@ app.MapControllerRoute(
         controller = "Home",
         action = "About"
     });
-app.MapControllerRoute(
-    name: "Privacy En",
-    pattern: "{culture}/privacy-policy", new
-    {
-        controller = "Home",
-        action = "Privacy"
-    });
-app.MapControllerRoute(
-    name: "About Vi",
-    pattern: "{culture}/chinh-sach-bao-mat", new
-    {
-        controller = "Home",
-        action = "Privacy"
-    });
-app.MapControllerRoute(
-    name: "Instruction Vi",
-    pattern: "{culture}/huong-dan-dat-hang-va-thanh-toan", new
-    {
-        controller = "Home",
-        action = "Instruction"
-    });
-app.MapControllerRoute(
-    name: "Instruction En",
-    pattern: "{culture}/order-payment-instruction", new
-    {
-        controller = "Home",
-        action = "Instruction"
-    });
-app.MapControllerRoute(
-    name: "UsePolicy En",
-    pattern: "{culture}/acceptable-use-policy", new
-    {
-        controller = "Home",
-        action = "UsePolicy"
-    });
-app.MapControllerRoute(
-    name: "UsePolicy Vi",
-    pattern: "{culture}/chinh-sach-su-dung-duoc-chap-nhan", new
-    {
-        controller = "Home",
-        action = "UsePolicy"
-    });
-app.MapControllerRoute(
-    name: "Delivery En",
-    pattern: "{culture}/delivery-return-policy", new
-    {
-        controller = "Home",
-        action = "Delivery"
-    });
-app.MapControllerRoute(
-    name: "Delivery Vi",
-    pattern: "{culture}/giao-hang-hoan-tra", new
-    {
-        controller = "Home",
-        action = "Delivery"
-    });
-app.MapControllerRoute(
-    name: "TermOfUse En",
-    pattern: "{culture}/terms-of-use", new
-    {
-        controller = "Home",
-        action = "TermOfUse"
-    });
-app.MapControllerRoute(
-    name: "TermOfUse Vi",
-    pattern: "{culture}/dieu-khoan-thoa-thuan", new
-    {
-        controller = "Home",
-        action = "TermOfUse"
-    });
+//app.MapControllerRoute(
+//    name: "Privacy En",
+//    pattern: "{culture}/privacy-policy", new
+//    {
+//        controller = "Home",
+//        action = "Privacy"
+//    });
+//app.MapControllerRoute(
+//    name: "About Vi",
+//    pattern: "{culture}/chinh-sach-bao-mat", new
+//    {
+//        controller = "Home",
+//        action = "Privacy"
+//    });
+//app.MapControllerRoute(
+//    name: "Instruction Vi",
+//    pattern: "{culture}/huong-dan-dat-hang-va-thanh-toan", new
+//    {
+//        controller = "Home",
+//        action = "Instruction"
+//    });
+//app.MapControllerRoute(
+//    name: "Instruction En",
+//    pattern: "{culture}/order-payment-instruction", new
+//    {
+//        controller = "Home",
+//        action = "Instruction"
+//    });
+//app.MapControllerRoute(
+//    name: "UsePolicy En",
+//    pattern: "{culture}/acceptable-use-policy", new
+//    {
+//        controller = "Home",
+//        action = "UsePolicy"
+//    });
+//app.MapControllerRoute(
+//    name: "UsePolicy Vi",
+//    pattern: "{culture}/chinh-sach-su-dung-duoc-chap-nhan", new
+//    {
+//        controller = "Home",
+//        action = "UsePolicy"
+//    });
+//app.MapControllerRoute(
+//    name: "Delivery En",
+//    pattern: "{culture}/delivery-return-policy", new
+//    {
+//        controller = "Home",
+//        action = "Delivery"
+//    });
+//app.MapControllerRoute(
+//    name: "Delivery Vi",
+//    pattern: "{culture}/giao-hang-hoan-tra", new
+//    {
+//        controller = "Home",
+//        action = "Delivery"
+//    });
+//app.MapControllerRoute(
+//    name: "TermOfUse En",
+//    pattern: "{culture}/terms-of-use", new
+//    {
+//        controller = "Home",
+//        action = "TermOfUse"
+//    });
+//app.MapControllerRoute(
+//    name: "TermOfUse Vi",
+//    pattern: "{culture}/dieu-khoan-thoa-thuan", new
+//    {
+//        controller = "Home",
+//        action = "TermOfUse"
+//    });
 app.MapControllerRoute(
     name: "Promotion En",
     pattern: "{culture}/promotion", new
@@ -337,5 +339,12 @@ app.MapControllerRoute(
     {
         controller = "Promotion",
         action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "MatchUrl",
+    pattern: "{culture}/{url}", new
+    {
+        controller = "NewPage",
+        action = "Index"
     });
 app.Run();

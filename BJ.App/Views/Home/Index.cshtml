@@ -236,12 +236,75 @@
         -webkit-animation-delay: -1.0s;
         animation-delay: -1.0s;
     }
+
+    /* CSS nền hiển thị Modal */
+    .nenmodal .nenmodal2 {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.7);
+        z-index: 2;
+        display: none;
+    }
+    /* CSS bảng nội dung Modal */
+    .nenmodal .ndmodal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%) scale(0);
+        background-color: #ed6b06;
+        color: #ffff;
+        width: 1000px;
+        z-index: 2;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 20px;
+        display: block;
+        position: fixed;
+        box-shadow: 0px 0px 10px #111;
+    }
+    /* CSS bao bọc của nút tắt Modal */
+    .nenmodal .closemodal {
+        text-align: center;
+        margin-top: -40px;
+        margin-bottom: 10px;
+    }
+    /* CSS nút tắt modal */
+    .closemodal button {
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+        padding: 0px;
+        border-radius: 100%;
+        background: #de4436;
+        color: #fff;
+        border: none;
+    }
+
+    .nenmodal.active .nenmodal2 {
+        display: block;
+    }
+    /* CSS hiệu ứng hiển thị Modal */
+    .nenmodal.active .ndmodal {
+        transition: all 300ms ease-in-out;
+        transform: translate(-50%,-50%) scale(1);
+    }
+
     @@-webkit-keyframes sk-bounce {
         0%, 100% {
             -webkit-transform: scale(0)
         }
         50% {
             -webkit-transform: scale(1)
+        }
+    }
+
+    @@media (max-width: 870px) {
+        .nenmodal .ndmodal {
+            width: 90%;
         }
     }
 
@@ -292,7 +355,7 @@
                                     <h2 itemprop="name">@item.Title</h2>
                                     <p itemprop="description"></p>@Html.Raw(item.ShortDesc)
                                     <p></p>
-                                    <p id="detailBtn" itemprop="url"><a href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias" class="button" style="margin-bottom:30px"><localize>Learn More</localize></a></p>
+                                    <p id="detailBtn" itemprop="url"><a onclick="momodal()" class="button" style="margin-bottom:30px" @* href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias" *@><localize>Buy Now</localize></a></p>
 
                                 </div>
                                 <div class="six columns half-angle"><img itemprop="image" src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" alt="@item.Title" style="width:100%;height:100%"></div>
@@ -362,6 +425,44 @@
 
     </div>
 </div>
+<div class="nenmodal" id="nenmodal-1">
+    <div class="nenmodal2"></div>
+    <div class="ndmodal">
+        <div class="closemodal"><button onclick="momodal()">×</button></div>
+        <div class="vibe-options">
+            <div class="container">
+
+                <div class="row">
+                    <div class="notify six columns">
+                        <div>
+
+                            <h3><localize>Download the<br>Boost Juice App</localize></h3>
+                            <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
+                            <p>
+                                <a href="http://bit.ly/1yqA2a2" target="_blank">
+                                    <img src="~/images/ios.png"
+                                         width="160">
+                                </a>
+                                <a href="http://bit.ly/USKKXP" target="_blank">
+                                    <img src="~/images/ggplay.png"
+                                         width="160">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="notify six columns">
+                        <div>
+
+                            <h3><localize>Call us maybe?</localize></h3>
+                            <a href="tel:1800 282890" style="color:#FFFF">Hotline: 1800 282890</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -377,7 +478,11 @@
 </script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTv4Z_nGhpi5GAzj3cDpcRf43HyonXxYA&#038&callback=initMap" async defer></script>
-
+<script>
+    function momodal() {
+        document.getElementById("nenmodal-1").classList.toggle("active");
+    }
+</script>
 <script>
     let map, infoWindow;
     let markers = [];
@@ -412,7 +517,7 @@
             var html = "";
             let list = [];
             $.ajax({
-                url: '/store',
+                url: '@Url.Action("GetStore","Store")',
                 datatype: "json",
                 type: "get",
                 async: true,
@@ -560,7 +665,7 @@
                             let list = [];
                             var $loading = $('#boost-stores-loading');
                             $.ajax({
-                                url: '/store',
+                                url: '@Url.Action("GetStore", "Store")',
                                 datatype: "json",
                                 type: "get",
                                 async: true,

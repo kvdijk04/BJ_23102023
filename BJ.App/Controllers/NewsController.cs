@@ -1,6 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
-using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.App.Controllers
@@ -41,11 +40,12 @@ namespace BJ.App.Controllers
             return View(item);
         }
         [Route("/news/popular")]
-        public async Task<IActionResult> Popular(string culture, bool popular, string newsUrl)
+        public async Task<IActionResult> Popular(string culture, bool popular, bool promotion, string newsUrl)
         {
             ViewBag.Culture = culture;
             ViewBag.NewsUrl = newsUrl;
-            var news = await _newsService.GetNewsPopular(culture, popular);
+            popular = true;
+            var news = await _newsService.GetNews(culture, popular, promotion);
             return PartialView("_PopularNews", news);
         }
     }

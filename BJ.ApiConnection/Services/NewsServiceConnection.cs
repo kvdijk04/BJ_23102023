@@ -15,7 +15,7 @@ namespace BJ.ApiConnection.Services
     public interface INewsServiceConnection
     {
         public Task<IEnumerable<NewsUserViewModel>> GetNewsAtHome(string culture);
-        public Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular);
+        public Task<IEnumerable<NewsUserViewModel>> GetNews(string culture, bool popular, bool promotion);
 
         public Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
         public Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest);
@@ -176,7 +176,7 @@ namespace BJ.ApiConnection.Services
 
         public async Task<NewsTranslationDto> GetNewsTranslationnById(Guid id)
         {
-            return await GetAsync<NewsTranslationDto>($"/api/Newss/language/{id}/detail");
+            return await GetAsync<NewsTranslationDto>($"/api/Newss/language/{id}");
         }
 
         public async Task<bool> CreateLanguage(CreateNewsTranslationDto createNewsTranslationDto)
@@ -212,7 +212,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Newss/language/{languageId}/update", httpContent);
+            var response = await client.PutAsync($"/api/Newss/language/{languageId}", httpContent);
 
             return response.IsSuccessStatusCode;
         }
@@ -222,9 +222,9 @@ namespace BJ.ApiConnection.Services
             return await GetListAsync<NewsUserViewModel>($"/api/Newss/homepage?culture={culture}");
         }
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular)
+        public async Task<IEnumerable<NewsUserViewModel>> GetNews(string culture, bool popular, bool promotion)
         {
-            return await GetListAsync<NewsUserViewModel>($"/api/Newss/popular?culture={culture}&popular={popular}");
+            return await GetListAsync<NewsUserViewModel>($"/api/Newss?culture={culture}&popular={popular}&promotion={promotion}");
         }
 
         public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest)

@@ -29,7 +29,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -50,7 +50,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -64,7 +64,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -94,7 +94,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -142,7 +142,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -160,7 +160,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -201,7 +201,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }

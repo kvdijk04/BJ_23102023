@@ -14,7 +14,6 @@ namespace BJ.ApiConnection.Services
 {
     public interface IBlogServiceConnection
     {
-        public Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, int pageIndex);
         public Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
         public Task<PagedViewModel<BlogUserViewModel>> GetPagingUser([FromQuery] GetListPagingRequest getListPagingRequest);
 
@@ -95,12 +94,6 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<IEnumerable<BlogUserViewModel>> GetAllBlogs(string culture, int pageIndex)
-        {
-            return await GetListAsync<BlogUserViewModel>($"/api/Blogs?culture={culture}&pageIndex={pageIndex}");
-
-        }
-
         public async Task<PagedViewModel<BlogDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
         {
             var client = _httpClientFactory.CreateClient();
@@ -177,7 +170,7 @@ namespace BJ.ApiConnection.Services
 
         public async Task<BlogTranslationDto> GetBlogTranslationnById(Guid id)
         {
-            return await GetAsync<BlogTranslationDto>($"/api/Blogs/language/{id}/detail");
+            return await GetAsync<BlogTranslationDto>($"/api/Blogs/language/{id}");
         }
 
         public async Task<bool> CreateLanguage(CreateBlogTranslationDto createBlogTranslationDto)
@@ -213,7 +206,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Blogs/language/{languageId}/update", httpContent);
+            var response = await client.PutAsync($"/api/Blogs/language/{languageId}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

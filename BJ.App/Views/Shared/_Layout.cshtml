@@ -1,4 +1,5 @@
 ﻿@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@using BJ.App.Controllers.Components
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @{
@@ -305,9 +306,17 @@
 
    
     <!--Template with season-->
-    <script async defer src="~/BoostJuice/Template/winter.js"></script>
-    <style>
+    @{
+        var config = Configuration["Template:Winter"];
+    }
+    @if(config == "ON")
+    {
+        <script async defer src="~/BoostJuice/Template/winter.js"></script>
 
+    }
+    <style>
+        
+      
     </style>
     <!--end template-->
 
@@ -332,7 +341,10 @@
         })(window, document, 'script', 'dataLayer', '@Configuration["GoogleTagManager"]');</script>
     <!-- End Google Tag Manager -->
 </head>
-<body class="boost-home">
+<body class="boost-home" id="body">
+   
+
+
 
     <!-- Google Tag Manager (noscript) -->
     <noscript>
@@ -367,106 +379,22 @@
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            js.src = '../../js/customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-   
-   
 
 
-    <header class="boost-main"> 
-        <nav class="boost-main-nav-wrapper"> 
-            <ul class="boost-main-nav">
-                <li>
-                    <a class="boost-subnav-trigger-off" href="/@culture/@_loc["aboutUrl"]"><localize>About Boost Juice</localize></a>
-                </li>
-                <li><a class="boost-subnav-trigger-off" href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
-@*                 <li><a class="boost-subnav-trigger-off" href="/@culture/@_loc["promotionUrl"]"><localize>Promotion</localize></a></li>
- *@
-                <li></li>
-                <li id="lgcontainer">
-                    <a class="gift-card" href="/en/Home/SetCultureCookie?cltr=en&amp;returnUrl=/en"><img src="~/images/us.png" width="20"> en</a>
-                    <a class="gift-card" href="/vi/Home/SetCultureCookie?cltr=vi&amp;returnUrl=/vi" id="vnlng"><img src="~/images/vn.png" width="20"> vi</a>
-                    <a href="/@culture/vibe.html" class="my-vibe" data-open="0"><span>VIBE</span></a>
-                </li>
+    @await Component.InvokeAsync("Header", culture)
 
-            </ul> 
-        </nav>
 
-        <a class="boost-nav-trigger" clicked="false" onclick="myFunction(this)"><span></span></a>
-        <a href="/@culture/" class="boost-logo" id="boostlogo"><img src="~/images/boost-juice-logo.png" alt="Boost Juice" id="boost-logo"></a>
-        <nav class="sub-navi">
-            <ul>
-                <li id="menu-item-500" class="remove-me"><a href="/@culture/@_loc["drinkUrl"]"><localize>Our Drinks</localize></a></li>
-                <li id="menu-item-501" class="remove-me"><a href="/@culture/@_loc["storeUrl"]"><localize>Find Us</localize></a></li>
-                <li id="menu-item-502" class="remove-me"><a href="/@culture/vibe.html">VIBE</a></li>
-
-                
-                <li id="menu-item-503" class="remove-me"><a href="/@culture/@_loc["wellbeingUrl"]"><localize>Wellbeing</localize></a></li>
-                <li id="menu-item-504" class="remove-me"><a href="/@culture/@_loc["newsUrl"]"><localize>News</localize></a></li>
-                <li id="menu-item-502" class="remove-me"><a href="/@culture/@_loc["promotionUrl"]"><localize>Promotion</localize></a></li>
-
-@*                 <li id="menu-item-505" class="remove-me"><a href="/@culture/@_loc["contactUrl"]"><localize>Contact Us</localize></a></li>
- *@
-            </ul>
-        </nav>
-        </header>
 
 
     <!-- END nav -->
         @RenderBody()
-    
-    <footer class="footer" role="contentinfo">
-        <a href="https://www.facebook.com/BoostJuiceVietnam/" target="_blank"><img src="~/images/icon_facebook.png" alt="Boost Juice - Facebook"></a>
-        <a href="https://twitter.com/boostjuiceoz" target="_blank"><img src="~/images/icon_twitter.png" alt="Boost Juice - Twitter"></a>
-        <a href="https://www.instagram.com/boostjuicevietnam/" target="_blank"><img src="~/images/icon_instagram.png" alt="Boost Juice - Instagram"></a>
-        <nav class="footer-nav">
-            <ul>
-                <li>
-                    <a href="/@culture/@_loc["instructionUrl"]">
-                        <localize>
-                            Order & Payment Instruction
-                        </localize>
-                    </a>
-                </li>
-                <li><a href="/@culture/@_loc["deliveryUrl"]"><localize>Delivery & return policy</localize></a></li>
-            </ul>
-        </nav>
-        <p class="copyright">
-            © 2023 Copyright Boost Juice - VietNam                                    <span class="hide-mobile">|</span>
-            <a href="/@culture/@_loc["termOfUseUrl"]"><localize>Terms of use</localize></a>
-            <span class="hide-mobile">|</span>
-            <a href="/@culture/@_loc["privacyPolicyUrl"]"><localize>Privacy policy</localize></a>
-            <span class="hide-mobile">|</span>
-            <a href="/@culture/@_loc["acceptableUsePolicyUrl"]"><localize>Acceptable use policy</localize></a>
-        </p>
-        <div class="footer-extra">
-            <div class="footer__app">
-                <a href="https://play.google.com/store/apps/details?id=com.vn.vxfmcg.boostjuice" class="footer__app-item">
-                    <img src="~/images/ggplay.png" alt="">
-                </a>
-                <a href="https://apps.apple.com/vn/app/boost-juice-vietnam/id6444144103" class="footer__app-item">
-                    <img src="~/images/ios.png" alt="">
-                </a>
-            </div>
-            <div class="footer__content">
-                <p><localize>BOOST JUICE VIETNAM COMPANY LIMITED</localize></p>
-                <p>
-                    <localize>
-                        Certificate of Business Registration No. 0317934150 issued by
-                    </localize>
-                    <br>
-                    <localize>Department of Planning and Investment of Ho Chi Minh City on 14/07/2023.</localize>
-                    <br /><localize>Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn</localize>
-                </p>
-                <p>&nbsp;</p>
-                <div align="Center"><localize>Access times</localize></div><br />
-                
-            </div>
-           
-        </div>
-    </footer>
+
+    @await Component.InvokeAsync("Footer", culture)
+
     <div class="hotline-phone-ring-wrap" style="z-index:31">
         <div class="hotline-phone-ring">
             <div class="hotline-phone-ring-circle"></div>
@@ -500,7 +428,7 @@
     
     <div class="zalo-chat-widget" data-oaid="@Configuration["Zalo"]" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
 
-    <script async defer src="https://sp.zalo.me/plugins/sdk.js"></script>
+    <script async defer src="~/js/zalosdk.js"></script>
 
     @await Component.InvokeAsync("Notyf")
     @RenderSection("Scripts", required: false)

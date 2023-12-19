@@ -1,0 +1,120 @@
+﻿@using BJ.Application.Ultities;
+@model PagedViewModel<ConfigWebViewModel>
+@using BJ.Contract.ViewModel
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<form asp-action="Index" asp-controller="DetailConfigWeb" method="get">
+    <div class="page-header">
+        <h2 class="header-title">Danh sách thông tin cấu hình web</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+
+                <span class="breadcrumb-item active">Tất cả thông tin cấu hình web</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-b-30">
+                <div class="col-lg-12 text-right">
+                    <div class="col-lg-8">
+                        <div class="d-md-flex">
+                            <div class="m-b-10 m-r-15">
+                                <select class="custom-select" style="min-width: 180px;" onchange="this.form.submit()" asp-items="ViewBag.ConfigWebId" name="configWebId">
+                                    <option selected disabled>Loại cấu hình</option>
+                                    
+                                </select>
+                            </div>
+                            
+                           
+                            <div class="col-lg-8 ">
+                                <div class="input-affix">
+                                    <i class="prefix-icon anticon anticon-search"></i>
+                                    <input type="text" class="form-control" placeholder="Search" name="keyword" value="@ViewBag.Keyword">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" onclick="location.href='/cau-hinh-trang.html'">
+                        <i class="anticon anticon-close-circle m-r-5"></i>
+                        <span>Reset</span>
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='/tao-moi-cau-hinh-trang.html'">
+                        <i class="anticon anticon-plus-circle m-r-5"></i>
+                        <span>Tạo mới</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover e-commerce-table">
+                    <thead>
+                        <tr>
+                            <th>Thông tin cấu hình</th>
+                            <th>Mục cấu hình</th>
+                            <th>Hoạt động</th>
+                            <th>Thứ tự</th>
+                            <th>Đường dẫn</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null && Model.Items.Count() > 0)
+                        {
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.NameConfig</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.Active == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Khóa</div>
+                                            }
+
+                                        </div>
+                                    </td>
+                                    <td>@item.SortOrder</td>
+                                    <td>@item.Url</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-cau-hinh-trang/@item.Id'">
+                                            <i class="anticon anticon-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-cau-hinh-trang/@item.Id'">
+                                            <i class="anticon anticon-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='chi-tiet-cau-hinh-trang/@item.Id/them-moi-ngon-ngu/'">
+                                            <i class="fas fa-language"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager" , Model)
+
+        </div>
+    </div>
+</form>
+@section Scripts{
+}
+

@@ -23,7 +23,7 @@ namespace BJ.ApiConnection.Services
 
         public Task<ProductDto> GetProductById(Guid id);
 
-        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(string culture,Guid catId);
+        public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(string culture, Guid catId);
         public Task<ProductUserViewModel> GetAllUserProduct(string culture);
         public Task<UserProductDto> GetUserProductById(Guid id, string culture);
         public Task<ProductTranslationDto> GetProductTranslationnById(Guid id);
@@ -197,7 +197,7 @@ namespace BJ.ApiConnection.Services
 
         public async Task<ProductTranslationDto> GetProductTranslationnById(Guid id)
         {
-            return await GetAsync<ProductTranslationDto>($"/api/Products/language/{id}/detail");
+            return await GetAsync<ProductTranslationDto>($"/api/Products/language/{id}");
         }
 
         public async Task<UserProductDto> GetUserProductById(Guid id, string culture)
@@ -314,7 +314,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Products/{proId}/language/{id}/update", httpContent);
+            var response = await client.PutAsync($"/api/Products/{proId}/language/{id}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

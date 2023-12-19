@@ -13,94 +13,13 @@
 @section Styles {
     <link rel="stylesheet" href="~/BoostJuice/css/new.css">
     <style>
-        .boost-main-content #blog-posts .preloader {
-            position: absolute;
-            width: 100%;
-            height: 40px;
-            background-color: transparent;
-            top: auto;
-            bottom: 40px;
-        }
 
-        #blog-posts .preloader {
-            margin: 0px 0px 60px 0px;
-        }
-
-        .boost-main-content .preloader {
-            background-color: #fff;
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-        }
-
-        .spinner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            margin: 0 auto;
-        }
-
-        .double-bounce1, .double-bounce2 {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #67b94c;
-            opacity: 0.6;
-            position: absolute;
-            top: 40%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-            animation: sk-bounce 2.0s infinite ease-in-out;
-        }
-
-        .double-bounce1, .double-bounce2 {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #67b94c;
-            opacity: 0.6;
-            position: absolute;
-            top: 40%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-            animation: sk-bounce 2.0s infinite ease-in-out;
-        }
-
-        .double-bounce2 {
-            -webkit-animation-delay: -1.0s;
-            animation-delay: -1.0s;
-        }
-
-        @@-webkit-keyframes sk-bounce {
-            0%, 100% {
-                -webkit-transform: scale(0)
-            }
-
-            50% {
-                -webkit-transform: scale(1)
-            }
-        }
-
-        #end {
-            display: none;
-            background-color: #eee;
-            padding: 20px 0 80px;
-            text-align: center;
-            margin-bottom: 0;
-        }
     </style>
 }
 @{
     ViewBag.Title = "News";
 }
-<div class="boost-main-content" style="border-bottom:1px solid red">
+<div class="boost-main-content">
     <div class="main-fold-angle banner-news"></div>
     <div class="container">
         <div class="row">
@@ -132,6 +51,7 @@
                             </p>
                             <a itemprop="url" href="/@culture/@_loc["newsUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
                         </div>
+
                     }
                 }
                 else
@@ -139,6 +59,7 @@
                     <p><localize>There are no news yet</localize></p>
 
                 }
+
                 @await Component.InvokeAsync("Pager" , Model)
 
             </div>
@@ -172,7 +93,7 @@
         url: '/news/popular',
         datatype: "json",
         type: "get",
-        data: { popular: true, culture: culture, newsUrl: newsUrl },
+        data: { culture: culture, newsUrl: newsUrl },
 
         async: true,
  

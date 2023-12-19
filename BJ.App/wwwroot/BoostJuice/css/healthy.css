@@ -53,9 +53,9 @@
 #blog-posts {
     margin: 0px auto 80px auto;
 }
-#blog-posts .row {
-    margin-bottom: 60px;
-}
+    #blog-posts .row {
+        margin-bottom: 60px;
+    }
 .columns {
     width: 100%;
     float: left;

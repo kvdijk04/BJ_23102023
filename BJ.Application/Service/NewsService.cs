@@ -16,9 +16,7 @@ namespace BJ.Application.Service
     {
 
 
-        Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular);
-
-
+        Task<IEnumerable<NewsUserViewModel>> GetNews(string culture, bool popular, bool promotion);
         Task CreateNews(CreateNewsAdminView createNewsAdminView);
         Task CreateNewsTranslate(CreateNewsTranslationDto createNewsTranslationDto);
 
@@ -26,7 +24,7 @@ namespace BJ.Application.Service
         Task<NewsUserViewModel> GetNewsById(Guid id, string culture);
         Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
 
-        Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery]GetListPagingRequest getListPagingRequest);
+        Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest);
 
         Task<NewsTranslationDto> GetNewsTransalationById(Guid id);
@@ -344,7 +342,7 @@ namespace BJ.Application.Service
             return data.Take(1);
         }
 
-        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews( [FromQuery]GetListPagingRequest getListPagingRequest)
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest)
         {
             if (getListPagingRequest.PageSize == 0)
             {
@@ -432,15 +430,14 @@ namespace BJ.Application.Service
             };
             return newsResponse;
         }
-        public async  Task<IEnumerable<NewsUserViewModel>> GetNewsPopular(string culture, bool popular)
+        public async Task<IEnumerable<NewsUserViewModel>> GetNews(string culture, bool popular, bool promotion)
         {
-
-
             var query = from b in _context.News
                         join bt in _context.NewsTranslations on b.Id equals bt.NewsId into ppic
                         from bt in ppic.DefaultIfEmpty()
-                        where bt.LanguageId == culture && b.Active == true && b.Promotion == false
+                        where bt.LanguageId == culture && b.Active == true && b.Promotion == promotion
                         select new { b, bt };
+
             var data = await query.OrderByDescending(x => x.b.DateCreated)
                 .Select(x => new NewsUserViewModel()
                 {
@@ -455,11 +452,12 @@ namespace BJ.Application.Service
                     DateUpdated = x.b.DateUpdated,
                     Active = x.b.Active,
                     Home = x.b.Home,
-
+                    Promotion = x.b.Promotion,
                     ImagePath = x.b.ImagePath,
                     Popular = x.b.Popular,
                 }).ToListAsync();
             if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
+
             return data;
         }
     }

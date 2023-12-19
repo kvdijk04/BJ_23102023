@@ -1,5 +1,4 @@
 ﻿using BJ.ApiConnection.Services;
-using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -25,7 +24,7 @@ namespace BJ.App.Controllers
             return $"{(Request.IsHttps ? "https" : "http")}://{Request.Host.ToString()}";
         }
         [Route("Sitemap.xml")]
-        public async Task<IActionResult >Index()
+        public async Task<IActionResult> Index()
         {
             string baseUrl = GetHost();
             List<string> ls = new List<string>();
@@ -57,34 +56,34 @@ namespace BJ.App.Controllers
 
             foreach (var language in allLanguage.Select(x => x.Id))
             {
- 
 
-                //var listPromotion = await _newsServiceConnection.GetPromotions(language);
-                //foreach (var item in listPromotion)
-                //{
-                //    if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
-                //    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
-                //}
+                var listPromotion = await _newsServiceConnection.GetNews(language, false, true);
+                foreach (var item in listPromotion)
+                {
+                    if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
+                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
-                //var listBlog = await _blogServiceConnection.GetAllBlogs(language, false);
-                //foreach (var item in listBlog)
-                //{
-                //    if (language == "vi") { pathname = "song-khoe"; } else { pathname = "wellbeing"; };
-                //    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+                }
 
-                //}
+                var listBlog = await _blogServiceConnection.GetBlogsPopular(language, false);
+                foreach (var item in listBlog)
+                {
+                    if (language == "vi") { pathname = "song-khoe"; } else { pathname = "wellbeing"; };
+                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
 
-                ////var listNews = await _newsServiceConnection.GetAllNews(language, false);
-                //foreach (var item in listNews)
-                //{
-                //    if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
-                //    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+                }
 
-                //}
+                var listNews = await _newsServiceConnection.GetNews(language, false, false);
+                foreach (var item in listNews)
+                {
+                    if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
+                    ls.Add(baseUrl + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias);
+
+                }
             }
 
-           
+
             foreach (var item in ls)
             {
                 string link = "<loc>" + item + "</loc>";

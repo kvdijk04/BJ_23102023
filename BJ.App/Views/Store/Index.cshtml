@@ -141,7 +141,7 @@
             var html = "";
             let list = [];
             $.ajax({
-                url: '/store',
+                url: '@Url.Action("GetStore", "Store")',
                 datatype: "json",
                 type: "get",
                 async: true,
@@ -290,7 +290,7 @@
                             let list = [];
                             var $loading = $('#boost-stores-loading');
                             $.ajax({
-                                url: '/store',
+                                url: '@Url.Action("GetStore", "Store")',
                                 datatype: "json",
                                 type: "get",
                                 async: true,

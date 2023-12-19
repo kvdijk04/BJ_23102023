@@ -132,7 +132,7 @@ namespace BJ.ApiConnection.Services
 
         public async Task<CategoryTranslationDto> GetCategoryTranslationnById(Guid id)
         {
-            return await GetAsync<CategoryTranslationDto>($"/api/Categories/language/{id}/detail");
+            return await GetAsync<CategoryTranslationDto>($"/api/Categories/language/{id}");
         }
 
         public async Task<PagedViewModel<CategoryDto>> GetPagingCategory([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -221,7 +221,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Categories/{catId}/language/{id}/update", httpContent);
+            var response = await client.PutAsync($"/api/Categories/{catId}/language/{id}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

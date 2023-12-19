@@ -1,0 +1,106 @@
+﻿@using BJ.Contract.ViewModel
+@model IEnumerable<ConfigWebViewModel>
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<footer class="footer" role="contentinfo" style="margin-top:60px">
+    @if (Model.FirstOrDefault(x => x.ConfigId == 11) != null)
+    {
+        <a href="@Model.FirstOrDefault(x => x.ConfigId == 11).Title" target="_blank"><img src="~/images/icon_facebook.png" alt="Boost Juice - Facebook"></a>
+    }
+    @if (Model.FirstOrDefault(x => x.ConfigId == 12) != null)
+    {
+        <a href="@Model.FirstOrDefault(x => x.ConfigId == 12).Title" target="_blank"><img src="~/images/icon_twitter.png" alt="Boost Juice - Twitter"></a>
+    }
+    @if (Model.FirstOrDefault(x => x.ConfigId == 13) != null)
+    {
+        <a href="@Model.FirstOrDefault(x => x.ConfigId == 13).Title" target="_blank"><img src="~/images/icon_instagram.png" alt="Boost Juice - Instagram"></a>
+    }
+    <nav class="footer-nav">
+        <ul>
+            <li>
+                @if (Model.FirstOrDefault(x => x.ConfigId == 3 && x.SortOrder == 1) != null)
+                {
+                    <a href="/@culture/@Model.FirstOrDefault(x => x.ConfigId == 3 && x.SortOrder == 1).Url">
+                   @Model.FirstOrDefault(x => x.ConfigId == 3 && x.SortOrder == 1).Title
+
+                </a>
+                }
+                
+            </li>
+            <li>
+                @if (Model.FirstOrDefault(x => x.ConfigId == 3 && x.SortOrder == 2) != null)
+                {
+                    <a href="/@culture/@Model.FirstOrDefault(x => x.ConfigId == 3 && x.SortOrder == 2).Url">
+                        @Model.FirstOrDefault(x => x.ConfigId == 3 && x.SortOrder == 2).Title
+                    </a>
+                }
+
+            </li>
+        </ul>
+    </nav>
+    <p class="copyright">
+        © 2023 Copyright Boost Juice - VietNam <span class="hide-mobile">|</span>
+        @if (Model.Where(x => x.ConfigId == 3 && x.SortOrder > 2) != null && Model.Where(x => x.ConfigId == 3 && x.SortOrder > 2).ToList().Count > 0)
+        {
+            @foreach (var item in Model.Where(x => x.ConfigId == 3 && x.SortOrder > 2))
+            {
+                <a href="/@culture/@item.Url">@item.Title</a>
+                <span class="hide-mobile">|</span>
+
+            }
+        }
+
+
+    </p>
+    <div class="footer-extra">
+        <div class="footer__app">
+            @if (Model.FirstOrDefault(x => x.ConfigId == 9) != null)
+            {
+            <a href="@Model.FirstOrDefault(x => x.ConfigId == 9).Title" class="footer__app-item">
+                <img src="~/images/ggplay.png" alt="">
+            </a>
+            }
+
+            @if (Model.FirstOrDefault(x => x.ConfigId == 10) != null)
+            {
+            <a href="@Model.FirstOrDefault(x => x.ConfigId == 10).Title" class="footer__app-item">
+                <img src="~/images/ios.png" alt="">
+            </a>
+            }
+
+        </div>
+        <div class="footer__content">
+            @if (Model.FirstOrDefault(x => x.ConfigId == 4) != null)
+            {
+            <p style="text-transform:uppercase">@Model.FirstOrDefault(x => x.ConfigId == 4).Title</p>
+
+            }
+
+            <p>
+                @if (Model.FirstOrDefault(x => x.ConfigId == 8) != null)
+                {
+                    @Model.FirstOrDefault(x => x.ConfigId == 8).Title
+
+                }
+                <br />
+                @if (Model.FirstOrDefault(x => x.ConfigId == 5) != null)
+                {
+                    @Model.FirstOrDefault(x => x.ConfigId == 5).Title <br />
+                }
+                Tel: @if (Model.FirstOrDefault(x => x.ConfigId == 6) != null)
+                {
+                    @Model.FirstOrDefault(x => x.ConfigId == 6).Title <br />
+                } | Email: @if (Model.FirstOrDefault(x => x.ConfigId == 7) != null)
+                {
+                    @Model.FirstOrDefault(x => x.ConfigId == 7).Title <br />
+                }
+            </p>
+            <p>&nbsp;</p>
+        </div>
+
+    </div>
+</footer>

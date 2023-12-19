@@ -347,7 +347,9 @@ h3 {
     position: absolute;
     left: -5%;
     bottom: -30px;
-    width: 120%;
+/*    width: 120%;
+*/  
+    width: auto;
     height: 60px;
     -webkit-transform: rotate(0.5deg);
     transform: rotate(0.5deg);

@@ -1,0 +1,143 @@
+﻿@using BJ.Contract.Translation.ConfigWeb;
+@model CreateDetailConfigWebTranslationDto
+@section Styles{
+}
+<form asp-action="CreateLanguage" method="post" enctype="multipart/form-data">
+    <div class="page-header">
+        <h2 class="header-title">Tạo mới ngôn ngữ</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/cau-hinh-trang.html " class="breadcrumb-item">Tất cả cấu hình trang</a>
+                <a href="/chi-tiet-cau-hinh-trang/@ViewBag.Id" class="breadcrumb-item">@ViewBag.Title</a>
+
+                <span class="breadcrumb-item active">Tạo mới ngôn ngữ</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @ViewBag.Title</h4>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cấu hình trang</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <input id="checkbox-newpage" type="checkbox" name="NewPage" clicked="false">
+                        <label for="checkbox-newpage">Tạo trang mới</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Thông tin cấu hình</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Thông tin cấu hình" asp-for="@Model.Title" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBlog">Ngôn ngữ</label>
+                        <select class="select2" asp-for="@Model.LanguageId" asp-items="ViewBag.Language">
+                        </select>
+                    </div>
+                    <div class="form-group" id="addressurl" style="display:none">
+                        <label class="font-weight-semibold" for="Url">Đường dẫn web</label>
+                        <input type="text" class="form-control" id="name" placeholder="Đường dẫn web" asp-for="@Model.Url">
+                    </div>
+                    <div class="form-group" id="webdetail" style="display:none">
+                        <label class="font-weight-semibold" for="Description">Nội dung web hiển thị</label>
+                        <textarea class="form-control" id="shortDescription" placeholder="Nội dung web hiển thị" asp-for="@Model.Description"></textarea>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script>
+        $("#checkbox-newpage").on("click", function () {
+
+            if ($(this).attr("clicked") == "false") {
+                $("#addressurl").show();
+                $("#webdetail").show();
+                $(this).attr("clicked", "true");
+
+            } else {
+                $("#addressurl").hide();
+                $("#webdetail").hide();
+                $(this).attr("clicked", "false");
+
+            }
+
+        });
+    </script>
+    <script>
+
+        $('.select2').select2();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+    <script>
+        $('#shortDescription').summernote({
+            placeholder: 'Mô tả ngắn',
+
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            fontNames: ['Roboto','Arial', 'Times New Roman', 'Arial Black', 'Courier New',
+                'Helvetica', 'Verdana', 'Garamond', 'Open Sans', 'Didot', 'Tahoma', 'Calibri', 'Courier', 'Montserrat'],
+            tabsize: 2,
+            height: 500,
+        });
+        $('#Description').summernote({
+            placeholder: 'Mô tả',
+
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            fontNames: ['Roboto', 'Arial', 'Times New Roman', 'Arial Black', 'Courier New',
+                'Helvetica', 'Verdana', 'Garamond', 'Open Sans', 'Didot', 'Tahoma', 'Calibri', 'Courier', 'Montserrat'],
+            tabsize: 2,
+            height: 500,
+        });
+    </script>
+}

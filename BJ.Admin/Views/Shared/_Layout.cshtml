@@ -18,7 +18,25 @@
     <!-- Core css -->
     <link href="~/assets/css/app.min.css" rel="stylesheet">
     @await RenderSectionAsync("Styles", required: false)
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 
+    <style>
+    .note-editable {font-family: Roboto; }
+
+    .note-editable ul {
+        list-style: disc !important;
+        color: #7ac142;
+        list-style-position: inside !important;
+        
+    }
+
+
+    .note-editable ol {
+        list-style: decimal !important;
+        list-style-position: inside !important;
+
+    }
+</style>
 </head>
 
 <body>
@@ -58,64 +76,126 @@
             <div class="side-nav">
                 <div class="side-nav-inner">
                     <ul class="side-nav-menu scrollable">
-                        <li class="nav-item dropdown open">
-                            <a class="dropdown-toggle" href="/tat-ca-loai.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-cluster"></i>
-                                </span>
-                                <span class="title">Loại sản phẩm</span>
+                        @{
+                            var a = User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault();
+                        }
+                        @if(a != null)
+                        {
+                            @if (a == "AdminRole")
+                            {
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/tat-ca-tai-khoan.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-user"></i>
+                                        </span>
+                                        <span class="title">Tài khoản</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/tat-ca-danh-muc-con.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-branches"></i>
-                                </span>
-                                <span class="title">Loại dinh dưỡng</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle" href="/tat-ca-loai.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-cluster"></i>
+                                        </span>
+                                        <span class="title">Loại sản phẩm</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/tat-ca-size.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-dashboard"></i>
-                                </span>
-                                <span class="title">Size</span>
+                                    </a>      
+                                </li>
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/tat-ca-danh-muc-con.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-branches"></i>
+                                        </span>
+                                        <span class="title">Loại dinh dưỡng</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/tat-ca-san-pham.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-shop"></i>
-                                </span>
-                                <span class="title">Sản phẩm</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdow">
+                                     <a class="dropdown-toggle" href="/tat-ca-size.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-dashboard"></i>
+                                        </span>
+                                        <span class="title">Size</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/tat-ca-blog.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-book"></i>
-                                </span>
-                                <span class="title">Blog (Sống khỏe)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/tat-ca-san-pham.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-shop"></i>
+                                        </span>
+                                        <span class="title">Sản phẩm</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/tat-ca-tin-tuc.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-tags"></i>
-                                </span>
-                                <span class="title">Tin tức, Khuyến mãi</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/tat-ca-cua-hang.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-flag"></i>
+                                        </span>
+                                        <span class="title">Cửa hàng</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/tat-ca-cua-hang.html">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-flag"></i>
-                                </span>
-                                <span class="title">Cửa hàng</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/load-file-excel.hmtl">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-file-excel"></i>
+                                        </span>
+                                        <span class="title">Import File</span>
 
-                            </a>
-                            <a class="dropdown-toggle" href="/load-file-excel.hmtl">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-file-excel"></i>
-                                </span>
-                                <span class="title">Import File</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle" href="javascript:void(0);">
+                                        <span class="icon-holder">
+									        <i class="anticon anticon-setting"></i>
+								        </span>
+                                        <span class="title">Cấu hình web</span>
+                                        <span class="arrow">
+									        <i class="arrow-icon"></i>
+								        </span>
+                                    </a>
+                                    <ul class="dropdown-menu" style="display: none;">
+                                        <li>
 
-                            </a>
-                            
+                                            <a class="dropdown-toggle" href="/tat-ca-cau-hinh-web.html">
+                                                Mục cấu hình
+                                            </a>
+                                        </li>
+                                         <li>
+                                            <a class="dropdown-toggle" href="/cau-hinh-trang.html">
+                                                Cấu hình trang
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            }
+                            @if (a == "AdminRole" || a == "MarketingRole")
+                            {
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/tat-ca-blog.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-book"></i>
+                                        </span>
+                                        <span class="title">Blog (Sống khỏe)</span>
+
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdow">
+                                    <a class="dropdown-toggle" href="/tat-ca-tin-tuc.html">
+                                        <span class="icon-holder">
+                                            <i class="anticon anticon-tags"></i>
+                                        </span>
+                                        <span class="title">Tin tức, Khuyến mãi</span>
+
+                                    </a>
+                                </li>                            }
+                           
+                        }
+
+                        <li class="nav-item dropdown">
                             <a class="dropdown-toggle" id="logout" style="cursor:pointer">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-logout"></i>
@@ -123,7 +203,6 @@
                                 <span class="title">Đăng xuất</span>
 
                             </a>
-
                         </li>
                     </ul>
                 </div>

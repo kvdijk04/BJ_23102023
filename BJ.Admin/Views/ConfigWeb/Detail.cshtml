@@ -1,0 +1,72 @@
+﻿@model ConfigWebDto;
+@using BJ.Contract.ConfigWeb;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="page-header">
+    <h2 class="header-title">Chi tiết cấu hình web</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+            <a href="/tat-ca-cau-hinh-web.html " class="breadcrumb-item">Tất cả cấu hình web</a>
+
+            <span class="breadcrumb-item active">Chi tiết cấu hình web</span>
+        </nav>
+    </div>
+</div>
+<div class="page-header no-gutters has-tab">
+    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+        <div class="media align-items-center m-b-15">
+            <div class="m-l-15">
+                <h4 class="m-b-0">@Model.Name</h4>
+                <p class="text-muted m-b-0">Code: @Model.Id</p>
+            </div>
+        </div>
+        <div class="m-b-15">
+            <button class="btn btn-warning" onclick="location.href='/cap-nhat-cau-hinh-web/@Model.Id'" type="button">
+                <i class="anticon anticon-edit"></i>
+                <span>Cập nhật</span>
+            </button>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-overview">Tổng quan</a>
+        </li>
+
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-overview">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td>	@Model.Name</td>
+                                </tr>
+                                <tr>
+                                    
+                                </tr>
+                               
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+            
+        </div>
+        
+    </div>
+</div>

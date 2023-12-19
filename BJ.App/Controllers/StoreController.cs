@@ -1,5 +1,4 @@
 ﻿using BJ.ApiConnection.Services;
-using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.App.Controllers
@@ -22,29 +21,18 @@ namespace BJ.App.Controllers
         }
         public async Task<IActionResult> Index(string culture)
         {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
 
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
             var store = await _storeLocationServiceConnection.GetAllStoreLocations();
 
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
             return View(store);
         }
 
-        [Route("/store")]
         public async Task<JsonResult> GetStore()
         {
             var store = await _storeLocationServiceConnection.GetAllStoreLocations();
 
             return Json(store);
         }
-        
+
     }
 }

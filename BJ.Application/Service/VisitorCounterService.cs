@@ -47,7 +47,7 @@ namespace BJ.Application.Service
 
                 updateVisitorCounterDto.Year = item.Year;
                 updateVisitorCounterDto.Day = item.Day;
-                updateVisitorCounterDto.Month = item.Month;  
+                updateVisitorCounterDto.Month = item.Month;
 
                 if (updateVisitorCounterDto.Day != DateTime.Now.Day)
                 {

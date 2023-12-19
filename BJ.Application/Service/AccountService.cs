@@ -21,6 +21,8 @@ namespace BJ.Application.Service
         Task CreateAccount(CreateAccountDto createAccountDto);
         Task UpdateAccount(Guid id, UpdateAccountDto updateAccountDto);
         Task<AccountDto> GetAccountById(Guid id);
+        Task<AccountDto> GetAccountByEmail(string email);
+
         Task<PagedViewModel<AccountDto>> GetPaging(GetListPagingRequest getListPagingRequest);
         Task<string> Login(LoginDto loginDto);
 
@@ -88,6 +90,7 @@ namespace BJ.Application.Service
                                     .Select(x => new AccountDto()
                                     {
                                         Id = x.Id,
+                                        UserName = x.UserName,
                                         EmployeeName = x.EmployeeName,
                                         Active = x.Active,
                                         LastLogin = x.LastLogin,
@@ -124,8 +127,15 @@ namespace BJ.Application.Service
 
             if (item != null)
             {
-                updateAccountDto.HasedPassword = Password.HashedPassword(updateAccountDto.Password);
+                if(updateAccountDto.Password != null)
+                {
+                    updateAccountDto.HasedPassword = Password.HashedPassword(updateAccountDto.Password);
+                }
+                else
+                {
+                    updateAccountDto.HasedPassword = item.HasedPassword;
 
+                }
                 updateAccountDto.ModifiedDate = DateTime.Now;
 
                 if (updateAccountDto.Role == 1)
@@ -188,6 +198,13 @@ namespace BJ.Application.Service
             {
                 return null;
             }
+        }
+
+        public async Task<AccountDto> GetAccountByEmail(string email)
+        {
+            var item = await _context.Accounts.FirstOrDefaultAsync(x => x.UserName.Equals(email));
+            if (item == null) return null;
+            return _mapper.Map<AccountDto>(item);
         }
     }
 }

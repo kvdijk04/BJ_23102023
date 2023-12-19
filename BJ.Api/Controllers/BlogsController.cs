@@ -42,7 +42,7 @@ namespace BJ.Api.Controllers
             return await _blogService.GetPagingUser(getListPagingRequest);
 
         }
-       
+
         /// <summary>
         /// Danh sách blog phổ biến
         /// </summary>
@@ -159,7 +159,7 @@ namespace BJ.Api.Controllers
         /// Lấy thông tin ngôn ngữ của blog bằng Id
         /// </summary>
 
-        [HttpGet("language/{id}/detail")]
+        [HttpGet("language/{id}")]
 
         public async Task<IActionResult> GetBlogTranslationById(Guid id)
         {
@@ -202,7 +202,7 @@ namespace BJ.Api.Controllers
         /// 
         [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
 
-        [HttpPut("language/{id}/update")]
+        [HttpPut("language/{id}")]
         public async Task<IActionResult> UpdateTranslate(Guid id, [FromBody] UpdateBlogTranslationDto updateBlogTranslationDto)
         {
             try

@@ -3,7 +3,6 @@ using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.StoreLocation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BJ.Admin.Controllers
 {
@@ -28,7 +27,7 @@ namespace BJ.Admin.Controllers
 
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -49,7 +48,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -63,7 +62,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -93,7 +92,7 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
-            if (token == null)
+            if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
@@ -110,7 +109,7 @@ namespace BJ.Admin.Controllers
                 Longitude = item.Longitude,
                 IconPath = item.IconPath,
                 ImagePath = item.ImagePath,
-              
+
             };
             ViewBag.Id = id;
 
@@ -118,7 +117,7 @@ namespace BJ.Admin.Controllers
         }
         [Route("/cap-nhat-cua-hang/{id}")]
         [HttpPost]
-        public async Task<IActionResult> Edit(int id,float lat, float longLat, [FromForm] UpdateStoreLocationDto updateStoreLocationDto)
+        public async Task<IActionResult> Edit(int id, float lat, float longLat, [FromForm] UpdateStoreLocationDto updateStoreLocationDto)
         {
             var result = await _storeLocationServiceConnection.GetStoreById(id);
 
@@ -138,6 +137,6 @@ namespace BJ.Admin.Controllers
             }
             return Redirect("/tat-ca-cua-hang.html");
         }
-       
+
     }
 }

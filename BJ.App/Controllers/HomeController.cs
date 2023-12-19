@@ -2,7 +2,6 @@
 using BJ.ApiConnection.Services;
 using BJ.App.Models;
 using BJ.Contract.ViewModel;
-using BJ.Contract.VisitorCounter;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -38,50 +37,15 @@ namespace BJ.App.Controllers
 
             var news = await _newsServiceConnection.GetNewsAtHome(culture);
 
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
-
             return View(news);
         }
         public async Task<IActionResult> About()
         {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
 
             return View();
         }
         public async Task<IActionResult> Contact()
         {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
-
             return View();
         }
 
@@ -93,92 +57,36 @@ namespace BJ.App.Controllers
 
             return PartialView("_NewsHomePage", news);
         }
-        public async Task<IActionResult> Privacy(string culture)
-        {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
 
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
+        //public async Task<IActionResult> Privacy(string culture)
+        //{
 
-            if (culture == "vi") return View("Views/Home/Language/vi/CSBM.cshtml");
+        //    if (culture == "vi") return View("Views/Home/Language/vi/CSBM.cshtml");
 
 
-            return View();
-        }
-        public async Task<IActionResult> UsePolicy(string culture)
-        {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
+        //    return View();
+        //}
+        //public async Task<IActionResult> UsePolicy(string culture)
+        //{
 
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
+        //    if (culture == "vi") return View("Views/Home/Language/vi/CSSD.cshtml");
+        //    return View();
+        //}
+        //public async Task<IActionResult> Delivery()
+        //{
 
+        //    return View();
+        //}
+        //public async Task<IActionResult> Instruction()
+        //{
+        //    return View();
+        //}
+        //public async Task<IActionResult> TermOfUse(string culture)
+        //{
 
-            if (culture == "vi") return View("Views/Home/Language/vi/CSSD.cshtml");
-            return View();
-        }
-        public async Task<IActionResult> Delivery()
-        {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
-
-            return View();
-        }
-        public async Task<IActionResult> Instruction()
-        {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
-
-            return View();
-        }
-        public async Task<IActionResult> TermOfUse(string culture)
-        {
-            string visitorId = _httpContextAccessor.HttpContext.Request.Cookies["VisitorId"];
-
-            if (visitorId == null)
-            {
-                UpdateVisitorCounterDto updateVisitorCounterDto = new();
-                await _visitorCounterServiceConnection.UpdateVisitorCounter(updateVisitorCounterDto);
-            }
-            var a = await _visitorCounterServiceConnection.GetVisitorCounter();
-            ViewBag.Day = a.DayCount;
-            ViewBag.Month = a.MonthCount;
-            ViewBag.Year = a.YearCount;
-
-            if (culture == "vi") return View("Views/Home/Language/vi/DKTT.cshtml");
-            return View();
-        }
+        //    if (culture == "vi") return View("Views/Home/Language/vi/DKTT.cshtml");
+        //    return View();
+        //}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

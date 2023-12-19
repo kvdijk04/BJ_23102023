@@ -143,7 +143,7 @@ namespace BJ.Api.Controllers
         /// Lấy thông tin ngôn ngữ của danh mục con bằng Id
         /// </summary>
 
-        [HttpGet("language/{id}/detail")]
+        [HttpGet("language/{id}")]
 
         public async Task<IActionResult> GetSubCategoryTranslationById(Guid id)
         {
@@ -185,7 +185,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
 
-        [HttpPut("{subCatId}/language/{id}/update")]
+        [HttpPut("{subCatId}/language/{id}")]
         public async Task<IActionResult> UpdateTranslate(int subCatId, Guid id, [FromBody] UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
         {
             try

@@ -10,7 +10,7 @@
         public List<ProductTranslation> ProductTranslations { get; set; }
         public List<SubCategoryTranslation> SubCategoryTranslations { get; set; }
         public List<NewsTranslation> NewsTranslations { get; set; }
-
+        //public List<DetailConfigWebTranslation> DetailConfigWebTranslations { get; set; }
         public List<BlogTranslation> BlogTranslations { get; set; }
 
     }

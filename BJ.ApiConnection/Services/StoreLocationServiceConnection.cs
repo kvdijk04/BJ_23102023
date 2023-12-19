@@ -85,7 +85,7 @@ namespace BJ.ApiConnection.Services
 
             return response.IsSuccessStatusCode;
 
-           
+
         }
 
         public async Task<IEnumerable<StoreLocationDto>> GetAllStoreLocations()
@@ -94,7 +94,7 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async  Task<PagedViewModel<StoreLocationDto>> GetPagingStoreLocation([FromQuery] GetListPagingRequest getListPagingRequest)
+        public async Task<PagedViewModel<StoreLocationDto>> GetPagingStoreLocation([FromQuery] GetListPagingRequest getListPagingRequest)
         {
             var client = _httpClientFactory.CreateClient();
 
@@ -119,7 +119,7 @@ namespace BJ.ApiConnection.Services
             return await GetAsync<StoreLocationDto>($"/api/StoreLocations/{id}");
         }
 
-        public async  Task<bool> UpdateStoreLocation(int id, UpdateStoreLocationDto updateStoreLocationDto)
+        public async Task<bool> UpdateStoreLocation(int id, UpdateStoreLocationDto updateStoreLocationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -144,7 +144,7 @@ namespace BJ.ApiConnection.Services
 
                 requestContent.Add(bytes, "updateStoreLocationDto.ImageStore", updateStoreLocationDto.ImageStore.FileName);
             }
-            if(updateStoreLocationDto.ImagePath  != null)
+            if (updateStoreLocationDto.ImagePath != null)
             {
                 requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.ImagePath) ? "" : updateStoreLocationDto.ImagePath.ToString()), "updateStoreLocationDto.ImagePath");
 
@@ -166,7 +166,7 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Latitude.ToString()) ? "" : updateStoreLocationDto.Latitude.ToString()), "updateStoreLocationDto.Latitude");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Longitude.ToString()) ? "" : updateStoreLocationDto.Longitude.ToString()), "updateStoreLocationDto.Longitude");
-                
+
             var json = JsonConvert.SerializeObject(updateStoreLocationDto);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");

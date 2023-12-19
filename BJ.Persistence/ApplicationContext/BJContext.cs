@@ -45,6 +45,11 @@ namespace BJ.Persistence.ApplicationContext
         public virtual DbSet<StoreLocation> StoreLocations { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<VisitorCounter> VisitorCounters { get; set; }
+        public virtual DbSet<ConfigWebsite> ConfigWebs { get; set; }
+        public virtual DbSet<DetailConfigWebsite> DetailConfigWebsites { get; set; }
+
+        public virtual DbSet<DetailConfigWebsiteTranslation> DetailConfigWebsiteTranslations { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,7 +61,7 @@ namespace BJ.Persistence.ApplicationContext
                                             .Property(e => e.AuthorizeRole)
                                             .HasConversion(
                                             v => v.ToString(),
-                                            v => (AuthorizeRoles)Enum.Parse(typeof(AuthorizeRoles), v)) ;
+                                            v => (AuthorizeRoles)Enum.Parse(typeof(AuthorizeRoles), v));
             modelBuilder.Entity<Blog>().ToTable("Blog");
             modelBuilder.Entity<News>().ToTable("News");
 
@@ -69,21 +74,25 @@ namespace BJ.Persistence.ApplicationContext
             modelBuilder.Entity<SubCategoryTranslation>().ToTable("SubCategoryTranslation");
             modelBuilder.Entity<BlogTranslation>().ToTable("BlogTranslation");
             modelBuilder.Entity<NewsTranslation>().ToTable("NewsTranslation");
+            modelBuilder.Entity<DetailConfigWebsite>().ToTable("DetailConfigWebsite");
+            modelBuilder.Entity<ConfigWebsite>().ToTable("ConfigWebsite").Property(sc => sc.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<DetailConfigWebsiteTranslation>().ToTable("DetailConfigWebsiteTranslation");
 
             modelBuilder.Entity<Language>().ToTable("Language");
             modelBuilder.Entity<StoreLocation>().ToTable("StoreLocation").Property(sc => sc.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<VisitorCounter>().ToTable("VisitorCounter").HasData(
-                new VisitorCounter
-                {
-                    Id = Guid.NewGuid(),
-                    DayCount = 0,
-                    MonthCount = 0,
-                    YearCount = 0,
-                    Day = DateTime.Now.Day,
-                    Month = DateTime.Now.Month,
-                    Year = DateTime.Now.Year,   
-                }
-                );
+            modelBuilder.Entity<VisitorCounter>().ToTable("VisitorCounter");
+                //.HasData(
+                //new VisitorCounter
+                //{
+                //    Id = Guid.NewGuid(),
+                //    DayCount = 0,
+                //    MonthCount = 0,
+                //    YearCount = 0,
+                //    Day = DateTime.Now.Day,
+                //    Month = DateTime.Now.Month,
+                //    Year = DateTime.Now.Year,
+                //}
+                //);
 
         }
 

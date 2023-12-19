@@ -161,14 +161,6 @@
     <value>about</value>
     <comment>_Layout</comment>
   </data>
-  <data name="Acceptable use policy" xml:space="preserve">
-    <value>Acceptable use policy</value>
-    <comment>Home/UsePolicy</comment>
-  </data>
-  <data name="acceptableUsePolicyUrl" xml:space="preserve">
-    <value>acceptable-use-policy</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Access times" xml:space="preserve">
     <value>Access times</value>
     <comment>_Layout</comment>
@@ -202,10 +194,6 @@
     <value>Boost Juice has come a long way from its humble beginnings. But one thing hasn’t changed – our commitment to health, fun and loving life.</value>
     <comment>Home/About</comment>
   </data>
-  <data name="BOOST JUICE VIETNAM COMPANY LIMITED" xml:space="preserve">
-    <value>BOOST JUICE VIETNAM COMPANY LIMITED</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website." xml:space="preserve">
     <value>Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website.</value>
     <comment>Home/Vibe</comment>
@@ -234,6 +222,10 @@
     <value>BUY</value>
     <comment>Product/SingleProduct</comment>
   </data>
+  <data name="Buy Now" xml:space="preserve">
+    <value>Buy Now</value>
+    <comment>Home</comment>
+  </data>
   <data name="Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded." xml:space="preserve">
     <value>Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded.</value>
     <comment>Home/Vibe</comment>
@@ -249,10 +241,6 @@
   <data name="Can I get a free drink yet?" xml:space="preserve">
     <value>Can I get a free drink yet?</value>
     <comment>Home/Vibe</comment>
-  </data>
-  <data name="Certificate of Business Registration No. 0317934150 issued by" xml:space="preserve">
-    <value>Certificate of Business Registration No. 0317934150 issued by</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Choose drink type" xml:space="preserve">
     <value>Choose drink type</value>
@@ -278,18 +266,6 @@
     <value>Contact us</value>
     <comment>Layout</comment>
   </data>
-  <data name="contactUrl" xml:space="preserve">
-    <value>contact</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="Delivery &amp; return policy" xml:space="preserve">
-    <value>Delivery &amp; return policy</value>
-    <comment>_Layout/Footer</comment>
-  </data>
-  <data name="Delivery and return policy" xml:space="preserve">
-    <value>Delivery and return policy</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="DELIVERY FEE" xml:space="preserve">
     <value>DELIVERY FEE</value>
     <comment>Home/Delivery</comment>
@@ -297,14 +273,6 @@
   <data name="Delivery policy" xml:space="preserve">
     <value>Delivery policy</value>
     <comment>Home/Delivery</comment>
-  </data>
-  <data name="deliveryUrl" xml:space="preserve">
-    <value>delivery-return-policy</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="Department of Planning and Investment of Ho Chi Minh City on 14/07/2023." xml:space="preserve">
-    <value>Department of Planning and Investment of Ho Chi Minh City on 14/07/2023.</value>
-    <comment>_Layout</comment>
   </data>
   <data name="detailUrl" xml:space="preserve">
     <value>Read more</value>
@@ -325,10 +293,6 @@
   <data name="Download the&lt;br&gt;Boost Juice App" xml:space="preserve">
     <value>Download the&lt;br&gt;Boost Juice App</value>
     <comment>Vibe/Index</comment>
-  </data>
-  <data name="drinkUrl" xml:space="preserve">
-    <value>drinks</value>
-    <comment>_Layout</comment>
   </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
@@ -390,10 +354,6 @@
     <value>Growing Strong</value>
     <comment>Home/About</comment>
   </data>
-  <data name="Ho Chi Minh City, Vietnam" xml:space="preserve">
-    <value>Ho Chi Minh City, Vietnam</value>
-    <comment>Contact</comment>
-  </data>
   <data name="Home page - Boost Juice" xml:space="preserve">
     <value>Home page - Boost Juice</value>
     <comment>_Layout</comment>
@@ -441,10 +401,6 @@
   <data name="Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at" xml:space="preserve">
     <value>Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at</value>
     <comment>Home/Vibe</comment>
-  </data>
-  <data name="instructionUrl" xml:space="preserve">
-    <value>order-payment-instruction</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Is there a limit on points and do they expire?" xml:space="preserve">
     <value>Is there a limit on points and do they expire?</value>
@@ -514,10 +470,6 @@
     <value>News</value>
     <comment>Layout</comment>
   </data>
-  <data name="newsUrl" xml:space="preserve">
-    <value>news</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
     <comment>Contact</comment>
@@ -557,14 +509,6 @@
   <data name="OPTION 2" xml:space="preserve">
     <value>OPTION 2</value>
     <comment>Vibe/Index</comment>
-  </data>
-  <data name="Order &amp; Payment Instruction" xml:space="preserve">
-    <value>Order &amp; Payment Instruction</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="Order and payment instruction" xml:space="preserve">
-    <value>Order and payment instruction</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Order instruction" xml:space="preserve">
     <value>Order instruction</value>
@@ -622,24 +566,12 @@
     <value>Previous</value>
     <comment>Contact</comment>
   </data>
-  <data name="Privacy policy" xml:space="preserve">
-    <value>Privacy policy</value>
-    <comment>Home/Privacy</comment>
-  </data>
-  <data name="privacyPolicyUrl" xml:space="preserve">
-    <value>privacy-policy</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Product Feedback" xml:space="preserve">
     <value>Product Feedback</value>
     <comment>Contact</comment>
   </data>
   <data name="Promotion" xml:space="preserve">
     <value>Promotion</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="promotionUrl" xml:space="preserve">
-    <value>promotion</value>
     <comment>_Layout</comment>
   </data>
   <data name="Read more" xml:space="preserve">
@@ -649,10 +581,6 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
     <comment>Vibe/Index</comment>
-  </data>
-  <data name="Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn" xml:space="preserve">
-    <value>Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn</value>
-    <comment>_Layout</comment>
   </data>
   <data name="RETURN/EXCHANGE POLICY" xml:space="preserve">
     <value>RETURN/EXCHANGE POLICY</value>
@@ -686,10 +614,6 @@
     <value>Stores Name</value>
     <comment>Contact</comment>
   </data>
-  <data name="storeUrl" xml:space="preserve">
-    <value>stores</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="submit" xml:space="preserve">
     <value>SUBMIT</value>
     <comment>Contact</comment>
@@ -697,14 +621,6 @@
   <data name="TAKE A NOTE" xml:space="preserve">
     <value>TAKE A NOTE</value>
     <comment>Instruction</comment>
-  </data>
-  <data name="termOfUseUrl" xml:space="preserve">
-    <value>terms-of-use</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="Terms of use" xml:space="preserve">
-    <value>Terms of use</value>
-    <comment>Home/TermOfUse</comment>
   </data>
   <data name="Testimonials" xml:space="preserve">
     <value>Testimonials</value>
@@ -832,10 +748,6 @@
   <data name="Wellbeing" xml:space="preserve">
     <value>Wellbeing</value>
     <comment>Layout</comment>
-  </data>
-  <data name="wellbeingUrl" xml:space="preserve">
-    <value>wellbeing</value>
-    <comment>_Layout</comment>
   </data>
   <data name="What can we help you with?" xml:space="preserve">
     <value>What can we help you with?</value>

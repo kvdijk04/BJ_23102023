@@ -3,7 +3,6 @@ using BJ.Application.Service;
 using BJ.Contract;
 using BJ.Contract.Size;
 using BJ.Contract.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.Api.Controllers

@@ -88,10 +88,12 @@ container:after, .row:after, .u-cf {
     margin-bottom: 16px;
     line-height: 38px;
     color: #7ac142;
+    padding: 0 10px;
 }
 p {
     margin-bottom: 32px;
     line-height: 28px;
+    padding: 0 10px;
 }
 .container .block-green-quote {
     background-color: #78c148;

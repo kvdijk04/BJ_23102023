@@ -2,8 +2,6 @@
 using BJ.Application.Helper;
 using BJ.Application.Ultities;
 using BJ.Contract.StoreLocation;
-using BJ.Contract.Translation.Product;
-using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +75,7 @@ namespace BJ.Application.Service
             {
                 string extension = Path.GetExtension(createStoreLocationDto.ImageStore.FileName);
 
-                string image = Utilities.SEOUrl(createStoreLocationDto.Name)  + extension;
+                string image = Utilities.SEOUrl(createStoreLocationDto.Name) + extension;
                 createStoreLocationDto.ImagePath = await Utilities.UploadFile(createStoreLocationDto.ImageStore, "ImageStore", image);
 
             }
@@ -89,7 +87,7 @@ namespace BJ.Application.Service
 
         public async Task<PagedViewModel<StoreLocationDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
         {
-            
+
 
             if (getListPagingRequest.PageSize == 0)
             {
@@ -128,11 +126,11 @@ namespace BJ.Application.Service
             return subCategoryResponse;
         }
 
-        public async  Task<StoreLocationDto> GetStoreById(int id)
+        public async Task<StoreLocationDto> GetStoreById(int id)
         {
             var item = await _context.StoreLocations.FirstOrDefaultAsync(x => x.Id == id);
             if (item == null) return null;
-            return _mapper.Map<StoreLocationDto>(item);       
+            return _mapper.Map<StoreLocationDto>(item);
         }
 
         public async Task<IEnumerable<StoreLocationDto>> GetStoreLocation()
@@ -144,7 +142,7 @@ namespace BJ.Application.Service
             return storeDto;
         }
 
-        public async  Task UpdateStoreLocation(int id, UpdateStoreLocationDto updateStoreLocationDto)
+        public async Task UpdateStoreLocation(int id, UpdateStoreLocationDto updateStoreLocationDto)
         {
             var item = await _context.StoreLocations.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
@@ -177,7 +175,7 @@ namespace BJ.Application.Service
 
                 await _context.SaveChangesAsync();
 
-                
+
             }
 
             return;

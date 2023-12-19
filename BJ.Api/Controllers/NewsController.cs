@@ -21,8 +21,9 @@ namespace BJ.Api.Controllers
             _blogService = blogService;
         }
         /// <summary>
-        /// Phân trang tin tức
+        /// Phân trang tin tức Admin
         /// </summary>
+        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
         [HttpGet("paging")]
 
         public async Task<PagedViewModel<NewsDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -31,14 +32,20 @@ namespace BJ.Api.Controllers
             return await _blogService.GetPaging(getListPagingRequest);
 
         }
+        /// <summary>
+        /// Phân trang tin tức User
+        /// </summary>
         [HttpGet("newspaging")]
 
-        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery]  GetListPagingRequest getListPagingRequest)
+        public async Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest)
         {
 
             return await _blogService.GetPagingNews(getListPagingRequest);
 
         }
+        /// <summary>
+        /// Phân trang tin tức khuyến mãi
+        /// </summary>
         [HttpGet("promotionpaging")]
 
         public async Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -47,19 +54,19 @@ namespace BJ.Api.Controllers
             return await _blogService.GetPagingPromotion(getListPagingRequest);
 
         }
-        
-        /// <summary>
-        /// Danh sách tin tức phổ biến
-        /// </summary>
-        [HttpGet("popular")]
 
-        public async Task<IEnumerable<NewsUserViewModel>> GetNewssPopular(string culture, bool popular)
+        /// <summary>
+        /// Danh sách tin tức
+        /// </summary>
+        [HttpGet]
+
+        public async Task<IEnumerable<NewsUserViewModel>> GetNewssPopular(string culture, bool popular, bool promotion)
         {
 
-            return await _blogService.GetNewsPopular(culture, popular);
+            return await _blogService.GetNews(culture, popular, promotion);
 
         }
-       
+
         /// <summary>
         /// Danh sách tin tức tại trang chủ
         /// </summary>
@@ -176,7 +183,7 @@ namespace BJ.Api.Controllers
         /// Lấy thông tin ngôn ngữ của tin tức bằng Id
         /// </summary>
 
-        [HttpGet("language/{id}/detail")]
+        [HttpGet("language/{id}")]
 
         public async Task<IActionResult> GetNewsTranslationById(Guid id)
         {
@@ -218,7 +225,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
         [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
-        [HttpPut("language/{id}/update")]
+        [HttpPut("language/{id}")]
         public async Task<IActionResult> UpdateTranslate(Guid id, [FromBody] UpdateNewsTranslationDto updateNewsTranslationDto)
         {
             try

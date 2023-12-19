@@ -16,7 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/dang-nhap.html";
         options.AccessDeniedPath = "/User/Forbidden/";
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(20);
+        options.ExpireTimeSpan = TimeSpan.FromHours(3);
 
     });
 builder.Services.AddSession();
@@ -30,6 +30,7 @@ builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductServiceConnection, ProductServiceConnection>();
 builder.Services.AddScoped<ISizeServiceConnection, SizeServiceConnection>();
+builder.Services.AddScoped<IAccountServiceConnection, AccountServiceConnection>();
 
 builder.Services.AddScoped<ICategoryServiceConnection, CategoryServiceConnection>();
 builder.Services.AddScoped<ISubCategoryServiceConnection, SubCategoryServiceConnection>();
@@ -40,6 +41,8 @@ builder.Services.AddScoped<IBlogServiceConnection, BlogServiceConnection>();
 builder.Services.AddScoped<INewsServiceConnection, NewsServiceConnection>();
 builder.Services.AddScoped<IImportExcelServiceConnection, ImportExcelServiceConnection>();
 builder.Services.AddScoped<IStoreLocationServiceConnection, StoreLocationServiceConnection>();
+builder.Services.AddScoped<IConfigWebServiceConnection, ConfigWebServiceConnection>();
+builder.Services.AddScoped<IDetailConfigWebServiceConnection, DetailConfigWebServiceConnection>();
 
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });

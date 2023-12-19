@@ -158,17 +158,9 @@
     <value>Về Boost Juice</value>
     <comment>Layout</comment>
   </data>
-  <data name="aboutUrl" xml:space="preserve">
-    <value>ve-boost-juice</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Acceptable use policy" xml:space="preserve">
     <value>Chính sách sử dụng được chấp nhận</value>
     <comment>Home/UsePolicy</comment>
-  </data>
-  <data name="acceptableUsePolicyUrl" xml:space="preserve">
-    <value>chinh-sach-su-dung-duoc-chap-nhan</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Access times" xml:space="preserve">
     <value>Lượt truy cập</value>
@@ -203,10 +195,6 @@
     <value>Boost Juice đã đi một chặng đường dài từ những ngày khởi đầu khiêm tốn. Nhưng có một điều không bao giờ thay đổi đó chính là cam kết của chúng tôi cho một cuộc sống đầy sức khoẻ, niềm vui và yêu thương.</value>
     <comment>Home/About</comment>
   </data>
-  <data name="BOOST JUICE VIETNAM COMPANY LIMITED" xml:space="preserve">
-    <value>CÔNG TY TNHH THỰC PHẨM VÀ NƯỚC GIẢI KHÁT BOOST JUICE VIỆT NAM</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Boost Juice Vietnam reserves the right to alter the terms and conditions of the VIBE Member program at any time by notifying members through email or website." xml:space="preserve">
     <value>Boost Juice Vietnam có quyền thay đổi các điều khoản và điều kiện của chương trình Thành viên VIBE bất cứ lúc nào bằng cách thông báo cho các thành viên qua email hoặc trang website.</value>
     <comment>Home/Vibe</comment>
@@ -239,6 +227,10 @@
     <value>ĐẶT MUA</value>
     <comment>Product/SingleProduct</comment>
   </data>
+  <data name="Buy Now" xml:space="preserve">
+    <value>Đặt Ngay</value>
+    <comment>Home</comment>
+  </data>
   <data name="Buy one drink, get one point. Buy two drinks, get two points. Easy peezy lemon squeezy! This can be for Kids, Medium and Original drinks, so long as you buy a drink. Points only apply for full price drinks (so not when any offer or discount is used) and not where VIBE club is excluded." xml:space="preserve">
     <value>Mua một ly, được một điểm. Mua hai ly, được hai điểm. Dễ dàng như vắt chanh! Áp dụng cho cả ly Small, Medium và Original, miễn sao bạn chỉ cần mua một ly. Điểm Boost chỉ áp dụng cho nguyên giá của thức uống (vì vậy không áp dụng tích điểm khi đang có chương trình ưu đãi hoặc giảm giá) và chỉ ở những nơi có chương trình thành viên Vibe.</value>
     <comment>Home/Vibe</comment>
@@ -254,10 +246,6 @@
   <data name="Can I get a free drink yet?" xml:space="preserve">
     <value>Tôi đã có ly Boost miễn phí chưa?</value>
     <comment>ss</comment>
-  </data>
-  <data name="Certificate of Business Registration No. 0317934150 issued by" xml:space="preserve">
-    <value>Giấy chứng nhận đăng ký kinh doanh số 0317934150 do</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Choose drink type" xml:space="preserve">
     <value>Chọn dòng sản phẩm</value>
@@ -283,14 +271,6 @@
     <value>Liên hệ</value>
     <comment>Layout</comment>
   </data>
-  <data name="contactUrl" xml:space="preserve">
-    <value>lien-he</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="Delivery &amp; return policy" xml:space="preserve">
-    <value>Chính sách giao hàng &amp; đổi trả</value>
-    <comment>_Layout/Footer</comment>
-  </data>
   <data name="Delivery and return policy" xml:space="preserve">
     <value>Chính sách giao hàng và hoàn trả</value>
     <comment>Title of delivery and return policy page</comment>
@@ -302,14 +282,6 @@
   <data name="Delivery policy" xml:space="preserve">
     <value>Chính sách giao hàng</value>
     <comment>Home/Delivery</comment>
-  </data>
-  <data name="deliveryUrl" xml:space="preserve">
-    <value>giao-hang-hoan-tra</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="Department of Planning and Investment of Ho Chi Minh City on 14/07/2023." xml:space="preserve">
-    <value>Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 14/07/2023.</value>
-    <comment>_Layout</comment>
   </data>
   <data name="detailUrl" xml:space="preserve">
     <value>Xem thêm</value>
@@ -330,10 +302,6 @@
   <data name="Download the&lt;br&gt;Boost Juice App" xml:space="preserve">
     <value>Download ngay ứng dụng&lt;br&gt;Boost Juice Vietnam</value>
     <comment>Vibe/Index</comment>
-  </data>
-  <data name="drinkUrl" xml:space="preserve">
-    <value>thuc-uong</value>
-    <comment>_Layout</comment>
   </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
@@ -395,10 +363,6 @@
     <value>Phát triển Mạnh mẽ</value>
     <comment>Home/About</comment>
   </data>
-  <data name="Ho Chi Minh City, Vietnam" xml:space="preserve">
-    <value>TP. HCM</value>
-    <comment>Contact</comment>
-  </data>
   <data name="Home page - Boost Juice" xml:space="preserve">
     <value>Trang chủ - Boost Juice</value>
     <comment>_Layout</comment>
@@ -446,10 +410,6 @@
   <data name="Information collected from members at the time of signing up to the VIBE Member program is subject to the Privacy Policy listed at" xml:space="preserve">
     <value>Thông tin được thu thập từ các thành viên tại thời điểm đăng ký chương trình Thành viên VIBE phải tuân theo Chính Sách Bảo Mật được liệt kê tại</value>
     <comment>Home/Vibe</comment>
-  </data>
-  <data name="instructionUrl" xml:space="preserve">
-    <value>huong-dan-dat-hang-va-thanh-toan</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Is there a limit on points and do they expire?" xml:space="preserve">
     <value>Điểm có mức giới hạn và chúng có hết hạn không?</value>
@@ -523,10 +483,6 @@
     <value>Tin tức</value>
     <comment>Layout</comment>
   </data>
-  <data name="newsUrl" xml:space="preserve">
-    <value>tin-tuc</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>Tiếp theo</value>
     <comment>Contact</comment>
@@ -567,10 +523,6 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="OPTION 2" xml:space="preserve">
     <value>LỰA CHỌN 2</value>
     <comment>Vibe/Index</comment>
-  </data>
-  <data name="Order &amp; Payment Instruction" xml:space="preserve">
-    <value>Hướng dẫn Đặt hàng &amp; Thanh toán</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Order and payment instruction" xml:space="preserve">
     <value>Hướng dẫn đặt hàng và thanh toán</value>
@@ -636,20 +588,12 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Chính sách bảo mật</value>
     <comment>Home/Privacy</comment>
   </data>
-  <data name="privacyPolicyUrl" xml:space="preserve">
-    <value>chinh-sach-bao-mat</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="Product Feedback" xml:space="preserve">
     <value>Đánh giá sản phẩm</value>
     <comment>Contact</comment>
   </data>
   <data name="Promotion" xml:space="preserve">
     <value>Khuyến mãi</value>
-    <comment>_Layout</comment>
-  </data>
-  <data name="promotionUrl" xml:space="preserve">
-    <value>khuyen-mai</value>
     <comment>_Layout</comment>
   </data>
   <data name="Read more" xml:space="preserve">
@@ -659,10 +603,6 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="Register" xml:space="preserve">
     <value>Đăng Ký</value>
     <comment>Vibe/Index</comment>
-  </data>
-  <data name="Registered address: 110-112 Kinh Duong Vuong street, Ward 13, District 6, Ho Chi Minh City, Vietnam Tel: (84-028) 37858858 | Email:info@boostjuice.com.vn" xml:space="preserve">
-    <value>Địa chỉ đăng ký: 110-112 Kinh Dương Vương, Phường 13, Quận 6 , Thành phố Hồ Chí Minh, Việt Nam Tel: (84-028) 37858858 | Email: info@boostjuice.com.vn</value>
-    <comment>_Layout</comment>
   </data>
   <data name="RETURN/EXCHANGE POLICY" xml:space="preserve">
     <value>CHÍNH SÁCH ĐỔI TRẢ</value>
@@ -696,10 +636,6 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Tên cửa hàng</value>
     <comment>Contact</comment>
   </data>
-  <data name="storeUrl" xml:space="preserve">
-    <value>cua-hang</value>
-    <comment>_Layout</comment>
-  </data>
   <data name="String13" xml:space="preserve">
     <value />
     <comment>Home/Vibe</comment>
@@ -711,10 +647,6 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="TAKE A NOTE" xml:space="preserve">
     <value>GHI CHÚ VÀO ĐƠN HÀNG</value>
     <comment>Instruction</comment>
-  </data>
-  <data name="termOfUseUrl" xml:space="preserve">
-    <value>dieu-khoan-thoa-thuan</value>
-    <comment>_Layout</comment>
   </data>
   <data name="Terms of use" xml:space="preserve">
     <value>Điều khoản thoả thuận</value>
@@ -851,10 +783,6 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="Wellbeing" xml:space="preserve">
     <value>Sống khỏe</value>
     <comment>Layout</comment>
-  </data>
-  <data name="wellbeingUrl" xml:space="preserve">
-    <value>song-khoe</value>
-    <comment>_Layout</comment>
   </data>
   <data name="We’re not just here to give customers great tasting smoothies and juices. We want to share our energy, passion and ‘love life’ philosophy, and make sure every customer leaves feeling just that little bit better." xml:space="preserve">
     <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>

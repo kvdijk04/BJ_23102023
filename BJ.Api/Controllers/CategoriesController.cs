@@ -4,7 +4,6 @@ using BJ.Application.Ultities;
 using BJ.Contract;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.Api.Controllers
@@ -87,7 +86,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         [SecurityRole(AuthorizeRole.AdminRole)]
 
-        [HttpGet("language/{id}/detail")]
+        [HttpGet("language/{id}")]
 
         public async Task<IActionResult> GetCategoryTranslationById(Guid id)
         {
@@ -130,7 +129,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
         [SecurityRole(AuthorizeRole.AdminRole)]
-        [HttpPut("{proId}/language/{id}/update")]
+        [HttpPut("{proId}/language/{id}")]
 
         public async Task<IActionResult> UpdateTranslate(Guid proId, Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {

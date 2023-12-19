@@ -1,0 +1,224 @@
+﻿@model UpdateDetailConfigWebDto
+
+@using BJ.Contract.ConfigWeb.UpdateConfigWeb
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<form asp-action="Edit" method="post">
+    <div class="page-header">
+        <h2 class="header-title">Cập nhật thông tin cấu hình web</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
+                <a href="/cau-hinh-trang.html " class="breadcrumb-item">Tất cả thông tin cấu hình web</a>
+
+                <span class="breadcrumb-item active">Cập nhật thông tin cấu hình web</span>
+            </nav>
+        </div>
+    </div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Tên: @Model.Title </h4><a href="/chi-tiet-cau-hinh-trang/@ViewBag.DetailConfigWebId" style="text-decoration:underline">Xem chi tiết</a>
+                    <span class="text-muted m-b-0 catId" hidden>@ViewBag.DetailConfigWebId</span>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cấu hình web</a>
+            </li>
+           
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <input id="checkbox-newpage" type="checkbox" name="NewPage" asp-for="@Model.NewPage" value="true" clicked="false">
+                        <label for="checkbox-newpage">Cập nhật đường dẫn</label>
+                    </div>
+                   @*  <div>
+                        <input id="checkbox-newpage" type="checkbox" name="NewPage" value="true" clicked="false">
+                        <label for="checkbox-newpage">Tạo trang mới</label>
+                    </div>
+                    <div>
+                        <input id="checkbox-autosort" type="checkbox" name="AutoSort" value="true">
+                        <label for="checkbox-autosort">Sắp xếp thứ tự</label>
+                    </div> *@
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="catName">Thông tin cấu hình web</label>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên cấu hình web" value="@Model.Title" asp-for="@Model.Title" required>
+                    </div>
+                    @if (Model.Active == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.Active">
+                                <label for="switch-3"></label>
+                            </div>
+                            <label>Kích hoạt</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.Active">
+                                <label for="switch-3"></label>
+                            </div>
+                            <label>Kích hoạt</label>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="name">Thứ tự</label>
+                        <input type="text" class="form-control" id="name" placeholder="Thứ tự" asp-for="@Model.SortOrder" value="@Model.SortOrder">
+                    </div>
+                    <div class="form-group" id="addressurl">
+                        <label class="font-weight-semibold" for="productCategory">Đường dẫn web</label>
+                        <input type="text" class="form-control" id="urlWeb" placeholder="Đường dẫn web" value="@Model.Url" asp-for="@Model.Url" readonly>
+
+                    </div>
+                    <div class="form-group" id="webdetail">
+                        <label class="font-weight-semibold" for="productBrand" >Nội dung web hiển thị</label>
+                        <textarea class="form-control" id="Description" placeholder="Nội dung" asp-for="@Model.Description"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+
+
+    <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script>
+        $("#checkbox-newpage").on("click", function () {
+
+            if ($(this).attr("clicked") == "false") {
+                $('#urlWeb').removeAttr('readonly', "readonly");
+
+                $(this).attr("clicked", "true");
+            }else{
+                $('#urlWeb').attr('readonly', "readonly");
+
+                $(this).attr("clicked", "false");
+            }
+
+
+        });
+    </script>
+    <script>
+        $('#Description').summernote({
+            placeholder: 'Mô tả',
+
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            fontNames: ['Arial', 'Times New Roman', 'Arial Black', 'RobotoCondensed-Regular', 'Courier New', 'sans-serif',
+                'Helvetica', 'Verdana', 'Garamond', 'Futura', 'Bodoni', 'Open Sans', 'Didot', 'Roboto', 'Tahoma', 'Calibri', 'Courier', 'Montserrat', 'Raleway',
+                'SANS', 'Avenir', 'Baskerville', 'Bebas Neue', 'Brush Script'],
+            tabsize: 2,
+            height: 500,
+        });
+    </script>
+    <script>
+        $('.select2').select2();
+
+    </script>
+    <script>
+        document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+            const dropZoneElement = inputElement.closest(".drop-zone");
+
+            dropZoneElement.addEventListener("click", (e) => {
+                inputElement.click();
+            });
+
+            inputElement.addEventListener("change", (e) => {
+                if (inputElement.files.length) {
+                    updateThumbnail(dropZoneElement, inputElement.files[0]);
+                }
+            });
+
+            dropZoneElement.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZoneElement.classList.add("drop-zone--over");
+            });
+
+            ["dragleave", "dragend"].forEach((type) => {
+                dropZoneElement.addEventListener(type, (e) => {
+                    dropZoneElement.classList.remove("drop-zone--over");
+                });
+            });
+
+            dropZoneElement.addEventListener("drop", (e) => {
+                e.preventDefault();
+
+                if (e.dataTransfer.files.length) {
+                    inputElement.files = e.dataTransfer.files;
+                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+                }
+
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+
+        function updateThumbnail(dropZoneElement, file) {
+            let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+            // First time - remove the prompt
+            if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+                dropZoneElement.querySelector(".drop-zone__prompt").remove();
+            }
+
+            // First time - there is no thumbnail element, so lets create it
+            if (!thumbnailElement) {
+                thumbnailElement = document.createElement("div");
+                thumbnailElement.classList.add("drop-zone__thumb");
+                dropZoneElement.appendChild(thumbnailElement);
+            }
+            //Chèn tên dưới hình----------
+            //thumbnailElement.dataset.label = file.name;
+            //------------
+            // Show thumbnail for image files
+            if (file.type.startsWith("image/")) {
+                const reader = new FileReader();
+
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+                };
+            } else {
+                thumbnailElement.style.backgroundImage = null;
+            }
+        }
+
+    </script>
+}

@@ -25,7 +25,7 @@ namespace BJ.Application.Service
         Task<UserProductDto> GetUserProductById(Guid id, string languageId);
         Task<ProductTranslationDto> GetProductTranslationDto(Guid id);
 
-        Task<IEnumerable<UserProductDto>> GetProductByCatId(string culture,Guid catId);
+        Task<IEnumerable<UserProductDto>> GetProductByCatId(string culture, Guid catId);
         Task CreateProductAdminView(CreateProductAdminView createProductAdminView);
         Task CreateProductTranslate(CreateProductTranslationDto createProductTranslationDto);
 
@@ -304,7 +304,7 @@ namespace BJ.Application.Service
             }).AsNoTracking().ToListAsync();
 
 
-            var queryPro = from p in  _context.Products.OrderByDescending(x => x.Category.DateCreated).Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == culture)).AsNoTracking().AsSingleQuery()
+            var queryPro = from p in _context.Products.OrderByDescending(x => x.Category.DateCreated).Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == culture)).AsNoTracking().AsSingleQuery()
                            join c in _context.Categories on p.CategoryId equals c.Id
                            join ct in _context.CategoryTranslations.Where(x => x.LanguageId == culture) on c.Id equals ct.CategoryId into cd
                            from ct in cd.DefaultIfEmpty()

@@ -1,8 +1,5 @@
-﻿using BJ.Application.Helper;
-using BJ.Application.Service;
+﻿using BJ.Application.Service;
 using BJ.Application.Ultities;
-using BJ.Contract;
-using BJ.Contract.Size;
 using BJ.Contract.StoreLocation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +26,7 @@ namespace BJ.Api.Controllers
             return await _storeLocationService.GetPaging(getListPagingRequest);
 
         }
-       
+
         /// <summary>
         /// Danh sách size theo loại sản phẩm
         /// </summary>
@@ -60,7 +57,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]CreateStoreLocationDto createStoreLocationDto)
+        public async Task<IActionResult> Post([FromForm] CreateStoreLocationDto createStoreLocationDto)
         {
             try
             {

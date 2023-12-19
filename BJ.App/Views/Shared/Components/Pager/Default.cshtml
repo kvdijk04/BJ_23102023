@@ -8,22 +8,12 @@
         color: #fff !important;
     }
 
-    .page-item{
-        margin:5px;
+    a:hover {
+        cursor: pointer;
     }
 
-    .page-link{
-        
-        border-radius: 100%;
-        text-align:center;
-        justify-content:center;
-    }
 
-    .page-link:hover{
-        background-color: #7ac142;
-        border-color: #7ac142;
-        color: #fff !important;
-    }
+    
     @@media(max-width: 768px){
         .paginationcenter {
             margin-bottom: 30%;
@@ -57,9 +47,10 @@
 
 }
 
-@if (Model.PageCount >= 1)
+@if (Model.PageCount > 1)
 {
     <div class="paginationcenter">
+        <div id="pagination"></div>
         <ul class="pagination">
             @if (Model.PageIndex != 1)
             {
@@ -101,3 +92,4 @@
     </div>
 
 }
+
