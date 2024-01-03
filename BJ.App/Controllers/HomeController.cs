@@ -39,12 +39,12 @@ namespace BJ.App.Controllers
 
             return View(news);
         }
-        public async Task<IActionResult> About()
+        public ActionResult About()
         {
 
             return View();
         }
-        public async Task<IActionResult> Contact()
+        public  ActionResult Contact()
         {
             return View();
         }

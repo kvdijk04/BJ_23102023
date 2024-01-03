@@ -303,6 +303,10 @@
     <value>Download ngay ứng dụng&lt;br&gt;Boost Juice Vietnam</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="drinkUrl" xml:space="preserve">
+    <value>thuc-uong</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
     <comment>Contact</comment>
@@ -483,6 +487,10 @@
     <value>Tin tức</value>
     <comment>Layout</comment>
   </data>
+  <data name="newsUrl" xml:space="preserve">
+    <value>tin-tuc</value>
+    <comment>News</comment>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>Tiếp theo</value>
     <comment>Contact</comment>
@@ -596,6 +604,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
     <value>Khuyến mãi</value>
     <comment>_Layout</comment>
   </data>
+  <data name="promotionUrl" xml:space="preserve">
+    <value>khuyen-mai</value>
+    <comment>Promotion</comment>
+  </data>
   <data name="Read more" xml:space="preserve">
     <value>Xem thêm</value>
     <comment>Blog/Index</comment>
@@ -635,6 +647,9 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="StoresName" xml:space="preserve">
     <value>Tên cửa hàng</value>
     <comment>Contact</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="String13" xml:space="preserve">
     <value />
@@ -783,6 +798,10 @@ Nếu như công nghệ quá cool trong thời điểm này, hãy đến ngay c�
   <data name="Wellbeing" xml:space="preserve">
     <value>Sống khỏe</value>
     <comment>Layout</comment>
+  </data>
+  <data name="wellbeingUrl" xml:space="preserve">
+    <value>song-khoe</value>
+    <comment>Wellbeing</comment>
   </data>
   <data name="We’re not just here to give customers great tasting smoothies and juices. We want to share our energy, passion and ‘love life’ philosophy, and make sure every customer leaves feeling just that little bit better." xml:space="preserve">
     <value>Nếu chúng tôi  có thể giúp mọi người ăn nhiều trái cây và rau củ hơn bằng cách làm cho hương vị của chúng thật ngon miệng, đây quả là điều tuyệt vời. Nhưng chúng tôi không chỉ mong muốn mang đến cho khách hàng những ly smoothies và nước ép ngon lành, chúng tôi cũng muốn chia sẻ năng lượng, niềm đam mê và “tình yêu cuộc sống” của mình thông qua trải nghiệm đầy ngẫu hứng tại cửa hàng.</value>

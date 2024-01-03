@@ -39,7 +39,7 @@ namespace BJ.App.Controllers
         }
 
         [Route("/filtercategory", Name = "UserFilterCategory")]
-        public async Task<IActionResult> FilterByCategoryId(Guid catId, string culture)
+        public async Task<IActionResult> FilterByCategoryId(Guid catId, string culture,string order, string aliasCat)
         {
 
             var rs = await _productService.GetAllProductByCatId(culture, catId);
@@ -49,7 +49,8 @@ namespace BJ.App.Controllers
                 return Redirect("/khong-tim-thay-trang.html");
             }
             ViewBag.CatName = rs.Select(x => x.CatName).First();
-
+            ViewBag.Order = order;
+            ViewBag.AliasCat = aliasCat;
             return PartialView("_FilterByCategory", rs);
         }
 

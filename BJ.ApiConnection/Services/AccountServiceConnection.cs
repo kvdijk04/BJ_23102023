@@ -15,9 +15,12 @@ namespace BJ.ApiConnection.Services
         public Task<IEnumerable<AccountDto>> GetAllAccountsByCatId(Guid catId);
 
         public Task<PagedViewModel<AccountDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
+        Task<AccountDto> GetAccountByEmail(string email);
+
         Task<AccountDto> GetAccountById(Guid id);
         Task<bool> CreateAccount(CreateAccountDto createAccountDto);
         Task<bool> UpdateAccount(Guid id, UpdateAccountDto updateAccountDto);
+        Task<bool> ChangePassword(string email, ChangePassword changePassword);
 
     }
     public class AccountServiceConnection : BaseApiClient, IAccountServiceConnection
@@ -105,6 +108,30 @@ namespace BJ.ApiConnection.Services
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PutAsync($"/api/Accounts/{id}", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<AccountDto> GetAccountByEmail(string email)
+        {
+            return await GetAsync<AccountDto>($"/api/Accounts/email?email={email}");
+        }
+
+        public async Task<bool> ChangePassword(string email, ChangePassword changePassword)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(changePassword);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/Accounts/changepassword/{email}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

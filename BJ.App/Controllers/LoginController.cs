@@ -15,7 +15,7 @@ namespace BJ.App.Controllers
             _visitorCounterServiceConnection = visitorCounterServiceConnection;
         }
         [Route("/{culture}/vibe")]
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
             return View();
         }

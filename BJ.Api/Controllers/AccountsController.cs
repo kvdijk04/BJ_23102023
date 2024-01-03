@@ -104,6 +104,34 @@ namespace BJ.Api.Controllers
             }
         }
         /// <summary>
+        /// Thay đổi mật khẩu
+        /// </summary>
+        [HttpPut("changepassword/{email}")]
+        public async Task<IActionResult> ChangePassword(string email, [FromBody] ChangePassword changePassword)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+                if (await _accountService.GetAccountByEmail(email) == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound);
+                }
+
+                await _accountService.ChangePassword(email, changePassword);
+
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        /// <summary>
         /// Tạo mới tài khoản
         /// </summary>
         [HttpPost]

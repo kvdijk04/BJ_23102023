@@ -25,6 +25,7 @@ namespace BJ.Application.Service
 
         Task<PagedViewModel<AccountDto>> GetPaging(GetListPagingRequest getListPagingRequest);
         Task<string> Login(LoginDto loginDto);
+        Task ChangePassword(string email, ChangePassword changePassword);
 
     }
     public class AccountService : IAccountService
@@ -202,9 +203,29 @@ namespace BJ.Application.Service
 
         public async Task<AccountDto> GetAccountByEmail(string email)
         {
-            var item = await _context.Accounts.FirstOrDefaultAsync(x => x.UserName.Equals(email));
+            var item = await _context.Accounts.FirstOrDefaultAsync(x => x.UserName.Contains(email));
             if (item == null) return null;
             return _mapper.Map<AccountDto>(item);
+        }
+
+        public async Task ChangePassword(string email, ChangePassword changePassword)
+        {
+            var item = await _context.Accounts.FirstOrDefaultAsync(x => x.UserName.Contains(email));
+
+            if(item != null)
+            {
+                string oldHasedPassword = Password.HashedPassword(changePassword.OldPassword);
+
+                if (oldHasedPassword != item.HasedPassword) return;
+
+                changePassword.HasedNewPassword = Password.HashedPassword(changePassword.NewPassword);
+
+                changePassword.DateUpdate = DateTime.Now;
+
+                _context.Update(_mapper.Map(changePassword, item));
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
-<div class="main">
+<div class="main" id="sortByCat">
     @if (Model != null && Model.Count() > 0)
     {
         <div class="title category">
@@ -46,7 +46,7 @@
 
                         <span itemprop="name">@product.ProductName</span>
                         <a class="button" onclick="momodal()">
-                            <localize>BUY</localize>
+                            @ViewBag.Order
                         </a>
                     </a>
 

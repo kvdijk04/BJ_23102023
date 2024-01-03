@@ -13,7 +13,7 @@ namespace BJ.App.Controllers
 
 
         [Route("/configuration")]
-        public async Task<JsonResult> GetStore(string sectionName, string paramName)
+        public JsonResult GetStore(string sectionName, string paramName)
         {
             var parameterValue = configuration[$"{sectionName}"];
 

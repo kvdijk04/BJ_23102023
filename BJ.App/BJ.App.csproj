@@ -12,11 +12,11 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\BoostJuice\js\jquery.validate.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\BoostJuice\Template\firework.css" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\BoostJuice\js\jquery.validate.js" />
-    <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
   <ItemGroup>

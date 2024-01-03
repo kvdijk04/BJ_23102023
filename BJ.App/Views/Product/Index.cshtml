@@ -198,7 +198,7 @@
                             {
                                 @foreach (var cat in Model.UserCategoryDtos.Where(x => x.Active == true))
                                 {
-                                    <div data-category-id="@cat.Id" class="main-filter__set" popular="false" data-catId="@cat.Id" name="@cat.Alias" itemprop="name">
+                                    <div data-category-id="@cat.Id" class="main-filter__set" popular="false" order="@_loc["BUY"]" data-catId="@cat.Id" name="@cat.Alias" itemprop="name">
                                         <span class="main-filter__set-info">
                                             <img itemprop="image" class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath" asp-append-version="true" src="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath">
                                         </span>
@@ -220,7 +220,7 @@
         <div id="view-all-sidebar"><localize>View All</localize></div>
         <div class="drinks-container">
 
-            <div class="main">
+            <div class="main" id="sortByCat">
                 @if (Model.UserCategoryDtos != null && Model.UserCategoryDtos.Count() > 0)
                 {
                     @foreach (var cat in Model.UserCategoryDtos.Where(x => x.Active == true))
@@ -264,7 +264,7 @@
 
                                             <span itemprop="name">@product.ProductName</span>
                                             <a class="button" onclick="momodal()">
-                                                <localize>BUY</localize>
+                                                @_loc["BUY"]
                                             </a>
                                         </a>
 
@@ -439,6 +439,7 @@
         var idCat = $(this).attr("data-catId");
         var popular = $(this).attr("popular");
         var name = $(this).attr("name");
+        var languageOrder = $(this).attr("order");
         for (var i = 0; i < $('.main-filter__set-row > .main-filter__set').length; i++) {
             $('.main-filter__set-row > .main-filter__set')[i].className = $('.main-filter__set-row > .main-filter__set')[i].className.replace("main-filter__set--active", "");
         }
@@ -447,18 +448,30 @@
         $("#view-all-sidebar").css("display", "block");
 
         var e = $(this).attr("popular");
-        console.log(e);
+
+
         $.ajax({
             url: '/filtercategory',
             datatype: "json",
             type: "GET",
-            data: { catId: idCat, popular: e, culture: first },
+            data: { catId: idCat, popular: e, culture: first, order: languageOrder, aliasCat: name },
 
             async: true,
             success: function (results) {
                 $(".drinks-container").html("");
                 $(".drinks-container").html(results);
 
+                window.scroll(0,
+                    findPosition(document.getElementById('sortByCat')));
+                function findPosition(obj) {
+                    var currenttop = 0;
+                    if (obj.offsetParent) {
+                        do {
+                            currenttop += obj.offsetTop;
+                        } while ((obj = obj.offsetParent));
+                        return [currenttop];
+                    }
+                }
 
 
                 return true;

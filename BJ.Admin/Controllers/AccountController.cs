@@ -2,8 +2,11 @@
 using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.Account;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Common;
 
 namespace BJ.Admin.Controllers
 {
@@ -132,6 +135,46 @@ namespace BJ.Admin.Controllers
             var result = await _accountServiceConnection.GetAllAccountsByCatId(catId);
 
             return Json(result);
+        }
+        [HttpGet]
+        [Route("/thong-tin-tai-khoan")]
+        public async Task<IActionResult> UserInfo()
+        {
+            var token = HttpContext.Session.GetString("Token");
+
+            if (User.Identity.Name == null || token == null || User.Claims.Where(x => x.Type == "FullName").Select(x => x.Value).FirstOrDefault() == null) return Redirect("/dang-nhap.html");
+            var info = await _accountServiceConnection.GetAccountByEmail(User.Identity.Name);
+            ChangePassword changePassword= new()
+            {
+                EmployeeName = info.EmployeeName,
+                UserName = info.UserName,                
+            };
+            return View(changePassword);
+        }
+        [HttpPost]
+        [Route("/thong-tin-tai-khoan")]
+        public async Task<IActionResult> UserInfo(string email, ChangePassword changePassword)
+        {
+            if (User.Identity.Name == null) return Redirect("/dang-nhap.html");
+
+            email = User.Identity.Name;
+
+            var a = await _accountServiceConnection.ChangePassword(email, changePassword);
+
+            if (a == true)
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                HttpContext.Session.Remove("Token");
+
+                _notyfService.Success("Cập nhật thành công");
+            }
+            else
+            {
+                _notyfService.Error("Cập nhật thất bại");
+            }
+
+            return Redirect("/dang-nhap.html");
         }
     }
 }

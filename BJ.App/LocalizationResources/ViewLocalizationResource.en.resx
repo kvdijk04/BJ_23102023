@@ -294,6 +294,10 @@
     <value>Download the&lt;br&gt;Boost Juice App</value>
     <comment>Vibe/Index</comment>
   </data>
+  <data name="drinkUrl" xml:space="preserve">
+    <value>drinks</value>
+    <comment>Home/Index</comment>
+  </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
     <comment>Contact</comment>
@@ -470,6 +474,10 @@
     <value>News</value>
     <comment>Layout</comment>
   </data>
+  <data name="newsUrl" xml:space="preserve">
+    <value>news</value>
+    <comment>News</comment>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
     <comment>Contact</comment>
@@ -573,6 +581,10 @@
   <data name="Promotion" xml:space="preserve">
     <value>Promotion</value>
     <comment>_Layout</comment>
+  </data>
+  <data name="promotionUrl" xml:space="preserve">
+    <value>promotion</value>
+    <comment>Promotion</comment>
   </data>
   <data name="Read more" xml:space="preserve">
     <value>Read more</value>
@@ -748,6 +760,10 @@
   <data name="Wellbeing" xml:space="preserve">
     <value>Wellbeing</value>
     <comment>Layout</comment>
+  </data>
+  <data name="wellbeingUrl" xml:space="preserve">
+    <value>wellbeing</value>
+    <comment>Wellbeing</comment>
   </data>
   <data name="What can we help you with?" xml:space="preserve">
     <value>What can we help you with?</value>

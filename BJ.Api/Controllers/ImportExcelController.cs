@@ -168,8 +168,6 @@ namespace BJ.Api.Controllers
 
                         var rowCount = worksheet.Dimension.Rows;
 
-                        int count = 0;
-
                         int[] sizeSpecificProduct = null;
 
                         int[] subCatSpecificProduct = null;

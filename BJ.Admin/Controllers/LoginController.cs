@@ -39,6 +39,7 @@ namespace BJ.Admin.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> LoginAccount(LoginDto loginDto, string returnUrl = null)
@@ -61,8 +62,7 @@ namespace BJ.Admin.Controllers
                 new Claim(ClaimTypes.GivenName,account.UserName),
                 new Claim(ClaimTypes.Name,account.UserName),
                 new Claim("Role", account.AuthorizeRole.ToString()),
-
-
+                new Claim("FullName", account.EmployeeName.ToString()),
             };
             var identity = new ClaimsIdentity(claim, CookieAuthenticationDefaults.AuthenticationScheme);
             var principle = new ClaimsPrincipal(identity);

@@ -59,7 +59,7 @@ namespace BJ.Admin.Controllers
         }
         [HttpGet]
         [Route("/tao-moi-cau-hinh-web.html")]
-        public async Task<IActionResult> Create()
+        public ActionResult Create()
         {
             var token = HttpContext.Session.GetString("Token");
 

@@ -314,6 +314,8 @@
         <script async defer src="~/BoostJuice/Template/winter.js"></script>
 
     }
+
+
     <style>
         
       
@@ -342,10 +344,6 @@
     <!-- End Google Tag Manager -->
 </head>
 <body class="boost-home" id="body">
-   
-
-
-
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=@Configuration["GoogleTagManager"]"
@@ -385,9 +383,9 @@
     </script>
 
 
+
+
     @await Component.InvokeAsync("Header", culture)
-
-
 
 
     <!-- END nav -->
@@ -434,6 +432,8 @@
     @RenderSection("Scripts", required: false)
 
     <script>
+        console.clear();
+
         function myFunction(x) {
             x.classList.toggle("change");
             if (($(".boost-nav-trigger").attr("clicked")) == "false") {

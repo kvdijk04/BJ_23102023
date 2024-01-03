@@ -63,7 +63,7 @@ namespace BJ.Api.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError,e.Message);
             }
         }
         /// <summary>
