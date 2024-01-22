@@ -11,5 +11,8 @@
         public string MetaDesc { get; set; }
 
         public string MetaKey { get; set; }
+        public DateTime? DateUpdated { get; set; }
+
+        public string UserName { get; set; }
     }
 }

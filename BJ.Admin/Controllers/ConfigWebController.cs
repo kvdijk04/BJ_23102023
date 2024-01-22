@@ -45,7 +45,7 @@ namespace BJ.Admin.Controllers
         }
         [Route("/chi-tiet-cau-hinh-web/{id}")]
         [HttpGet]
-        public async Task<IActionResult> Detail(Guid id)
+        public async Task<IActionResult> Detail(int id)
         {
             var token = HttpContext.Session.GetString("Token");
 
@@ -74,6 +74,8 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create(CreateConfigWebDto createConfigWebDto)
         {
+            createConfigWebDto.UserName = User.Identity.Name;
+
             var a = await _configWebServiceConnection.CreateConfigWeb(createConfigWebDto);
             if (a == true)
             {
@@ -87,7 +89,7 @@ namespace BJ.Admin.Controllers
         }
         [HttpGet]
         [Route("/cap-nhat-cau-hinh-web/{id}")]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(int id)
         {
             var token = HttpContext.Session.GetString("Token");
 
@@ -107,8 +109,9 @@ namespace BJ.Admin.Controllers
         [HttpPost]
         [Route("/cap-nhat-cau-hinh-web/{id}")]
 
-        public async Task<IActionResult> Edit(Guid id,UpdateConfigWebDto updateConfigWebDto)
+        public async Task<IActionResult> Edit(int id,UpdateConfigWebDto updateConfigWebDto)
         {
+            updateConfigWebDto.UserName = User.Identity.Name;
             var a = await _configWebServiceConnection.UpdateConfigWeb(id, updateConfigWebDto);
             if (a == true)
             {

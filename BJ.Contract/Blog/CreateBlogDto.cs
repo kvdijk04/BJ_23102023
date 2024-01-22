@@ -8,8 +8,11 @@
 
         public bool Popular { get; set; }
         public DateTime? DateCreated { get; set; }
+        public DateTime? DateActiveForm { get; set; }
 
-        public DateTime DateUpdated { get; set; }
+        public DateTime? DateTimeActiveTo { get; set; }
+        public string UserName { get;set; }
+
         public string Code { get; set; }
 
     }

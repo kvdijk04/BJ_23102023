@@ -58,6 +58,41 @@ namespace BJ.Persistence.Migrations
                     b.ToTable("Account", (string)null);
                 });
 
+            modelBuilder.Entity("BJ.Domain.Entities.Audit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AffectedColumns")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimaryKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
+                });
+
             modelBuilder.Entity("BJ.Domain.Entities.Blog", b =>
                 {
                     b.Property<Guid>("Id")
@@ -70,10 +105,16 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DateActiveForm")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateUpdated")
+                    b.Property<DateTime?>("DateTimeActiveTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ImagePath")
@@ -98,6 +139,12 @@ namespace BJ.Persistence.Migrations
 
                     b.Property<Guid>("BlogId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -135,32 +182,26 @@ namespace BJ.Persistence.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Alias")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CatName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DateActiveForm")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateTimeActiveTo")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaKey")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Sort")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -182,14 +223,17 @@ namespace BJ.Persistence.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LanguageId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MetaDesc")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -207,6 +251,12 @@ namespace BJ.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -228,10 +278,10 @@ namespace BJ.Persistence.Migrations
                     b.Property<int>("ConfigWebId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateUpdated")
+                    b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("SortOrder")
@@ -249,6 +299,12 @@ namespace BJ.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -279,6 +335,12 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -299,10 +361,16 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DateActiveForm")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateUpdated")
+                    b.Property<DateTime?>("DateTimeActiveTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Home")
@@ -330,6 +398,12 @@ namespace BJ.Persistence.Migrations
 
                     b.Property<string>("Alias")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -370,9 +444,6 @@ namespace BJ.Persistence.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Alias")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("BestSeller")
                         .HasColumnType("bit");
 
@@ -382,14 +453,17 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DateActiveForm")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DateTimeActiveTo")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("Discount")
                         .HasColumnType("int");
@@ -406,17 +480,8 @@ namespace BJ.Persistence.Migrations
                     b.Property<string>("ImagePathIngredients")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaKey")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortDesc")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Sort")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -433,6 +498,12 @@ namespace BJ.Persistence.Migrations
 
                     b.Property<string>("Alias")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -565,17 +636,17 @@ namespace BJ.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("IconPath")
                         .HasColumnType("nvarchar(max)");
@@ -589,15 +660,90 @@ namespace BJ.Persistence.Migrations
                     b.Property<float>("Longitude")
                         .HasColumnType("real");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("OpeningSoon")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Repaired")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("Sort")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("StoreLocation", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.StoreLocationOpenHour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DaysOfWeek")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("End")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Start")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StoreLocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoreLocationId");
+
+                    b.ToTable("StoreLocationOpenHour", (string)null);
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.StoreLocationTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StoreLocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("StoreLocationId");
+
+                    b.ToTable("StoreLocationTranslation", (string)null);
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.SubCategory", b =>
@@ -620,13 +766,7 @@ namespace BJ.Persistence.Migrations
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubCatName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -642,6 +782,12 @@ namespace BJ.Persistence.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -663,6 +809,12 @@ namespace BJ.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -850,6 +1002,34 @@ namespace BJ.Persistence.Migrations
                     b.Navigation("Size");
                 });
 
+            modelBuilder.Entity("BJ.Domain.Entities.StoreLocationOpenHour", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.StoreLocation", "StoreLocation")
+                        .WithMany("StoreLocationOpenHours")
+                        .HasForeignKey("StoreLocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StoreLocation");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.StoreLocationTranslation", b =>
+                {
+                    b.HasOne("BJ.Domain.Entities.Language", "Language")
+                        .WithMany("StoreLocationTranslations")
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("BJ.Domain.Entities.StoreLocation", "StoreLocation")
+                        .WithMany("StoreLocationTranslations")
+                        .HasForeignKey("StoreLocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("StoreLocation");
+                });
+
             modelBuilder.Entity("BJ.Domain.Entities.SubCategorySpecificProduct", b =>
                 {
                     b.HasOne("BJ.Domain.Entities.Product", "Product")
@@ -920,6 +1100,8 @@ namespace BJ.Persistence.Migrations
 
                     b.Navigation("ProductTranslations");
 
+                    b.Navigation("StoreLocationTranslations");
+
                     b.Navigation("SubCategoryTranslations");
                 });
 
@@ -940,6 +1122,13 @@ namespace BJ.Persistence.Migrations
             modelBuilder.Entity("BJ.Domain.Entities.Size", b =>
                 {
                     b.Navigation("SizeSpecificProducts");
+                });
+
+            modelBuilder.Entity("BJ.Domain.Entities.StoreLocation", b =>
+                {
+                    b.Navigation("StoreLocationOpenHours");
+
+                    b.Navigation("StoreLocationTranslations");
                 });
 
             modelBuilder.Entity("BJ.Domain.Entities.SubCategory", b =>

@@ -62,7 +62,6 @@
 /*}*/
     .feliz{
   width: 100%;
-  font-family: 'Pacifico', cursive;
   font-size: 100px;
   font-weight: 700;
   color: #f48fb1;
@@ -86,7 +85,6 @@
   padding: 200px 100px 0px 0px;
 }
 .ano_novo>span{
-  font-family: 'Montserrat', sans-serif;
   font-size: 175px;
   font-weight: 700;
   color: #7a8fe8;

@@ -125,8 +125,8 @@ namespace BJ.Api.Controllers
         /// </summary>
         [SecurityRole(AuthorizeRole.AdminRole)]
 
-        [HttpPut("{proId}/language/{id}")]
-        public async Task<IActionResult> EditProduct(Guid proId, Guid id, [FromBody] UpdateProductTranslationDto updateProductTranslationDto)
+        [HttpPut("language/{id}")]
+        public async Task<IActionResult> EditProduct(Guid id, [FromBody] UpdateProductTranslationDto updateProductTranslationDto)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace BJ.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
 
-                await _productService.UpdateProductTranslate(proId, id, updateProductTranslationDto);
+                await _productService.UpdateProductTranslate(id, updateProductTranslationDto);
 
                 return StatusCode(StatusCodes.Status200OK);
 

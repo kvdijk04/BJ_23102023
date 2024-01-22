@@ -45,7 +45,7 @@ namespace BJ.Admin.Controllers
             };
             var r = await _blogServiceConnection.GetPaging(request);
 
-            //ViewBag.Keyword = keyword;
+            ViewBag.Keyword = keyword;
             return View(r);
         }
         [Route("/chi-tiet-blog/{id}")]
@@ -80,6 +80,18 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create([FromForm] CreateBlogAdminView createBlogAdminView)
         {
+            createBlogAdminView.CreateBlog.UserName = User.Identity.Name;
+
+            if (createBlogAdminView.CreateBlog.DateActiveForm != null && createBlogAdminView.CreateBlog.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)createBlogAdminView.CreateBlog.DateTimeActiveTo, (DateTime)createBlogAdminView.CreateBlog.DateActiveForm);
+
+                if (compareBetweenFromAndTo < 0)
+                {
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/tao-moi-blog.html");
+                }
+            }
 
             var a = await _blogServiceConnection.CreateBlog(createBlogAdminView);
 
@@ -114,6 +126,8 @@ namespace BJ.Admin.Controllers
                     DateUpdated = item.DateUpdated,
                     ImagePath = item.ImagePath,
                     Popular = item.Popular,
+                    DateActiveForm = item.DateActiveForm,
+                    DateTimeActiveTo = item.DateTimeActiveTo,
                 },
                 UpdateBlogTranslation = new Contract.Translation.Blog.UpdateBlogTranslationDto()
                 {
@@ -137,7 +151,17 @@ namespace BJ.Admin.Controllers
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
             var item = await _blogServiceConnection.GetBlogById(id, culture);
             if (updateBlogAdminView.FileUpload == null) { updateBlogAdminView.UpdateBlog.ImagePath = item.ImagePath; }
+            updateBlogAdminView.UpdateBlog.UserName = User.Identity.Name;
+            if (updateBlogAdminView.UpdateBlog.DateActiveForm != null && updateBlogAdminView.UpdateBlog.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)updateBlogAdminView.UpdateBlog.DateTimeActiveTo, (DateTime)updateBlogAdminView.UpdateBlog.DateActiveForm);
 
+                if (compareBetweenFromAndTo < 0)
+                {
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/cap-nhat-blog/" + id);
+                }
+            }
             var a = await _blogServiceConnection.UpdateBlog(id, culture, updateBlogAdminView);
             if (a == true)
             {
@@ -147,7 +171,7 @@ namespace BJ.Admin.Controllers
             {
                 _notyfService.Error("Cập nhật thất bại");
             }
-            return Redirect("/tat-ca-blog.html");
+            return Redirect("/cap-nhat-blog/" + id);
         }
 
         [Route("chi-tiet-blog/{blogId}/ngon-ngu/{languageId}/xem-chi-tiet")]
@@ -166,7 +190,7 @@ namespace BJ.Admin.Controllers
             ViewBag.Id = blogId;
             ViewBag.LanguageId = languageId;
 
-            var r = await _blogServiceConnection.GetBlogTranslationnById(languageId);
+            var r = await _blogServiceConnection.GetBlogTranslationById(languageId);
             return View(r);
         }
         [Route("chi-tiet-blog/{id}/them-moi-ngon-ngu")]
@@ -197,6 +221,7 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> CreateLanguage(Guid id, CreateBlogTranslationDto createBlogTranslationDto)
         {
             createBlogTranslationDto.BlogId = id;
+            createBlogTranslationDto.UserName = User.Identity.Name;
 
             var a = await _blogServiceConnection.CreateLanguage(createBlogTranslationDto);
 
@@ -224,7 +249,7 @@ namespace BJ.Admin.Controllers
             }
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var r = await _blogServiceConnection.GetBlogTranslationnById(languageId);
+            var r = await _blogServiceConnection.GetBlogTranslationById(languageId);
             var blog = await _blogServiceConnection.GetBlogById(blogId, culture);
             ViewBag.Title = blog.Title;
             ViewBag.Id = blogId;
@@ -247,7 +272,9 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid blogId, Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto)
         {
-            var a = await _blogServiceConnection.UpdateBlogTranslationn(languageId, updateBlogTranslationDto);
+            updateBlogTranslationDto.UserName = User.Identity.Name;
+
+            var a = await _blogServiceConnection.UpdateBlogTranslation(languageId, updateBlogTranslationDto);
 
             if (a == true)
             {

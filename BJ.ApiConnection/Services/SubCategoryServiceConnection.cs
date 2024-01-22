@@ -1,6 +1,8 @@
 ﻿using BJ.Application.Ultities;
+using BJ.Contract.Category;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.SubCategory;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -13,17 +15,17 @@ namespace BJ.ApiConnection.Services
     public interface ISubCategoryServiceConnection
     {
         Task<bool> CreateSubCategorySpecific(CreateSubCategorySpecificDto createSubCategorySpecificDto);
-        Task<bool> CreateSubCategory(CreateSubCategoryDto createSubCategoryDto);
-        Task<bool> UpdateSubCategory(int id, UpdateSubCategoryDto updateSubCategoryDto);
+        Task<bool> CreateSubCategory(CreateSubCategoryAdminView createSubCategoryAdminView);
+        Task<bool> UpdateSubCategory(int id, UpdateSubCategoryAdminView updateSubCategoryAdminView);
         Task<IEnumerable<SubCategoryDto>> GetAllSubCategories();
         public Task<PagedViewModel<SubCategoryDto>> GetPagingSubCategory([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<SubCategoryDto> GetSubCategoryById(int id);
 
-        public Task<SubCategoryTranslationDto> GetSubCategoryTranslationnById(Guid id);
+        public Task<SubCategoryTranslationDto> GetSubCategoryTranslationById(Guid id);
 
         Task<bool> CreateLanguage(CreateSubCategoryTranslationDto createSubCategoryTranslationDto);
 
-        Task<bool> UpdateSubCategoryTranslationn(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto);
+        Task<bool> UpdateSubCategoryTranslation(Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto);
     }
     public class SubCategoryServiceConnection : BaseApiClient, ISubCategoryServiceConnection
     {
@@ -53,12 +55,12 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync($"/api/SubCategories/language/create", httpContent);
+            var response = await client.PostAsync($"/api/SubCategories/language", httpContent);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> CreateSubCategory(CreateSubCategoryDto createSubCategoryDto)
+        public async Task<bool> CreateSubCategory(CreateSubCategoryAdminView createSubCategoryAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -71,30 +73,29 @@ namespace BJ.ApiConnection.Services
 
             var requestContent = new MultipartFormDataContent();
 
-            if (createSubCategoryDto.Image != null)
+            if (createSubCategoryAdminView.Image != null)
             {
                 byte[] data;
-                using (var br = new BinaryReader(createSubCategoryDto.Image.OpenReadStream()))
+                using (var br = new BinaryReader(createSubCategoryAdminView.Image.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)createSubCategoryDto.Image.OpenReadStream().Length);
+                    data = br.ReadBytes((int)createSubCategoryAdminView.Image.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
 
-                requestContent.Add(bytes, "createSubCategoryDto.Image", createSubCategoryDto.Image.FileName);
+                requestContent.Add(bytes, "createSubCategoryDto.Image", createSubCategoryAdminView.Image.FileName);
             }
 
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryDto.SubCatName) ? "" : createSubCategoryDto.SubCatName.ToString()), "createSubCategoryDto.subCatName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryAdminView.CreateSubCategoryTranslationDto.SubCatName) ? "" : createSubCategoryAdminView.CreateSubCategoryTranslationDto.SubCatName), "createSubCategoryAdminView.CreateSubCategoryTranslationDto.subCatName");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryDto.Description) ? "" : createSubCategoryDto.Description.ToString()), "createSubCategoryDto.description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryAdminView.CreateSubCategoryTranslationDto.Description) ? "" : createSubCategoryAdminView.CreateSubCategoryTranslationDto.Description), "createSubCategoryAdminView.CreateSubCategoryTranslationDto.description");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryDto.Active.ToString()) ? "" : createSubCategoryDto.Active.ToString()), "createSubCategoryDto.active");
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryAdminView.CreateSubCategoryDto.Active.ToString()) ? "" : createSubCategoryAdminView.CreateSubCategoryDto.Active.ToString()), "createSubCategoryAdminView.CreateSubCategoryDto.active");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createSubCategoryAdminView.CreateSubCategoryDto.UserName) ? "" : createSubCategoryAdminView.CreateSubCategoryDto.UserName), "createSubCategoryAdminView.CreateSubCategoryDto.userName");
             ;
-
-            var json = JsonConvert.SerializeObject(createSubCategoryDto);
+            var json = JsonConvert.SerializeObject(createSubCategoryAdminView);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -154,12 +155,12 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<SubCategoryTranslationDto> GetSubCategoryTranslationnById(Guid id)
+        public async Task<SubCategoryTranslationDto> GetSubCategoryTranslationById(Guid id)
         {
             return await GetAsync<SubCategoryTranslationDto>($"/api/SubCategories/language/{id}");
         }
 
-        public async Task<bool> UpdateSubCategory(int id, UpdateSubCategoryDto updateSubCategoryDto)
+        public async Task<bool> UpdateSubCategory(int id, UpdateSubCategoryAdminView updateSubCategoryAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -173,30 +174,34 @@ namespace BJ.ApiConnection.Services
             var requestContent = new MultipartFormDataContent();
 
             byte[] data;
-            if (updateSubCategoryDto.Image != null)
+            if (updateSubCategoryAdminView.Image != null)
             {
-                using (var br = new BinaryReader(updateSubCategoryDto.Image.OpenReadStream()))
+                using (var br = new BinaryReader(updateSubCategoryAdminView.Image.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)updateSubCategoryDto.Image.OpenReadStream().Length);
+                    data = br.ReadBytes((int)updateSubCategoryAdminView.Image.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
 
-                requestContent.Add(bytes, "updateSubCategoryDto.Image", updateSubCategoryDto.Image.FileName);
+                requestContent.Add(bytes, "updateSubCategoryDto.Image", updateSubCategoryAdminView.Image.FileName);
+            }
+            if (updateSubCategoryAdminView.Image == null)
+            {
+                requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryAdminView.UpdateSubCategoryDto.ImagePath) ? "" : updateSubCategoryAdminView.UpdateSubCategoryDto.ImagePath.ToString()), "updateSubCategoryAdminView.UpdateSubCategoryDto.imagePath");
+
             }
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryDto.ImagePath) ? "" : updateSubCategoryDto.ImagePath.ToString()), "updateSubCategoryDto.imagePath");
+
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.SubCatName) ? "" : updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.SubCatName), "updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.subCatName");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryDto.SubCatName) ? "" : updateSubCategoryDto.SubCatName.ToString()), "updateSubCategoryDto.subCatName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.Description) ? "" : updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.Description), "updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.description");
 
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryDto.Description) ? "" : updateSubCategoryDto.Description.ToString()), "updateSubCategoryDto.description");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryDto.Active.ToString()) ? "" : updateSubCategoryDto.Active.ToString()), "updateSubCategoryDto.active");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryAdminView.UpdateSubCategoryDto.Active.ToString()) ? "" : updateSubCategoryAdminView.UpdateSubCategoryDto.Active.ToString()), "updateSubCategoryAdminView.UpdateSubCategoryDto.active");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateSubCategoryAdminView.UpdateSubCategoryDto.UserName) ? "" : updateSubCategoryAdminView.UpdateSubCategoryDto.UserName), "updateSubCategoryAdminView.UpdateSubCategoryDto.userName");
 
             ;
 
-            var json = JsonConvert.SerializeObject(updateSubCategoryDto);
+            var json = JsonConvert.SerializeObject(updateSubCategoryAdminView);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -205,7 +210,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateSubCategoryTranslationn(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
+        public async Task<bool> UpdateSubCategoryTranslation(Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -219,7 +224,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/SubCategories/{subCatId}/language/{id}", httpContent);
+            var response = await client.PutAsync($"/api/SubCategories/language/{id}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

@@ -75,7 +75,7 @@ namespace BJ.Api.Controllers
 
         [HttpGet("{id}")]
 
-        public async Task<IActionResult> GetConfigWebById(Guid id)
+        public async Task<IActionResult> GetConfigWebById(int id)
         {
             if (await _configWebService.GetConfigWebById(id) == null)
             {
@@ -91,7 +91,7 @@ namespace BJ.Api.Controllers
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> UpdateConfigWeb(Guid id, [FromBody] UpdateConfigWebDto updateConfigWebDto)
+        public async Task<IActionResult> UpdateConfigWeb(int id, [FromBody] UpdateConfigWebDto updateConfigWebDto)
         {
             try
             {

@@ -9,8 +9,11 @@ namespace BJ.Contract.SubCategory
 
         public Guid ProductId { get; set; }
         public bool Active { get; set; }
-
         public virtual ProductDto ProductDto { get; set; }
         public virtual SubCategoryDto SubCategoryDto { get; set; }
+        public DateTime? DateCreated { get; set; }
+
+        public DateTime? DateUpdated { get; set; }
+
     }
 }

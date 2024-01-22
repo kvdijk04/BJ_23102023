@@ -18,7 +18,7 @@
             <div id="blog-posts" class="eight columns">
 
                 <div class="row" style="display: block;" itemscope itemtype="https://schema.org/Article">
-                    <h2 itemprop="name">@Model.Title</h2>
+                    <h2 itemprop="headline">@Model.Title</h2>
                     @if (Model.DateCreated != null)
                     {
                         <div itemprop="dateCreated" class="date">@Model.DateCreated.Value.ToString("dd MMMM yyyy",CultureInfo.CreateSpecificCulture("en-US"))</div>

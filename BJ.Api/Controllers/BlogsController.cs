@@ -163,39 +163,15 @@ namespace BJ.Api.Controllers
 
         public async Task<IActionResult> GetBlogTranslationById(Guid id)
         {
-            if (await _blogService.GetBlogTransalationById(id) == null)
+            if (await _blogService.GetBlogTranslationById(id) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _blogService.GetBlogTransalationById(id));
+            return Ok(await _blogService.GetBlogTranslationById(id));
 
         }
 
-        /// <summary>
-        /// Tạo mới blog theo từng ngôn ngữ
-        /// </summary>
-        /// 
-        [SecurityRole(AuthorizeRole.AdminRole, AuthorizeRole.MarketingRole)]
-        [HttpPost("language/create")]
-        public async Task<IActionResult> CreateTranslate([FromBody] CreateBlogTranslationDto createBlogTranslationDto)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
 
-                }
-                await _blogService.CreateTranslateBlog(createBlogTranslationDto);
-
-                return StatusCode(StatusCodes.Status200OK);
-
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
         /// <summary>
         /// Cập nhật blog theo từng ngôn ngữ
         /// </summary>

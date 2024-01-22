@@ -10,6 +10,9 @@ namespace BJ.Contract.Category
         public bool Active { get; set; }
         public string ImagePath { get; set; }
         public string Alias { get; set; }
+        public int? Sort { get; set; }
+        public DateTime? DateActiveForm { get; set; }
+        public DateTime? DateTimeActiveTo { get; set; }
         public virtual List<UserProductDto> UserProductDtos { get; set; }
         public virtual List<CategoryTranslationDto> CategoryTranslationDtos { get; set; }
 

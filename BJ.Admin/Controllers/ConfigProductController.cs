@@ -27,6 +27,8 @@ namespace BJ.Admin.Controllers
         [Route("/cap-nhat-chi-tiet-size-cho-tung-san-pham")]
         public async Task<IActionResult> Edit(Guid proId, Guid id, UpdateSizeSpecificProductDto updateSizeSpecificProductDto)
         {
+            updateSizeSpecificProductDto.UserName = User.Identity.Name;
+
             var a = await _configProductServiceConnection.UpdateSpecificProduct(id, updateSizeSpecificProductDto);
             if (a == true)
             {
@@ -42,6 +44,7 @@ namespace BJ.Admin.Controllers
         [Route("/tao-moi-chi-tiet-size-cho-tung-san-pham")]
         public async Task<IActionResult> Create(Guid proId, CreateSizeSpecificProductDto createSizeSpecificProductDto)
         {
+            createSizeSpecificProductDto.UserName = User.Identity.Name;
             var a = await _configProductServiceConnection.CreateSizeSpecificProduct(createSizeSpecificProductDto);
             if (a == true)
             {
@@ -58,6 +61,7 @@ namespace BJ.Admin.Controllers
         [Route("/cap-nhat-cau-hinh/")]
         public async Task<IActionResult> EditConfig(ConfigProduct configProduct)
         {
+            configProduct.UserName = User.Identity.Name;
             var a = await _configProductServiceConnection.CreateConfigProduct(configProduct);
             if (a == true)
             {

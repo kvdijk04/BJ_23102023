@@ -4,6 +4,7 @@ using BJ.App.Hubs;
 using BJ.App.LocalizationResources;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.FileProviders;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
+builder.Services.AddDirectoryBrowser();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
@@ -98,6 +100,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "OldImage_Backup")),
+    RequestPath = "/OldImage_Backup",
+    EnableDirectoryBrowsing = true
+});
 app.UseRouting();
 app.UseCors("AllowOrigin");
 app.UseAuthentication();
@@ -105,21 +114,21 @@ app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
 app.UseMiddleware(typeof(VisitorCounterMiddleware));
-app.Use(async (context, next) =>
-{
-    if (context.Request.Path.StartsWithSegments("/robots.txt"))
-    {
-        var robotsTxtPath = Path.Combine(app.Environment.ContentRootPath, "robots.txt");
-        string output = "User-agent: *  \nDisallow: /";
-        if (File.Exists(robotsTxtPath))
-        {
-            output = await File.ReadAllTextAsync(robotsTxtPath);
-        }
-        context.Response.ContentType = "text/plain";
-        await context.Response.WriteAsync(output);
-    }
-    else await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    if (context.Request.Path.StartsWithSegments("/robots.txt"))
+//    {
+//        var robotsTxtPath = Path.Combine(app.Environment.ContentRootPath, "robots.txt");
+//        string output = "User-agent: *  \nDisallow: /";
+//        if (File.Exists(robotsTxtPath))
+//        {
+//            output = await File.ReadAllTextAsync(robotsTxtPath);
+//        }
+//        context.Response.ContentType = "text/plain";
+//        await context.Response.WriteAsync(output);
+//    }
+//    else await next();
+//});
 app.MapHub<MsgHub>("/MsgHub");
 app.MapHub<UsersOnlineHub>("/UsersOnlineHub");
 

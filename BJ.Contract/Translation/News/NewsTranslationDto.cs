@@ -19,7 +19,9 @@ namespace BJ.Contract.Translation.News
         public string MetaDesc { get; set; }
 
         public string MetaKey { get; set; }
+        public DateTime? DateCreated { get; set; }
 
+        public DateTime? DateUpdated { get; set; }
         public LanguageDto Language { get; set; }
 
         public NewsDto NewsDto { get; set; }

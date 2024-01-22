@@ -24,33 +24,6 @@
             <div class="row m-b-30">
                 <div class="col-lg-8">
                     <div class="d-md-flex">
-
-@*                             <div class="form-group col-md-6" id="subcatproduct">
-                                <label class="font-weight-semibold" for="productName">Loại</label>
-                                <div>
-                                    <input id="checkbox-subcat_all" type="checkbox" name="SubCatAll"  />
-
-                                    <label for="checkbox-subcat_all">Chọn tất cả</label>
-                                </div>
-                                @foreach (var cat in ViewBag.ListCat)
-                                {
-                                    <div>
-                                    <input id="checkbox-subcat_@cat.Id" type="checkbox" name="categoryId" onclick="this.form.submit()" value="@cat.Id" />
-
-                                    <label for="checkbox-subcat_@cat.Id">@cat.CatName</label>
-                                    </div>
-                                }
-
-                            </div>
-                        
-
-                        <div class="m-b-10">
-                            <select class="custom-select" style="min-width: 180px;" id="status" name="active" onchange="this.form.submit()">
-                                <option selected disabled>Hoạt động</option>
-                                <option value="false">Có</option>
-                                <option value="true">Không</option>
-                            </select>
-                        </div> *@
                         <div class="col-lg-8 ">
                             <div class="input-affix">
                                 <i class="prefix-icon anticon anticon-search"></i>
@@ -85,11 +58,14 @@
                             </div>
                             </th> *@
                             <th>Code</th>
+                            <th>Thứ tự</th>
                             <th>Ảnh</th>
                             <th>Sản phẩm</th>
                             <th>Loại</th>
                             <th>Bán chạy</th>
                             <th>Hoạt động</th>
+                            <th>Bắt đầu</th>
+                            <th>Kết thúc</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -108,6 +84,7 @@
                                     <td>
                                         @item.Code
                                     </td>
+                                    <td>@item.Sort</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageProduct/@item.ImageIngredients" style="max-width: 120px" alt="">
@@ -144,6 +121,12 @@
                                             }
 
                                         </div>
+                                    </td>
+                                    <td>
+                                        @item.DateActiveForm
+                                    </td>
+                                    <td>
+                                        @item.DateTimeActiveTo
                                     </td>
                                     <td class="text-right">
                                         <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-san-pham/@item.Id'">

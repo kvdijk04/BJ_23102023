@@ -12,9 +12,10 @@ namespace BJ.Domain.Entities
         public string CatName { get; set; }
         public string Description { get; set; }
         public string Alias { get; set; }
-        public string MetaDesc { get; set; }
         public Category Category { get; set; }
         public Language Language { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
     }
 }

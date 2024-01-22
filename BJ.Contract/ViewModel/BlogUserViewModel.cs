@@ -11,10 +11,12 @@ namespace BJ.Contract.ViewModel
         public bool Active { get; set; }
 
         public bool Popular { get; set; }
+        public DateTime? DateActiveForm { get; set; }
 
+        public DateTime? DateTimeActiveTo { get; set; }
         public DateTime? DateCreated { get; set; }
 
-        public DateTime DateUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
         public string Title { get; set; }
 

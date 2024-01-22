@@ -18,5 +18,8 @@ namespace BJ.Contract.Translation.ConfigWeb
         public DetailConfigWebDto DetailConfigWebDto { get; set; }
 
         public LanguageDto LanguageDto { get; set; }
+        public DateTime? DateCreated { get; set; }
+
+        public DateTime? DateUpdated { get; set; }
     }
 }

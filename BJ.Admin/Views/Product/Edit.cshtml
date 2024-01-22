@@ -7,6 +7,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+@section Styles {
+    <style>
+        @@media (min-width: 600px) {
+            .formactive {
+                display: flex !important;
+            }
+        }
+    </style>
+}
 <form asp-action="Edit" method="post" enctype="multipart/form-data" >
     <div class="page-header">
         <h2 class="header-title">Cập nhật sản phẩm</h2>
@@ -27,7 +36,7 @@
                     <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
                 </div> *@
                 <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: @Model.UpdateProductDto.ProductName </h4><a href="/chi-tiet-san-pham/@ViewBag.ProductId" style="text-decoration:underline">Xem chi tiết</a>
+                    <h4 class="m-b-0">Tên: @Model.UpdateProductTranslationDto.ProductName </h4><a href="/chi-tiet-san-pham/@ViewBag.ProductId" style="text-decoration:underline">Xem chi tiết</a>
 @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
  *@                    
             <span class="text-muted m-b-0 productId" hidden>@ViewBag.ProductId</span>
@@ -67,12 +76,11 @@
                 <div class="card-body">
                     <div class="form-group">
                     <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.UpdateProductDto.ProductName" asp-for="@Model.UpdateProductDto.ProductName" required>
-                    </div> 
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" value="@Model.UpdateProductTranslationDto.ProductName" asp-for="@Model.UpdateProductTranslationDto.ProductName" required>
+                    </div>
                     <div class="form-group">
-                        <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
-                        <select class="select2" asp-for="@Model.UpdateProductDto.CategoryId" asp-items="ViewBag.CategoryId" value="@Model.UpdateProductDto.CategoryId">
-                        </select>
+                        <label class="font-weight-semibold" for="sort">Thứ tự</label>
+                        <input type="number" min="1" class="form-control" id="sort" placeholder="Thứ tự" asp-for="@Model.UpdateProductDto.Sort" value="@Model.UpdateProductDto.Sort">
                     </div>
                     @if (Model.UpdateProductDto.HomeTag == true)
                     {
@@ -126,6 +134,21 @@
                             </div>
                             <label>Kích hoạt</label>
                         </div>
+                        <div class="row" id="rangeTime">
+                            <div class="col-md-12">
+
+                                <!-- Range Datepicker-->
+                                <div class="form-group">
+                                    <label>Thời gian kích hoạt</label>
+                                    <div class="formactive align-items-center">
+                                        <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.UpdateProductDto.DateActiveForm" value="@Model.UpdateProductDto.DateActiveForm">
+                                        <span class="p-h-10">Đến</span>
+                                        <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.UpdateProductDto.DateTimeActiveTo" value="@Model.UpdateProductDto.DateTimeActiveTo">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     }
                     else
                     {
@@ -136,8 +159,23 @@
                             </div>
                             <label>Kích hoạt</label>
                         </div>
+                        <div class="row" id="rangeTime" style="display:none">
+                            <div class="col-md-12">
+
+                                <!-- Range Datepicker-->
+                                <div class="form-group">
+                                    <label>Thời gian kích hoạt</label>
+                                    <div class="formactive align-items-center">
+                                        <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.UpdateProductDto.DateActiveForm" value="@Model.UpdateProductDto.DateActiveForm">
+                                        <span class="p-h-10">Đến</span>
+                                        <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.UpdateProductDto.DateTimeActiveTo" value="@Model.UpdateProductDto.DateTimeActiveTo">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     }
-                   
+
                    
                 </div>
                
@@ -217,11 +255,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả ngắn</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" value="@Model.UpdateProductDto.ShortDesc" asp-for="@Model.UpdateProductDto.ShortDesc" >
+                        <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" value="@Model.UpdateProductTranslationDto.ShortDesc" asp-for="@Model.UpdateProductTranslationDto.ShortDesc">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả</label>
-                        <textarea class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductDto.Description" asp-for="@Model.UpdateProductDto.Description" ></textarea>
+                        <textarea class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductTranslationDto.Description" asp-for="@Model.UpdateProductTranslationDto.Description"></textarea>
                     </div>
                 </div>
             </div>
@@ -231,11 +269,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductDto.MetaDesc" asp-for="@Model.UpdateProductDto.MetaDesc" required>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" value="@Model.UpdateProductTranslationDto.MetaDesc" asp-for="@Model.UpdateProductTranslationDto.MetaDesc">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" value="@Model.UpdateProductDto.MetaKey" asp-for="@Model.UpdateProductDto.MetaKey" required>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" value="@Model.UpdateProductTranslationDto.MetaKey" asp-for="@Model.UpdateProductTranslationDto.MetaKey">
                     </div>
                 </div>
             </div>
@@ -270,41 +308,54 @@
         <form id="list_config">
             <div class="form-row" id="configproduct">
 
-                <div class="form-group col-md-6" id="sizeproduct">
+                <div class="form-group col-md-6" >
                     <div>
                         <input id="productId_txt" name="ProId" hidden />
 
                     </div>
-
-                    <label class="font-weight-semibold" for="productName">Kích cỡ ly</label>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productCategory">Loại sản phẩm</label>
+                        <select class="select2" asp-for="@Model.CategoryId" id="categoryId" asp-items="ViewBag.CategoryId" name="CategoryId">
+                        </select>
+                    </div>
+                    <label class="font-weight-semibold" for="productName">Kích cỡ ly hiện tại</label>
                     <div>
                         <input id="checkbox-size_all" type="checkbox" name="SizeAll" disabled />
 
                         <label for="checkbox-size_all">Chọn tất cả</label>
                     </div>
-                    @foreach (var size in ViewBag.SizeDtos)
-                    {
-                        <div>
-                            <input id="checkbox-size_@size.Id" class="sizeproduct_item" data-id="@size.Id" type="checkbox" name="Size" value="@size.Id"
-                            @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id && x.ActiveSize == true))
-                            {
-                                @:checked
-                            } disabled />
-                            <label for="checkbox-size_@size.Id">@size.Name - <strong>@size.Price.ToString("#,##0")&nbsp;₫</strong><small>(@size.Note)</small></label>
-                            @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id ))
-                                        {
-                                <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="confignutri">Xem chi tiết</label>
-                            }
-                            else
-                            {
-                                <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="createnutri" data-name="@size.Name">Tạo mới</label>
+                    <div id="oldsizeproduct">
+                        @foreach (var size in ViewBag.SizeDtos)
+                        {
+                            <div>
+                                <input id="checkbox-size_@size.Id" class="sizeproduct_item" data-id="@size.Id" type="checkbox" name="Size" value="@size.Id"
+                                @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id && x.ActiveSize == true))
+                                {
+                                    @:checked
+                                } disabled />
+                                <label for="checkbox-size_@size.Id">@size.Name - <strong>@size.Price.ToString("#,##0")&nbsp;₫</strong><small>(@size.Note)</small></label>
+                                @if (Model.SizeSpecificProductDto.Any(x => x.SizeId == size.Id))
+                                {
+                                    <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="confignutri">Xem chi tiết</label>
+                                }
+                                else
+                                {
+                                    <label style="text-decoration:underline;font-size:13px;cursor:pointer" data-id="@size.Id" data-clicked="false" id="createnutri" data-name="@size.Name">Tạo mới</label>
 
-                            }
-                        </div>
-                    }
-                   
+                                }
+                            </div>
+                        }
+                    </div>
+                    <label class="font-weight-semibold" for="productName">Kích cỡ ly mới</label>
+                    <div>
+                        <input id="checkbox-newsize_all" type="checkbox" name="SizeAll" disabled />
 
+                        <label for="checkbox-newsize_all">Chọn tất cả</label>
+                    </div>
+                    <div id="mewsizeproduct">
+                    </div>
                 </div>
+
                 <div class="form-group col-md-6" id="subcatproduct">
                     <label class="font-weight-semibold" for="productName">Loại dinh dưỡng</label>
                     <div>
@@ -585,10 +636,49 @@
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script src="~/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
     <script>
+        $('.datepicker-input').datepicker();
+
+        $("#categoryId").change(function () {
+            var catId = $("#categoryId").val();
+
+            $.ajax({
+                url: '/Size/SizeList',
+                type: "GET",
+                dataType: "JSON",
+                data: { catId: catId },
+                success: function (sizes) {
+                    console.log(sizes);
+                    $('#mewsizeproduct').empty();
+                    $.each(sizes, function (i, item) {
+                        var option = '<div>'+
+                            '<input id="checkbox-size_' + item.id + '" type="checkbox" name="NewSize" data-id=' + item.id + ' class="sizeproduct_item" value="' + item.id + '" ><label for= "checkbox-size_' + item.id + '" >' + item.name + ' - <strong>'
+                        + new Intl.NumberFormat().format(item.price)  + '&nbsp;₫</strong><small>(' + item.note + ')</small></label></div>';
+                        $('#mewsizeproduct').append(option);
+                    });
+
+
+                }
+            });
+        });
+    </script>
+    <script>
+         $("#switch-3").on("click", function () {
+
+            if (($(this).prop("checked")) == false) {
+                $("#rangeTime").hide();
+            } else {
+                $("#rangeTime").show();
+            }
+        });
         var clicked = null;
         $("#checkbox-size_all").on("click", function () {
-            $("#sizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
+            $("#oldsizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
+        })
+        $("#checkbox-newsize_all").on("click", function () {
+            $("#mewsizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
         })
         $("#checkbox-subcat_all").on("click", function () {
             $("#subcatproduct input[type=checkbox]").not(this).prop('checked', this.checked);

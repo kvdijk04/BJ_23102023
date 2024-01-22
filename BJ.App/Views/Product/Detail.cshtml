@@ -25,11 +25,11 @@
                     {
                         if (sub != null)
                         {
-                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath" alt="@sub.SubCatName"></span>@sub.SubCatName</li>
                         }
                         else
                         {
-                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+                            <li><span><img src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"alt="@sub.SubCatName"></span></li>
 
 
                         }
@@ -56,7 +56,7 @@
 
         </div>
         <div class="large-image">
-            <img src='@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients'>
+            <img src='@Configuration["BaseAddress"]/ImageProduct/@Model.ImagePathIngredients' alt="@Model.ProductName">
 
         </div>
         <div class="nutrition-info">

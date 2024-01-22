@@ -13,6 +13,7 @@ namespace BJ.Domain.Entities
         public string Description { get; set; }
         public SubCategory SubCategory { get; set; }
         public Language Language { get; set; }
-
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

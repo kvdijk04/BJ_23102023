@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BJ.Application.Ultities;
+using BJ.Contract.Account;
 using BJ.Contract.ConfigWeb;
 using BJ.Contract.ConfigWeb.CreateConfigWeb;
 using BJ.Contract.ConfigWeb.UpdateConfigWeb;
@@ -15,8 +16,8 @@ namespace BJ.Application.Service
     {
         Task<IEnumerable<ConfigWebDto>> GetConfigWebs();
         Task CreateConfigWeb(CreateConfigWebDto createConfigWebDto);
-        Task UpdateConfigWeb(Guid id, UpdateConfigWebDto updateConfigWebDto);
-        Task<ConfigWebDto> GetConfigWebById(Guid id);
+        Task UpdateConfigWeb(int id, UpdateConfigWebDto updateConfigWebDto);
+        Task<ConfigWebDto> GetConfigWebById(int id);
         Task<PagedViewModel<ConfigWebDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
     }
     public class ConfigWebService : IConfigWebService
@@ -35,10 +36,12 @@ namespace BJ.Application.Service
 
         public async Task CreateConfigWeb(CreateConfigWebDto createConfigWebDto)
         {
+            createConfigWebDto.DateCreated = DateTime.Now;
+
             ConfigWebsite size = _mapper.Map<ConfigWebsite>(createConfigWebDto);
 
             _context.Add(size);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createConfigWebDto.UserName);
 
         }
 
@@ -64,7 +67,7 @@ namespace BJ.Application.Service
                                     .Take(pageResult)
                                     .Select(x => new ConfigWebDto()
                                     {
-                                        //Id = x.Id,
+                                        Id = x.Id,
                                         Name = x.Name,
 
                                     }).ToListAsync();
@@ -80,7 +83,7 @@ namespace BJ.Application.Service
 
 
 
-        public async Task<ConfigWebDto> GetConfigWebById(Guid id)
+        public async Task<ConfigWebDto> GetConfigWebById(int id)
         {
             var item = await _context.ConfigWebs.FirstOrDefaultAsync(x => x.Id.Equals(id));
             if (item == null) return null;
@@ -96,15 +99,18 @@ namespace BJ.Application.Service
         }
 
 
-        public async Task UpdateConfigWeb(Guid id, UpdateConfigWebDto updateConfigWebDto)
+        public async Task UpdateConfigWeb(int id, UpdateConfigWebDto updateConfigWebDto)
         {
             var item = await _context.ConfigWebs.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
+
             if (item != null)
             {
-                _context.Update(_mapper.Map(updateConfigWebDto, item));
+                updateConfigWebDto.DateUpdated = DateTime.Now;
 
-                await _context.SaveChangesAsync();
+                _context.Entry(item).CurrentValues.SetValues(updateConfigWebDto);
+
+                await _context.SaveChangesAsync(updateConfigWebDto.UserName);
             }
         }
     }

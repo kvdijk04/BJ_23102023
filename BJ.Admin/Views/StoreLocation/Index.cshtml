@@ -37,6 +37,8 @@
                             <th>Cửa hàng</th>
                             <th>Đóng cửa</th>
                             <th>Sửa chữa</th>
+                            <th>Sắp khai trương</th>
+                            <th>Thứ tự</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -86,14 +88,37 @@
 
                                         </div>
                                     </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (item.OpeningSoon == true)
+                                            {
+                                                <div class="badge badge-warning badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Không</div>
+                                            }
+
+                                        </div>
+                                    </td>
+                                    <th>@item.Sort</th>
                                     <td class="text-right">
                                         @if(item.Id != 1)
                                         {
+
                                             <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-cua-hang/@item.Id'">
                                                 <i class="anticon anticon-eye"></i>
                                             </button>
                                             <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/cap-nhat-cua-hang/@item.Id'">
                                                 <i class="anticon anticon-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-cua-hang/@item.Id/them-moi-thoi-gian/'">
+                                                <i class="fas fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-cua-hang/@item.Id/them-moi-ngon-ngu/'">
+                                                <i class="fas fa-language"></i>
                                             </button>
                                         }
                                         

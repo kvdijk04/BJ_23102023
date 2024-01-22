@@ -18,42 +18,50 @@
 
             @foreach (var product in Model)
             {
-                <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
-                    <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
-                        <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image" />
-                        <img src="~/images/cup_shadow.png" itemprop="image" />
-                        <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
-                        <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" itemprop="image" />
-                        <ul>
-                            @foreach (var subCat in product.UserSubCategorySpecificProductDto)
-                            {
-                                @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
+                @if (DateTime.Now.Date >= product.DateActiveForm && DateTime.Now.Date <= product.DateTimeActiveTo
+                                 || DateTime.Now.Date >= product.DateActiveForm && product.DateTimeActiveTo == null
+                                 || DateTime.Now.Date <= product.DateTimeActiveTo && product.DateActiveForm == null
+                                 || product.DateActiveForm == null && product.DateTimeActiveTo == null)
+                {
+                    <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
+                        <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
+                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" alt="@product.ProductName cup" itemprop="image" />
+                            <img src="~/images/cup_shadow.png" itemprop="image" alt="image shadow" />
+                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" alt="@product.ProductName hero" class="topleft" itemprop="image" />
+                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" alt="@product.ProductName ingredients" itemprop="image" />
+                            <ul>
+                                @foreach (var subCat in product.UserSubCategorySpecificProductDto)
                                 {
-                                    if (sub != null)
+                                    @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
                                     {
-                                        <li itemprop="category"><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                        if (sub != null)
+                                        {
+                                            <li itemprop="category"><span><img alt="@subCat.SubCatName" itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                        }
+                                        else
+                                        {
+                                            <li><span><img itemprop="image" alt="@subCat.SubCatName" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+
+
+                                        }
+
                                     }
-                                    else
-                                    {
-                                        <li><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
-
-
-                                    }
-
                                 }
-                            }
-                        </ul>
+                            </ul>
 
-                        <span itemprop="name">@product.ProductName</span>
-                        <a class="button" onclick="momodal()">
-                            @ViewBag.Order
+                            <span itemprop="name">@product.ProductName</span>
+                            <a class="button" onclick="momodal()">
+                                @ViewBag.Order
+                            </a>
                         </a>
-                    </a>
 
-                    <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
-                    </div>
+                        <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
+                        </div>
 
-                </li>
+                    </li>
+
+                
+                }
 
             }
 
@@ -65,17 +73,17 @@
     else
     {
         <section id="hints" style="display: block;">
-            <p> <img src="~/images/title_wait.png"> </p>
+            <p> <img src="~/images/title_wait.png" alt="title wait" > </p>
             <h3><localize>There are currently no products</localize></h3>
             <p><localize>Please come back later. Sorry for this inconvenience</localize></p>
             <ul>
-                <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li>
-                <li class="filter2"><img src="~/images/hint-2.png">Chocolate</li>
-                <li class="filter3"><img src="~/images/hint-3.png">Pineapple</li>
-                <li class="filter4"><img src="~/images/hint-4.png">Green Tea</li>
-                <li class="filter5"><img src="~/images/hint-5.png">Coconut</li>
-                <li class="filter6"><img src="~/images/hint-6.png">Milk</li>
-                <li class="filter7"><img src="~/images/hint-7.png">Lemon</li>
+                <li class="filter1"><img src="~/images/hint-1.png" alt="Strawberry">Strawberry</li>
+                <li class="filter2"><img src="~/images/hint-2.png" alt="Chocolate">Chocolate</li>
+                <li class="filter3"><img src="~/images/hint-3.png" alt="Pineapple">Pineapple</li>
+                <li class="filter4"><img src="~/images/hint-4.png" alt="Green tea">Green Tea</li>
+                <li class="filter5"><img src="~/images/hint-5.png" alt="Coconut">Coconut</li>
+                <li class="filter6"><img src="~/images/hint-6.png" alt="Milk">Milk</li>
+                <li class="filter7"><img src="~/images/hint-7.png" alt="Lemon">Lemon</li>
             </ul>
         </section>
     }
@@ -98,11 +106,11 @@
                             <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
                             <p>
                                 <a href="http://bit.ly/1yqA2a2" target="_blank">
-                                    <img src="~/images/ios.png"
+                                    <img src="~/images/ios.png" alt="ios logo"
                                          width="160">
                                 </a>
                                 <a href="http://bit.ly/USKKXP" target="_blank">
-                                    <img src="~/images/ggplay.png"
+                                    <img src="~/images/ggplay.png" alt="ggplay logo"
                                          width="160">
                                 </a>
                             </p>
@@ -127,14 +135,13 @@
     function momodal() {
         document.getElementById("nenmodal-1").classList.toggle("active");
     }
-    var first = $(location).attr('pathname');
+    var language = $(location).attr('pathname');
 
-    first.indexOf(1);
+    language.indexOf(1);
 
-    first.toLowerCase();
+    language.toLowerCase();
 
-    first = first.split("/")[1];
-
+    language = language.split("/")[1];
 
     $("#og-grid").on("click", ".drink-block .grid_item", function (i) {
 
@@ -162,7 +169,7 @@
                 url: '@Url.Action("Detail")',
                 datatype: "json",
                 type: "get",
-                data: { proId: idPro, culture : first },
+                data: { proId: idPro, language: language },
 
                 async: true,
                 success: function (results) {

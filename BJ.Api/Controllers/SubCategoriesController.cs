@@ -2,6 +2,7 @@
 using BJ.Application.Ultities;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.SubCategory;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,7 +48,7 @@ namespace BJ.Api.Controllers
         [Authorize]
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm] CreateSubCategoryDto createSubCategoryDto)
+        public async Task<IActionResult> Post([FromForm] CreateSubCategoryAdminView createSubCategoryAdminView)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace BJ.Api.Controllers
                     return BadRequest();
 
                 }
-                await _categoryService.CreateSubCategory(createSubCategoryDto);
+                await _categoryService.CreateSubCategory(createSubCategoryAdminView);
 
                 return StatusCode(StatusCodes.Status200OK);
 
@@ -73,7 +74,7 @@ namespace BJ.Api.Controllers
         [Authorize]
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditSubCateogry(int id, [FromForm] UpdateSubCategoryDto updateSubCategoryDto)
+        public async Task<IActionResult> EditSubCateogry(int id, [FromForm] UpdateSubCategoryAdminView updateSubCategoryAdminView)
         {
             try
             {
@@ -87,7 +88,7 @@ namespace BJ.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
 
-                await _categoryService.UpdateSubCategory(id, updateSubCategoryDto);
+                await _categoryService.UpdateSubCategory(id, updateSubCategoryAdminView);
 
                 return StatusCode(StatusCodes.Status200OK);
 
@@ -147,11 +148,11 @@ namespace BJ.Api.Controllers
 
         public async Task<IActionResult> GetSubCategoryTranslationById(Guid id)
         {
-            if (await _categoryService.GetSubCategoryTransalationById(id) == null)
+            if (await _categoryService.GetSubCategoryTranslationById(id) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _categoryService.GetSubCategoryTransalationById(id));
+            return Ok(await _categoryService.GetSubCategoryTranslationById(id));
 
         }
 
@@ -160,7 +161,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
 
-        [HttpPost("language/create")]
+        [HttpPost("language")]
         public async Task<IActionResult> CreateTranslate([FromBody] CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
         {
             try
@@ -185,8 +186,8 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
 
-        [HttpPut("{subCatId}/language/{id}")]
-        public async Task<IActionResult> UpdateTranslate(int subCatId, Guid id, [FromBody] UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
+        [HttpPut("language/{id}")]
+        public async Task<IActionResult> UpdateTranslate(Guid id, [FromBody] UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
         {
             try
             {
@@ -195,7 +196,7 @@ namespace BJ.Api.Controllers
                     return BadRequest();
 
                 }
-                await _categoryService.UpdateSubCategoryTranslate(subCatId, id, updateSubCategoryTranslationDto);
+                await _categoryService.UpdateSubCategoryTranslate(id, updateSubCategoryTranslationDto);
 
                 return StatusCode(StatusCodes.Status200OK);
 

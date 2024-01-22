@@ -18,6 +18,7 @@ namespace BJ.Domain.Entities
 
         public Product Product { get; set; }
         public Language Language { get; set; }
-
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

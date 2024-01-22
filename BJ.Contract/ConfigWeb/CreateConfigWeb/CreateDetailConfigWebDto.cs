@@ -6,10 +6,8 @@
 
         public int ConfigWebId { get; set; }
 
-        public DateTime DateCreated { get; set; }
-
-        public DateTime DateUpdated { get; set; }
-
+        public DateTime? DateCreated { get; set; }
+        public string UserName { get; set; }
         public bool Active { get; set; }
         public int SortOrder { get; set; }
 

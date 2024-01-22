@@ -11,5 +11,8 @@
 
         public string Description { get; set; }
         public string Url {  get; set; }
+        public DateTime? DateCreated { get; set; }
+
+        public string UserName { get; set; }
     }
 }

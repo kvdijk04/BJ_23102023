@@ -12,5 +12,8 @@ namespace BJ.Contract.Translation.SubCategory
         public string Description { get; set; }
         public SubCategoryDto SubCategoryDto { get; set; }
         public LanguageDto Language { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+
     }
 }

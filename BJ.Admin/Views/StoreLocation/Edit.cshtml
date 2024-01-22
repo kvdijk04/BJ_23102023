@@ -1,11 +1,11 @@
-﻿@using BJ.Contract.StoreLocation;
+﻿@using BJ.Contract.ViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@model UpdateStoreLocationDto
+@model UpdateStoreLocationAdminView
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
@@ -27,7 +27,7 @@
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
                 </div> *@
                 <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: @Model.Name </h4><a href="/chi-tiet-cua-hang/@ViewBag.Id" style="text-decoration:underline">Xem chi tiết</a>
+                    <h4 class="m-b-0">Tên: @Model.UpdateStoreLocationTranslationDto.Name </h4><a href="/chi-tiet-cua-hang/@ViewBag.Id" style="text-decoration:underline">Xem chi tiết</a>
                     @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
                     *@
                     <span class="text-muted m-b-0 catId" hidden>@ViewBag.Id</span>
@@ -61,13 +61,17 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên cửa hàng</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên cửa hàng" value="@Model.Name" asp-for="@Model.Name" required>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên cửa hàng" value="@Model.UpdateStoreLocationTranslationDto.Name" asp-for="@Model.UpdateStoreLocationTranslationDto.Name" required>
                     </div>
-                    @if (Model.Closed == true)
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="sort">Thứ tự </label>
+                        <input type="number" min="1" class="form-control" id="sort" placeholder="Thứ tự" asp-for="@Model.UpdateStoreLocationDto.Sort" value="@Model.UpdateStoreLocationDto.Sort">
+                    </div>
+                    @if (Model.UpdateStoreLocationDto.Closed == true)
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.Closed">
+                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.UpdateStoreLocationDto.Closed">
                                 <label for="switch-3"></label>
                             </div>
                             <label>Đóng cửa</label>
@@ -77,17 +81,17 @@
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.Closed">
+                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.UpdateStoreLocationDto.Closed">
                                 <label for="switch-3"></label>
                             </div>
                             <label>Đóng cửa</label>
                         </div>
                     }
-                    @if (Model.Repaired == true)
+                    @if (Model.UpdateStoreLocationDto.Repaired == true)
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-4" checked="" value="true" asp-for="@Model.Repaired">
+                                <input type="checkbox" id="switch-4" checked="" value="true" asp-for="@Model.UpdateStoreLocationDto.Repaired">
                                 <label for="switch-4"></label>
                             </div>
                             <label>Sửa chữa</label>
@@ -97,13 +101,32 @@
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-4" value="true" asp-for="@Model.Repaired">
+                                <input type="checkbox" id="switch-4" value="true" asp-for="@Model.UpdateStoreLocationDto.Repaired">
                                 <label for="switch-4"></label>
                             </div>
                             <label>Sửa chữa</label>
                         </div>
                     }
-
+                    @if (Model.UpdateStoreLocationDto.OpeningSoon == true)
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-5" checked="" value="true" asp-for="@Model.UpdateStoreLocationDto.OpeningSoon">
+                                <label for="switch-5"></label>
+                            </div>
+                            <label>Sắp khai trương</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group d-flex align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" id="switch-5" value="true" asp-for="@Model.UpdateStoreLocationDto.OpeningSoon">
+                                <label for="switch-5"></label>
+                            </div>
+                            <label>Sắp khai trương</label>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -128,7 +151,7 @@
 
 
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageStore/@Model.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageStore/@Model.UpdateStoreLocationDto.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
                             </div>
                         </div>
                        
@@ -143,19 +166,19 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Địa chỉ</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="Địa chỉ" asp-for="@Model.Address" value="@Model.Address" required>
+                        <input type="text" class="form-control" id="productBrand" placeholder="Địa chỉ" asp-for="@Model.UpdateStoreLocationTranslationDto.Address" value="@Model.UpdateStoreLocationTranslationDto.Address" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Thành phố</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="Thành phố<" asp-for="@Model.City" value="@Model.City" required>
+                        <input type="text" class="form-control" id="productBrand" placeholder="Thành phố<" asp-for="@Model.UpdateStoreLocationTranslationDto.City" value="@Model.UpdateStoreLocationTranslationDto.City" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Lat</label>
-                        <input type="number" class="form-control" step="0.0000000001" id="productBrand" placeholder="Lat" name="lat" asp-for="@Model.Latitude" value="@Model.Latitude" required>
+                        <input type="number" class="form-control" step="0.0000000001" id="productBrand" placeholder="Lat" name="lat" asp-for="@Model.UpdateStoreLocationDto.Latitude" value="@Model.UpdateStoreLocationDto.Latitude" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">LongLat</label>
-                        <input type="number" class="form-control" step="0.0000000001" id="productBrand" placeholder="LongLat" name="longLat" asp-for="@Model.Longitude" value="@Model.Longitude" required>
+                        <input type="number" class="form-control" step="0.0000000001" id="productBrand" placeholder="LongLat" name="longLat" asp-for="@Model.UpdateStoreLocationDto.Longitude" value="@Model.UpdateStoreLocationDto.Longitude" required>
                     </div>
                 </div>
             </div>

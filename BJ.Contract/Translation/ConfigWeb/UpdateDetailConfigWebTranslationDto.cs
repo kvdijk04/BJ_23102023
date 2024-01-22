@@ -7,6 +7,8 @@
         public string Description { get; set; }
 
         public string Url { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
+        public string UserName { get; set; }
     }
 }

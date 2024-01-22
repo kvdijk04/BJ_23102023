@@ -8,27 +8,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-<form asp-action="Index" asp-controller="C" method="get">
+<form asp-action="Index" asp-controller="News" method="get">
     <div class="page-header">
         <h2 class="header-title">Danh sách tin tức</h2>
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
-                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
-
-                <span class="breadcrumb-item active">Tất cả tin tức</span>
+                <a href="" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Tất cả tin tức</a>
             </nav>
         </div>
     </div>
     <div class="card">
         <div class="card-body">
             <div class="row m-b-30">
+                <div class="col-lg-8">
+                    <div class="d-md-flex">
+                        <div class="col-lg-8 ">
+                            <div class="input-affix">
+                                <i class="prefix-icon anticon anticon-search"></i>
+                                <input type="text" class="form-control" placeholder="Search" name="keyword" value="@ViewBag.Keyword">
+
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+
+                </div>
+
                 <div class="col-lg-12 text-right">
+                    <button type="button" class="btn btn-danger" onclick="location.href='/tat-ca-tin-tuc.html'">
+                        <i class="anticon anticon-close-circle m-r-5"></i>
+                        <span>Hủy tìm kiếm</span>
+                    </button>
                     <button type="button" class="btn btn-primary" onclick="location.href='/tao-moi-tin-tuc.html'">
                         <i class="anticon anticon-plus-circle m-r-5"></i>
                         <span>Tạo mới</span>
                     </button>
                 </div>
             </div>
+
             <div class="table-responsive">
                 <table class="table table-hover e-commerce-table">
                     <thead>
@@ -40,7 +57,8 @@
                             <th>Ở trang chủ</th>
                             <th>Phổ biến</th>
                             <th>Khuyến mãi</th>
-
+                            <th>Bắt đầu</th>
+                            <th>Kết thúc</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -116,6 +134,12 @@
                                             }
 
                                         </div>
+                                    </td>
+                                    <td>
+                                        @item.DateActiveForm
+                                    </td>
+                                    <td>
+                                        @item.DateTimeActiveTo
                                     </td>
                                     <td class="text-right">
                                         <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-tin-tuc/@item.Id'">

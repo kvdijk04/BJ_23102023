@@ -5,6 +5,7 @@ using BJ.Contract.Category;
 using BJ.Contract.Product;
 using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
+using BJ.Contract.Translation.Blog;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace BJ.Application.Service
 {
@@ -31,7 +33,7 @@ namespace BJ.Application.Service
 
         Task UpdateProductAdminView(Guid id, UpdateProductAdminView updateProductAdminView);
 
-        Task UpdateProductTranslate(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto);
+        Task UpdateProductTranslate(Guid id, UpdateProductTranslationDto updateProductTranslationDto);
 
         Task DeleteProductDto(Guid id);
 
@@ -97,7 +99,6 @@ namespace BJ.Application.Service
                 createProductAdminView.CreateProduct.Code = code + s;
 
             }
-            createProductAdminView.CreateProduct.DateModified = DateTime.Now;
 
             createProductAdminView.CreateProduct.DateCreated = DateTime.Now;
 
@@ -108,7 +109,7 @@ namespace BJ.Application.Service
             {
                 string extension = Path.GetExtension(createProductAdminView.ImageCup.FileName);
 
-                string image = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName) + "_cup" + extension;
+                string image = Utilities.SEOUrl(createProductAdminView.CreateProductTranslationDto.ProductName) + "_cup" + extension;
 
                 createProductAdminView.CreateProduct.ImagePathCup = await Utilities.UploadFile(createProductAdminView.ImageCup, "ImageProduct", image);
 
@@ -117,7 +118,7 @@ namespace BJ.Application.Service
             {
                 string extension = Path.GetExtension(createProductAdminView.ImageHero.FileName);
 
-                string image = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName) + "_hero" + extension;
+                string image = Utilities.SEOUrl(createProductAdminView.CreateProductTranslationDto.ProductName) + "_hero" + extension;
 
                 createProductAdminView.CreateProduct.ImagePathHero = await Utilities.UploadFile(createProductAdminView.ImageHero, "ImageProduct", image);
 
@@ -126,23 +127,30 @@ namespace BJ.Application.Service
             {
                 string extension = Path.GetExtension(createProductAdminView.ImageIngredients.FileName);
 
-                string image = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName) + "_ingredients" + extension;
+                string image = Utilities.SEOUrl(createProductAdminView.CreateProductTranslationDto.ProductName) + "_ingredients" + extension;
 
                 createProductAdminView.CreateProduct.ImagePathIngredients = await Utilities.UploadFile(createProductAdminView.ImageIngredients, "ImageProduct", image);
 
             }
-            if (createProductAdminView.CreateProduct.Alias == null)
+            if (createProductAdminView.CreateProductTranslationDto.Alias == null)
             {
-                createProductAdminView.CreateProduct.Alias = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName);
+                createProductAdminView.CreateProductTranslationDto.Alias = Utilities.SEOUrl(createProductAdminView.CreateProductTranslationDto.ProductName);
             }
+            if (createProductAdminView.CreateProduct.Sort == null)
+            {
+                var currentSort = await _context.Categories.OrderByDescending(x => x.Sort).AsNoTracking().ToListAsync();
+
+                createProductAdminView.CreateProduct.Sort = currentSort[0].Sort + 1;
+            }
+
             Product product = _mapper.Map<Product>(createProductAdminView.CreateProduct);
 
-            if (_context.Products.Any(x => x.ProductName == createProductAdminView.CreateProduct.ProductName) == false)
+            if (_context.ProductTranslations.Any(x => x.ProductId.Equals(createProductAdminView.CreateProduct.Id) && x.ProductName == createProductAdminView.CreateProductTranslationDto.ProductName) == false)
             {
 
                 _context.Add(product);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(createProductAdminView.CreateProduct.UserName);
 
             }
             if (createProductAdminView.Size != null)
@@ -155,7 +163,6 @@ namespace BJ.Application.Service
                         SizeId = createProductAdminView.Size[i],
                         ProductId = createProductAdminView.CreateProduct.Id,
                         DateCreated = DateTime.Now,
-                        DateModified = DateTime.Now,
                         ActiveNutri = false,
                         ActiveSize = true,
                     };
@@ -163,7 +170,7 @@ namespace BJ.Application.Service
 
                     _context.Add(sizeSpecificEachProduct);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(createProductAdminView.CreateProduct.UserName);
                 }
             }
             if (createProductAdminView.SubCat != null)
@@ -176,33 +183,28 @@ namespace BJ.Application.Service
                         SubCategoryId = createProductAdminView.SubCat[i],
                         ProductId = createProductAdminView.CreateProduct.Id,
                         Active = true,
+                        DateCreated = DateTime.Now,
                     };
                     SubCategorySpecificProduct subCategorySpecificProduct = _mapper.Map<SubCategorySpecificProduct>(createSubCategorySpecificDto);
 
                     _context.Add(subCategorySpecificProduct);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(createProductAdminView.CreateProduct.UserName);
                 }
             }
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
-            CreateProductTranslationDto createProductTranslationDto = new()
-            {
-                Id = Guid.NewGuid(),
-                ProductId = createProductAdminView.CreateProduct.Id,
-                ProductName = createProductAdminView.CreateProduct.ProductName,
-                Alias = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName),
-                Description = createProductAdminView.CreateProduct.Description,
-                ShortDesc = createProductAdminView.CreateProduct.ShortDesc,
-                MetaDesc = createProductAdminView.CreateProduct.MetaDesc,
-                MetaKey = createProductAdminView.CreateProduct.MetaKey,
-                LanguageId = defaultLanguage,
-            };
-            ProductTranslation poductTranslation = _mapper.Map<ProductTranslation>(createProductTranslationDto);
+            createProductAdminView.CreateProductTranslationDto.Id = Guid.NewGuid();
+            createProductAdminView.CreateProductTranslationDto.ProductId = createProductAdminView.CreateProduct.Id;
+            createProductAdminView.CreateProductTranslationDto.Alias = Utilities.SEOUrl(createProductAdminView.CreateProductTranslationDto.ProductName);
+            createProductAdminView.CreateProductTranslationDto.LanguageId = defaultLanguage;
+            createProductAdminView.CreateProductTranslationDto.DateCreated = DateTime.Now;
+
+            ProductTranslation poductTranslation = _mapper.Map<ProductTranslation>(createProductAdminView.CreateProductTranslationDto);
 
             _context.Add(poductTranslation);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createProductAdminView.CreateProduct.UserName);
 
 
             await transaction.CommitAsync();
@@ -212,15 +214,20 @@ namespace BJ.Application.Service
 
         public async Task CreateProductTranslate(CreateProductTranslationDto createProductTranslationDto)
         {
+            var exist = _context.ProductTranslations.Any(x => x.ProductId.Equals(createProductTranslationDto.ProductId) && x.LanguageId == createProductTranslationDto.LanguageId);
+            if (exist) return;
+
             createProductTranslationDto.Id = Guid.NewGuid();
 
             createProductTranslationDto.Alias = Utilities.SEOUrl(createProductTranslationDto.ProductName);
+
+            createProductTranslationDto.DateCreated = DateTime.Now;
 
             ProductTranslation transalteProduct = _mapper.Map<ProductTranslation>(createProductTranslationDto);
 
             _context.Add(transalteProduct);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createProductTranslationDto.UserName);
         }
 
         public Task DeleteProductDto(Guid id)
@@ -241,37 +248,42 @@ namespace BJ.Application.Service
             {
                 getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSize:Product"));
             }
-            var pageResult = getListPagingRequest.PageSize; var pageCount = Math.Ceiling(_context.Products.Count() / (double)pageResult);
-            var query = _context.Products.Include(x => x.Category).Include(x => x.SizeSpecificProducts).OrderByDescending(x => x.DateCreated).AsQueryable();
+
+            getListPagingRequest.LanguageId = _configuration.GetValue<string>("DefaultLanguageId"); 
+
+            var pageResult = getListPagingRequest.PageSize; 
+            
+            var query = from p in _context.Products.OrderBy(x => x.Sort).ThenByDescending(x => x.DateCreated)
+                        join c in _context.Categories on p.CategoryId equals c.Id
+                        join ct in _context.CategoryTranslations.Where(x => x.LanguageId == getListPagingRequest.LanguageId) on c.Id equals ct.CategoryId into cd
+                        from ct in cd.DefaultIfEmpty()
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        where pt.LanguageId == getListPagingRequest.LanguageId && p.Id.Equals(pt.ProductId)
+                        select new { p, pt,ct };
+            var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
+
             if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
             {
-                query = query.Where(x => x.ProductName.Contains(getListPagingRequest.Keyword) || x.Code.Contains(getListPagingRequest.Keyword));
+                query = query.Where(x => x.pt.ProductName.Contains(getListPagingRequest.Keyword) || x.p.Code.Contains(getListPagingRequest.Keyword));
                 pageCount = Math.Ceiling(query.Count() / (double)pageResult);
             }
-            //if (getListPagingRequest.CategoryId != null)
-            //{
-            //    query = query.Where(x => getListPagingRequest.CategoryId.Contains(x.CategoryId));
-            //    pageCount = Math.Ceiling(query.Count() / (double)pageResult);
-            //}
-            //if (getListPagingRequest.Active == true)
-            //{
-            //    query = query.Where(x => x.Active == false);
-            //    pageCount = Math.Ceiling(query.Count() / (double)pageResult);
-            //}
+
 
             var totalRow = await query.CountAsync();
             var data = await query.Skip((getListPagingRequest.PageIndex - 1) * pageResult)
                                     .Take(pageResult)
                                     .Select(x => new ViewAllProduct()
                                     {
-                                        Id = x.Id,
-                                        ProductName = x.ProductName,
-                                        Code = x.Code,
-                                        Active = x.Active,
-                                        BestSeller = x.BestSeller,
-                                        CategoryName = x.Category.CatName,
-                                        ImageIngredients = x.ImagePathIngredients,
-                                        //SizeSpecificProducts = new List<SizeSpecificProductDto>(_mapper.Map<List<SizeSpecificProductDto>>(x.SizeSpecificProducts)),
+                                        Id = x.p.Id,
+                                        ProductName = x.pt.ProductName,
+                                        Code = x.p.Code,
+                                        Active = x.p.Active,
+                                        BestSeller = x.p.BestSeller,
+                                        CategoryName = x.ct.CatName,
+                                        Sort = x.p.Sort,
+                                        DateActiveForm = x.p.DateActiveForm,
+                                        DateTimeActiveTo = x.p.DateTimeActiveTo,
+                                        ImageIngredients = x.p.ImagePathIngredients,
                                     }).ToListAsync();
             var productResponse = new PagedViewModel<ViewAllProduct>
             {
@@ -287,7 +299,7 @@ namespace BJ.Application.Service
         {
             if (culture == null) culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var queryCat = from c in _context.Categories.OrderByDescending(x => x.DateCreated).ThenByDescending(x => x.CatName)
+            var queryCat = from c in _context.Categories.OrderBy(x => x.Sort).ThenByDescending(x => x.DateCreated)
                            join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
                            from ct in cl.DefaultIfEmpty()
 
@@ -300,17 +312,18 @@ namespace BJ.Application.Service
                 ImagePath = x.c.ImagePath,
                 Alias = x.ct.Alias,
                 Id = x.c.Id,
-
+                DateActiveForm = x.c.DateActiveForm,
+                DateTimeActiveTo = x.c.DateTimeActiveTo,
             }).AsNoTracking().ToListAsync();
 
 
-            var queryPro = from p in _context.Products.OrderByDescending(x => x.Category.DateCreated).Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == culture)).AsNoTracking().AsSingleQuery()
+            var queryPro = from p in _context.Products.OrderBy(x => x.Category.Sort).ThenByDescending(x => x.Category.DateCreated).Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == culture)).AsNoTracking().AsSingleQuery()
                            join c in _context.Categories on p.CategoryId equals c.Id
                            join ct in _context.CategoryTranslations.Where(x => x.LanguageId == culture) on c.Id equals ct.CategoryId into cd
                            from ct in cd.DefaultIfEmpty()
                            join pt in _context.ProductTranslations on p.Id equals pt.ProductId
 
-                           where pt.LanguageId == culture && p.Active == true  /*sct.LanguageId == languageId*/
+                           where pt.LanguageId == culture && p.Active == true  /*sct.LanguageId == languageId*/ 
                            select new { c, p, pt, ct /*scsp*/ };
 
             var productDto = await queryPro.Select(x => new UserProductDto()
@@ -324,6 +337,10 @@ namespace BJ.Application.Service
                 ImagePathHero = x.p.ImagePathHero,
                 ImagePathIngredients = x.p.ImagePathIngredients,
                 ProductName = x.pt.ProductName,
+                Sort = x.p.Sort,
+                DateActiveForm = x.p.DateActiveForm,
+                DateCreated = x.p.DateCreated,
+                DateTimeActiveTo = x.p.DateTimeActiveTo,
                 UserSubCategorySpecificProductDto = _mapper.Map<List<UserSubCategorySpecificProductDto>>(x.p.SubCategorySpecificProducts.Where(x => x.Active == true)),
 
             }).AsNoTracking().ToListAsync();
@@ -345,7 +362,7 @@ namespace BJ.Application.Service
             //var productDto = _mapper.Map<List<UserProductDto>>(product);
             //return productDto;
 
-            var query = from p in _context.Products.Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == culture))
+            var query = from p in _context.Products.OrderBy(x => x.Sort).ThenByDescending(x => x.DateCreated).Include(x => x.SubCategorySpecificProducts).ThenInclude(y => y.SubCategory).ThenInclude(z => z.SubCategoryTranslations.Where(x => x.LanguageId == culture))
                         join c in _context.Categories on p.CategoryId equals c.Id
                         join ct in _context.CategoryTranslations.Where(x => x.LanguageId == culture) on c.Id equals ct.CategoryId into cd
                         from ct in cd.DefaultIfEmpty()
@@ -366,6 +383,8 @@ namespace BJ.Application.Service
                 ImagePathHero = x.p.ImagePathHero,
                 ImagePathIngredients = x.p.ImagePathIngredients,
                 ProductName = x.pt.ProductName,
+                DateActiveForm = x.p.DateActiveForm,
+                DateTimeActiveTo = x.p.DateTimeActiveTo,
                 UserSubCategorySpecificProductDto = _mapper.Map<List<UserSubCategorySpecificProductDto>>(x.p.SubCategorySpecificProducts.Where(x => x.Active == true)),
 
             }).AsNoTracking().ToListAsync();
@@ -378,8 +397,64 @@ namespace BJ.Application.Service
 
         public async Task<ProductDto> GetProductById(Guid id)
         {
-            var product = await _context.Products.Include(x => x.ProductTranslations).Include(x => x.Category).Include(x => x.SubCategorySpecificProducts).ThenInclude(x => x.SubCategory).Include(x => x.SizeSpecificProducts).ThenInclude(x => x.Size).AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
-            var productDto = _mapper.Map<ProductDto>(product);
+            var culture = _configuration.GetValue<string>("DefaultLanguageId");
+            var product = await _context.Products.Include(x => x.ProductTranslations).Include(x => x.SubCategorySpecificProducts).ThenInclude(x => x.SubCategory).ThenInclude(x => x.SubCategoryTranslations.Where(x => x.LanguageId == culture)).Include(x => x.SizeSpecificProducts).ThenInclude(x => x.Size).AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var catName = await _context.CategoryTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.CategoryId.Equals(product.CategoryId) && x.LanguageId == culture);
+            var productTranslate = await _context.ProductTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.ProductId.Equals(id) && x.LanguageId == culture);
+            ProductDto productDto = new()
+            {
+                Id = product.Id,
+                Active = product.Active,
+                BestSeller = product.BestSeller,
+                CategoryId = product.CategoryId,
+                Code = product.Code,
+                DateCreated = product.DateCreated,
+                DateModified = product.DateModified,
+                Discount = product.Discount,
+                ProductName = productTranslate.ProductName,
+                Alias = productTranslate.Alias,
+                Description = productTranslate.Description,
+                ShortDesc = productTranslate.ShortDesc,
+                ImagePathCup = product.ImagePathCup,
+                ImagePathIngredients = product.ImagePathIngredients,
+                ImagePathHero = product.ImagePathHero,
+                HomeTag = product.HomeTag,
+                MetaDesc = productTranslate.MetaDesc,
+                MetaKey = productTranslate.MetaKey,
+                CatName = catName.CatName,
+                Sort = product.Sort,
+                DateActiveForm = product.DateActiveForm,
+                DateTimeActiveTo = product.DateTimeActiveTo,
+                ProductTranslationDtos = _mapper.Map<List<ProductTranslationDto>>(await _context.ProductTranslations.Where(x => x.ProductId.Equals(id)).Select(x => new ProductTranslation
+                {
+                    LanguageId = x.LanguageId,
+                    Id = x.Id,
+                    ProductName = x.ProductName,
+
+                }).ToListAsync()),
+                SizeSpecificProducts = _mapper.Map<List<SizeSpecificProductDto>>(product.SizeSpecificProducts.Select(x => new SizeSpecificEachProduct()
+                {
+                    Id = x.Id,
+                    ActiveNutri = x.ActiveNutri,
+                    ActiveSize = x.ActiveSize,
+                    Cal = x.Cal,
+                    Carbonhydrate = x.Carbonhydrate,
+                    CarbonhydrateSugar = x.CarbonhydrateSugar,
+                    DietaryFibre = x.DietaryFibre,
+                    Energy = x.Energy,
+                    Fat = x.Fat,
+                    FatSaturated = x.FatSaturated,
+                    Protein = x.Protein,
+                    Sodium = x.Sodium,
+                    ProductId = x.ProductId,
+                    SizeId = x.SizeId,
+                    Size = new Size
+                    {
+                        Name = x.Size.Name,
+                    }
+                })),
+                SubCategorySpecificProductDtos = _mapper.Map<List<SubCategorySpecificProductDto>>(product.SubCategorySpecificProducts),
+            };
 
             return productDto;
         }
@@ -447,14 +522,14 @@ namespace BJ.Application.Service
                 {
                     string extension = Path.GetExtension(updateProductAdminView.ImageCup.FileName);
 
-                    string image = Utilities.SEOUrl(updateProductAdminView.UpdateProductDto.ProductName) + "_cup" + extension;
+                    string image = Utilities.SEOUrl(updateProductAdminView.UpdateProductTranslationDto.ProductName) + "_cup" + extension;
 
 
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "ImageProduct", image);
 
-                    var fileExsit = File.Exists(imagePath);
+                    var fileExist = File.Exists(imagePath);
 
-                    if (fileExsit == true)
+                    if (fileExist == true)
                     {
                         File.Delete(imagePath);
 
@@ -468,13 +543,13 @@ namespace BJ.Application.Service
 
                     string extension = Path.GetExtension(updateProductAdminView.ImageHero.FileName);
 
-                    string image = Utilities.SEOUrl(updateProductAdminView.UpdateProductDto.ProductName) + "_hero" + extension;
+                    string image = Utilities.SEOUrl(updateProductAdminView.UpdateProductTranslationDto.ProductName) + "_hero" + extension;
 
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "ImageProduct", image);
 
-                    var fileExsit = File.Exists(imagePath);
+                    var fileExist = File.Exists(imagePath);
 
-                    if (fileExsit == true)
+                    if (fileExist == true)
                     {
                         File.Delete(imagePath);
 
@@ -487,13 +562,13 @@ namespace BJ.Application.Service
                 {
                     string extension = Path.GetExtension(updateProductAdminView.ImageIngredients.FileName);
 
-                    string image = Utilities.SEOUrl(updateProductAdminView.UpdateProductDto.ProductName) + "_ingredients" + extension;
+                    string image = Utilities.SEOUrl(updateProductAdminView.UpdateProductTranslationDto.ProductName) + "_ingredients" + extension;
 
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "ImageProduct", image);
 
-                    var fileExsit = File.Exists(imagePath);
+                    var fileExist = File.Exists(imagePath);
 
-                    if (fileExsit == true)
+                    if (fileExist == true)
                     {
                         File.Delete(imagePath);
 
@@ -502,13 +577,21 @@ namespace BJ.Application.Service
                     updateProductAdminView.UpdateProductDto.ImagePathIngredients = await Utilities.UploadFile(updateProductAdminView.ImageIngredients, "ImageProduct", image);
 
                 }
-                updateProductAdminView.UpdateProductDto.Alias = Utilities.SEOUrl(updateProductAdminView.UpdateProductDto.ProductName);
+                if (updateProductAdminView.UpdateProductDto.Sort == null)
+                {
+                    var currentSort = await _context.Categories.OrderByDescending(x => x.Sort).AsNoTracking().ToListAsync();
+
+                    updateProductAdminView.UpdateProductDto.Sort = currentSort[1].Sort + 1;
+                }
+
+                updateProductAdminView.UpdateProductTranslationDto.Alias = Utilities.SEOUrl(updateProductAdminView.UpdateProductTranslationDto.ProductName);
 
                 updateProductAdminView.UpdateProductDto.DateModified = DateTime.Now;
 
-                _context.Products.Update(_mapper.Map(updateProductAdminView.UpdateProductDto, item));
+               
+                _context.Entry(item).CurrentValues.SetValues(updateProductAdminView.UpdateProductDto);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateProductAdminView.UpdateProductDto.UserName);
 
                 var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
@@ -516,19 +599,11 @@ namespace BJ.Application.Service
 
                 if (translate != null)
                 {
-                    var updateTranslate = new UpdateProductTranslationDto()
-                    {
-                        ProductName = updateProductAdminView.UpdateProductDto.ProductName,
-                        Description = updateProductAdminView.UpdateProductDto.Description,
-                        ShortDesc = updateProductAdminView.UpdateProductDto.ShortDesc,
-                        MetaDesc = updateProductAdminView.UpdateProductDto.MetaDesc,
-                        MetaKey = updateProductAdminView.UpdateProductDto.MetaKey,
-                        Alias = Utilities.SEOUrl(updateProductAdminView.UpdateProductDto.ProductName),
+                    updateProductAdminView.UpdateProductTranslationDto.Alias = Utilities.SEOUrl(updateProductAdminView.UpdateProductTranslationDto.Alias);
+                    updateProductAdminView.UpdateProductDto.DateModified = DateTime.Now;
+                    _context.Entry(translate).CurrentValues.SetValues(updateProductAdminView.UpdateProductTranslationDto);
 
-                    };
-                    _context.Update(_mapper.Map(updateTranslate, translate));
-
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(updateProductAdminView.UpdateProductDto.UserName);
                 }
                 await transaction.CommitAsync();
             }
@@ -536,50 +611,24 @@ namespace BJ.Application.Service
             return;
         }
 
-        public async Task UpdateProductTranslate(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto)
+        public async Task UpdateProductTranslate(Guid id, UpdateProductTranslationDto updateProductTranslationDto)
         {
             var item = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.Id == id);
 
             if (item != null)
             {
-                using var transaction = _context.Database.BeginTransaction();
 
                 updateProductTranslationDto.Alias = Utilities.SEOUrl(updateProductTranslationDto.ProductName);
+                
+                updateProductTranslationDto.DateUpdated = DateTime.Now;
 
-                _context.Update(_mapper.Map(updateProductTranslationDto, item));
+                _context.Entry(item).CurrentValues.SetValues(updateProductTranslationDto);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateProductTranslationDto.UserName);
+
 
                 var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-                if (item.LanguageId == culture)
-                {
-                    var product = await _context.Products.FindAsync(proId);
-                    var updateProductDto = new UpdateProductDto()
-                    {
-                        Active = product.Active,
-                        Alias = updateProductTranslationDto.Alias,
-                        BestSeller = product.BestSeller,
-                        CategoryId = product.CategoryId,
-                        DateModified = DateTime.Now,
-                        Description = updateProductTranslationDto.Description,
-                        Discount = product.Discount,
-                        HomeTag = product.HomeTag,
-                        ImagePathCup = product.ImagePathCup,
-                        ImagePathHero = product.ImagePathHero,
-                        ImagePathIngredients = product.ImagePathIngredients,
-                        MetaDesc = updateProductTranslationDto.MetaDesc,
-                        MetaKey = updateProductTranslationDto.MetaKey,
-                        ProductName = updateProductTranslationDto.ProductName,
-                        ShortDesc = updateProductTranslationDto.ShortDesc,
-
-                    };
-                    _context.Update(_mapper.Map(updateProductDto, product));
-
-                    await _context.SaveChangesAsync();
-                }
-
-                await transaction.CommitAsync();
             }
         }
     }

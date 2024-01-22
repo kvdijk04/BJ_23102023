@@ -19,7 +19,6 @@ namespace BJ.Domain.Entities
         public DateTime? Created { get; set; }
 
         public DateTime? Updated { get; set; }
-
         public bool Active { get; set; }
         public Category Category { get; set; }
         public virtual ICollection<SizeSpecificEachProduct> SizeSpecificProducts { get; set; }

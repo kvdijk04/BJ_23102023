@@ -80,6 +80,17 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create([FromForm] CreateNewsAdminView createNewsAdminView)
         {
+            createNewsAdminView.CreateNews.UserName = User.Identity.Name;
+            if (createNewsAdminView.CreateNews.DateActiveForm != null && createNewsAdminView.CreateNews.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)createNewsAdminView.CreateNews.DateTimeActiveTo, (DateTime)createNewsAdminView.CreateNews.DateActiveForm);
+
+                if (compareBetweenFromAndTo < 0)
+                {
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/tao-moi-tin-tuc.html");
+                }
+            }
             var a = await _blogServiceConnection.CreateNews(createNewsAdminView);
 
             if (a == true)
@@ -117,6 +128,8 @@ namespace BJ.Admin.Controllers
                     Popular = item.Popular,
                     Home = item.Home,
                     Promotion = item.Promotion,
+                    DateActiveForm = item.DateActiveForm,
+                    DateTimeActiveTo = item.DateTimeActiveTo,
                 },
                 UpdateNewsTranslation = new Contract.Translation.News.UpdateNewsTranslationDto()
                 {
@@ -139,7 +152,17 @@ namespace BJ.Admin.Controllers
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
             var item = await _blogServiceConnection.GetNewsById(id, culture);
             if (updateNewsAdminView.FileUpload == null) { updateNewsAdminView.UpdateNews.ImagePath = item.ImagePath; }
+            updateNewsAdminView.UpdateNews.UserName = User.Identity.Name;
+            if (updateNewsAdminView.UpdateNews.DateActiveForm != null && updateNewsAdminView.UpdateNews.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)updateNewsAdminView.UpdateNews.DateTimeActiveTo, (DateTime)updateNewsAdminView.UpdateNews.DateActiveForm);
 
+                if (compareBetweenFromAndTo < 0)
+                {
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/cap-nhat-tin-tuc/"+id);
+                }
+            }
             var a = await _blogServiceConnection.UpdateNews(id, culture, updateNewsAdminView);
 
             if (a == true)
@@ -151,7 +174,7 @@ namespace BJ.Admin.Controllers
                 _notyfService.Error("Cập nhật thất bại");
             }
 
-            return Redirect("/tat-ca-tin-tuc.html");
+            return Redirect("/cap-nhat-tin-tuc/" + id);
         }
 
         [Route("chi-tiet-tin-tuc/{blogId}/ngon-ngu/{languageId}/xem-chi-tiet")]
@@ -170,7 +193,7 @@ namespace BJ.Admin.Controllers
             ViewBag.Id = blogId;
             ViewBag.LanguageId = languageId;
 
-            var r = await _blogServiceConnection.GetNewsTranslationnById(languageId);
+            var r = await _blogServiceConnection.GetNewsTranslationById(languageId);
             return View(r);
         }
         [Route("chi-tiet-tin-tuc/{id}/them-moi-ngon-ngu")]
@@ -200,6 +223,8 @@ namespace BJ.Admin.Controllers
         {
             createNewsTranslationDto.NewsId = id;
 
+            createNewsTranslationDto.UserName = User.Identity.Name;
+
             var a = await _blogServiceConnection.CreateLanguage(createNewsTranslationDto);
 
             if (a == true)
@@ -226,7 +251,7 @@ namespace BJ.Admin.Controllers
             }
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var r = await _blogServiceConnection.GetNewsTranslationnById(languageId);
+            var r = await _blogServiceConnection.GetNewsTranslationById(languageId);
             var news = await _blogServiceConnection.GetNewsById(blogId, culture);
             ViewBag.Title = news.Title;
             ViewBag.Id = blogId;
@@ -249,7 +274,9 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid blogId, Guid languageId, UpdateNewsTranslationDto updateNewsTranslationDto)
         {
-            var a = await _blogServiceConnection.UpdateNewsTranslationn(languageId, updateNewsTranslationDto);
+            updateNewsTranslationDto.UserName = User.Identity.Name;
+
+            var a = await _blogServiceConnection.UpdateNewsTranslation(languageId, updateNewsTranslationDto);
 
             if (a == true)
             {

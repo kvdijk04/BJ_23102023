@@ -8,6 +8,7 @@
         public string CatName { get; set; }
         public string Description { get; set; }
         public string Alias { get; set; }
-        public string MetaDesc { get; set; }
+        public string UserName {  get; set; }
+        public DateTime? DateCreated { get; set; }
     }
 }

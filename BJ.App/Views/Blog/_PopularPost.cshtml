@@ -12,18 +12,27 @@
 {
     foreach(var item in Model)
     {
-        <div class="row">
-            <div class="four columns">
-                <a  href="/@ViewBag.Culture/@ViewBag.WellbeingUrl/@item.Id/@item.Alias"><img src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" title="@item.Title" class="blog-cover"></a>
-            </div>
-            <div class="eight columns">
-                <h3 ><a href="/@ViewBag.Culture/@ViewBag.WellbeingUrl/@item.Id/@item.Alias" >@item.Title</a></h3>
-                @if (item.DateCreated != null)
-                {
-                    <p i>@item.DateCreated.Value.ToString("dd MMMM yyyy",CultureInfo.CreateSpecificCulture("en-US"))</p>
+        @if (DateTime.Now.Date >= item.DateActiveForm && DateTime.Now.Date <= item.DateTimeActiveTo
+               || DateTime.Now.Date >= item.DateActiveForm && item.DateTimeActiveTo == null
+               || DateTime.Now.Date <= item.DateTimeActiveTo && item.DateActiveForm == null
+               || item.DateActiveForm == null && item.DateTimeActiveTo == null)
+        {
 
-                }
+            <div class="row">
+                <div class="four columns">
+                    <a href="/@ViewBag.Culture/@ViewBag.WellbeingUrl/@item.Id/@item.Alias"><img src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" title="@item.Title" class="blog-cover"></a>
+                </div>
+                <div class="eight columns">
+                    <h3><a href="/@ViewBag.Culture/@ViewBag.WellbeingUrl/@item.Id/@item.Alias">@item.Title</a></h3>
+                    @if (item.DateCreated != null)
+                    {
+                        <p i>@item.DateCreated.Value.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</p>
+
+                    }
+                </div>
             </div>
-        </div>
+
+        }
+
     }
 }

@@ -25,11 +25,11 @@ namespace BJ.ApiConnection.Services
         Task<string> CreateDetailConfigWeb(CreateConfigWebAdminView createDetailConfigWebDto);
         Task<string> UpdateDetailConfigWeb(Guid id, UpdateDetailConfigWebDto updateDetailConfigWebDto);
 
-        public Task<DetailConfigWebTranslationDto> GetDetailConfigWebTranslationnById(Guid id);
+        public Task<DetailConfigWebTranslationDto> GetDetailConfigWebTranslationById(Guid id);
 
         Task<bool> CreateLanguage(CreateDetailConfigWebTranslationDto createDetailConfigWebTranslationDto);
 
-        Task<bool> UpdateDetailConfigWebTranslationn(Guid languageId, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto);
+        Task<bool> UpdateDetailConfigWebTranslation(Guid languageId, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto);
 
 
     }
@@ -132,7 +132,7 @@ namespace BJ.ApiConnection.Services
             return await GetAsync<ConfigWebViewModel>($"/api/DetailConfigWebs/url?url={url}&culture={culture}");
         }
 
-        public async  Task<DetailConfigWebTranslationDto> GetDetailConfigWebTranslationnById(Guid id)
+        public async  Task<DetailConfigWebTranslationDto> GetDetailConfigWebTranslationById(Guid id)
         {
             return await GetAsync<DetailConfigWebTranslationDto>($"/api/DetailConfigWebs/language/{id}");
         }
@@ -156,7 +156,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateDetailConfigWebTranslationn(Guid languageId, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto)
+        public async Task<bool> UpdateDetailConfigWebTranslation(Guid languageId, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 

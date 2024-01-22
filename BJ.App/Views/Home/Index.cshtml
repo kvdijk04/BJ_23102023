@@ -324,7 +324,7 @@
         <div class="container">
             <div class="row">
                 <div class="six columns">
-                    <img src="~/images/titles-love-life.png" id="welcome-img">
+                    <img src="~/images/titles-love-life.png" id="welcome-img" alt="welcom-img">
                     <span class="hide-mobile">
                         <a href="/@culture/@_loc["drinkUrl"]" class="button"><localize>Juices &amp; Smoothies</localize></a>
                         <a href="#boost-store-locator" class="button"><localize>Find Us</localize></a>
@@ -352,13 +352,19 @@
                         {
                             <div class="row" itemscope itemtype="https://schema.org/Article">
                                 <div class="six columns">
-                                    <h2 itemprop="name">@item.Title</h2>
+                                    <h2 itemprop="name"  >@item.Title</h2>
                                     <p itemprop="description"></p>@Html.Raw(item.ShortDesc)
-                                    <p></p>
+                                    <a style="color:#ffffff;text-decoration:underline" href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias">Xem thêm</a>
+
                                     <p id="detailBtn" itemprop="url"><a onclick="momodal()" class="button" style="margin-bottom:30px" @* href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias" *@><localize>Buy Now</localize></a></p>
 
                                 </div>
-                                <div class="six columns half-angle"><img itemprop="image" src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" alt="@item.Title" style="width:100%;height:100%"></div>
+                                <div class="six columns half-angle" >
+                                    <a itemprop="url" href="/@culture/@_loc["promotionUrl"]/@item.Id/@item.Alias">
+                                        <img itemprop="image" src="@Configuration["BaseAddress"]/ImageNews/@item.ImagePath" alt="@item.Title" style="width:100%;height:100%">
+                                    </a>
+
+                                </div>
 
                             </div>
                         }
@@ -374,7 +380,7 @@
                         <img src="~/images/vibe-logo.png" alt="Vibe logo">
                         <p></p><p><localize>This is the best club you will ever join. It's more glamorous than Mariah Carey's life, with hundreds more hidden benefits than the Illuminati, and if you download our BOOST app you'll be inundated with freebies and sweet deals. sweet for the rest of your life…. or until you lose your card or delete this app.</localize></p>
                         <p></p>
-                        <p><a href="/@culture/vibe.html" class="button"><localize>Learn More</localize></a></p>
+                        <p><a href="/@culture/vibe" class="button"><localize>Learn More</localize></a></p>
                     </div>
                 </div>
             </div>
@@ -440,11 +446,11 @@
                             <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
                             <p>
                                 <a href="http://bit.ly/1yqA2a2" target="_blank">
-                                    <img src="~/images/ios.png"
+                                    <img src="~/images/ios.png" alt="ios logo"
                                          width="160">
                                 </a>
                                 <a href="http://bit.ly/USKKXP" target="_blank">
-                                    <img src="~/images/ggplay.png"
+                                    <img src="~/images/ggplay.png" alt="ggplay logo"
                                          width="160">
                                 </a>
                             </p>
@@ -522,6 +528,7 @@
                 type: "get",
                 async: true,
                 success: function (results) {
+                    console.log(results);
 
                     const icons = {
                         info: {
@@ -566,7 +573,7 @@
                                                     <img src="@Configuration["BaseAddress"]/ImageStore/` + marker.imagePath + `" alt=""></div>
                                                     <div class="item_infobox_infor">
                                                     <h3>`+ marker.title + `</h3>
-                                                    <p>`+ marker.address + `</p><a href="https://www.google.com/maps/dir/?api=1&destination='` + marker.address + `,` + marker.city + `&travelmode=driving" target="_blank" rel="nofollow">Chỉ Đường</a></div></div>`;
+                                                        <p>`+ marker.address + `</p><a href="https://www.google.com/maps/dir/?api=1&destination='` + marker.address + `,` + marker.city + `&travelmode=driving" target="_blank" rel="nofollow">@_loc["direction"]</a></div></div>`;
 
                         const infowindow = new google.maps.InfoWindow({
                             content: contentString,
@@ -599,13 +606,23 @@
                         };
 
                     }
+
                     for (let i = 1; i < markersAll.length; i++) {
+                        var timeline = "";
+                        if (results[i].storeLocationOpenHourDtos != null) {
+                            for (var tl of results[i].storeLocationOpenHourDtos) {
+                                timeline += `<tr><td>` + tl.daysOfWeek + `</td><td><time>` + tl.start + ` - ` + tl.end + `</time></td></tr>`
+                            }
+                        }
+
                         html += `<div style="display:flex"><div style="width:25%;margin:10px">
                             <img itemprop="image" src="@Configuration["BaseAddress"]/ImageStore/${results[i].imagePath}" style="max-width:100%;max-height:100%;" /></div><div class="item store-list"  id="` + i + `" data-store-id="` + results[i].id + `">
-                            <h3 id="store-name" data-markerid="` + i + `">` + results[i].name + `</h3><span class="boostjuice-street">` + results[i].address + `<br>` + results[i].city + `</span>
-                            <table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>
-                            <td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>
-                            <tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>
+                            <h3 id="store-name" data-markerid="` + i + `">` + results[i].name + `</h3>
+                            <span class="boostjuice-street">` + results[i].address + `<br>` + results[i].city + `</span>
+                            <table role="presentation" class="wpsl-opening-hours">
+                            <tbody>`+timeline+`
+                            </tbody>
+                            </table>
                             <a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="` + results[i].latitude + `" lng="` + results[i].longitude + `" >@_loc["openTime"]</a>
                                 <a data-url="https://www.google.com/maps/dir/?api=1&destination=` + results[i].address + `, ` + results[i].city + `&travelmode=driving" target="_blank" class="marker-link" data-markerid="` + i + `" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">@_loc["direction"]</a></div></div>`;
 
@@ -721,7 +738,7 @@
                                                         <img src="@Configuration["BaseAddress"]/ImageStore/` + marker.imagePath + `" alt=""></div>
                                                         <div class="item_infobox_infor">
                                                         <h3>`+ marker.title + `</h3>
-                                                        <p>`+ marker.address + `</p><a href="https://www.google.com/maps/dir/?api=1&destination='` + marker.address + `,` + marker.city + `&travelmode=driving" target="_blank" rel="nofollow">Chỉ Đường</a></div></div>`;
+                                                            <p>`+ marker.address + `</p><a href="https://www.google.com/maps/dir/?api=1&destination='` + marker.address + `,` + marker.city + `&travelmode=driving" target="_blank" rel="nofollow">@_loc["direction"]</a></div></div>`;
 
                                         const infowindow = new google.maps.InfoWindow({
                                             content: contentString,
@@ -757,12 +774,19 @@
                                     $('#boostjuice-stores').html('<h2 style="color: #79C339;margin-bottom: 20px;font-weight: 600;text-align:center">@_loc["titleNearestBoost"] ' + results[1].distance + ' km</h2>');
 
                                     for (let i = 1; i < markers.length; i++) {
+                                        var timeline = "";
+                                        if (results[i].storeLocationOpenHourDtos != null) {
+                                            for (var tl of results[i].storeLocationOpenHourDtos) {
+                                                timeline += `<tr><td>` + tl.daysOfWeek + `</td><td><time>` + tl.start + ` - ` + tl.end + `</time></td></tr>`
+                                            }
+                                        }
                                         html += `<div style="display:flex"><div style="width:25%;margin:10px">
                                         <img itemprop="image" src="@Configuration["BaseAddress"]/ImageStore/${results[i].imagePath}" style="max-width:100%;max-height:100%;" /></div><div class="item store-list"  id="` + i + `" data-store-id="` + results[i].id + `">
                                             <h3 id="store-name" data-markerid="` + i + `"><em>`+ results[i].distance + `km</em>` + results[i].name + `</h3><span class="boostjuice-street">` + results[i].address + `<br>` + results[i].city + `</span>
-                                        <table role="presentation" class="wpsl-opening-hours"><tbody><tr><td>Monday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Tuesday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Wednesday</td>
-                                        <td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Thursday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Friday</td><td><time>8:00 AM - 11:00 PM</time></td></tr>
-                                        <tr><td>Saturday</td><td><time>8:00 AM - 11:00 PM</time></td></tr><tr><td>Sunday</td><td><time>8:00 AM - 11:00 PM</time></td></tr></tbody></table>
+                                        <table role="presentation" class="wpsl-opening-hours">
+                                        <tbody>`+ timeline + `
+                                        </tbody>
+                                        </table>
                                         <a class="show-openhours" id="showDetail" style="color: #79C339;background-color: transparent;padding-left: 0px;padding-right: 0px; margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600" lat="` + results[i].latitude + `" lng="` + results[i].longitude + `" >@_loc["openTime"]</a>
                                             <a data-url="https://www.google.com/maps/dir/?api=1&destination=` + results[i].address + `, ` + results[i].city + `&travelmode=driving" target="_blank" class="marker-link" data-markerid="` + i + `" style = "color: #79C339;background-color: transparent; padding-left: 0px;padding-right: 0px;margin-right: 20px; cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 600">@_loc["direction"]</a></div></div>`;
 

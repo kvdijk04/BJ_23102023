@@ -1,11 +1,20 @@
-﻿@using BJ.Contract.Category;
+﻿@using BJ.Contract.ViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@model UpdateCategoryDto
+@section Styles {
+    <style>
+        @@media (min-width: 600px) {
+            .formactive {
+                display: flex !important;
+            }
+        }
+    </style>
+}
+@model UpdateCategoryAdminView
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
@@ -27,7 +36,7 @@
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
                 </div> *@
                 <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: @Model.CatName </h4><a href="/chi-tiet-loai/@ViewBag.Id" style="text-decoration:underline">Xem chi tiết</a>
+                    <h4 class="m-b-0">Tên: @Model.UpdateCategoryTranslationDto.CatName </h4><a href="/chi-tiet-loai/@ViewBag.Id" style="text-decoration:underline">Xem chi tiết</a>
                     @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
                     *@
                     <span class="text-muted m-b-0 catId" hidden>@ViewBag.Id</span>
@@ -54,9 +63,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#product-edit-description">Mô tả</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#product-edit-config">Cấu hình</a>
-            </li>
+           
         </ul>
     </div>
     <div class="tab-content m-t-15">
@@ -65,13 +72,17 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên loại</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên loại" value="@Model.CatName" asp-for="@Model.CatName" required>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên loại" value="@Model.UpdateCategoryTranslationDto.CatName" asp-for="@Model.UpdateCategoryTranslationDto.CatName" required>
                     </div>
-                    @if (Model.Active == true)
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="sort">Thứ tự</label>
+                        <input type="number" min="1" class="form-control" id="sort" placeholder="Thứ tự" asp-for="@Model.UpdateCategory.Sort" value="@Model.UpdateCategory.Sort">
+                    </div>
+                    @if (Model.UpdateCategory.Active == true)
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.Active">
+                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.UpdateCategory.Active">
                                 <label for="switch-3"></label>
                             </div>
                             <label>Kích hoạt</label>
@@ -81,13 +92,50 @@
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.Active">
+                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.UpdateCategory.Active">
                                 <label for="switch-3"></label>
                             </div>
                             <label>Kích hoạt</label>
                         </div>
                     }
+                    @if(Model.UpdateCategory.Active == true)
+                    {
+                        <div class="row" id="rangeTime">
+                            <div class="col-md-12">
 
+                                <!-- Range Datepicker-->
+                                <div class="form-group">
+                                    <label>Thời gian kích hoạt</label>
+                                    <div class="formactive align-items-center">
+                                        <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.UpdateCategory.DateActiveForm" value="@Model.UpdateCategory.DateActiveForm">
+                                        <span class="p-h-10">Đến</span>
+                                        <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.UpdateCategory.DateTimeActiveTo" value="@Model.UpdateCategory.DateTimeActiveTo">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row" id="rangeTime" style="display:none">
+                            <div class="col-md-12">
+
+                                <!-- Range Datepicker-->
+                                <div class="form-group">
+                                    <label>Thời gian kích hoạt</label>
+                                    <div class="formactive align-items-center">
+                                        <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.UpdateCategory.DateActiveForm" value="@Model.UpdateCategory.DateActiveForm">
+                                        <span class="p-h-10">Đến</span>
+                                        <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.UpdateCategory.DateTimeActiveTo" value="@Model.UpdateCategory.DateTimeActiveTo">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    
 
                 </div>
             </div>
@@ -113,7 +161,7 @@
 
 
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageCategory/@Model.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageCategory/@Model.UpdateCategory.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
                             </div>
                         </div>
                        
@@ -127,33 +175,32 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả</label>
-                        <textarea class="form-control" id="productBrand" placeholder="Mô tả" asp-for="@Model.Description" value="@Model.Description"></textarea>
+                        <textarea class="form-control" id="productBrand" placeholder="Mô tả" asp-for="@Model.UpdateCategoryTranslationDto.Description" value="@Model.UpdateCategoryTranslationDto.Description"></textarea>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="product-edit-config">
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.MetaDesc" value="@Model.MetaDesc" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.MetaKey" value="@Model.MetaKey" required>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
     </div>
 </form>
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script src="~/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
     <script>
+
+        $("#switch-3").on("click", function () {
+
+            if (($(this).prop("checked")) == false) {
+                $("#rangeTime").hide();
+            } else {
+                $("#rangeTime").show();
+            }
+        });
         $('.select2').select2();
+        $('.datepicker-input').datepicker();
 
     </script>
     <script>

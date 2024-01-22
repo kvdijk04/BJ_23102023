@@ -156,11 +156,11 @@ namespace BJ.Api.Controllers
 
         public async Task<IActionResult> GetDetailConfigWebTranslationById(Guid id)
         {
-            if (await _detailConfigWebService.GetDetailConfigWebTransalationById(id) == null)
+            if (await _detailConfigWebService.GetDetailConfigWebTranslationById(id) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _detailConfigWebService.GetDetailConfigWebTransalationById(id));
+            return Ok(await _detailConfigWebService.GetDetailConfigWebTranslationById(id));
 
         }
 

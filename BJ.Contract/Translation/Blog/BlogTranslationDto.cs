@@ -23,5 +23,7 @@ namespace BJ.Contract.Translation.Blog
         public LanguageDto LanguageDto { get; set; }
 
         public BlogDto BlogDto { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

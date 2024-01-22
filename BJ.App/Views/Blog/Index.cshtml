@@ -47,31 +47,40 @@
         {
             foreach (var item in Model.Items)
             {
-                <div class="row" style="display: block;" itemscope itemtype="https://schema.org/Blog">
+                @if (DateTime.Now.Date >= item.DateActiveForm && DateTime.Now.Date <= item.DateTimeActiveTo
+               || DateTime.Now.Date >= item.DateActiveForm && item.DateTimeActiveTo == null
+               || DateTime.Now.Date <= item.DateTimeActiveTo && item.DateActiveForm == null
+               || item.DateActiveForm == null && item.DateTimeActiveTo == null)
+                {
+                    <div class="row" style="display: block;" itemscope itemtype="https://schema.org/Article">
 
-                    <div class="six columns">
-                        <p>
-                            <a itemprop="url" href="/@culture/@_loc["wellbeingUrl"]/@item.Id/@item.Alias">
-                                <img itemprop="image" src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" title="@item.Title" alt="@item.Title" class="blog-cover">
-                            </a>
-                        </p>
-                    </div>
-                    <div class="six columns">
-                       
-                        
-
-                        <h2 itemprop="name"> @Html.Raw(item.Title)</h2>
-                        <div class="shortdesc">
-                            <p itemprop="description">@Html.Raw(item.ShortDesc)</p>
-
+                        <div class="six columns">
+                            <p>
+                                <a itemprop="url" href="/@culture/@_loc["wellbeingUrl"]/@item.Id/@item.Alias">
+                                    <img itemprop="image" src="@Configuration["BaseAddress"]/ImageBlog/@item.ImagePath" title="@item.Title" alt="@item.Title" class="blog-cover">
+                                </a>
+                            </p>
                         </div>
-                        <div class="detailbtn">
-                            <a itemprop="url" href="/@culture/@_loc["wellbeingUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
+                        <div class="six columns">
 
+
+
+                            <h2 itemprop="headline"> @Html.Raw(item.Title)</h2>
+                            <div class="shortdesc">
+                                <p itemprop="description">@Html.Raw(item.ShortDesc)</p>
+
+                            </div>
+                            <div class="detailbtn">
+                                <a itemprop="url" href="/@culture/@_loc["wellbeingUrl"]/@item.Id/@item.Alias"><localize>Read more</localize></a>
+
+                            </div>
                         </div>
+
                     </div>
 
-                </div>
+
+
+                }
             }
         }
 

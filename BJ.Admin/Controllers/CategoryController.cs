@@ -3,8 +3,10 @@ using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 
 namespace BJ.Admin.Controllers
 {
@@ -73,9 +75,32 @@ namespace BJ.Admin.Controllers
         }
         [Route("/tao-moi-loai.html")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateCategoryDto createCategoryDto)
+        public async Task<IActionResult> Create([FromForm] CreateCategoryAdminView createCategoryAdminView)
         {
-            var a = await _categoryServiceConnection.CreateCategory(createCategoryDto);
+            createCategoryAdminView.CreateCategoryDto.UserName = User.Identity.Name;
+
+            if(createCategoryAdminView.CreateCategoryDto.DateActiveForm != null && createCategoryAdminView.CreateCategoryDto.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)createCategoryAdminView.CreateCategoryDto.DateTimeActiveTo, (DateTime)createCategoryAdminView.CreateCategoryDto.DateActiveForm);
+
+                if (compareBetweenFromAndTo < 0)
+                {
+
+                    //TempData["Title"] = createAppointmentSlotAdvance.Title;
+                    //TempData["Note"] = createAppointmentSlotAdvance.Note;
+                    //TempData["Description"] = createAppointmentSlotAdvance.Description;
+
+                    //TempData["FromDate"] = createAppointmentSlotAdvance.Start;
+                    //TempData["ToDate"] = createAppointmentSlotAdvance.End;
+                    //TempData["CustomAdd"] = createAppointmentSlotAdvance.TypedSubmit;
+
+
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/tao-moi-loai.html");
+                }
+            }
+
+            var a = await _categoryServiceConnection.CreateCategory(createCategoryAdminView);
 
             if (a == true)
             {
@@ -94,36 +119,69 @@ namespace BJ.Admin.Controllers
         {
             var token = HttpContext.Session.GetString("Token");
 
+
             if (token == null || User.Claims.Where(x => x.Type == "Role").Select(x => x.Value).FirstOrDefault() != "AdminRole")
             {
                 return Redirect("/dang-nhap.html");
             }
 
             var item = await _categoryServiceConnection.GetCategoryById(id);
-            UpdateCategoryDto updateCategoryDto = new()
+            UpdateCategoryAdminView updateCategoryAdminView= new()
             {
-                Active = item.Active,
-                Alias = item.Alias,
-                CatName = item.CatName,
-                DateUpdated = item.DateUpdated,
-                Description = item.Description,
-                ImagePath = item.ImagePath,
-                MetaDesc = item.MetaDesc,
-                MetaKey = item.MetaKey,
+                UpdateCategory = new()
+                {
+                    Active = item.Active,
+                    
+                    DateUpdated = item.DateUpdated,
+                    ImagePath = item.ImagePath,
+                    Sort = item.Sort,
+                    DateActiveForm = item.DateActiveForm,
+                    DateTimeActiveTo = item.DateTimeActiveTo,
+                },
+                UpdateCategoryTranslationDto = new()
+                {
+                    Alias = item.Alias,
+                    CatName = item.CatName,
+                    Description = item.Description,
+
+                },
+
             };
             ViewBag.Id = id;
 
-            return View(updateCategoryDto);
+            return View(updateCategoryAdminView);
         }
         [Route("/cap-nhat-loai/{id}")]
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, [FromForm] UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> Edit(Guid id, [FromForm] UpdateCategoryAdminView updateCategoryAdminView)
         {
+            updateCategoryAdminView.UpdateCategory.UserName = User.Identity.Name;
+            if (updateCategoryAdminView.UpdateCategory.DateActiveForm != null && updateCategoryAdminView.UpdateCategory.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)updateCategoryAdminView.UpdateCategory.DateTimeActiveTo, (DateTime)updateCategoryAdminView.UpdateCategory.DateActiveForm);
+
+                if (compareBetweenFromAndTo < 0)
+                {
+
+                    //TempData["Title"] = createAppointmentSlotAdvance.Title;
+                    //TempData["Note"] = createAppointmentSlotAdvance.Note;
+                    //TempData["Description"] = createAppointmentSlotAdvance.Description;
+
+                    //TempData["FromDate"] = createAppointmentSlotAdvance.Start;
+                    //TempData["ToDate"] = createAppointmentSlotAdvance.End;
+                    //TempData["CustomAdd"] = createAppointmentSlotAdvance.TypedSubmit;
+
+
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/cap-nhat-loai/" + id);
+                }
+            }
+                
             var result = await _categoryServiceConnection.GetCategoryById(id);
 
-            if (updateCategoryDto.Image == null) updateCategoryDto.ImagePath = result.ImagePath;
+            if (updateCategoryAdminView.Image == null) updateCategoryAdminView.UpdateCategory.ImagePath = result.ImagePath;
 
-            var a = await _categoryServiceConnection.UpdateCategory(id, updateCategoryDto);
+            var a = await _categoryServiceConnection.UpdateCategory(id, updateCategoryAdminView);
             if (a == true)
             {
                 _notyfService.Success("Cập nhật thành công");
@@ -151,7 +209,7 @@ namespace BJ.Admin.Controllers
             ViewBag.CatName = category.CatName;
             ViewBag.Id = catId;
             ViewBag.LanguageId = languageId;
-            var r = await _categoryServiceConnection.GetCategoryTranslationnById(languageId);
+            var r = await _categoryServiceConnection.GetCategoryTranslationById(languageId);
             return View(r);
         }
         [Route("chi-tiet-loai/{id}/them-moi-ngon-ngu")]
@@ -180,7 +238,7 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> CreateLanguage(Guid id, CreateCategoryTranslationDto createCategoryTranslationDto)
         {
             createCategoryTranslationDto.CategoryId = id;
-
+            createCategoryTranslationDto.UserName = User.Identity.Name;
             var a = await _categoryServiceConnection.CreateLanguage(createCategoryTranslationDto);
 
             if (a == true)
@@ -206,7 +264,7 @@ namespace BJ.Admin.Controllers
                 return Redirect("/dang-nhap.html");
             }
 
-            var r = await _categoryServiceConnection.GetCategoryTranslationnById(languageId);
+            var r = await _categoryServiceConnection.GetCategoryTranslationById(languageId);
             var category = await _categoryServiceConnection.GetCategoryById(catId);
             ViewBag.CatName = category.CatName;
             ViewBag.Id = catId;
@@ -216,7 +274,6 @@ namespace BJ.Admin.Controllers
             {
                 CatName = r.CatName,
                 Description = r.Description,
-                MetaDesc = r.MetaDesc,
 
             };
             return View(updateCategoryTranslationDto);
@@ -228,7 +285,9 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid catId, Guid languageId, UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
-            var a = await _categoryServiceConnection.UpdateCategoryTranslationn(catId, languageId, updateCategoryTranslationDto);
+            updateCategoryTranslationDto.UserName = User.Identity.Name;
+
+            var a = await _categoryServiceConnection.UpdateCategoryTranslation(languageId, updateCategoryTranslationDto);
             if (a == true)
             {
                 _notyfService.Success("Cập nhật thành công");

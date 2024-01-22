@@ -4,7 +4,8 @@
     {
 
 
-        public DateTime DateUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public string UserName { get;set; }
 
         public string Title { get; set; }
 

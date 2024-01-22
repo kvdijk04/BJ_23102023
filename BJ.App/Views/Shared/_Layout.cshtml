@@ -12,7 +12,7 @@
     <title><localize>@ViewBag.Title</localize></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="Boost Juice, is one of Australia's most famous and loved juice and smoothie brands, nước ép, healthy, sinh tố, trái cây tươi,boost
+    <meta name="keywords" content="Boost Juice, is one of Australia's most famous and loved juice and smoothie brands, nước ép, healthy, sinh tố, trái cây tươi,
                                     boost juice
                                     boost juice menu
                                     boost juice vietnam
@@ -22,14 +22,14 @@
                                     boost 500
                                     boost around me
                                     the order 2017" />
-    <meta name="author" content="Magentech">
+    <meta name="author" content="Boost Juice">
     <meta name="robots" content="index, follow" />
     <meta name="zalo-platform-site-verification" content="VuIt8Ak7PGzPci0HkB9oCtYavHYKqZT4CZaq" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
+    <link rel="canonical" href="@Configuration["CurrentDomain"]" />
 
     <!--Xác minh với google search console-->
-    <meta name="google-site-verification" content="NrlBdnAzdQSrgBWAGmhMyESwtZrH_oYP5pYckV55IRs" />
+    <meta name="google-site-verification" content="@Configuration["GoogleSearchConsole"]" />
     <!---->
 
     <meta property="og:site_name" content="Boost Juice" />
@@ -46,14 +46,30 @@
     <meta property="og:url" content="@Configuration["CurrentDomain"]" />
     <meta property="og:site_name" content="Boost Juice" />
 
+    <link rel="alternate" href="@Configuration["CurrentDomain"]" hreflang="vi" />
+    <link rel="alternate" href="@Configuration["CurrentDomain"]en/" hreflang="en" />
 
-
-    <link href="~/BoostJuice/images/favicon.png" rel="shortcut icon">
-    <link rel="icon" href="~/BoostJuice/images/cropped-iconboostweb-32x32.png" sizes="32x32" />
-    <link rel="icon" href="~/BoostJuice/images/cropped-iconboostweb-192x192.png" sizes="192x192" />
-    <link rel="apple-touch-icon-precomposed" href="~/BoostJuice/images/cropped-iconboostweb-180x180.png" />
-    <meta name="msapplication-TileImage" content="~/BoostJuice/images/cropped-iconboostweb-270x270.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="~/BoostJuice/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/BoostJuice/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/BoostJuice/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/BoostJuice/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/BoostJuice/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/BoostJuice/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/BoostJuice/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/BoostJuice/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/BoostJuice/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/BoostJuice/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/BoostJuice/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/BoostJuice/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/BoostJuice/images/favicon-16x16.png">
+    <link rel="manifest" href="~/BoostJuice/images/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="~/BoostJuice/images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <style>
+        html{
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Roboto', arial, sans-serif;
             font-size: 18px;
@@ -316,12 +332,14 @@
     }
 
 
-    <style>
-        
-      
-    </style>
     <!--end template-->
-
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "kgd5mj0n22");
+    </script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?@Configuration["GoogleAnalytics"]"></script>
@@ -384,9 +402,7 @@
 
 
 
-
     @await Component.InvokeAsync("Header", culture)
-
 
     <!-- END nav -->
         @RenderBody()
@@ -404,6 +420,8 @@
             </div>
         </div>
     </div>
+
+
 
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/aos.js"></script>
@@ -432,7 +450,6 @@
     @RenderSection("Scripts", required: false)
 
     <script>
-        console.clear();
 
         function myFunction(x) {
             x.classList.toggle("change");

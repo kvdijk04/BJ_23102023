@@ -23,11 +23,11 @@ namespace BJ.ApiConnection.Services
         Task<bool> CreateBlog(CreateBlogAdminView createBlogAdminView);
         Task<bool> UpdateBlog(Guid id, string culture, UpdateBlogAdminView updateBlogAdminView);
 
-        public Task<BlogTranslationDto> GetBlogTranslationnById(Guid id);
+        public Task<BlogTranslationDto> GetBlogTranslationById(Guid id);
 
         Task<bool> CreateLanguage(CreateBlogTranslationDto createBlogTranslationDto);
 
-        Task<bool> UpdateBlogTranslationn(Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto);
+        Task<bool> UpdateBlogTranslation(Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto);
 
     }
     public class BlogServiceConnection : BaseApiClient, IBlogServiceConnection
@@ -75,19 +75,20 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.Title) ? "" : createBlogAdminView.CreateBlogTranslation.Title.ToString()), "createBlogAdminView.CreateBlogTranslation.Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.ShortDesc) ? "" : createBlogAdminView.CreateBlogTranslation.ShortDesc.ToString()), "createBlogAdminView.CreateBlogTranslation.shortDesc");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.Description) ? "" : createBlogAdminView.CreateBlogTranslation.Description.ToString()), "createBlogAdminView.CreateBlogTranslation.description");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.DateUpdated.ToString()) ? "" : createBlogAdminView.CreateBlog.DateUpdated.ToString()), "createBlogAdminView.CreateBlog.DateUpdated");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.Active.ToString()) ? "" : createBlogAdminView.CreateBlog.Active.ToString()), "createBlogAdminView.CreateBlog.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.Popular.ToString()) ? "" : createBlogAdminView.CreateBlog.Popular.ToString()), "createBlogAdminView.CreateBlog.popular");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.DateCreated.ToString()) ? "" : createBlogAdminView.CreateBlog.DateCreated.ToString()), "createBlogAdminView.CreateBlog.DateCreated");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.DateActiveForm.ToString()) ? "" : createBlogAdminView.CreateBlog.DateActiveForm.ToString()), "createBlogAdminView.CreateBlog.dateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.DateTimeActiveTo.ToString()) ? "" : createBlogAdminView.CreateBlog.DateTimeActiveTo.ToString()), "createBlogAdminView.CreateBlog.dateTimeActiveTo");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.Alias) ? "" : createBlogAdminView.CreateBlogTranslation.Alias.ToString()), "createBlogAdminView.CreateBlogTranslation.alias");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.MetaDesc.ToString()) ? "" : createBlogAdminView.CreateBlogTranslation.MetaDesc.ToString()), "createBlogAdminView.CreateBlogTranslation.metaDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.MetaDesc) ? "" : createBlogAdminView.CreateBlogTranslation.MetaDesc), "createBlogAdminView.CreateBlogTranslation.metaDesc");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.MetaKey.ToString()) ? "" : createBlogAdminView.CreateBlogTranslation.MetaKey.ToString()), "createBlogAdminView.CreateBlogTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlogTranslation.MetaKey) ? "" : createBlogAdminView.CreateBlogTranslation.MetaKey), "createBlogAdminView.CreateBlogTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createBlogAdminView.CreateBlog.UserName) ? "" : createBlogAdminView.CreateBlog.UserName), "createBlogAdminView.CreateBlog.userName");
 
             var response = await client.PostAsync($"/api/Blogs/", requestContent);
 
@@ -153,22 +154,23 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.Title) ? "" : updateBlogAdminView.UpdateBlogTranslation.Title.ToString()), "updateBlogAdminView.UpdateBlogTranslation.Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.ShortDesc) ? "" : updateBlogAdminView.UpdateBlogTranslation.ShortDesc.ToString()), "updateBlogAdminView.UpdateBlogTranslation.shortDesc");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.Description) ? "" : updateBlogAdminView.UpdateBlogTranslation.Description.ToString()), "updateBlogAdminView.UpdateBlogTranslation.description");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.DateUpdated.ToString()) ? "" : updateBlogAdminView.UpdateBlog.DateUpdated.ToString()), "updateBlogAdminView.UpdateBlog.DateUpdated");
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.DateActiveForm.ToString()) ? "" : updateBlogAdminView.UpdateBlog.DateActiveForm.ToString()), "updateBlogAdminView.UpdateBlog.dateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.DateTimeActiveTo.ToString()) ? "" : updateBlogAdminView.UpdateBlog.DateTimeActiveTo.ToString()), "updateBlogAdminView.UpdateBlog.dateTimeActiveTo");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.Active.ToString()) ? "" : updateBlogAdminView.UpdateBlog.Active.ToString()), "updateBlogAdminView.UpdateBlog.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.Popular.ToString()) ? "" : updateBlogAdminView.UpdateBlog.Popular.ToString()), "updateBlogAdminView.UpdateBlog.popular");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.MetaDesc.ToString()) ? "" : updateBlogAdminView.UpdateBlogTranslation.MetaDesc.ToString()), "updateBlogAdminView.UpdateBlogTranslation.metaDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.MetaDesc) ? "" : updateBlogAdminView.UpdateBlogTranslation.MetaDesc), "updateBlogAdminView.UpdateBlogTranslation.metaDesc");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.MetaKey.ToString()) ? "" : updateBlogAdminView.UpdateBlogTranslation.MetaKey.ToString()), "updateBlogAdminView.UpdateBlogTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlogTranslation.MetaKey) ? "" : updateBlogAdminView.UpdateBlogTranslation.MetaKey), "updateBlogAdminView.UpdateBlogTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateBlogAdminView.UpdateBlog.UserName) ? "" : updateBlogAdminView.UpdateBlog.UserName), "updateBlogAdminView.UpdateBlog.userName");
 
             var response = await client.PutAsync($"/api/Blogs/{id}?culture={culture}", requestContent);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<BlogTranslationDto> GetBlogTranslationnById(Guid id)
+        public async Task<BlogTranslationDto> GetBlogTranslationById(Guid id)
         {
             return await GetAsync<BlogTranslationDto>($"/api/Blogs/language/{id}");
         }
@@ -187,12 +189,12 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync($"/api/Blogs/language/create", httpContent);
+            var response = await client.PostAsync($"/api/Blogs/language", httpContent);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateBlogTranslationn(Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto)
+        public async Task<bool> UpdateBlogTranslation(Guid languageId, UpdateBlogTranslationDto updateBlogTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 

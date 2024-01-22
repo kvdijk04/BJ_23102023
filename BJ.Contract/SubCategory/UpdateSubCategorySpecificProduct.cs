@@ -6,6 +6,8 @@
 
         public Guid ProductId { get; set; }
         public bool Active { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
+        public string UserName { get;set; }
     }
 }

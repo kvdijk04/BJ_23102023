@@ -1,10 +1,10 @@
-﻿@using BJ.Contract.StoreLocation;
+﻿@using BJ.Contract.ViewModel;
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@model CreateStoreLocationDto
+@model CreateStoreLocationAdminView
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="page-header">
@@ -55,23 +55,33 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên cửa hàng</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên cửa hàng" asp-for="@Model.Name" required>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên cửa hàng" asp-for="@Model.CreateStoreLocationTranslation.Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="sort">Thứ tự </label>
+                        <input type="number" min="1" class="form-control" id="sort" placeholder="Thứ tự" asp-for="@Model.CreateStoreLocationDto.Sort">
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <div class="switch m-r-10">
-                            <input type="checkbox" id="switch-3" value="true" asp-for="@Model.Closed">
+                            <input type="checkbox" id="switch-3" value="true" asp-for="@Model.CreateStoreLocationDto.Closed">
                             <label for="switch-3"></label>
                         </div>
                         <label>Đóng cửa</label>
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <div class="switch m-r-10">
-                            <input type="checkbox" id="switch-4" value="true" asp-for="@Model.Repaired">
+                            <input type="checkbox" id="switch-4" value="true" asp-for="@Model.CreateStoreLocationDto.Repaired">
                             <label for="switch-4"></label>
                         </div>
                         <label>Sửa chữa</label>
                     </div>
-
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" id="switch-5" value="true" asp-for="@Model.CreateStoreLocationDto.OpeningSoon">
+                            <label for="switch-5"></label>
+                        </div>
+                        <label>Sắp khai trương</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,19 +108,19 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Địa chỉ</label>
-                        <input type="text" class="form-control" id="address" placeholder="Địa chỉ" asp-for="@Model.Address" required>
+                        <input type="text" class="form-control" id="address" placeholder="Địa chỉ" asp-for="@Model.CreateStoreLocationTranslation.Address" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Thành phố</label>
-                        <input type="text" class="form-control" id="city" placeholder="Thành phố<" asp-for="@Model.City"required>
+                        <input type="text" class="form-control" id="city" placeholder="Thành phố<" asp-for="@Model.CreateStoreLocationTranslation.City" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Lat</label>
-                        <input type="number" class="form-control" id="Lat" step="0.0000000001" placeholder="Lat" asp-for="@Model.Latitude" required>
+                        <input type="number" class="form-control" id="Lat" step="0.0000000001" placeholder="Lat" asp-for="@Model.CreateStoreLocationDto.Latitude" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">LongLat</label>
-                        <input type="number" class="form-control" id="LongLat" step="0.0000000001" placeholder="LongLat" asp-for="@Model.Longitude" required>
+                        <input type="number" class="form-control" id="LongLat" step="0.0000000001" placeholder="LongLat" asp-for="@Model.CreateStoreLocationDto.Longitude" required>
                     </div>
                 </div>
             </div>

@@ -77,6 +77,8 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create(CreateSizeDto createSizeDto)
         {
+            createSizeDto.UserName = User.Identity.Name;
+
             var a = await _sizeServiceConnection.CreateSize(createSizeDto);
             if (a == true)
             {
@@ -115,7 +117,10 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id, UpdateSizeDto updateSizeDto)
         {
+            updateSizeDto.UserName = User.Identity.Name;
+
             var a = await _sizeServiceConnection.UpdateSize(id, updateSizeDto);
+
             if (a == true)
             {
                 _notyfService.Success("Cập nhật thành công");

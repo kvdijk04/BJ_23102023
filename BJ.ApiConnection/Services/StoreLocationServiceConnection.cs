@@ -1,5 +1,9 @@
 ﻿using BJ.Application.Ultities;
+using BJ.Contract.Size;
 using BJ.Contract.StoreLocation;
+using BJ.Contract.Translation.Store;
+using BJ.Contract.ViewModel;
+using BJ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,13 +15,19 @@ namespace BJ.ApiConnection.Services
 {
     public interface IStoreLocationServiceConnection
     {
-        public Task<IEnumerable<StoreLocationDto>> GetAllStoreLocations();
+        public Task<IEnumerable<StoreLocationDto>> GetAllStoreLocations(string languageId);
         public Task<PagedViewModel<StoreLocationDto>> GetPagingStoreLocation([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<StoreLocationDto> GetStoreById(int id);
+        Task<StoreLocationOpenHourDto> GetStoreTimeLineById(int id);
 
-        Task<bool> CreateStoreLocation(CreateStoreLocationDto createStoreLocationDto);
-        Task<bool> UpdateStoreLocation(int id, UpdateStoreLocationDto updateStoreLocationDto);
+        Task<bool> CreateStoreLocation(CreateStoreLocationAdminView createStoreLocationAdminView);
+        Task<bool> UpdateStoreLocation(int id, UpdateStoreLocationAdminView updateStoreLocationAdminView);
+        Task<bool> CreateStoreLocationTimeLine(CreateStoreLocationOpenHourDto createStoreLocationTimeLineDto);
+        Task<bool> UpdateStoreLocationTimeLine(int id, UpdateStoreLocationOpenHourDto updateStoreLocationTimeLineDto);
+        public Task<StoreLocationTranslationDto> GetStoreLocationTranslationById(Guid id);
+        Task<bool> CreateLanguage(CreateStoreLocationTranslationDto createStoreLocationTranslationDto);
 
+        Task<bool> UpdateStoreLocationTranslation(Guid id, UpdateStoreLocationTranslationDto updateStoreLocationTranslationDto);
     }
     public class StoreLocationServiceConnection : BaseApiClient, IStoreLocationServiceConnection
     {
@@ -33,7 +43,7 @@ namespace BJ.ApiConnection.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> CreateStoreLocation(CreateStoreLocationDto createStoreLocationDto)
+        public async Task<bool> CreateStoreLocation(CreateStoreLocationAdminView createStoreLocationAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -46,38 +56,43 @@ namespace BJ.ApiConnection.Services
 
             var requestContent = new MultipartFormDataContent();
 
-            if (createStoreLocationDto.ImageStore != null)
+            if (createStoreLocationAdminView.ImageStore != null)
             {
                 byte[] data;
 
-                using (var br = new BinaryReader(createStoreLocationDto.ImageStore.OpenReadStream()))
+                using (var br = new BinaryReader(createStoreLocationAdminView.ImageStore.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)createStoreLocationDto.ImageStore.OpenReadStream().Length);
+                    data = br.ReadBytes((int)createStoreLocationAdminView.ImageStore.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
 
-                requestContent.Add(bytes, "createStoreLocationDto.ImageStore", createStoreLocationDto.ImageStore.FileName);
+                requestContent.Add(bytes, "createStoreLocationAdminView.ImageStore", createStoreLocationAdminView.ImageStore.FileName);
             }
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.Address) ? "" : createStoreLocationDto.Address.ToString()), "createStoreLocationDto.Address");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.Name) ? "" : createStoreLocationDto.Name.ToString()), "createStoreLocationDto.Name");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationTranslation.Address) ? "" : createStoreLocationAdminView.CreateStoreLocationTranslation.Address), "createStoreLocationAdminView.CreateStoreLocationTranslation.Address");
+            
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationTranslation.Name) ? "" : createStoreLocationAdminView.CreateStoreLocationTranslation.Name), "createStoreLocationAdminView.CreateStoreLocationTranslation.Name");
 
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationTranslation.City) ? "" : createStoreLocationAdminView.CreateStoreLocationTranslation.City), "createStoreLocationAdminView.CreateStoreLocationTranslation.City");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.IconPath) ? "" : createStoreLocationDto.IconPath.ToString()), "createStoreLocationDto.IconPath");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.IconPath) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.IconPath), "createStoreLocationAdminView.CreateStoreLocationDto.IconPath");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.Closed.ToString()) ? "" : createStoreLocationDto.Closed.ToString()), "createStoreLocationDto.Closed");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.Closed.ToString()) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.Closed.ToString()), "createStoreLocationAdminView.CreateStoreLocationDto.Closed");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.Repaired.ToString()) ? "" : createStoreLocationDto.Repaired.ToString()), "createStoreLocationDto.Repaired");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.Repaired.ToString()) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.Repaired.ToString()), "createStoreLocationAdminView.CreateStoreLocationDto.Repaired");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.City) ? "" : createStoreLocationDto.City), "createStoreLocationDto.City");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.Latitude.ToString()) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.Latitude.ToString()), "createStoreLocationAdminView.CreateStoreLocationDto.Latitude");
 
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.Longitude.ToString()) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.Longitude.ToString()), "createStoreLocationAdminView.CreateStoreLocationDto.Longitude");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.Latitude.ToString()) ? "" : createStoreLocationDto.Latitude.ToString()), "createStoreLocationDto.Latitude");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.Sort.ToString()) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.Sort.ToString()), "createStoreLocationAdminView.CreateStoreLocationDto.Sort");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationDto.Longitude.ToString()) ? "" : createStoreLocationDto.Longitude.ToString()), "createStoreLocationDto.Longitude");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.OpeningSoon.ToString()) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.OpeningSoon.ToString()), "createStoreLocationAdminView.CreateStoreLocationDto.OpeningSoon");
 
-            var json = JsonConvert.SerializeObject(createStoreLocationDto);
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createStoreLocationAdminView.CreateStoreLocationDto.UserName) ? "" : createStoreLocationAdminView.CreateStoreLocationDto.UserName), "createStoreLocationAdminView.CreateStoreLocationDto.UserName");
+
+            var json = JsonConvert.SerializeObject(createStoreLocationAdminView);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -88,9 +103,28 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<IEnumerable<StoreLocationDto>> GetAllStoreLocations()
+        public async Task<bool> CreateStoreLocationTimeLine(CreateStoreLocationOpenHourDto createStoreLocationTimeLineDto)
         {
-            return await GetListAsync<StoreLocationDto>($"/api/StoreLocations");
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(createStoreLocationTimeLineDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync($"/api/StoreLocations/openinghours", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<IEnumerable<StoreLocationDto>> GetAllStoreLocations(string languageId)
+        {
+            return await GetListAsync<StoreLocationDto>($"/api/StoreLocations?languageId={languageId}");
 
         }
 
@@ -119,7 +153,12 @@ namespace BJ.ApiConnection.Services
             return await GetAsync<StoreLocationDto>($"/api/StoreLocations/{id}");
         }
 
-        public async Task<bool> UpdateStoreLocation(int id, UpdateStoreLocationDto updateStoreLocationDto)
+        public async Task<StoreLocationOpenHourDto> GetStoreTimeLineById(int id)
+        {
+            return await GetAsync<StoreLocationOpenHourDto>($"/api/StoreLocations/openinghours/{id}");
+        }
+
+        public async Task<bool> UpdateStoreLocation(int id, UpdateStoreLocationAdminView updateStoreLocationAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -132,48 +171,113 @@ namespace BJ.ApiConnection.Services
 
             var requestContent = new MultipartFormDataContent();
 
-            if (updateStoreLocationDto.ImageStore != null)
+            if (updateStoreLocationAdminView.ImageStore != null)
             {
                 byte[] data;
 
-                using (var br = new BinaryReader(updateStoreLocationDto.ImageStore.OpenReadStream()))
+                using (var br = new BinaryReader(updateStoreLocationAdminView.ImageStore.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)updateStoreLocationDto.ImageStore.OpenReadStream().Length);
+                    data = br.ReadBytes((int)updateStoreLocationAdminView.ImageStore.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
 
-                requestContent.Add(bytes, "updateStoreLocationDto.ImageStore", updateStoreLocationDto.ImageStore.FileName);
+                requestContent.Add(bytes, "updateStoreLocationAdminView.ImageStore", updateStoreLocationAdminView.ImageStore.FileName);
             }
-            if (updateStoreLocationDto.ImagePath != null)
+            if (updateStoreLocationAdminView.UpdateStoreLocationDto.ImagePath != null)
             {
-                requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.ImagePath) ? "" : updateStoreLocationDto.ImagePath.ToString()), "updateStoreLocationDto.ImagePath");
+                requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.ImagePath) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.ImagePath.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.ImagePath");
 
             }
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Address) ? "" : updateStoreLocationDto.Address.ToString()), "updateStoreLocationDto.Address");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Name) ? "" : updateStoreLocationDto.Name.ToString()), "updateStoreLocationDto.Name");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.Address) ? "" : updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.Address), "updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.Address");
+            
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.Name) ? "" : updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.Name), "updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.Name");
+            
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.City) ? "" : updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.City), "updateStoreLocationAdminView.UpdateStoreLocationTranslationDto.City");
 
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.IconPath) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.IconPath), "updateStoreLocationAdminView.UpdateStoreLocationDto.IconPath");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.IconPath) ? "" : updateStoreLocationDto.IconPath.ToString()), "updateStoreLocationDto.IconPath");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.Closed.ToString()) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.Closed.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.Closed");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Closed.ToString()) ? "" : updateStoreLocationDto.Closed.ToString()), "updateStoreLocationDto.Closed");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.Repaired.ToString()) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.Repaired.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.Repaired");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Repaired.ToString()) ? "" : updateStoreLocationDto.Repaired.ToString()), "updateStoreLocationDto.Repaired");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.Latitude.ToString()) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.Latitude.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.Latitude");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.City) ? "" : updateStoreLocationDto.City), "updateStoreLocationDto.City");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.Longitude.ToString()) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.Longitude.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.Longitude");
 
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.Sort.ToString()) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.Sort.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.Sort");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Latitude.ToString()) ? "" : updateStoreLocationDto.Latitude.ToString()), "updateStoreLocationDto.Latitude");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.OpeningSoon.ToString()) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.OpeningSoon.ToString()), "updateStoreLocationAdminView.UpdateStoreLocationDto.OpeningSoon");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationDto.Longitude.ToString()) ? "" : updateStoreLocationDto.Longitude.ToString()), "updateStoreLocationDto.Longitude");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateStoreLocationAdminView.UpdateStoreLocationDto.UserName) ? "" : updateStoreLocationAdminView.UpdateStoreLocationDto.UserName), "updateStoreLocationAdminView.UpdateStoreLocationDto.UserName");
 
-            var json = JsonConvert.SerializeObject(updateStoreLocationDto);
+            var json = JsonConvert.SerializeObject(updateStoreLocationAdminView);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PutAsync($"/api/StoreLocations/{id}", requestContent);
 
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UpdateStoreLocationTimeLine(int id, UpdateStoreLocationOpenHourDto updateStoreLocationTimeLineDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(updateStoreLocationTimeLineDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/StoreLocations/openinghours/{id}", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> CreateLanguage(CreateStoreLocationTranslationDto createStoreLocationTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(createStoreLocationTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync($"/api/StoreLocations/language", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
+        public async Task<bool> UpdateStoreLocationTranslation(Guid id, UpdateStoreLocationTranslationDto updateStoreLocationTranslationDto)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(updateStoreLocationTranslationDto);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/StoreLocations/language/{id}", httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
+        public async Task<StoreLocationTranslationDto> GetStoreLocationTranslationById(Guid id)
+        {
+            return await GetAsync<StoreLocationTranslationDto>($"/api/StoreLocations/language/{id}");
         }
     }
 }

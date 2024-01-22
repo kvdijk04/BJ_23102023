@@ -80,6 +80,7 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create(CreateAccountDto createAccountDto)
         {
+            createAccountDto.UserName = User.Identity.Name;
             var a = await _accountServiceConnection.CreateAccount(createAccountDto);
             if (a == true)
             {
@@ -118,6 +119,8 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Edit(Guid id, UpdateAccountDto updateAccountDto)
         {
+            updateAccountDto.UserName = User.Identity.Name;
+
             var a = await _accountServiceConnection.UpdateAccount(id, updateAccountDto);
             if (a == true)
             {

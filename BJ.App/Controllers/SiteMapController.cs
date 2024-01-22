@@ -1,4 +1,5 @@
 ﻿using BJ.ApiConnection.Services;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -23,31 +24,33 @@ namespace BJ.App.Controllers
         {
             return $"{(Request.IsHttps ? "https" : "http")}://{Request.Host.ToString()}";
         }
-        [Route("Sitemap.xml")]
+        [Route("sitemap.xml")]
         public async Task<IActionResult> Index()
         {
             string baseUrl = GetHost();
             List<string> ls = new List<string>();
             string pathname = null;
-
-
+            ls.Add(baseUrl + "/vi");
             //thêm các danh sách sitemap
             ls.Add(baseUrl + "/vi/ve-boost-juice");
-            //ls.Add(baseUrl + "/vi/thuc-uong.xml");
-            ls.Add(baseUrl + "/vi/cua-hang");
-            ls.Add(baseUrl + "/vi/thuc-uong");
-
-            ls.Add(baseUrl + "/promotion.xml");
-            ls.Add(baseUrl + "/vi/vibe.html");
-            ls.Add(baseUrl + "/blog.xml");
-            ls.Add(baseUrl + "/news.xml");
             ls.Add(baseUrl + "/vi/lien-he");
-            ls.Add(baseUrl + "/en/drinks");
+            ls.Add(baseUrl + "/vi/thuc-uong");
+            ls.Add(baseUrl + "/vi/cua-hang");
+            ls.Add(baseUrl + "/vi/vibe");
+            ls.Add(baseUrl + "/vi/song-khoe");
+            ls.Add(baseUrl + "/vi/tin-tuc");
+            ls.Add(baseUrl + "/vi/khuyen-mai");
 
+            ls.Add(baseUrl + "/en");
             ls.Add(baseUrl + "/en/about");
-            ls.Add(baseUrl + "/en/stores");
-            ls.Add(baseUrl + "/en/vibe.html");
             ls.Add(baseUrl + "/en/contact");
+            ls.Add(baseUrl + "/en/drinks");
+            ls.Add(baseUrl + "/en/stores");
+            ls.Add(baseUrl + "/en/vibe");
+            ls.Add(baseUrl + "/en/promotion");
+            ls.Add(baseUrl + "/en/wellbeing");
+            ls.Add(baseUrl + "/en/news");
+
 
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("<?xml version=\'1.0\' encoding=\'UTF-8\'?>");
@@ -89,7 +92,7 @@ namespace BJ.App.Controllers
                 string link = "<loc>" + item + "</loc>";
                 stringBuilder.AppendLine("<url>");
                 stringBuilder.AppendLine(link);
-                stringBuilder.AppendLine("<lastmod>" + DateTime.Now + "</lastmod>");
+                stringBuilder.AppendLine("<lastmod>" + DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz") + "</lastmod>");
                 stringBuilder.AppendLine("</url>");
             }
 
@@ -128,7 +131,7 @@ namespace BJ.App.Controllers
         //        string pathname = null;
         //        if (language == "vi") { pathname = "khuyen-mai"; } else { pathname = "promotion"; };
 
-        //        var listPromotion = await _newsServiceConnection.GetPromotions(language);
+        //        var listPromotion = await _newsServiceConnection.GetNews(language,false,true);
         //        foreach (var item in listPromotion)
         //        {
         //            sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias + ".html", modified: DateTime.Now, changeFrequency: ChangeFrequency.Monthly, priority: 0.9);
@@ -171,7 +174,7 @@ namespace BJ.App.Controllers
         //        string pathname = null;
         //        if (language == "vi") { pathname = "tin-tuc"; } else { pathname = "news"; };
 
-        //        var listPromotion = await _newsServiceConnection.GetAllNews(language, false);
+        //        var listPromotion = await _newsServiceConnection.GetNews(language, false,false);
         //        foreach (var item in listPromotion)
         //        {
         //            sitemapBuilder.AddUrl(GetHost() + "/" + language + "/" + pathname + "/" + item.Id + "/" + item.Alias + ".html", modified: DateTime.Now, changeFrequency: ChangeFrequency.Weekly, priority: 0.9);

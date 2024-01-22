@@ -1,6 +1,7 @@
 ﻿using BJ.Application.Ultities;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,13 +18,13 @@ namespace BJ.ApiConnection.Services
 
         public Task<PagedViewModel<CategoryDto>> GetPagingCategory([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<CategoryDto> GetCategoryById(Guid id);
-        Task<bool> CreateCategory(CreateCategoryDto createCategoryDto);
-        Task<bool> UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto);
-        public Task<CategoryTranslationDto> GetCategoryTranslationnById(Guid id);
+        Task<bool> CreateCategory(CreateCategoryAdminView createCategoryAdminView);
+        Task<bool> UpdateCategory(Guid id, UpdateCategoryAdminView updateCategoryAdminView);
+        public Task<CategoryTranslationDto> GetCategoryTranslationById(Guid id);
 
         Task<bool> CreateLanguage(CreateCategoryTranslationDto createCategoryTranslationDto);
 
-        Task<bool> UpdateCategoryTranslationn(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto);
+        Task<bool> UpdateCategoryTranslation(Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto);
 
     }
     public class CategoryServiceConnection : BaseApiClient, ICategoryServiceConnection
@@ -44,7 +45,7 @@ namespace BJ.ApiConnection.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task<bool> CreateCategory(CreateCategoryAdminView createCategoryAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -56,35 +57,34 @@ namespace BJ.ApiConnection.Services
 
 
             var requestContent = new MultipartFormDataContent();
-            if (createCategoryDto.Image != null)
+            if (createCategoryAdminView.Image != null)
             {
                 byte[] data;
 
-                using (var br = new BinaryReader(createCategoryDto.Image.OpenReadStream()))
+                using (var br = new BinaryReader(createCategoryAdminView.Image.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)createCategoryDto.Image.OpenReadStream().Length);
+                    data = br.ReadBytes((int)createCategoryAdminView.Image.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
 
-                requestContent.Add(bytes, "createCategoryDto.Image", createCategoryDto.Image.FileName);
+                requestContent.Add(bytes, "createCategoryAdminView.Image", createCategoryAdminView.Image.FileName);
             }
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.CatName) ? "" : createCategoryDto.CatName.ToString()), "createCategoryDto.catName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryTranslationDto.CatName) ? "" : createCategoryAdminView.CreateCategoryTranslationDto.CatName), "createCategoryAdminView.CreateCategoryTranslationDto.catName");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.Description) ? "" : createCategoryDto.Description.ToString()), "createCategoryDto.description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryTranslationDto.Description) ? "" : createCategoryAdminView.CreateCategoryTranslationDto.Description), "createCategoryAdminView.CreateCategoryTranslationDto.description");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.Active.ToString()) ? "" : createCategoryDto.Active.ToString()), "createCategoryDto.active");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryDto.Active.ToString()) ? "" : createCategoryAdminView.CreateCategoryDto.Active.ToString()), "createCategoryAdminView.CreateCategoryDto.active");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryDto.Sort.ToString()) ? "" : createCategoryAdminView.CreateCategoryDto.Sort.ToString()), "createCategoryAdminView.CreateCategoryDto.sort");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.Alias) ? "" : createCategoryDto.Alias.ToString()), "createCategoryDto.alias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryTranslationDto.Alias) ? "" : createCategoryAdminView.CreateCategoryTranslationDto.Alias.ToString()), "createCategoryAdminView.CreateCategoryTranslationDto.alias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryDto.DateActiveForm.ToString()) ? "" : createCategoryAdminView.CreateCategoryDto.DateActiveForm.ToString()), "createCategoryAdminView.CreateCategoryDto.DateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryDto.DateTimeActiveTo.ToString()) ? "" : createCategoryAdminView.CreateCategoryDto.DateTimeActiveTo.ToString()), "createCategoryAdminView.CreateCategoryDto.DateTimeActiveTo");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryAdminView.CreateCategoryDto.UserName) ? "" : createCategoryAdminView.CreateCategoryDto.UserName), "createCategoryAdminView.CreateCategoryDto.userName");
 
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.MetaDesc.ToString()) ? "" : createCategoryDto.MetaDesc.ToString()), "createCategoryDto.metaDesc");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createCategoryDto.MetaKey.ToString()) ? "" : createCategoryDto.MetaKey.ToString()), "createCategoryDto.metaKey");
-
-            var json = JsonConvert.SerializeObject(createCategoryDto);
+            var json = JsonConvert.SerializeObject(createCategoryAdminView);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -107,7 +107,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync($"/api/Categories/language/create", httpContent);
+            var response = await client.PostAsync($"/api/Categories/language", httpContent);
 
             return response.IsSuccessStatusCode;
         }
@@ -130,7 +130,7 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<CategoryTranslationDto> GetCategoryTranslationnById(Guid id)
+        public async Task<CategoryTranslationDto> GetCategoryTranslationById(Guid id)
         {
             return await GetAsync<CategoryTranslationDto>($"/api/Categories/language/{id}");
         }
@@ -155,7 +155,7 @@ namespace BJ.ApiConnection.Services
             return cat;
         }
 
-        public async Task<bool> UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto)
+        public async Task<bool> UpdateCategory(Guid id, UpdateCategoryAdminView updateCategoryAdminView)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -170,35 +170,35 @@ namespace BJ.ApiConnection.Services
 
             byte[] data;
 
-            if (updateCategoryDto.Image != null)
+            if (updateCategoryAdminView.Image != null)
             {
-                using (var br = new BinaryReader(updateCategoryDto.Image.OpenReadStream()))
+                using (var br = new BinaryReader(updateCategoryAdminView.Image.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)updateCategoryDto.Image.OpenReadStream().Length);
+                    data = br.ReadBytes((int)updateCategoryAdminView.Image.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
 
-                requestContent.Add(bytes, "updateCategoryDto.Image", updateCategoryDto.Image.FileName);
+                requestContent.Add(bytes, "updateCategoryAdminView.UpdateCategory.Image", updateCategoryAdminView.Image.FileName);
             }
+            if (updateCategoryAdminView.Image == null)
+            {
+                requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategory.ImagePath) ? "" : updateCategoryAdminView.UpdateCategory.ImagePath), "updateCategoryAdminView.UpdateCategory.ImagePath");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.ImagePath) ? "" : updateCategoryDto.ImagePath.ToString()), "updateCategoryDto.imagePath");
-
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.CatName) ? "" : updateCategoryDto.CatName.ToString()), "updateCategoryDto.catName");
-
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.Description) ? "" : updateCategoryDto.Description.ToString()), "updateCategoryDto.description");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.Active.ToString()) ? "" : updateCategoryDto.Active.ToString()), "updateCategoryDto.active");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.Alias) ? "" : updateCategoryDto.Alias.ToString()), "updateCategoryDto.alias");
+            }
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategoryTranslationDto.CatName) ? "" : updateCategoryAdminView.UpdateCategoryTranslationDto.CatName), "updateCategoryAdminView.UpdateCategoryTranslationDto.catName");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.MetaDesc.ToString()) ? "" : updateCategoryDto.MetaDesc.ToString()), "updateCategoryDto.metaDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategoryTranslationDto.Description) ? "" : updateCategoryAdminView.UpdateCategoryTranslationDto.Description), "updateCategoryAdminView.UpdateCategoryTranslationDto.description");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryDto.MetaKey.ToString()) ? "" : updateCategoryDto.MetaKey.ToString()), "updateCategoryDto.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategory.Active.ToString()) ? "" : updateCategoryAdminView.UpdateCategory.Active.ToString()), "updateCategoryAdminView.UpdateCategory.active");
 
-            var json = JsonConvert.SerializeObject(updateCategoryDto);
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategoryTranslationDto.Alias) ? "" : updateCategoryAdminView.UpdateCategoryTranslationDto.Alias), "updateCategoryAdminView.UpdateCategoryTranslationDto.alias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategory.Sort.ToString()) ? "" : updateCategoryAdminView.UpdateCategory.Sort.ToString()), "updateCategoryAdminView.UpdateCategory.sort");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategory.DateActiveForm.ToString()) ? "" : updateCategoryAdminView.UpdateCategory.DateActiveForm.ToString()), "updateCategoryAdminView.UpdateCategory.dateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategory.DateTimeActiveTo.ToString()) ? "" : updateCategoryAdminView.UpdateCategory.DateTimeActiveTo.ToString()), "updateCategoryAdminView.UpdateCategory.dateTimeActiveTo");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateCategoryAdminView.UpdateCategory.UserName) ? "" : updateCategoryAdminView.UpdateCategory.UserName), "updateCategoryAdminView.UpdateCategory.userName");
+
+            var json = JsonConvert.SerializeObject(updateCategoryAdminView);
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -207,7 +207,7 @@ namespace BJ.ApiConnection.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateCategoryTranslationn(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        public async Task<bool> UpdateCategoryTranslation(Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -221,7 +221,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Categories/{catId}/language/{id}", httpContent);
+            var response = await client.PutAsync($"/api/Categories/language/{id}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

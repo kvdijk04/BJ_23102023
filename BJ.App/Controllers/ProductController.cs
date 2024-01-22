@@ -25,10 +25,10 @@ namespace BJ.App.Controllers
             return View(result);
         }
 
-        public async Task<IActionResult> Detail(Guid proId, string culture, string alias)
+        public async Task<IActionResult> Detail(Guid proId, string language, string alias)
         {
 
-            var product = await _productService.GetUserProductById(proId, culture);
+            var product = await _productService.GetUserProductById(proId, language);
 
             if (product == null)
             {
@@ -39,10 +39,10 @@ namespace BJ.App.Controllers
         }
 
         [Route("/filtercategory", Name = "UserFilterCategory")]
-        public async Task<IActionResult> FilterByCategoryId(Guid catId, string culture,string order, string aliasCat)
+        public async Task<IActionResult> FilterByCategoryId(Guid catId, string language, string order, string aliasCat)
         {
 
-            var rs = await _productService.GetAllProductByCatId(culture, catId);
+            var rs = await _productService.GetAllProductByCatId(language, catId);
 
             if (rs == null)
             {

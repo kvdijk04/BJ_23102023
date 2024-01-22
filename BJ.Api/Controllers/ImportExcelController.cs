@@ -67,11 +67,11 @@ namespace BJ.Api.Controllers
 
                                 //Id = Guid.Parse(worksheet.Cells[row, 1].Value.ToString().Trim()),
                                 Id = Guid.NewGuid(),
-                                CatName = worksheet.Cells[row, 1].Value.ToString().Trim(),
-                                Description = worksheet.Cells[row, 2].Value.ToString().Trim(),
-                                Active = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 3].Value.ToString().Trim())),
-                                MetaDesc = worksheet.Cells[row, 4].Value.ToString().Trim(),
-                                MetaKey = worksheet.Cells[row, 5].Value.ToString().Trim(),
+                                //CatName = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                //Description = worksheet.Cells[row, 2].Value.ToString().Trim(),
+                                //Active = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 3].Value.ToString().Trim())),
+                                //MetaDesc = worksheet.Cells[row, 4].Value.ToString().Trim(),
+                                //MetaKey = worksheet.Cells[row, 5].Value.ToString().Trim(),
 
                             });
                         }
@@ -79,7 +79,7 @@ namespace BJ.Api.Controllers
                 }
                 foreach (var item in createCategoryDtos)
                 {
-                    await _categoryService.CreateCategory(item);
+                    //await _categoryService.CreateCategory(item);
                 }
             }
             if (subCategory == true)
@@ -104,8 +104,8 @@ namespace BJ.Api.Controllers
                             {
 
                                 //Id = Guid.Parse(worksheet.Cells[row, 1].Value.ToString().Trim()),
-                                SubCatName = worksheet.Cells[row, 1].Value.ToString().Trim(),
-                                Description = worksheet.Cells[row, 2].Value.ToString().Trim(),
+                                //SubCatName = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                //Description = worksheet.Cells[row, 2].Value.ToString().Trim(),
                                 Active = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 3].Value.ToString().Trim())),
 
                             });
@@ -114,7 +114,7 @@ namespace BJ.Api.Controllers
                 }
                 foreach (var item in createSubCategoryDtos)
                 {
-                    await _categoryService.CreateSubCategory(item);
+                    //await _categoryService.CreateSubCategory(item);
                 }
             }
             if (size == true)
@@ -186,16 +186,16 @@ namespace BJ.Api.Controllers
                                 CreateProduct = new CreateProductDto()
                                 {
                                     Id = Guid.NewGuid(),
-                                    ProductName = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                    //ProductName = worksheet.Cells[row, 1].Value.ToString().Trim(),
                                     CodeCategory = worksheet.Cells[row, 2].Value.ToString().Trim(),
                                     Discount = Convert.ToInt32(worksheet.Cells[row, 3].Value.ToString().Trim()),
                                     HomeTag = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 4].Value.ToString().Trim())),
                                     BestSeller = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 5].Value.ToString().Trim())),
                                     Active = Convert.ToBoolean(Convert.ToInt32(worksheet.Cells[row, 6].Value.ToString().Trim())),
-                                    ShortDesc = worksheet.Cells[row, 7].Value.ToString().Trim(),
-                                    Description = worksheet.Cells[row, 8].Value.ToString().Trim(),
-                                    MetaDesc = worksheet.Cells[row, 9].Value.ToString().Trim(),
-                                    MetaKey = worksheet.Cells[row, 10].Value.ToString().Trim(),
+                                    //ShortDesc = worksheet.Cells[row, 7].Value.ToString().Trim(),
+                                    //Description = worksheet.Cells[row, 8].Value.ToString().Trim(),
+                                    //MetaDesc = worksheet.Cells[row, 9].Value.ToString().Trim(),
+                                    //MetaKey = worksheet.Cells[row, 10].Value.ToString().Trim(),
                                 },
                                 Size = sizeSpecificProduct,
                                 SubCat = subCatSpecificProduct,

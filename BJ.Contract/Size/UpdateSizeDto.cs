@@ -8,6 +8,7 @@
         public int? Price { get; set; }
         public DateTime? Updated { get; set; }
         public bool Active { get; set; }
+        public string UserName { get; set; }
 
     }
 }

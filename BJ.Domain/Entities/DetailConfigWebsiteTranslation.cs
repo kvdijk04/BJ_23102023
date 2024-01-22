@@ -21,5 +21,7 @@ namespace BJ.Domain.Entities
         public DetailConfigWebsite DetailConfigWeb { get; set; }
 
         public Language Language { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

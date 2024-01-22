@@ -77,10 +77,10 @@ namespace BJ.App.Controllers
 
         //    return View();
         //}
-        //public async Task<IActionResult> Instruction()
-        //{
-        //    return View();
-        //}
+        public ActionResult Instruction()
+        {
+            return View();
+        }
         //public async Task<IActionResult> TermOfUse(string culture)
         //{
 

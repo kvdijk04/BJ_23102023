@@ -33,9 +33,12 @@
                     <thead>
                         <tr>
                             <th>Code</th>
+                            <th>Thứ tự</th>
                             <th style="width:120px">Ảnh</th>
                             <th>Loại</th>
                             <th>Hoạt động</th>
+                            <th>Bắt đầu</th>
+                            <th>Kết thức</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -48,6 +51,7 @@
                                     <td>
                                         @item.Code
                                     </td>
+                                    <td>@item.Sort</td>
                                     <td>
                                         <div class="d-flex align-items-center" style="background-color:gray;align-items:center">
                                             <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageCategory/@item.ImagePath" style="max-width: 120px" alt="">
@@ -68,6 +72,12 @@
                                             }
 
                                         </div>
+                                    </td>
+                                    <td>
+                                        @item.DateActiveForm
+                                    </td>
+                                    <td>
+                                        @item.DateTimeActiveTo
                                     </td>
                                     <td class="text-right">
                                         <button type="button" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="location.href='/chi-tiet-loai/@item.Id'">

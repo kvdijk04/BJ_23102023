@@ -6,10 +6,6 @@ namespace BJ.Domain.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-
         public string IconPath { get; set; }
         public string ImagePath { get; set; }
         public float Latitude { get; set; }
@@ -20,7 +16,13 @@ namespace BJ.Domain.Entities
 
         public bool Repaired { get; set; }
 
-        public string Code { get; set; }
+        public bool OpeningSoon {  get; set; }
+        public int? Sort { get; set; }
 
+        public string Code { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public List<StoreLocationOpenHour> StoreLocationOpenHours { get; set; }
+        public List<StoreLocationTranslation> StoreLocationTranslations { get; set; }
     }
 }

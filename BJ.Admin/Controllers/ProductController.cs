@@ -105,18 +105,27 @@ namespace BJ.Admin.Controllers
                 {
                     Active = result.Active,
                     BestSeller = result.BestSeller,
-                    Description = result.Description,
                     HomeTag = result.HomeTag,
                     ImagePathCup = result.ImagePathCup,
                     ImagePathHero = result.ImagePathHero,
                     ImagePathIngredients = result.ImagePathIngredients,
-                    MetaDesc = result.MetaDesc,
-                    MetaKey = result.MetaKey,
-                    ProductName = result.ProductName,
-                    ShortDesc = result.ShortDesc,
-                    CategoryId = result.CategoryId,
+                    Discount = result.Discount,
+                    Sort = result.Sort,
+                    DateActiveForm = result.DateActiveForm,
+                    DateTimeActiveTo = result.DateTimeActiveTo,
 
                 },
+                UpdateProductTranslationDto = new()
+                {
+                    ProductName = result.ProductName,
+                    Alias = result.Alias,
+                    Description = result.Description,
+                    ShortDesc = result.ShortDesc,
+                    MetaDesc = result.MetaDesc,
+                    MetaKey = result.MetaKey,
+                    
+                },
+                CategoryId = result.CategoryId,
 
                 SizeSpecificProductDto = result.SizeSpecificProducts.ToList(),
                 SubCategorySpecificProductDtos = result.SubCategorySpecificProductDtos.ToList(),
@@ -127,6 +136,28 @@ namespace BJ.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, [FromForm] UpdateProductAdminView updateProductAdminView)
         {
+            updateProductAdminView.UpdateProductDto.UserName = User.Identity.Name;
+
+            if (updateProductAdminView.UpdateProductDto.DateActiveForm != null && updateProductAdminView.UpdateProductDto.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)updateProductAdminView.UpdateProductDto.DateTimeActiveTo, (DateTime)updateProductAdminView.UpdateProductDto.DateActiveForm);
+
+                if (compareBetweenFromAndTo < 0)
+                {
+
+                    //TempData["Title"] = createAppointmentSlotAdvance.Title;
+                    //TempData["Note"] = createAppointmentSlotAdvance.Note;
+                    //TempData["Description"] = createAppointmentSlotAdvance.Description;
+
+                    //TempData["FromDate"] = createAppointmentSlotAdvance.Start;
+                    //TempData["ToDate"] = createAppointmentSlotAdvance.End;
+                    //TempData["CustomAdd"] = createAppointmentSlotAdvance.TypedSubmit;
+
+
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/cap-nhat-san-pham/"+ id);
+                }
+            }
 
             var listCat = await _categoryService.GetAllCategories();
 
@@ -177,6 +208,27 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create(CreateProductAdminView createProductAdminView)
         {
+            createProductAdminView.CreateProduct.UserName = User.Identity.Name;
+            if (createProductAdminView.CreateProduct.DateActiveForm != null && createProductAdminView.CreateProduct.DateTimeActiveTo != null)
+            {
+                int compareBetweenFromAndTo = DateTime.Compare((DateTime)createProductAdminView.CreateProduct.DateTimeActiveTo, (DateTime)createProductAdminView.CreateProduct.DateActiveForm);
+
+                if (compareBetweenFromAndTo < 0)
+                {
+
+                    //TempData["Title"] = createAppointmentSlotAdvance.Title;
+                    //TempData["Note"] = createAppointmentSlotAdvance.Note;
+                    //TempData["Description"] = createAppointmentSlotAdvance.Description;
+
+                    //TempData["FromDate"] = createAppointmentSlotAdvance.Start;
+                    //TempData["ToDate"] = createAppointmentSlotAdvance.End;
+                    //TempData["CustomAdd"] = createAppointmentSlotAdvance.TypedSubmit;
+
+
+                    _notyfService.Error("Thời gian không hợp lệ");
+                    return Redirect("/tao-moi-san-pham.html");
+                }
+            }
             var size = await _sizeService.GetAllSizes();
             var cat = await _subCategoryService.GetAllSubCategories();
 
@@ -213,7 +265,7 @@ namespace BJ.Admin.Controllers
             ViewBag.ProductName = product.ProductName;
             ViewBag.Id = proId;
             ViewBag.LanguageId = languageId;
-            var r = await _productService.GetProductTranslationnById(languageId);
+            var r = await _productService.GetProductTranslationById(languageId);
             return View(r);
         }
         [Route("chi-tiet-san-pham/{id}/them-moi-ngon-ngu")]
@@ -241,6 +293,8 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> CreateLanguage(Guid id, CreateProductTranslationDto createProductTranslationDto)
         {
             createProductTranslationDto.ProductId = id;
+            createProductTranslationDto.UserName = User.Identity.Name;
+
             var a = await _productService.CreateLanguage(createProductTranslationDto);
 
             if (a == true)
@@ -266,7 +320,7 @@ namespace BJ.Admin.Controllers
             {
                 return Redirect("/dang-nhap.html");
             }
-            var r = await _productService.GetProductTranslationnById(languageId);
+            var r = await _productService.GetProductTranslationById(languageId);
             var product = await _productService.GetProductById(proId);
             ViewBag.ProductName = product.ProductName;
             ViewBag.Id = proId;
@@ -289,7 +343,9 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid proId, Guid languageId, UpdateProductTranslationDto updateProductTranslationDto)
         {
-            var a = await _productService.UpdateProductTranslationn(proId, languageId, updateProductTranslationDto);
+            updateProductTranslationDto.UserName = User.Identity.Name;
+
+            var a = await _productService.UpdateProductTranslation(languageId, updateProductTranslationDto);
             if (a == true)
             {
                 _notyfService.Success("Cập nhật thành công");

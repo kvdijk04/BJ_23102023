@@ -15,9 +15,9 @@ namespace BJ.ApiConnection.Services
     {
         public Task<IEnumerable<ConfigWebDto>> GetAllConfigWebs();
         public Task<PagedViewModel<ConfigWebDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
-        Task<ConfigWebDto> GetConfigWebById(Guid id);
+        Task<ConfigWebDto> GetConfigWebById(int id);
         Task<bool> CreateConfigWeb(CreateConfigWebDto createConfigWebDto);
-        Task<bool> UpdateConfigWeb(Guid id, UpdateConfigWebDto updateConfigWebDto);
+        Task<bool> UpdateConfigWeb(int id, UpdateConfigWebDto updateConfigWebDto);
 
     }
     public class ConfigWebServiceConnection : BaseApiClient, IConfigWebServiceConnection
@@ -59,7 +59,7 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<IEnumerable<ConfigWebDto>> GetAllConfigWebsByCatId(Guid catId)
+        public async Task<IEnumerable<ConfigWebDto>> GetAllConfigWebsByCatId(int catId)
         {
             return await GetListAsync<ConfigWebDto>($"/api/ConfigWebs/catId?catId={catId}");
         }
@@ -85,13 +85,13 @@ namespace BJ.ApiConnection.Services
         }
 
 
-        public async Task<ConfigWebDto> GetConfigWebById(Guid id)
+        public async Task<ConfigWebDto> GetConfigWebById(int id)
         {
             return await GetAsync<ConfigWebDto>($"/api/ConfigWebs/{id}");
 
         }
 
-        public async Task<bool> UpdateConfigWeb(Guid id, UpdateConfigWebDto updateConfigWebDto)
+        public async Task<bool> UpdateConfigWeb(int id, UpdateConfigWebDto updateConfigWebDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 

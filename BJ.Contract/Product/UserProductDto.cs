@@ -16,9 +16,12 @@ namespace BJ.Contract.Product
         public bool Active { get; set; }
         public string Alias { get; set; }
         public string ImagePathCup { get; set; }
-
         public string ImagePathHero { get; set; }
+        public int? Sort { get; set; }
+        public DateTime? DateCreated { get; set; }
 
+        public DateTime? DateActiveForm { get; set; }
+        public DateTime? DateTimeActiveTo { get; set; }
         public string ImagePathIngredients { get; set; }
         public virtual List<SizeSpecificProductDto> SizeSpecificProducts { get; set; }
         public virtual List<UserSubCategorySpecificProductDto> UserSubCategorySpecificProductDto { get; set; }

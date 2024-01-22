@@ -9,5 +9,8 @@
         public bool BestSeller { get; set; }
         public bool Active { get; set; }
         public string Code { get; set; }
+        public int? Sort { get; set; }
+        public DateTime? DateActiveForm { get; set; }
+        public DateTime? DateTimeActiveTo { get; set; }
     }
 }

@@ -1,7 +1,13 @@
-﻿using BJ.Domain;
+﻿using BJ.Contract;
+using BJ.Contract.Enum;
+using BJ.Domain;
 using BJ.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Identity.Client;
+using System;
+using System.Text;
 
 namespace BJ.Persistence.ApplicationContext
 {
@@ -43,14 +49,76 @@ namespace BJ.Persistence.ApplicationContext
         public virtual DbSet<SubCategoryTranslation> SubCategoryTranslations { get; set; }
 
         public virtual DbSet<StoreLocation> StoreLocations { get; set; }
+        public virtual DbSet<StoreLocationOpenHour> StoreLocationOpenHours { get; set; }
+
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<VisitorCounter> VisitorCounters { get; set; }
         public virtual DbSet<ConfigWebsite> ConfigWebs { get; set; }
         public virtual DbSet<DetailConfigWebsite> DetailConfigWebsites { get; set; }
 
         public virtual DbSet<DetailConfigWebsiteTranslation> DetailConfigWebsiteTranslations { get; set; }
+        public virtual DbSet<Audit> AuditLogs { get; set; }
+        public virtual DbSet<StoreLocationTranslation> StoreLocationTranslations { get; set; }
 
+        public virtual async Task<int> SaveChangesAsync(string userId)
+        {
+            OnBeforeSaveChanges(userId);
+            CancellationToken cancellationToken = default(CancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
+            return result;
+        }
 
+        private void OnBeforeSaveChanges(string userId)
+        {
+            ChangeTracker.DetectChanges();
+            var auditEntries = new List<AuditEntry>();
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                    continue;
+                var auditEntry = new AuditEntry(entry);
+                auditEntry.TableName = entry.Entity.GetType().Name;
+                auditEntry.UserId = userId;
+                auditEntries.Add(auditEntry);
+                foreach (var property in entry.Properties)
+                {
+                    string propertyName = property.Metadata.Name;
+                    if (property.Metadata.IsPrimaryKey())
+                    {
+                        auditEntry.KeyValues[propertyName] = property.CurrentValue;
+                        continue;
+                    }
+
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            auditEntry.AuditType = AuditType.Create;
+                            auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            break;
+
+                        case EntityState.Deleted:
+                            auditEntry.AuditType = AuditType.Delete;
+                            auditEntry.OldValues[propertyName] = property.OriginalValue;
+                            break;
+
+                        case EntityState.Modified:
+                            if (property.IsModified)
+                            {
+                                auditEntry.ChangedColumns.Add(propertyName);
+                                auditEntry.AuditType = AuditType.Update;
+                                auditEntry.OldValues[propertyName] = property.OriginalValue;
+                                auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            }
+                            break;
+                    }
+                }
+            }
+            foreach (var auditEntry in auditEntries)
+            {
+                AuditLogs.Add(auditEntry.ToAudit());
+            }
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SizeSpecificEachProduct>().ToTable("SizeSpecificEachProduct").HasKey(sc => new { sc.ProductId, sc.SizeId });
@@ -80,6 +148,9 @@ namespace BJ.Persistence.ApplicationContext
 
             modelBuilder.Entity<Language>().ToTable("Language");
             modelBuilder.Entity<StoreLocation>().ToTable("StoreLocation").Property(sc => sc.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<StoreLocationOpenHour>().ToTable("StoreLocationOpenHour").Property(sc => sc.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<StoreLocationTranslation>().ToTable("StoreLocationTranslation");
+
             modelBuilder.Entity<VisitorCounter>().ToTable("VisitorCounter");
                 //.HasData(
                 //new VisitorCounter

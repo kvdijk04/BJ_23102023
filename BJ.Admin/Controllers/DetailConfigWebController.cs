@@ -88,6 +88,8 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Create(CreateConfigWebAdminView createConfigWebAdminView)
         {
+            createConfigWebAdminView.CreateDetailConfigWebDto.UserName = User.Identity.Name;
+
             var a = await _detailConfigWebServiceConnection.CreateDetailConfigWeb(createConfigWebAdminView);
             if (a == "OK")
             {
@@ -128,6 +130,8 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> Edit(Guid id,UpdateDetailConfigWebDto updateDetailConfigWebDto)
         {
+            updateDetailConfigWebDto.UserName = User.Identity.Name;
+
             var a = await _detailConfigWebServiceConnection.UpdateDetailConfigWeb(id, updateDetailConfigWebDto);
             if (a == "OK")
             {
@@ -156,7 +160,7 @@ namespace BJ.Admin.Controllers
             ViewBag.Id = detailConfigId;
             ViewBag.LanguageId = languageId;
 
-            var r = await _detailConfigWebServiceConnection.GetDetailConfigWebTranslationnById(languageId);
+            var r = await _detailConfigWebServiceConnection.GetDetailConfigWebTranslationById(languageId);
 
             return View(r);
         }
@@ -189,6 +193,8 @@ namespace BJ.Admin.Controllers
         {
             createDetailConfigWebTranslationDto.DetailConfigWebId = detailConfigId;
 
+            createDetailConfigWebTranslationDto.UserName = User.Identity.Name;
+
             var a = await _detailConfigWebServiceConnection.CreateLanguage(createDetailConfigWebTranslationDto);
 
             if (a == true)
@@ -215,7 +221,7 @@ namespace BJ.Admin.Controllers
             }
             var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-            var r = await _detailConfigWebServiceConnection.GetDetailConfigWebTranslationnById(languageId);
+            var r = await _detailConfigWebServiceConnection.GetDetailConfigWebTranslationById(languageId);
             var config = await _detailConfigWebServiceConnection.GetDetailConfigWebById(detailConfigId, culture);
 
             ViewBag.Title = config.Title;
@@ -237,7 +243,9 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(Guid detailConfigId, Guid languageId, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto)
         {
-            var a = await _detailConfigWebServiceConnection.UpdateDetailConfigWebTranslationn(languageId, updateDetailConfigWebTranslationDto);
+            updateDetailConfigWebTranslationDto.UserName = User.Identity.Name;
+
+            var a = await _detailConfigWebServiceConnection.UpdateDetailConfigWebTranslation(languageId, updateDetailConfigWebTranslationDto);
 
             if (a == true)
             {

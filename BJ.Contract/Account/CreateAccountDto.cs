@@ -10,7 +10,7 @@
         public bool Active { get; set; }
         public DateTime? LastLogin { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
+        public string UserChanged { get;set; }
         public int Role { get; set; }
         public AuthorizeRole AuthorizeRole { get; set; }
 

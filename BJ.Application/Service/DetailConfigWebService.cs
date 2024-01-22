@@ -6,6 +6,7 @@ using BJ.Contract.ConfigWeb;
 using BJ.Contract.ConfigWeb.CreateConfigWeb;
 using BJ.Contract.ConfigWeb.UpdateConfigWeb;
 using BJ.Contract.Product;
+using BJ.Contract.StoreLocation;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.Blog;
 using BJ.Contract.Translation.ConfigWeb;
@@ -31,7 +32,7 @@ namespace BJ.Application.Service
 
         Task<PagedViewModel<ConfigWebViewModel>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest);
 
-        Task<DetailConfigWebTranslationDto> GetDetailConfigWebTransalationById(Guid id);
+        Task<DetailConfigWebTranslationDto> GetDetailConfigWebTranslationById(Guid id);
 
         Task CreateTranslateDetailConfigWeb(CreateDetailConfigWebTranslationDto createDetailConfigWebTranslationDto);
         Task UpdateTranslateDetailConfigWeb(Guid id, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto);
@@ -82,13 +83,11 @@ namespace BJ.Application.Service
 
             createDetailConfigWebDto.CreateDetailConfigWebDto.DateCreated = DateTime.Now;
 
-            createDetailConfigWebDto.CreateDetailConfigWebDto.DateUpdated = DateTime.Now;
-
             DetailConfigWebsite detailConfigWeb = _mapper.Map<DetailConfigWebsite>(createDetailConfigWebDto.CreateDetailConfigWebDto);
 
             _context.Add(detailConfigWeb);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createDetailConfigWebDto.CreateDetailConfigWebDto.UserName);
 
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
@@ -106,7 +105,7 @@ namespace BJ.Application.Service
 
             _context.Add(detailConfigWebTranslation);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createDetailConfigWebDto.CreateDetailConfigWebDto.UserName);
 
 
             await transaction.CommitAsync();
@@ -244,13 +243,23 @@ namespace BJ.Application.Service
 
             if (item != null && itemTranslate != null)
             {
+                if (updateDetailConfigWebDto.SortOrder == 0)
+                {
+                    var currentSort = await _context.DetailConfigWebsites.OrderByDescending(x => x.SortOrder).AsNoTracking().ToListAsync();
+
+                    updateDetailConfigWebDto.SortOrder = currentSort[1].SortOrder + 1;
+                }
+                else { if (_context.DetailConfigWebsites.Any(x => x.SortOrder == updateDetailConfigWebDto.SortOrder) == true) {
+                        apiResult.Msg = "Thứ tự này dã được đặt";
+                        return apiResult;
+                } }
 
 
                 updateDetailConfigWebDto.DateUpdated = DateTime.Now;
-               
-                _context.Update(_mapper.Map(updateDetailConfigWebDto, item));
 
-                await _context.SaveChangesAsync();
+                _context.Entry(item).CurrentValues.SetValues(updateDetailConfigWebDto);
+
+                await _context.SaveChangesAsync(updateDetailConfigWebDto.UserName);
 
                 if (updateDetailConfigWebDto.NewPage == true && updateDetailConfigWebDto.Url != itemTranslate.Url && _context.DetailConfigWebsiteTranslations.Any(x => x.Url == updateDetailConfigWebDto.Url) == true)
                 {
@@ -264,10 +273,9 @@ namespace BJ.Application.Service
                     Description = updateDetailConfigWebDto.Description,
                     Url = updateDetailConfigWebDto.Url,
                 };
+                _context.Entry(itemTranslate).CurrentValues.SetValues(updateTranslate);
 
-                _context.Update(_mapper.Map(updateTranslate, itemTranslate));
-
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateDetailConfigWebDto.UserName);
 
                 await transaction.CommitAsync();
 
@@ -301,7 +309,7 @@ namespace BJ.Application.Service
             return configWebDto;
         }
 
-        public async  Task<DetailConfigWebTranslationDto> GetDetailConfigWebTransalationById(Guid id)
+        public async  Task<DetailConfigWebTranslationDto> GetDetailConfigWebTranslationById(Guid id)
         {
             var detailConfigWebTranslate = await _context.DetailConfigWebsiteTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             var detailConfigWebTranslateDto = _mapper.Map<DetailConfigWebTranslationDto>(detailConfigWebTranslate);
@@ -311,14 +319,17 @@ namespace BJ.Application.Service
 
         public async Task CreateTranslateDetailConfigWeb(CreateDetailConfigWebTranslationDto createDetailConfigWebTranslationDto)
         {
+            var exist = _context.DetailConfigWebsiteTranslations.Any(x => x.DetailConfigWebId.Equals(createDetailConfigWebTranslationDto.DetailConfigWebId) && x.LanguageId == createDetailConfigWebTranslationDto.LanguageId);
+            if (exist) return;
+
             createDetailConfigWebTranslationDto.Id = Guid.NewGuid();
 
-
+            createDetailConfigWebTranslationDto.DateCreated  = DateTime.Now;
             DetailConfigWebsiteTranslation detailConfigWeb = _mapper.Map<DetailConfigWebsiteTranslation>(createDetailConfigWebTranslationDto);
 
             _context.Add(detailConfigWeb);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createDetailConfigWebTranslationDto.UserName);
         }
 
         public async Task UpdateTranslateDetailConfigWeb(Guid id, UpdateDetailConfigWebTranslationDto updateDetailConfigWebTranslationDto)
@@ -327,9 +338,11 @@ namespace BJ.Application.Service
 
             if (item != null)
             {
-                _context.Update(_mapper.Map(updateDetailConfigWebTranslationDto, item));
+                updateDetailConfigWebTranslationDto.DateUpdated = DateTime.Now;
 
-                await _context.SaveChangesAsync();
+                _context.Entry(item).CurrentValues.SetValues(updateDetailConfigWebTranslationDto);
+
+                await _context.SaveChangesAsync(updateDetailConfigWebTranslationDto.UserName);
             }
         }
     }

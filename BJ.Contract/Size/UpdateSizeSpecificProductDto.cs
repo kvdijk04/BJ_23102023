@@ -15,13 +15,11 @@
         public string FatSaturated { get; set; }
 
         public string CarbonhydrateSugar { get; set; }
-        public DateTime? DateCreated { get; set; }
-
         public DateTime? DateModified { get; set; }
         public string Sodium { get; set; }
         public bool ActiveSize { get; set; }
 
         public bool ActiveNutri { get; set; }
-
+        public string UserName { get;set; }
     }
 }

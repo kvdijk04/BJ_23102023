@@ -4,6 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+@section Styles {
+    <style>
+        @@media (min-width: 600px) {
+            .formactive {
+                display: flex !important;
+            }
+        }
+    </style>
+}
 @model UpdateNewsAdminView
 @using BJ.Contract.ViewModel;
 @using Microsoft.Extensions.Configuration
@@ -13,8 +22,8 @@
         <h2 class="header-title">Cập nhật tin tức</h2>
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
-                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
-                <a href="/tat-ca-tin-tuc.html " class="breadcrumb-item">Tất cả tin tức</a>
+                <a href="/tat-ca-tin-tuc.html" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Tất cả tin tức</a>
+
 
                 <span class="breadcrumb-item active">Cập nhật tin tức</span>
             </nav>
@@ -27,7 +36,7 @@
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
                 </div> *@
                 <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: @Model.UpdateNewsTranslation.Title </h4><a href="/chi-tiet-tin-tuc/@ViewBag.NewsId" style="text-decoration:underline">Xem chi tiết</a>
+                    <h4 class="m-b-0">Tiêu đề: @Model.UpdateNewsTranslation.Title </h4><a href="/chi-tiet-tin-tuc/@ViewBag.NewsId" style="text-decoration:underline">Xem chi tiết</a>
                     @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
                     *@
                     <span class="text-muted m-b-0 catId" hidden>@ViewBag.NewsId</span>
@@ -64,8 +73,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="font-weight-semibold" for="catName">Tên tin tức</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên tin tức" value="@Model.UpdateNewsTranslation.Title" asp-for="@Model.UpdateNewsTranslation.Title" required>
+                        <label class="font-weight-semibold" for="catName">Tiêu đề</label>
+                        <input type="text" class="form-control" id="catName" placeholder="Tiêu đề" value="@Model.UpdateNewsTranslation.Title" asp-for="@Model.UpdateNewsTranslation.Title" required>
                     </div>
                     @if (Model.UpdateNews.Active == true)
                     {
@@ -75,6 +84,21 @@
                                 <label for="switch-3"></label>
                             </div>
                             <label>Kích hoạt</label>
+                        </div>
+                        <div class="row" id="rangeTime">
+                            <div class="col-md-12">
+
+                                <!-- Range Datepicker-->
+                                <div class="form-group">
+                                    <label>Thời gian kích hoạt</label>
+                                    <div class="formactive align-items-center">
+                                        <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.UpdateNews.DateActiveForm" value="@Model.UpdateNews.DateActiveForm">
+                                        <span class="p-h-10">Đến</span>
+                                        <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.UpdateNews.DateTimeActiveTo" value="@Model.UpdateNews.DateTimeActiveTo">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     }
                     else
@@ -86,8 +110,23 @@
                             </div>
                             <label>Kích hoạt</label>
                         </div>
-                    }
+                        <div class="row" id="rangeTime" style="display:none">
+                            <div class="col-md-12">
 
+                                <!-- Range Datepicker-->
+                                <div class="form-group">
+                                    <label>Thời gian kích hoạt</label>
+                                    <div class="formactive align-items-center">
+                                        <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.UpdateNews.DateActiveForm" value="@Model.UpdateNews.DateActiveForm">
+                                        <span class="p-h-10">Đến</span>
+                                        <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.UpdateNews.DateTimeActiveTo" value="@Model.UpdateNews.DateTimeActiveTo">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    
                     @if (Model.UpdateNews.Popular == true)
                     {
                         <div class="form-group d-flex align-items-center">
@@ -219,50 +258,324 @@
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/super-build/ckeditor.js"></script>
+    <script src="~/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script>
+        $("#switch-3").on("click", function () {
 
-        $('#shortDescription').summernote({
-            placeholder: 'Mô tả ngắn',
-
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'hr']],
-                ['view', ['fullscreen', 'codeview']],
-                ['help', ['help']]
-            ],
-            fontNames: ['Roboto', 'Arial', 'Times New Roman', 'Arial Black', 'Courier New',
-                'Helvetica', 'Verdana', 'Garamond', 'Open Sans', 'Didot', 'Tahoma', 'Calibri', 'Courier', 'Montserrat'],
-            tabsize: 2,
-            height: 500,
+            if (($(this).prop("checked")) == false) {
+                $("#rangeTime").hide();
+            } else {
+                $("#rangeTime").show();
+            }
         });
-        $('#Description').summernote({
-            placeholder: 'Mô tả',
+        $('.datepicker-input').datepicker();
 
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'subscript', 'superscript', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'hr']],
-                ['view', ['fullscreen', 'codeview']],
-                ['help', ['help']]
-            ],
-            fontNames: ['Roboto', 'Arial', 'Times New Roman', 'Arial Black', 'Courier New',
-                'Helvetica', 'Verdana', 'Garamond', 'Open Sans', 'Didot', 'Tahoma', 'Calibri', 'Courier', 'Montserrat'],
-            tabsize: 2,
-            height: 500,
+    </script>
+    <script>
+        // This sample still does not showcase all CKEditor&nbsp;5 features (!)
+        // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+        CKEDITOR.ClassicEditor.create(document.getElementById("shortDescription"), {
+            // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+            toolbar: {
+                items: [
+                    'exportPDF', 'exportWord', '|',
+                    'findAndReplace', 'selectAll', '|',
+                    'heading', '|',
+                    'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'outdent', 'indent', '|',
+                    'undo', 'redo',
+                    '-',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                    'alignment', '|',
+                    'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                    'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                    'textPartLanguage', '|',
+                    'sourceEditing'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            // Changing the language of the interface requires loading the language file using the <script> tag.
+            // language: 'es',
+            list: {
+                properties: {
+                    styles: true,
+                    startIndex: true,
+                    reversed: true
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                    { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                    { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                ]
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+            placeholder: 'Mô tả ngắn',
+            // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+            fontFamily: {
+                options: [
+                    'Roboto, sans-serif',
+                    'Arial, Helvetica, sans-serif',
+                    'Courier New, Courier, monospace',
+                    'Georgia, serif',
+                    'Tahoma, Geneva, sans-serif',
+                    'Times New Roman, Times, serif',
+                    'Trebuchet MS, Helvetica, sans-serif',
+                    'Verdana, Geneva, sans-serif',
+                    'Assistant, sans-serif',
+                    'Roboto, sans-serif',
+                ],
+                supportAllValues: true
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 22],
+                supportAllValues: true
+            },
+            // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+            // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+            htmlSupport: {
+                allow: [
+                    {
+                        name: /.*/,
+                        attributes: true,
+                        classes: true,
+                        styles: true
+                    }
+                ]
+            },
+            // Be careful with enabling previews
+            // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+            htmlEmbed: {
+                showPreviews: true
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+            link: {
+                decorators: {
+                    addTargetToExternalLinks: true,
+                    defaultProtocol: 'https://',
+                    toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                            download: 'file'
+                        }
+                    }
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+            mention: {
+                feeds: [
+                    {
+                        marker: '@@',
+                        feed: [
+                            '@@apple', '@@bears', '@@brownie', '@@cake', '@@cake', '@@candy', '@@canes', '@@chocolate', '@@cookie', '@@cotton', '@@cream',
+                            '@@cupcake', '@@danish', '@@donut', '@@dragée', '@@fruitcake', '@@gingerbread', '@@gummi', '@@ice', '@@jelly-o',
+                            '@@liquorice', '@@macaroon', '@@marzipan', '@@oat', '@@pie', '@@plum', '@@pudding', '@@sesame', '@@snaps', '@@soufflé',
+                            '@@sugar', '@@sweet', '@@topping', '@@wafer'
+                        ],
+                        minimumCharacters: 1
+                    }
+                ]
+            },
+            // The "super-build" contains more premium features that require additional configuration, disable them below.
+            // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+            removePlugins: [
+                // These two are commercial, but you can try them out without registering to a trial.
+                // 'ExportPdf',
+                // 'ExportWord',
+                'AIAssistant',
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                // Storing images as Base64 is usually a very bad idea.
+                // Replace it on production website with other solutions:
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                // 'Base64UploadAdapter',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                'MathType',
+                // The following features are part of the Productivity Pack and require additional license.
+                'SlashCommand',
+                'Template',
+                'DocumentOutline',
+                'FormatPainter',
+                'TableOfContents',
+                'PasteFromOfficeEnhanced'
+            ]
+        });
+    </script>
+    <script>
+        // This sample still does not showcase all CKEditor&nbsp;5 features (!)
+        // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+        CKEDITOR.ClassicEditor.create(document.getElementById("Description"), {
+            // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+            toolbar: {
+                items: [
+                    'exportPDF', 'exportWord', '|',
+                    'findAndReplace', 'selectAll', '|',
+                    'heading', '|',
+                    'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'outdent', 'indent', '|',
+                    'undo', 'redo',
+                    '-',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                    'alignment', '|',
+                    'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                    'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                    'textPartLanguage', '|',
+                    'sourceEditing'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            // Changing the language of the interface requires loading the language file using the <script> tag.
+            // language: 'es',
+            list: {
+                properties: {
+                    styles: true,
+                    startIndex: true,
+                    reversed: true
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                    { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                    { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                ]
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+            placeholder: 'Mô tả',
+            // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+            fontFamily: {
+                options: [
+                    'Roboto, sans-serif',
+                    'Arial, Helvetica, sans-serif',
+                    'Courier New, Courier, monospace',
+                    'Georgia, serif',
+                    'Tahoma, Geneva, sans-serif',
+                    'Times New Roman, Times, serif',
+                    'Trebuchet MS, Helvetica, sans-serif',
+                    'Verdana, Geneva, sans-serif',
+                    'Assistant, sans-serif',
+                    'Roboto, sans-serif',
+                ],
+                supportAllValues: true
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 22],
+                supportAllValues: true
+            },
+            // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+            // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+            htmlSupport: {
+                allow: [
+                    {
+                        name: /.*/,
+                        attributes: true,
+                        classes: true,
+                        styles: true
+                    }
+                ]
+            },
+            // Be careful with enabling previews
+            // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+            htmlEmbed: {
+                showPreviews: true
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+            link: {
+                decorators: {
+                    addTargetToExternalLinks: true,
+                    defaultProtocol: 'https://',
+                    toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                            download: 'file'
+                        }
+                    }
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+            mention: {
+                feeds: [
+                    {
+                        marker: '@@',
+                        feed: [
+                            '@@apple', '@@bears', '@@brownie', '@@cake', '@@cake', '@@candy', '@@canes', '@@chocolate', '@@cookie', '@@cotton', '@@cream',
+                            '@@cupcake', '@@danish', '@@donut', '@@dragée', '@@fruitcake', '@@gingerbread', '@@gummi', '@@ice', '@@jelly-o',
+                            '@@liquorice', '@@macaroon', '@@marzipan', '@@oat', '@@pie', '@@plum', '@@pudding', '@@sesame', '@@snaps', '@@soufflé',
+                            '@@sugar', '@@sweet', '@@topping', '@@wafer'
+                        ],
+                        minimumCharacters: 1
+                    }
+                ]
+            },
+            // The "super-build" contains more premium features that require additional configuration, disable them below.
+            // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+            removePlugins: [
+                // These two are commercial, but you can try them out without registering to a trial.
+                // 'ExportPdf',
+                // 'ExportWord',
+                'AIAssistant',
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                // Storing images as Base64 is usually a very bad idea.
+                // Replace it on production website with other solutions:
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                // 'Base64UploadAdapter',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                'MathType',
+                // The following features are part of the Productivity Pack and require additional license.
+                'SlashCommand',
+                'Template',
+                'DocumentOutline',
+                'FormatPainter',
+                'TableOfContents',
+                'PasteFromOfficeEnhanced'
+            ]
         });
     </script>
     <script>

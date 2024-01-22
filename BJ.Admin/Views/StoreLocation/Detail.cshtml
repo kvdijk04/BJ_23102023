@@ -32,7 +32,14 @@
                 <i class="anticon anticon-edit"></i>
                 <span>Cập nhật</span>
             </button>
-           
+            <button class="btn btn-info" onclick="location.href='/chi-tiet-cua-hang/@Model.Id/them-moi-thoi-gian'" type="button">
+                <i class="anticon anticon-plus-circle"></i>
+                <span>Thêm thời gian</span>
+            </button>
+            <button class="btn btn-info" onclick="location.href='/chi-tiet-cua-hang/@Model.Id/them-moi-ngon-ngu'" type="button">
+                <i class="anticon anticon-plus-circle"></i>
+                <span>Thêm ngôn ngữ</span>
+            </button>
         </div>
     </div>
     <ul class="nav nav-tabs">
@@ -42,7 +49,12 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#product-images">Ảnh</a>
         </li>
-       
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-openhour">Thời gian làm việc</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-language">Ngôn ngữ</a>
+        </li>
     </ul>
 </div>
 <div class="container-fluid">
@@ -137,6 +149,91 @@
                             <img class="img-fluid" src="@Configuration["BaseAddress"]/ImageStore/@Model.ImagePath" alt="">
                         </div>
                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="product-openhour">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                <tr>
+                                    <td class="text-dark font-weight-semibold">Thứ</td>
+                                    <td class="text-dark font-weight-semibold">Mở cửa</td>
+                                    <td class="text-dark font-weight-semibold">Đóng cửa</td>
+                                    <td class="text-dark font-weight-semibold">Hoạt động</td>
+                                </tr>
+                                @foreach (var item in Model.StoreLocationOpenHourDtos)
+                                {
+                                   
+                                    <tr>
+
+                                        <td>@item.DaysOfWeek</td>
+                                        <td class="text-dark font-weight-semibold">@item.Start</td>
+                                        <td class="text-dark font-weight-semibold">@item.End</td>
+                                        <td style="display:flex">
+                                            @if (item.Active == true)
+                                            {
+                                                <div class="badge badge-success badge-dot m-r-10"></div>
+                                                <div>Có</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger badge-dot m-r-10"></div>
+                                                <div>Không</div>
+                                            }
+                                        </td>
+                                        <td>
+
+                                            <a href="/chi-tiet-cua-hang/@Model.Id/thoi-gian/@item.Id/cap-nhat">
+                                                <span class="badge badge-pill badge-warning">Cập nhật</span>
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="product-language">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin chi tiết</h4>
+                    <div class="table-responsive">
+                        <table class="product-info-table m-t-20">
+                            <tbody>
+                                @foreach (var item in Model.StoreLocationTranslationDtos)
+                                {
+                                    <tr>
+
+                                        <td>@item.LanguageId</td>
+                                        <td class="text-dark font-weight-semibold">@item.Name</td>
+                                        <td>
+                                            <a href="/chi-tiet-cua-hang/@Model.Id/ngon-ngu/@item.Id/xem-chi-tiet">
+                                                <span class="badge badge-pill badge-info">Xem chi tiết</span>
+
+                                            </a>
+                                            <a href="/chi-tiet-cua-hang/@Model.Id/ngon-ngu/@item.Id/cap-nhat">
+                                                <span class="badge badge-pill badge-warning">Cập nhật</span>
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

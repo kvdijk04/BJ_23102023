@@ -16,5 +16,8 @@ namespace BJ.Contract.Translation.Product
 
         public ProductDto ProductDto { get; set; }
         public LanguageDto Language { get; set; }
+
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

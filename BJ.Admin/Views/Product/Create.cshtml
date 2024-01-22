@@ -5,7 +5,15 @@
 
 }
 @model CreateProductAdminView
-
+@section Styles {
+    <style>
+        @@media (min-width: 600px) {
+            .formactive {
+                display: flex !important;
+            }
+        }
+    </style>
+}
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="page-header">
         <h2 class="header-title">Tạo mới sản phẩm</h2>
@@ -57,7 +65,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" asp-for="@Model.CreateProduct.ProductName" required>
+                        <input type="text" class="form-control" id="productName" placeholder="Tên sản phẩm" asp-for="@Model.CreateProductTranslationDto.ProductName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="sort">Thứ tự</label>
+                        <input type="number" class="form-control" id="sort" asp-for="@Model.CreateProduct.Sort" min="1">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productPrice">Giá giảm</label>
@@ -88,6 +100,20 @@
                             <label for="switch-3"></label>
                         </div>
                         <label>Kích hoạt</label>
+                    </div>
+                    <div class="row" id="rangeTime" style="display:none">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label>Thời gian kích hoạt</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" class="form-control datepicker-input" placeholder="Từ" asp-for="@Model.CreateProduct.DateActiveForm">
+                                    <span class="p-h-10">Đến</span>
+                                    <input type="text" class="form-control datepicker-input" placeholder="Đến" asp-for="@Model.CreateProduct.DateTimeActiveTo">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="form-row">
 
@@ -171,11 +197,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả ngắn</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" asp-for="@Model.CreateProduct.ShortDesc">
+                        <input type="text" class="form-control" id="productBrand" placeholder="Mô tả ngắn" asp-for="@Model.CreateProductTranslationDto.ShortDesc">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả</label>
-                        <textarea class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProduct.Description"></textarea>
+                        <textarea class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProductTranslationDto.Description"></textarea>
                     </div>
                 </div>
             </div>
@@ -186,11 +212,11 @@
 
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaDesc</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProduct.MetaDesc" required>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaDesc" asp-for="@Model.CreateProductTranslationDto.MetaDesc">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">MetaKey</label>
-                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.CreateProduct.MetaKey" required>
+                        <input type="text" class="form-control" id="productBrand" placeholder="MetaKey" asp-for="@Model.CreateProductTranslationDto.MetaKey">
                     </div>
                 </div>
             </div>
@@ -201,8 +227,20 @@
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="~/assets/vendors/select2/select2.min.js"></script>
+    <script src="~/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
     <script>
+        $("#switch-3").on("click", function () {
+
+            if (($(this).prop("checked")) == false) {
+                $("#rangeTime").hide();
+            } else {
+                $("#rangeTime").show();
+            }
+        });
         $('.select2').select2();
+        $('.datepicker-input').datepicker();
+
         $("#checkbox-size_all").on("click", function () {
             $("#sizeproduct input[type=checkbox]").not(this).prop('checked', this.checked);
         });

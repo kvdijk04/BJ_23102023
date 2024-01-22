@@ -2,16 +2,19 @@
 using BJ.Application.Ultities;
 using BJ.Contract.Account;
 using BJ.Contract.Config;
+using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace BJ.Application.Service
 {
@@ -51,8 +54,6 @@ namespace BJ.Application.Service
 
             createAccountDto.CreatedDate = DateTime.Now;
 
-            createAccountDto.ModifiedDate = DateTime.Now;
-
             createAccountDto.HasedPassword = Password.HashedPassword(createAccountDto.Password);
             if (createAccountDto.Role == 1)
             {
@@ -65,8 +66,9 @@ namespace BJ.Application.Service
             Account account = _mapper.Map<Account>(createAccountDto);
 
             _context.Add(account);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createAccountDto.UserName);
 
+            
         }
 
         public async Task<PagedViewModel<AccountDto>> GetPaging([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -147,10 +149,13 @@ namespace BJ.Application.Service
                 {
                     updateAccountDto.AuthorizeRole = Contract.AuthorizeRole.MarketingRole;
                 }
+                
 
-                _context.Update(_mapper.Map(updateAccountDto, item));
+                _context.Entry(item).CurrentValues.SetValues(updateAccountDto);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateAccountDto.UserName);
+
+
             }
         }
 
@@ -183,9 +188,9 @@ namespace BJ.Application.Service
 
                 account.LastLogin = DateTime.Now;
 
-                _context.Accounts.Update(account);
+                _context.Entry(account).CurrentValues.SetValues(account.LastLogin);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(account.UserName);
 
                 var token = jwtTokenHandler.CreateToken(tokenDescription);
 
@@ -227,5 +232,7 @@ namespace BJ.Application.Service
                 await _context.SaveChangesAsync();
             }
         }
+
+
     }
 }

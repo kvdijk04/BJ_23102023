@@ -9,6 +9,8 @@
         public bool Active { get; set; }
         public virtual Product Product { get; set; }
         public virtual SubCategory SubCategory { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
     }
 }

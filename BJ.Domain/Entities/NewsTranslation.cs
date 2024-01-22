@@ -24,5 +24,7 @@ namespace BJ.Domain.Entities
         public Language Language { get; set; }
 
         public News News { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

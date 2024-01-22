@@ -1,5 +1,6 @@
 ﻿using BJ.Application.Helper;
 using BJ.Application.Ultities;
+using BJ.Contract.Category;
 using BJ.Contract.Product;
 using BJ.Contract.Translation.Product;
 using BJ.Contract.ViewModel;
@@ -26,11 +27,11 @@ namespace BJ.ApiConnection.Services
         public Task<IEnumerable<UserProductDto>> GetAllProductByCatId(string culture, Guid catId);
         public Task<ProductUserViewModel> GetAllUserProduct(string culture);
         public Task<UserProductDto> GetUserProductById(Guid id, string culture);
-        public Task<ProductTranslationDto> GetProductTranslationnById(Guid id);
+        public Task<ProductTranslationDto> GetProductTranslationById(Guid id);
 
         Task<bool> CreateLanguage(CreateProductTranslationDto createProductTranslationDto);
 
-        Task<bool> UpdateProductTranslationn(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto);
+        Task<bool> UpdateProductTranslation(Guid id, UpdateProductTranslationDto updateProductTranslationDto);
     }
     public class ProductServiceConnection : BaseApiClient, IProductServiceConnection
     {
@@ -75,9 +76,6 @@ namespace BJ.ApiConnection.Services
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
-            createProductAdminView.CreateProduct.Alias = Utilities.SEOUrl(createProductAdminView.CreateProduct.ProductName);
-
-
             var requestContent = new MultipartFormDataContent();
 
             if (createProductAdminView.ImageCup != null)
@@ -113,7 +111,7 @@ namespace BJ.ApiConnection.Services
 
                 requestContent.Add(bytes, "createProductAdminView.imageIngredients", createProductAdminView.ImageIngredients.FileName);
             }
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.ProductName) ? "" : createProductAdminView.CreateProduct.ProductName.ToString()), "createProductAdminView.CreateProduct.productName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProductTranslationDto.ProductName) ? "" : createProductAdminView.CreateProductTranslationDto.ProductName), "createProductAdminView.CreateProductTranslationDto.productName");
             if (createProductAdminView.Size != null)
             {
                 for (int i = 0; i < createProductAdminView.Size.Length; i++)
@@ -134,11 +132,9 @@ namespace BJ.ApiConnection.Services
 
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.ShortDesc) ? "" : createProductAdminView.CreateProduct.ShortDesc.ToString()), "createProductAdminView.CreateProduct.shortDesc");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Description) ? "" : createProductAdminView.CreateProduct.Description.ToString()), "createProductAdminView.CreateProduct.description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProductTranslationDto.ShortDesc) ? "" : createProductAdminView.CreateProductTranslationDto.ShortDesc), "createProductAdminView.CreateProductTranslationDto.shortDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProductTranslationDto.Description) ? "" : createProductAdminView.CreateProductTranslationDto.Description), "createProductAdminView.CreateProductTranslationDto.description");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Discount.ToString()) ? "" : createProductAdminView.CreateProduct.Discount.ToString()), "createProductAdminView.CreateProduct.discount");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.DateModified.ToString()) ? "" : createProductAdminView.CreateProduct.DateModified.ToString()), "createProductAdminView.CreateProduct.dateModified");
-
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Active.ToString()) ? "" : createProductAdminView.CreateProduct.Active.ToString()), "createProductAdminView.CreateProduct.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.BestSeller.ToString()) ? "" : createProductAdminView.CreateProduct.BestSeller.ToString()), "createProductAdminView.CreateProduct.bestSeller");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.HomeTag.ToString()) ? "" : createProductAdminView.CreateProduct.HomeTag.ToString()), "createProductAdminView.CreateProduct.homeTag");
@@ -147,13 +143,15 @@ namespace BJ.ApiConnection.Services
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.DateCreated.ToString()) ? "" : createProductAdminView.CreateProduct.DateCreated.ToString()), "createProductAdminView.CreateProduct.dateCreated");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Alias) ? "" : createProductAdminView.CreateProduct.Alias.ToString()), "createProductAdminView.CreateProduct.alias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProductTranslationDto.Alias) ? "" : createProductAdminView.CreateProductTranslationDto.Alias), "createProductAdminView.CreateProductTranslationDto.alias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.Sort.ToString()) ? "" : createProductAdminView.CreateProduct.Sort.ToString()), "createProductAdminView.CreateProduct.sort");
 
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.DateActiveForm.ToString()) ? "" : createProductAdminView.CreateProduct.DateActiveForm.ToString()), "createProductAdminView.CreateProduct.dateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.DateTimeActiveTo.ToString()) ? "" : createProductAdminView.CreateProduct.DateTimeActiveTo.ToString()), "createProductAdminView.CreateProduct.dateTimeActiveTo");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProductTranslationDto.MetaDesc) ? "" : createProductAdminView.CreateProductTranslationDto.MetaDesc), "createProductAdminView.CreateProductTranslationDto.metaDesc");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.MetaDesc.ToString()) ? "" : createProductAdminView.CreateProduct.MetaDesc.ToString()), "createProductAdminView.CreateProduct.metaDesc");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.MetaKey.ToString()) ? "" : createProductAdminView.CreateProduct.MetaKey.ToString()), "createProductAdminView.CreateProduct.metaKey");
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProductTranslationDto.MetaKey) ? "" : createProductAdminView.CreateProductTranslationDto.MetaKey), "createProductAdminView.CreateProductTranslationDto.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createProductAdminView.CreateProduct.UserName) ? "" : createProductAdminView.CreateProduct.UserName), "createProductAdminView.CreateProduct.userName");
             var response = await client.PostAsync($"/api/Products/", requestContent);
 
             return response.IsSuccessStatusCode;
@@ -195,7 +193,7 @@ namespace BJ.ApiConnection.Services
 
         }
 
-        public async Task<ProductTranslationDto> GetProductTranslationnById(Guid id)
+        public async Task<ProductTranslationDto> GetProductTranslationById(Guid id)
         {
             return await GetAsync<ProductTranslationDto>($"/api/Products/language/{id}");
         }
@@ -214,26 +212,8 @@ namespace BJ.ApiConnection.Services
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
-
-            updateProductAdminView.UpdateProductDto.Alias = Utilities.SEOUrl(updateProductAdminView.UpdateProductDto.ProductName);
-
-
             var requestContent = new MultipartFormDataContent();
 
-            //foreach(var item in createProductAdminView.ImagesToUpload)
-            //{
-            //    byte[] data;
-            //    using (var br = new BinaryReader(item.OpenReadStream()))
-            //    {
-            //        data = br.ReadBytes((int)item.OpenReadStream().Length);
-            //    }
-            //    ByteArrayContent bytes = new ByteArrayContent(data);
-
-            //    requestContent.Add(bytes, "createProductAdminView.ImagesToUpload", item.FileName);
-
-
-
-            //}
             if (updateProductAdminView.ImageCup != null)
             {
                 byte[] data;
@@ -267,40 +247,39 @@ namespace BJ.ApiConnection.Services
 
                 requestContent.Add(bytes, "updateProductAdminView.imageIngredients", updateProductAdminView.ImageIngredients.FileName);
             }
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ProductName) ? "" : updateProductAdminView.UpdateProductDto.ProductName.ToString()), "updateProductAdminView.UpdateProductDto.productName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductTranslationDto.ProductName) ? "" : updateProductAdminView.UpdateProductTranslationDto.ProductName), "updateProductAdminView.UpdateProductTranslationDto.productName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ImagePathCup) ? "" : updateProductAdminView.UpdateProductDto.ImagePathCup), "updateProductAdminView.UpdateProductDto.imagePathCup");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ImagePathHero) ? "" : updateProductAdminView.UpdateProductDto.ImagePathHero), "updateProductAdminView.UpdateProductDto.imagePathHero");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ImagePathIngredients) ? "" : updateProductAdminView.UpdateProductDto.ImagePathIngredients), "updateProductAdminView.UpdateProductDto.imagePathIngredients");
 
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ShortDesc) ? "" : updateProductAdminView.UpdateProductDto.ShortDesc.ToString()), "updateProductAdminView.UpdateProductDto.shortDesc");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ImagePathCup) ? "" : updateProductAdminView.UpdateProductDto.ImagePathCup.ToString()), "updateProductAdminView.UpdateProductDto.imagePathCup");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ImagePathHero) ? "" : updateProductAdminView.UpdateProductDto.ImagePathHero.ToString()), "updateProductAdminView.UpdateProductDto.imagePathHero");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.ImagePathIngredients) ? "" : updateProductAdminView.UpdateProductDto.ImagePathIngredients.ToString()), "updateProductAdminView.UpdateProductDto.imagePathIngredients");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Description) ? "" : updateProductAdminView.UpdateProductDto.Description.ToString()), "updateProductAdminView.UpdateProductDto.description");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductTranslationDto.ShortDesc) ? "" : updateProductAdminView.UpdateProductTranslationDto.ShortDesc), "updateProductAdminView.UpdateProductTranslationDto.shortDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductTranslationDto.Description) ? "" : updateProductAdminView.UpdateProductTranslationDto.Description), "updateProductAdminView.UpdateProductTranslationDto.description");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Discount.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Discount.ToString()), "updateProductAdminView.UpdateProductDto.discount");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.DateModified.ToString()) ? "" : updateProductAdminView.UpdateProductDto.DateModified.ToString().ToString()), "updateProductAdminView.UpdateProductDto.productName");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.DateModified.ToString()) ? "" : updateProductAdminView.UpdateProductDto.DateModified.ToString().ToString()), "updateProductAdminView.UpdateProductDto.dateModified");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Active.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Active.ToString().ToString()), "updateProductAdminView.UpdateProductDto.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.BestSeller.ToString()) ? "" : updateProductAdminView.UpdateProductDto.BestSeller.ToString()), "updateProductAdminView.UpdateProductDto.bestSeller");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.HomeTag.ToString()) ? "" : updateProductAdminView.UpdateProductDto.HomeTag.ToString()), "updateProductAdminView.UpdateProductDto.homeTag");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.CategoryId.ToString()) ? "" : updateProductAdminView.UpdateProductDto.CategoryId.ToString()), "updateProductAdminView.UpdateProductDto.categoryId");
+            //requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.CategoryId.ToString()) ? "" : updateProductAdminView.UpdateProductDto.CategoryId.ToString()), "updateProductAdminView.UpdateProductDto.categoryId");
 
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Sort.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Sort.ToString()), "updateProductAdminView.UpdateProductDto.sort");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Alias) ? "" : updateProductAdminView.UpdateProductDto.Alias.ToString()), "updateProductAdminView.UpdateProductDto.alias");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.DateActiveForm.ToString()) ? "" : updateProductAdminView.UpdateProductDto.DateActiveForm.ToString()), "updateProductAdminView.UpdateProductDto.DateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.DateTimeActiveTo.ToString()) ? "" : updateProductAdminView.UpdateProductDto.DateTimeActiveTo.ToString()), "updateProductAdminView.UpdateProductDto.DateTimeActiveTo");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductTranslationDto.Alias) ? "" : updateProductAdminView.UpdateProductTranslationDto.Alias), "updateProductAdminView.UpdateProductTranslationDto.alias");
 
-            //requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Code.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Code.ToString()), "updateProductAdminView.UpdateProductDto.code");
-            //requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.Discount.ToString()) ? "" : updateProductAdminView.UpdateProductDto.Discount.ToString()), "updateProductAdminView.UpdateProductDto.discount");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductTranslationDto.MetaDesc) ? "" : updateProductAdminView.UpdateProductTranslationDto.MetaDesc), "updateProductAdminView.UpdateProductTranslationDto.metaDesc");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.MetaDesc.ToString()) ? "" : updateProductAdminView.UpdateProductDto.MetaDesc.ToString()), "updateProductAdminView.UpdateProductDto.metaDesc");
-
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.MetaKey.ToString()) ? "" : updateProductAdminView.UpdateProductDto.MetaKey.ToString()), "updateProductAdminView.UpdateProductDto.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductTranslationDto.MetaKey) ? "" : updateProductAdminView.UpdateProductTranslationDto.MetaKey), "updateProductAdminView.UpdateProductTranslationDto.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateProductAdminView.UpdateProductDto.UserName) ? "" : updateProductAdminView.UpdateProductDto.UserName), "updateProductAdminView.UpdateProductDto.userName");
 
             var response = await client.PutAsync($"/api/Products/{id}", requestContent);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateProductTranslationn(Guid proId, Guid id, UpdateProductTranslationDto updateProductTranslationDto)
+        public async Task<bool> UpdateProductTranslation(Guid id, UpdateProductTranslationDto updateProductTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
@@ -314,7 +293,7 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"/api/Products/{proId}/language/{id}", httpContent);
+            var response = await client.PutAsync($"/api/Products/language/{id}", httpContent);
 
             return response.IsSuccessStatusCode;
         }

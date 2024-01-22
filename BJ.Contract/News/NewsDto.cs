@@ -17,10 +17,12 @@ namespace BJ.Contract.News
         public bool Home { get; set; }
         public string Code { get; set; }
 
+        public DateTime? DateActiveForm { get; set; }
 
+        public DateTime? DateTimeActiveTo { get; set; }
         public DateTime? DateCreated { get; set; }
 
-        public DateTime DateUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
         public List<NewsTranslationDto> NewsTranslationsDto { get; set; }
     }

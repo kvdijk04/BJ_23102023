@@ -32,6 +32,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="OldImage_Backup\2019\01\" />
+    <Folder Include="OldImage_Backup\2019\03\" />
+    <Folder Include="OldImage_Backup\2019\06\" />
+    <Folder Include="OldImage_Backup\2019\07\" />
+    <Folder Include="OldImage_Backup\2019\08\" />
+    <Folder Include="OldImage_Backup\2019\09\" />
+    <Folder Include="OldImage_Backup\2019\10\" />
+    <Folder Include="OldImage_Backup\2019\11\" />
+    <Folder Include="OldImage_Backup\2019\12\" />
+    <Folder Include="OldImage_Backup\2020\01\" />
+    <Folder Include="OldImage_Backup\2020\02\" />
+    <Folder Include="OldImage_Backup\2020\03\" />
+    <Folder Include="OldImage_Backup\2020\05\" />
+    <Folder Include="OldImage_Backup\2020\06\" />
+    <Folder Include="OldImage_Backup\2020\07\" />
+    <Folder Include="OldImage_Backup\2020\08\" />
+    <Folder Include="OldImage_Backup\2020\09\" />
+    <Folder Include="OldImage_Backup\2020\10\" />
+    <Folder Include="OldImage_Backup\2020\12\" />
+    <Folder Include="OldImage_Backup\2021\05\" />
+    <Folder Include="OldImage_Backup\2021\06\" />
+    <Folder Include="OldImage_Backup\2021\07\" />
+    <Folder Include="OldImage_Backup\2021\08\" />
+    <Folder Include="OldImage_Backup\2022\01\" />
+    <Folder Include="OldImage_Backup\2022\04\" />
+    <Folder Include="OldImage_Backup\2022\05\" />
+    <Folder Include="OldImage_Backup\2023\01\" />
+    <Folder Include="OldImage_Backup\2023\02\" />
+    <Folder Include="OldImage_Backup\2023\03\" />
+    <Folder Include="OldImage_Backup\2023\04\" />
     <Folder Include="wwwroot\BoostJuice\images\" />
   </ItemGroup>
 

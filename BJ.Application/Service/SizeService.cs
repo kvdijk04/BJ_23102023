@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BJ.Application.Ultities;
+using BJ.Contract.Category;
 using BJ.Contract.Size;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
@@ -38,12 +39,11 @@ namespace BJ.Application.Service
 
         public async Task CreateSize(CreateSizeDto createSizeDto)
         {
-            createSizeDto.Updated = DateTime.Now;
             createSizeDto.Created = DateTime.Now;
             Size size = _mapper.Map<Size>(createSizeDto);
 
             _context.Add(size);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createSizeDto.UserName);
 
         }
 
@@ -132,10 +132,9 @@ namespace BJ.Application.Service
             if (item != null)
             {
                 updateSizeDto.Updated = DateTime.Now;
-
-                _context.Update(_mapper.Map(updateSizeDto, item));
-
-                await _context.SaveChangesAsync();
+                _context.Entry(item).CurrentValues.SetValues(updateSizeDto);
+               
+                await _context.SaveChangesAsync(updateSizeDto.UserName);
             }
         }
     }

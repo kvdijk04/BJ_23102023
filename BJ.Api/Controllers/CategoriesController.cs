@@ -4,6 +4,7 @@ using BJ.Application.Ultities;
 using BJ.Contract;
 using BJ.Contract.Category;
 using BJ.Contract.Translation.Category;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BJ.Api.Controllers
@@ -60,7 +61,7 @@ namespace BJ.Api.Controllers
         /// 
         [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm] CreateCategoryDto createCategoryDto)
+        public async Task<IActionResult> Post([FromForm] CreateCategoryAdminView createCategoryAdminView)
         {
             try
             {
@@ -69,7 +70,7 @@ namespace BJ.Api.Controllers
                     return BadRequest();
 
                 }
-                await _categoryService.CreateCategory(createCategoryDto);
+                await _categoryService.CreateCategory(createCategoryAdminView);
 
                 return StatusCode(StatusCodes.Status200OK);
 
@@ -90,11 +91,11 @@ namespace BJ.Api.Controllers
 
         public async Task<IActionResult> GetCategoryTranslationById(Guid id)
         {
-            if (await _categoryService.GetCategoryTransalationById(id) == null)
+            if (await _categoryService.GetCategoryTranslationById(id) == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
-            return Ok(await _categoryService.GetCategoryTransalationById(id));
+            return Ok(await _categoryService.GetCategoryTranslationById(id));
 
         }
 
@@ -103,7 +104,7 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
         [SecurityRole(AuthorizeRole.AdminRole)]
-        [HttpPost("language/create")]
+        [HttpPost("language")]
 
         public async Task<IActionResult> CreateTranslate([FromBody] CreateCategoryTranslationDto createCategoryTranslationDto)
         {
@@ -129,9 +130,9 @@ namespace BJ.Api.Controllers
         /// </summary>
         /// 
         [SecurityRole(AuthorizeRole.AdminRole)]
-        [HttpPut("{proId}/language/{id}")]
+        [HttpPut("language/{id}")]
 
-        public async Task<IActionResult> UpdateTranslate(Guid proId, Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        public async Task<IActionResult> UpdateTranslate( Guid id, [FromBody] UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
             try
             {
@@ -140,7 +141,7 @@ namespace BJ.Api.Controllers
                     return BadRequest();
 
                 }
-                await _categoryService.UpdateTranslateCategory(proId, id, updateCategoryTranslationDto);
+                await _categoryService.UpdateTranslateCategory(id, updateCategoryTranslationDto);
 
                 return StatusCode(StatusCodes.Status200OK);
 
@@ -159,7 +160,7 @@ namespace BJ.Api.Controllers
         /// 
         [SecurityRole(AuthorizeRole.AdminRole)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCategory(Guid id, [FromForm] UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> EditCategory(Guid id, [FromForm] UpdateCategoryAdminView updateCategoryAdminView)
         {
             try
             {
@@ -173,7 +174,7 @@ namespace BJ.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
 
-                await _categoryService.UpdateCategory(id, updateCategoryDto);
+                await _categoryService.UpdateCategory(id, updateCategoryAdminView);
 
                 return StatusCode(StatusCodes.Status200OK);
 

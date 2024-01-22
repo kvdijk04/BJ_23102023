@@ -14,10 +14,12 @@ namespace BJ.Contract.ViewModel
 
         public bool Home { get; set; }
         public bool Promotion { get; set; }
+        public DateTime? DateActiveForm { get; set; }
 
+        public DateTime? DateTimeActiveTo { get; set; }
         public DateTime? DateCreated { get; set; }
 
-        public DateTime DateUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
 
         public string Title { get; set; }
 

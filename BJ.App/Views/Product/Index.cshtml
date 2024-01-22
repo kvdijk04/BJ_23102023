@@ -81,7 +81,7 @@
         background-color: #ed6b06;
         color:#ffff;
         width: 1000px;
-        z-index: 2;
+        z-index: 999;
         text-align: center;
         padding: 20px;
         box-sizing: border-box;
@@ -185,25 +185,32 @@
             <div class="banner"></div><a id="contentarea" tabindex="-1"></a>
             <div class="columns">
                 <div class="column main">
-                    <div class="main-filter-wrapper" itemscope itemtype="https://schema.org/ItemList">
+                    <div class="main-filter-wrapper">
                         <div class="main-filter__section-row">
                             <div class="main-filter-section__tab main-filter-section__tab--active" popular="true">
                                 <a href="/@culture/@_loc["drinkUrl"]" class="main-filter-section__tab-link"><localize>Choose drink type</localize></a>
                             </div>
 
                         </div>
-                        <div class="main-filter__set-row" itemscope itemtype="https://schema.org/ProductModel" >
+                        <div class="main-filter__set-row" >
 
                             @if (Model.UserCategoryDtos != null && Model.UserCategoryDtos.Count() > 0)
                             {
                                 @foreach (var cat in Model.UserCategoryDtos.Where(x => x.Active == true))
                                 {
-                                    <div data-category-id="@cat.Id" class="main-filter__set" popular="false" order="@_loc["BUY"]" data-catId="@cat.Id" name="@cat.Alias" itemprop="name">
-                                        <span class="main-filter__set-info">
-                                            <img itemprop="image" class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath" asp-append-version="true" src="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath">
-                                        </span>
-                                        @cat.CatName
-                                    </div>
+                                    @if(DateTime.Now.Date >= cat.DateActiveForm && DateTime.Now.Date <= cat.DateTimeActiveTo
+                                   || DateTime.Now.Date >= cat.DateActiveForm && cat.DateTimeActiveTo == null
+                                   || DateTime.Now.Date <= cat.DateTimeActiveTo && cat.DateActiveForm == null
+                                   || cat.DateActiveForm == null && cat.DateTimeActiveTo == null)
+                                                    {
+                                        <div data-category-id="@cat.Id" class="main-filter__set" popular="false" order="@_loc["BUY"]" data-catId="@cat.Id" name="@cat.Alias" >
+                                            <span class="main-filter__set-info">
+                                                <img class="main-filter__set-image" srcset="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath" asp-append-version="true" alt="@cat.CatName" src="@Configuration["BaseAddress"]/ImageCategory/@cat.ImagePath">
+                                            </span>
+                                            @cat.CatName
+                                        </div>
+                                    }
+                                    
                                     
                                     
                                 }
@@ -225,77 +232,95 @@
                 {
                     @foreach (var cat in Model.UserCategoryDtos.Where(x => x.Active == true))
                     {
-                        @if (Model.UserProductDtos != null && Model.UserProductDtos.Count() > 0)
+                        @if (DateTime.Now.Date >= cat.DateActiveForm && DateTime.Now.Date <= cat.DateTimeActiveTo
+                                         || DateTime.Now.Date >= cat.DateActiveForm && cat.DateTimeActiveTo == null
+                                         || DateTime.Now.Date <= cat.DateTimeActiveTo && cat.DateActiveForm == null
+                                         || cat.DateActiveForm == null && cat.DateTimeActiveTo == null)
                         {
-                            <div class="title category">
-                                <h1 class="h1 display text-uppercase">
-                                    @cat.CatName
-                                </h1>
-                            </div>
-                            <ul id="og-grid" class="og-grid" itemscope itemtype="https://schema.org/ItemList">
-                                
-                                @foreach (var product in Model.UserProductDtos.Where(x => x.CategoryId.Equals(cat.Id)))
-                                {
-                                    <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Product">
-                                        <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
-                                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" itemprop="image" />
-                                            <img src="~/images/cup_shadow.png" itemprop="image" />
-                                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" class="topleft" itemprop="image" />
-                                            <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" itemprop="image" />
-                                            <ul>
-                                                @foreach (var subCat in product.UserSubCategorySpecificProductDto)
-                                                {
-                                                    @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
-                                                    {
-                                                        if (sub != null)
+                            @if (Model.UserProductDtos != null && Model.UserProductDtos.Count() > 0)
+                            {
+                                <div class="title category">
+                                    <h1 class="h1 display text-uppercase">
+                                        @cat.CatName
+                                    </h1>
+                                </div>
+                                <ul id="og-grid" class="og-grid" itemscope itemtype="https://schema.org/ItemList">
+
+                                    @foreach (var product in Model.UserProductDtos.OrderBy(x => x.Sort).ThenByDescending(x => x.DateCreated).Where(x => x.CategoryId.Equals(cat.Id)))
+                                    {
+                                        @if (DateTime.Now.Date >= product.DateActiveForm && DateTime.Now.Date <= product.DateTimeActiveTo
+                                       || DateTime.Now.Date >= product.DateActiveForm && product.DateTimeActiveTo == null
+                                       || DateTime.Now.Date <= product.DateTimeActiveTo && product.DateActiveForm == null
+                                       || product.DateActiveForm == null && product.DateTimeActiveTo == null)
+                                        {
+                                            <li class="drink-block" id="li_@product.Id" style="height: 380px;transition: all 1s linear 0s;margin-top:40px" itemscope itemtype="https://schema.org/Article">
+                                                <a class="grid_item show-ing" id="grid_@product.Id" clicked="false" data-masp="@product.Id" data-alias="@product.Alias">
+                                                    <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathCup" alt="@product.ProductName cup" itemprop="image" />
+                                                    <img src="~/images/cup_shadow.png" itemprop="image" alt="image shadow" />
+                                                    <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathHero" alt="@product.ProductName hero" class="topleft" itemprop="image" />
+                                                    <img src="@Configuration["BaseAddress"]/ImageProduct/@product.ImagePathIngredients" alt="@product.ProductName ingredients" itemprop="image" />
+                                                    <ul>
+                                                        @foreach (var subCat in product.UserSubCategorySpecificProductDto)
                                                         {
-                                                            <li itemprop="category"><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                                            @foreach (var sub in subCat.SubCategoryDto.SubCategoryTranslationDtos)
+                                                            {
+                                                                if (sub != null)
+                                                                {
+                                                                    <li itemprop="category"><span><img alt="@subCat.SubCatName" itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span>@sub.SubCatName</li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li><span><img itemprop="image" alt="@subCat.SubCatName" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+
+
+                                                                }
+
+                                                            }
                                                         }
-                                                        else
-                                                        {
-                                                            <li><span><img itemprop="image" src="@Configuration["BaseAddress"]/ImageSubCategory/@subCat.ImagePath"></span></li>
+                                                    </ul>
+
+                                                    <span itemprop="headline">@product.ProductName</span>
+                                                    
+
+                                                    <a class="button" onclick="momodal()">
+                                                        @_loc["BUY"]
+                                                    </a>
+                                                </a>
+
+                                                <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
+                                                </div>
+
+                                            </li>
 
 
-                                                        }
+                                        }
 
-                                                    }
-                                                }
-                                            </ul>
-
-                                            <span itemprop="name">@product.ProductName</span>
-                                            <a class="button" onclick="momodal()">
-                                                @_loc["BUY"]
-                                            </a>
-                                        </a>
-
-                                        <div class="og-expander" id="@product.Alias" style="transition: height 100ms ease 0s;display:none">
-                                        </div>
-
-                                    </li>
-
-                                }
+                                    }
 
 
 
-                            </ul>
-                        }
-                        else
-                        {
-                            <section id="hints" style="display: block;">
-                                <p> <img src="~/images/title_wait.png"> </p>
-                                <h3><localize>There are currently no products</localize></h3>
-                                <p><localize>Please come back later. Sorry for this inconvenience</localize></p>
-                                <ul>
-                                    <li class="filter1"><img src="~/images/hint-1.png">Strawberry</li>
-                                    <li class="filter2"><img src="~/images/hint-2.png">Chocolate</li>
-                                    <li class="filter3"><img src="~/images/hint-3.png">Pineapple</li>
-                                    <li class="filter4"><img src="~/images/hint-4.png">Green Tea</li>
-                                    <li class="filter5"><img src="~/images/hint-5.png">Coconut</li>
-                                    <li class="filter6"><img src="~/images/hint-6.png">Milk</li>
-                                    <li class="filter7"><img src="~/images/hint-7.png">Lemon</li>
                                 </ul>
-                            </section>
+                            }
+                            else
+                            {
+                                <section id="hints" style="display: block;">
+                                    <p> <img src="~/images/title_wait.png" alt="title wait"> </p>
+                                    <h3><localize>There are currently no products</localize></h3>
+                                    <p><localize>Please come back later. Sorry for this inconvenience</localize></p>
+                                    <ul>
+                                        <li class="filter1"><img src="~/images/hint-1.png" alt="Strawberry">Strawberry</li>
+                                        <li class="filter2"><img src="~/images/hint-2.png" alt="Chocolate">Chocolate</li>
+                                        <li class="filter3"><img src="~/images/hint-3.png" alt="Pineapple">Pineapple</li>
+                                        <li class="filter4"><img src="~/images/hint-4.png" alt="Green tea">Green Tea</li>
+                                        <li class="filter5"><img src="~/images/hint-5.png" alt="Coconut">Coconut</li>
+                                        <li class="filter6"><img src="~/images/hint-6.png" alt="Milk">Milk</li>
+                                        <li class="filter7"><img src="~/images/hint-7.png" alt="Lemon">Lemon</li>
+                                    </ul>
+                                </section>
+                            }
+                            
                         }
+                        
 
                     }
                 }
@@ -321,11 +346,11 @@
                             <p><localize>Your phone just got smarter! From the convenience of your fingers (or toes if you’re talented like that) you can order and customise your Boost from the App and strut your stuff past any queues. If that’s not enough, we give so much stuff away you’d think we we’re having a closing down sale! Which we aren’t. We’re here forever.</localize></p>
                             <p>
                                 <a href="http://bit.ly/1yqA2a2" target="_blank">
-                                    <img src="~/images/ios.png"
+                                    <img src="~/images/ios.png" alt="ios logo"
                                          width="160">
                                 </a>
                                 <a href="http://bit.ly/USKKXP" target="_blank">
-                                    <img src="~/images/ggplay.png"
+                                    <img src="~/images/ggplay.png" alt="ggplay logo"
                                          width="160">
                                 </a>
                             </p>
@@ -357,13 +382,13 @@
     function momodal() {
         document.getElementById("nenmodal-1").classList.toggle("active");
     }
-    var first = $(location).attr('pathname');
+    var language = $(location).attr('pathname');
 
-    first.indexOf(1);
+    language.indexOf(1);
 
-    first.toLowerCase();
+    language.toLowerCase();
 
-    first = first.split("/")[1];
+    language = language.split("/")[1];
 
 
 
@@ -398,7 +423,7 @@
                 url: '@Url.Action("Detail")',
                 datatype: "json",
                 type: "get",
-                data: { proId: idPro, culture: first },
+                data: { proId: idPro, language: language },
 
                 async: true,
                 success: function (results) {
@@ -454,7 +479,7 @@
             url: '/filtercategory',
             datatype: "json",
             type: "GET",
-            data: { catId: idCat, popular: e, culture: first, order: languageOrder, aliasCat: name },
+            data: { catId: idCat, popular: e, language: language, order: languageOrder, aliasCat: name },
 
             async: true,
             success: function (results) {
@@ -467,7 +492,7 @@
                     var currenttop = 0;
                     if (obj.offsetParent) {
                         do {
-                            currenttop += obj.offsetTop;
+                            currenttop += obj.offsetTop - 20;
                         } while ((obj = obj.offsetParent));
                         return [currenttop];
                     }

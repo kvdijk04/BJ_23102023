@@ -3,6 +3,7 @@ using BJ.ApiConnection.Services;
 using BJ.Application.Ultities;
 using BJ.Contract.SubCategory;
 using BJ.Contract.Translation.SubCategory;
+using BJ.Contract.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -75,10 +76,10 @@ namespace BJ.Admin.Controllers
         [HttpPost]
         [Route("/tao-moi-danh-muc-con.html")]
 
-        public async Task<IActionResult> Create([FromForm] CreateSubCategoryDto createSubCategoryDto)
+        public async Task<IActionResult> Create([FromForm] CreateSubCategoryAdminView createSubCategoryAdminView)
         {
-
-            var a = await _subCategoryServiceConnection.CreateSubCategory(createSubCategoryDto);
+            createSubCategoryAdminView.CreateSubCategoryDto.UserName = User.Identity.Name;
+            var a = await _subCategoryServiceConnection.CreateSubCategory(createSubCategoryAdminView);
             if (a == true)
             {
                 _notyfService.Success("Thêm mới thành công");
@@ -102,23 +103,32 @@ namespace BJ.Admin.Controllers
 
             var item = await _subCategoryServiceConnection.GetSubCategoryById(id);
 
-            UpdateSubCategoryDto updateSubCategoryDto = new()
+            UpdateSubCategoryAdminView updateSubCategoryAdminView= new()
             {
-                Active = item.Active,
-                SubCatName = item.SubCatName,
-                DateUpdated = item.DateUpdated,
-                Description = item.Description,
-                ImagePath = item.ImagePath,
+                UpdateSubCategoryDto = new()
+                {
+                    Active = item.Active,
+                    DateUpdated = item.DateUpdated,
+                    ImagePath = item.ImagePath,
+                },
+                UpdateSubCategoryTranslationDto = new()
+                {
+                     DateUpdated = item.DateUpdated,
+                     Description = item.Description,
+                     SubCatName = item.SubCatName,
+                 
+                }
             };
             ViewBag.SubCatId = id;
 
-            return View(updateSubCategoryDto);
+            return View(updateSubCategoryAdminView);
         }
         [HttpPost]
         [Route("/cap-nhat-danh-muc-con/{id}")]
 
-        public async Task<IActionResult> Edit(int id, [FromForm] UpdateSubCategoryDto updateSubCategoryDto)
+        public async Task<IActionResult> Edit(int id, [FromForm] UpdateSubCategoryAdminView updateSubCategoryAdminView)
         {
+            updateSubCategoryAdminView.UpdateSubCategoryDto.UserName = User.Identity.Name;
 
             var token = HttpContext.Session.GetString("Token");
 
@@ -129,9 +139,9 @@ namespace BJ.Admin.Controllers
 
             var result = await _subCategoryServiceConnection.GetSubCategoryById(id);
 
-            if (updateSubCategoryDto.Image == null) updateSubCategoryDto.ImagePath = result.ImagePath;
+            if (updateSubCategoryAdminView.Image == null) updateSubCategoryAdminView.UpdateSubCategoryDto.ImagePath = result.ImagePath;
 
-            var a = await _subCategoryServiceConnection.UpdateSubCategory(id, updateSubCategoryDto);
+            var a = await _subCategoryServiceConnection.UpdateSubCategory(id, updateSubCategoryAdminView);
 
             if (a == true)
             {
@@ -161,7 +171,7 @@ namespace BJ.Admin.Controllers
             ViewBag.SubCatName = category.SubCatName;
             ViewBag.Id = subCatId;
             ViewBag.LanguageId = languageId;
-            var r = await _subCategoryServiceConnection.GetSubCategoryTranslationnById(languageId);
+            var r = await _subCategoryServiceConnection.GetSubCategoryTranslationById(languageId);
             return View(r);
         }
         [Route("chi-tiet-danh-muc-con/{id}/them-moi-ngon-ngu")]
@@ -190,7 +200,7 @@ namespace BJ.Admin.Controllers
         public async Task<IActionResult> CreateLanguage(int id, CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
         {
             createSubCategoryTranslationDto.SubCategoryId = id;
-
+            createSubCategoryTranslationDto.UserName = User.Identity.Name;
             var a = await _subCategoryServiceConnection.CreateLanguage(createSubCategoryTranslationDto);
             if (a == true)
             {
@@ -214,7 +224,7 @@ namespace BJ.Admin.Controllers
             {
                 return Redirect("/dang-nhap.html");
             }
-            var r = await _subCategoryServiceConnection.GetSubCategoryTranslationnById(languageId);
+            var r = await _subCategoryServiceConnection.GetSubCategoryTranslationById(languageId);
             var category = await _subCategoryServiceConnection.GetSubCategoryById(subCatId);
             ViewBag.SubCatName = category.SubCatName;
             ViewBag.Id = subCatId;
@@ -235,7 +245,8 @@ namespace BJ.Admin.Controllers
 
         public async Task<IActionResult> UpdateLanguage(int subCatId, Guid languageId, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
         {
-            var a = await _subCategoryServiceConnection.UpdateSubCategoryTranslationn(subCatId, languageId, updateSubCategoryTranslationDto);
+            var a = await _subCategoryServiceConnection.UpdateSubCategoryTranslation(languageId, updateSubCategoryTranslationDto);
+            updateSubCategoryTranslationDto.UserName = User.Identity.Name;
 
             if (a == true)
             {

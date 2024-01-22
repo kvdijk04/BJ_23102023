@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@model UpdateSubCategoryDto
-@using BJ.Contract.SubCategory;
+@model UpdateSubCategoryAdminView
+@using BJ.Contract.ViewModel;
 
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
@@ -28,7 +28,7 @@
                 <img src="@Configuration["BaseAddress"]/ImageProduct/@Model.UpdateProductDto.ImagePathIngredients"  alt="">
                 </div> *@
                 <div class="m-l-15">
-                    <h4 class="m-b-0">Tên: @Model.SubCatName </h4><a href="/chi-tiet-danh-muc-con/@ViewBag.SubCatId" style="text-decoration:underline">Xem chi tiết</a>
+                    <h4 class="m-b-0">Tên: @Model.UpdateSubCategoryTranslationDto.SubCatName </h4><a href="/chi-tiet-danh-muc-con/@ViewBag.SubCatId" style="text-decoration:underline">Xem chi tiết</a>
                     @*                     <p class="text-muted m-b-0">Code: @Model.UpdateProductDto.Code</p>
                     *@
                     <span class="text-muted m-b-0 catId" hidden>@ViewBag.SubCatId</span>
@@ -63,13 +63,13 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="catName">Tên loại dinh dưỡng</label>
-                        <input type="text" class="form-control" id="catName" placeholder="Tên loại dinh dưỡng" value="@Model.SubCatName" asp-for="@Model.SubCatName" required>
+                        <input type="text" class="form-control" id="catName" placeholder="Tên loại dinh dưỡng" value="@Model.UpdateSubCategoryTranslationDto.SubCatName" asp-for="@Model.UpdateSubCategoryTranslationDto.SubCatName" required>
                     </div>
-                    @if (Model.Active == true)
+                    @if (Model.UpdateSubCategoryDto.Active == true)
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.Active">
+                                <input type="checkbox" id="switch-3" checked="" value="true" asp-for="@Model.UpdateSubCategoryDto.Active">
                                 <label for="switch-3"></label>
                             </div>
                             <label>Kích hoạt</label>
@@ -79,7 +79,7 @@
                     {
                         <div class="form-group d-flex align-items-center">
                             <div class="switch m-r-10">
-                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.Active">
+                                <input type="checkbox" id="switch-3" value="true" asp-for="@Model.UpdateSubCategoryDto.Active">
                                 <label for="switch-3"></label>
                             </div>
                             <label>Kích hoạt</label>
@@ -111,7 +111,7 @@
 
 
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageSubCategory/@Model.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
+                                <img class="img-fluid rounded" src="@Configuration["BaseAddress"]/ImageSubCategory/@Model.UpdateSubCategoryDto.ImagePath" asp-append-version="true" style="max-width: 200px" alt="">
                             </div>
                         </div>
 
@@ -125,7 +125,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productBrand">Mô tả</label>
-                        <textarea class="form-control" id="productBrand" placeholder="Mô tả" asp-for="@Model.Description" value="@Model.Description"></textarea>
+                        <textarea class="form-control" id="productBrand" placeholder="Mô tả" asp-for="@Model.UpdateSubCategoryTranslationDto.Description" value="@Model.UpdateSubCategoryTranslationDto.Description"></textarea>
                     </div>
                 </div>
             </div>

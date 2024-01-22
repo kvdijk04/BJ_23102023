@@ -2,6 +2,7 @@
 using BJ.Application.Helper;
 using BJ.Application.Ultities;
 using BJ.Contract.News;
+using BJ.Contract.Translation.Blog;
 using BJ.Contract.Translation.News;
 using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
@@ -27,10 +28,8 @@ namespace BJ.Application.Service
         Task<PagedViewModel<NewsUserViewModel>> GetPagingNews([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<PagedViewModel<NewsUserViewModel>> GetPagingPromotion([FromQuery] GetListPagingRequest getListPagingRequest);
 
-        Task<NewsTranslationDto> GetNewsTransalationById(Guid id);
+        Task<NewsTranslationDto> GetNewsTranslationById(Guid id);
         Task<IEnumerable<NewsUserViewModel>> GetNewsAtHome(string culture);
-
-        Task CreateTranslateNews(CreateNewsTranslationDto createNewsTranslationDto);
         Task UpdateTranslateNews(Guid id, UpdateNewsTranslationDto updateNewsTranslationDto);
 
     }
@@ -53,7 +52,6 @@ namespace BJ.Application.Service
 
             createNewsAdminView.CreateNews.Id = Guid.NewGuid();
 
-            createNewsAdminView.CreateNews.DateUpdated = DateTime.Now;
 
             createNewsAdminView.CreateNews.DateCreated = DateTime.Now;
 
@@ -109,7 +107,7 @@ namespace BJ.Application.Service
 
             _context.Add(news);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createNewsAdminView.CreateNews.UserName);
 
 
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
@@ -125,13 +123,13 @@ namespace BJ.Application.Service
                 MetaDesc = createNewsAdminView.CreateNewsTranslation.MetaDesc,
                 MetaKey = createNewsAdminView.CreateNewsTranslation.MetaKey,
                 LanguageId = defaultLanguage,
-
+                DateCreated = DateTime.Now,
             };
             NewsTranslation poductTranslation = _mapper.Map<NewsTranslation>(createNewsTranslationDto);
 
             _context.Add(poductTranslation);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createNewsAdminView.CreateNews.UserName);
 
 
             await transaction.CommitAsync();
@@ -155,7 +153,12 @@ namespace BJ.Application.Service
                         join nt in _context.NewsTranslations on n.Id equals nt.NewsId
                         where nt.LanguageId == defaultLanguage && n.Id.Equals(nt.NewsId)
                         select new { n, nt };
+            if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
+            {
+                query = query.Where(x => x.nt.Title.Contains(getListPagingRequest.Keyword));
 
+                pageCount = Math.Ceiling(query.Count() / (double)pageResult);
+            }
             var data = await query.Skip((getListPagingRequest.PageIndex - 1) * pageResult)
                                     .Take(pageResult)
                                     .Select(x => new NewsDto()
@@ -168,6 +171,8 @@ namespace BJ.Application.Service
                                         Home = x.n.Home,
                                         Promotion = x.n.Promotion,
                                         Title = x.nt.Title,
+                                        DateActiveForm = x.n.DateActiveForm,
+                                        DateTimeActiveTo = x.n.DateTimeActiveTo,
                                     }).AsNoTracking().ToListAsync();
             var newsResponse = new PagedViewModel<NewsDto>
             {
@@ -206,6 +211,8 @@ namespace BJ.Application.Service
                 ImagePath = item != null ? item.ImagePath : null,
                 Popular = item.Popular,
                 Promotion = item.Promotion,
+                DateActiveForm = item != null ? item.DateActiveForm : null,
+                DateTimeActiveTo = item != null ? item.DateTimeActiveTo : null,
                 NewsTranslationDtos = _mapper.Map<List<NewsTranslationDto>>(await _context.NewsTranslations.Where(x => x.NewsId.Equals(id)).ToListAsync()),
             };
             return newsViewModel;
@@ -244,9 +251,9 @@ namespace BJ.Application.Service
 
                 updateNewsAdminView.UpdateNews.DateUpdated = DateTime.Now;
 
-                _context.News.Update(_mapper.Map(updateNewsAdminView.UpdateNews, item));
+                _context.Entry(item).CurrentValues.SetValues(updateNewsAdminView.UpdateNews);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateNewsAdminView.UpdateNews.UserName);
 
                 var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
@@ -262,12 +269,13 @@ namespace BJ.Application.Service
                         MetaDesc = updateNewsAdminView.UpdateNewsTranslation.MetaDesc,
                         MetaKey = updateNewsAdminView.UpdateNewsTranslation.MetaKey,
                         Alias = Utilities.SEOUrl(updateNewsAdminView.UpdateNewsTranslation.Title),
-
+                        DateUpdated = DateTime.Now,
 
                     };
-                    _context.Update(_mapper.Map(updateTranslate, translate));
 
-                    await _context.SaveChangesAsync();
+                    _context.Entry(translate).CurrentValues.SetValues(updateTranslate);
+
+                    await _context.SaveChangesAsync(updateNewsAdminView.UpdateNews.UserName);
                 }
                 await transaction.CommitAsync();
             }
@@ -277,36 +285,24 @@ namespace BJ.Application.Service
 
         public async Task CreateNewsTranslate(CreateNewsTranslationDto createNewsTranslationDto)
         {
+            var exist = _context.NewsTranslations.Any(x => x.NewsId.Equals(createNewsTranslationDto.NewsId) && x.LanguageId == createNewsTranslationDto.LanguageId);
+            if (exist) return;
             createNewsTranslationDto.Id = Guid.NewGuid();
             createNewsTranslationDto.Alias = Utilities.SEOUrl(createNewsTranslationDto.Title);
-
+            createNewsTranslationDto.DateCreated = DateTime.Now;
             NewsTranslation transaltenews = _mapper.Map<NewsTranslation>(createNewsTranslationDto);
 
             _context.Add(transaltenews);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createNewsTranslationDto.UserName);
         }
 
-        public async Task<NewsTranslationDto> GetNewsTransalationById(Guid id)
+        public async Task<NewsTranslationDto> GetNewsTranslationById(Guid id)
         {
             var newsTranslate = await _context.NewsTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             var newsTranslateDto = _mapper.Map<NewsTranslationDto>(newsTranslate);
 
             return newsTranslateDto;
-        }
-
-        public async Task CreateTranslateNews(CreateNewsTranslationDto createNewsTranslationDto)
-        {
-            createNewsTranslationDto.Id = Guid.NewGuid();
-
-            createNewsTranslationDto.Alias = Utilities.SEOUrl(createNewsTranslationDto.Title);
-
-
-            NewsTranslation transaltenews = _mapper.Map<NewsTranslation>(createNewsTranslationDto);
-
-            _context.Add(transaltenews);
-
-            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateTranslateNews(Guid id, UpdateNewsTranslationDto updateNewsTranslationDto)
@@ -317,9 +313,9 @@ namespace BJ.Application.Service
 
             if (item != null)
             {
-                _context.Update(_mapper.Map(updateNewsTranslationDto, item));
+                _context.Entry(item).CurrentValues.SetValues(updateNewsTranslationDto);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateNewsTranslationDto.UserName);
             }
         }
 
@@ -352,7 +348,7 @@ namespace BJ.Application.Service
 
             var query = from n in _context.News.OrderByDescending(x => x.DateCreated)
                         join nt in _context.NewsTranslations on n.Id equals nt.NewsId
-                        where nt.LanguageId == getListPagingRequest.LanguageId && n.Id.Equals(nt.NewsId) && n.Promotion == false
+                        where nt.LanguageId == getListPagingRequest.LanguageId && n.Id.Equals(nt.NewsId) && n.Promotion == false && n.Active == true
                         select new { n, nt };
             var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
 
@@ -374,6 +370,8 @@ namespace BJ.Application.Service
                                         Promotion = x.n.Promotion,
                                         ImagePath = x.n.ImagePath,
                                         Popular = x.n.Popular,
+                                        DateActiveForm = x.n.DateActiveForm,
+                                        DateTimeActiveTo = x.n.DateTimeActiveTo,
                                     }).AsNoTracking().ToListAsync();
             //if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
 
@@ -396,7 +394,7 @@ namespace BJ.Application.Service
 
             var query = from n in _context.News.OrderByDescending(x => x.DateCreated)
                         join nt in _context.NewsTranslations on n.Id equals nt.NewsId
-                        where nt.LanguageId == getListPagingRequest.LanguageId && n.Id.Equals(nt.NewsId) && n.Promotion == true
+                        where nt.LanguageId == getListPagingRequest.LanguageId && n.Id.Equals(nt.NewsId) && n.Promotion == true && n.Active == true
                         select new { n, nt };
             var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
 
@@ -418,6 +416,8 @@ namespace BJ.Application.Service
                                         Promotion = x.n.Promotion,
                                         ImagePath = x.n.ImagePath,
                                         Popular = x.n.Popular,
+                                        DateActiveForm = x.n.DateActiveForm,
+                                        DateTimeActiveTo = x.n.DateTimeActiveTo,
                                     }).AsNoTracking().ToListAsync();
             //if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
 
@@ -455,6 +455,8 @@ namespace BJ.Application.Service
                     Promotion = x.b.Promotion,
                     ImagePath = x.b.ImagePath,
                     Popular = x.b.Popular,
+                    DateActiveForm = x.b.DateActiveForm,
+                    DateTimeActiveTo = x.b.DateTimeActiveTo,
                 }).ToListAsync();
             if (popular != false) { data = data.Where(x => x.Popular == popular).Take(10).ToList(); }
 

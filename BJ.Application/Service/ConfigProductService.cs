@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BJ.Contract.Product;
 using BJ.Contract.Size;
 using BJ.Contract.SubCategory;
 using BJ.Contract.ViewModel;
@@ -6,6 +7,7 @@ using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Drawing;
 
 namespace BJ.Application.Service
 {
@@ -32,9 +34,9 @@ namespace BJ.Application.Service
 
         public async Task<bool> ConfifProduct(ConfigProduct configProduct)
         {
-            var boolSize = await ConfigSize(configProduct.ProId, configProduct.Size);
+            var boolSize = await ConfigSize(configProduct.ProId,configProduct.CategoryId, configProduct.NewSize, configProduct.Size, configProduct.UserName);
 
-            var boolSubCat = await ConfigSubCat(configProduct.ProId, configProduct.SubCat);
+            var boolSubCat = await ConfigSubCat(configProduct.ProId, configProduct.SubCat,configProduct.UserName);
 
             if (boolSize == true && boolSubCat == true) return true;
 
@@ -47,13 +49,12 @@ namespace BJ.Application.Service
 
             createSizeSpecificProduct.DateCreated = DateTime.Now;
 
-            createSizeSpecificProduct.DateModified = DateTime.Now;
 
             SizeSpecificEachProduct sizeSpecificEachProduct = _mapper.Map<SizeSpecificEachProduct>(createSizeSpecificProduct);
 
             _context.Add(sizeSpecificEachProduct);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createSizeSpecificProduct.UserName);
         }
 
         public async Task<SizeSpecificProductDto> GetSizeSpecificProductDtoById(Guid id)
@@ -73,18 +74,46 @@ namespace BJ.Application.Service
             var item = await _context.SizeSpecificEachProduct.FirstOrDefaultAsync(x => x.Id.Equals(id));
             if (item != null)
             {
-                updateSizeSpecificProduct.DateCreated = item.DateCreated;
                 updateSizeSpecificProduct.DateModified = DateTime.Now;
 
-                _context.SizeSpecificEachProduct.Update(_mapper.Map(updateSizeSpecificProduct, item));
+                _context.Entry(item).CurrentValues.SetValues(updateSizeSpecificProduct);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateSizeSpecificProduct.UserName);
             }
         }
 
-        public async Task<bool> ConfigSize(Guid proId, List<int> sizeId)
+        public async Task<bool> ConfigSize(Guid proId,Guid categoryId, List<int> newSizeId, List<int> sizeId,string userName)
         {
+            //if(updateProductAdminView.UpdateProductDto.CategoryId.Equals(item.CategoryId) == false)
+            //{
+            //    var oldSize = _context.SizeSpecificEachProduct.Where(x => x.ProductId.Equals(id));
+            //    _context.RemoveRange(oldSize);
+            //    await _context.SaveChangesAsync(updateProductAdminView.UpdateProductDto.UserName);
+            //}
+            var checkCatId = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(proId));
+
+
+
             using var transaction = _context.Database.BeginTransaction();
+
+            if (categoryId.Equals(checkCatId.CategoryId) == false)
+            {
+                _context.Entry(checkCatId).Property(x => x.CategoryId).CurrentValue = categoryId;
+
+
+
+                await _context.SaveChangesAsync(userName);
+
+                var oldSize = _context.SizeSpecificEachProduct.Where(x => x.ProductId.Equals(proId));
+
+                _context.RemoveRange(oldSize);
+
+                await _context.SaveChangesAsync(userName);
+
+                await transaction.CommitAsync();
+
+                sizeId = newSizeId;
+            }
 
             var sizeSpecific = await _context.SizeSpecificEachProduct.Where(x => x.ProductId.Equals(proId)).ToListAsync();
 
@@ -98,9 +127,9 @@ namespace BJ.Application.Service
 
                     UpdateSizeSpecificProductDto updateSizeSpecificProductDto = _mapper.Map<UpdateSizeSpecificProductDto>(item);
 
-                    _context.Update(_mapper.Map(updateSizeSpecificProductDto, item));
+                    _context.Entry(item).CurrentValues.SetValues(updateSizeSpecificProductDto);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userName);
                 }
 
                 await transaction.CommitAsync();
@@ -121,9 +150,9 @@ namespace BJ.Application.Service
 
                     UpdateSizeSpecificProductDto updateSizeSpecificProductDto = _mapper.Map<UpdateSizeSpecificProductDto>(item);
 
-                    _context.Update(_mapper.Map(updateSizeSpecificProductDto, item));
+                    _context.Entry(item).CurrentValues.SetValues(updateSizeSpecificProductDto);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userName);
                 }
 
             }
@@ -145,8 +174,6 @@ namespace BJ.Application.Service
 
                             DateCreated = DateTime.Now,
 
-                            DateModified = DateTime.Now,
-
                             ActiveNutri = false,
 
                             ActiveSize = true,
@@ -156,7 +183,7 @@ namespace BJ.Application.Service
 
                         _context.Add(sizeSpecificEachProduct);
 
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync(userName);
                     }
                     if (sizeSpecific.Any(x => x.SizeId == sizeId[i] && x.ActiveSize == false))
                     {
@@ -168,9 +195,9 @@ namespace BJ.Application.Service
 
                         UpdateSizeSpecificProductDto updateSizeSpecificProductDto = _mapper.Map<UpdateSizeSpecificProductDto>(size);
 
-                        _context.Update(_mapper.Map(updateSizeSpecificProductDto, size));
+                        _context.Entry(size).CurrentValues.SetValues(updateSizeSpecificProductDto);
 
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync(userName);
                     }
                 }
             }
@@ -180,7 +207,7 @@ namespace BJ.Application.Service
             return true;
         }
 
-        public async Task<bool> ConfigSubCat(Guid proId, List<int> subCatId)
+        public async Task<bool> ConfigSubCat(Guid proId, List<int> subCatId, string userName)
         {
             using var transaction = _context.Database.BeginTransaction();
 
@@ -192,11 +219,13 @@ namespace BJ.Application.Service
                 {
                     item.Active = false;
 
+                    item.DateUpdated = DateTime.Now;
+
                     UpdateSubCategorySpecificProduct updateSubCategorySpecificProduct = _mapper.Map<UpdateSubCategorySpecificProduct>(item);
 
-                    _context.Update(_mapper.Map(updateSubCategorySpecificProduct, item));
+                    _context.Entry(item).CurrentValues.SetValues(updateSubCategorySpecificProduct);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userName);
                 }
 
                 await transaction.CommitAsync();
@@ -216,11 +245,13 @@ namespace BJ.Application.Service
 
                     item.Active = false;
 
+                    item.DateUpdated = DateTime.Now;
+
                     UpdateSubCategorySpecificProduct updateSubCategorySpecificProduct = _mapper.Map<UpdateSubCategorySpecificProduct>(item);
 
-                    _context.Update(_mapper.Map(updateSubCategorySpecificProduct, item));
+                    _context.Entry(item).CurrentValues.SetValues(updateSubCategorySpecificProduct);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userName);
                 }
 
             }
@@ -244,13 +275,15 @@ namespace BJ.Application.Service
                                 SubCategoryId = subCatId[i],
 
                                 Active = true,
+
+                                DateCreated = DateTime.Now,
                             };
 
                             SubCategorySpecificProduct subCategorySpecificProduct = _mapper.Map<SubCategorySpecificProduct>(createSubCategorySpecific);
 
                             _context.Add(subCategorySpecificProduct);
 
-                            await _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync(userName);
                         }
                         if (subCatSpecific.Any(x => x.SubCategoryId == subCatId[i] && x.Active == false))
                         {
@@ -258,11 +291,13 @@ namespace BJ.Application.Service
 
                             item.Active = true;
 
+                            item.DateUpdated = DateTime.Now;
+
                             UpdateSubCategorySpecificProduct updateSubCategorySpecificProduct = _mapper.Map<UpdateSubCategorySpecificProduct>(item);
 
-                            _context.Update(_mapper.Map(updateSubCategorySpecificProduct, item));
+                            _context.Entry(item).CurrentValues.SetValues(updateSubCategorySpecificProduct);
 
-                            await _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync(userName);
                         }
                     }
                 }

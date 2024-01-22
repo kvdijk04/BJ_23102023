@@ -22,14 +22,14 @@ namespace BJ.App.Controllers
         public async Task<IActionResult> Index(string culture)
         {
 
-            var store = await _storeLocationServiceConnection.GetAllStoreLocations();
+            var store = await _storeLocationServiceConnection.GetAllStoreLocations(culture);
 
             return View(store);
         }
 
-        public async Task<JsonResult> GetStore()
+        public async Task<JsonResult> GetStore(string culture)
         {
-            var store = await _storeLocationServiceConnection.GetAllStoreLocations();
+            var store = await _storeLocationServiceConnection.GetAllStoreLocations(culture);
 
             return Json(store);
         }

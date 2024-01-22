@@ -25,11 +25,11 @@ namespace BJ.ApiConnection.Services
         Task<bool> CreateNews(CreateNewsAdminView createNewsAdminView);
         Task<bool> UpdateNews(Guid id, string culture, UpdateNewsAdminView updateNewsAdminView);
 
-        public Task<NewsTranslationDto> GetNewsTranslationnById(Guid id);
+        public Task<NewsTranslationDto> GetNewsTranslationById(Guid id);
 
         Task<bool> CreateLanguage(CreateNewsTranslationDto createNewsTranslationDto);
 
-        Task<bool> UpdateNewsTranslationn(Guid languageId, UpdateNewsTranslationDto updateNewsTranslationDto);
+        Task<bool> UpdateNewsTranslation(Guid languageId, UpdateNewsTranslationDto updateNewsTranslationDto);
 
     }
     public class NewsServiceConnection : BaseApiClient, INewsServiceConnection
@@ -77,21 +77,21 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.Title) ? "" : createNewsAdminView.CreateNewsTranslation.Title.ToString()), "createNewsAdminView.CreateNewsTranslation.Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.ShortDesc) ? "" : createNewsAdminView.CreateNewsTranslation.ShortDesc.ToString()), "createNewsAdminView.CreateNewsTranslation.shortDesc");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.Description) ? "" : createNewsAdminView.CreateNewsTranslation.Description.ToString()), "createNewsAdminView.CreateNewsTranslation.description");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.DateUpdated.ToString()) ? "" : createNewsAdminView.CreateNews.DateUpdated.ToString()), "createNewsAdminView.CreateNews.DateUpdated");
 
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Active.ToString()) ? "" : createNewsAdminView.CreateNews.Active.ToString()), "createNewsAdminView.CreateNews.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Popular.ToString()) ? "" : createNewsAdminView.CreateNews.Popular.ToString()), "createNewsAdminView.CreateNews.popular");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Home.ToString()) ? "" : createNewsAdminView.CreateNews.Home.ToString()), "createNewsAdminView.CreateNews.Home");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.Promotion.ToString()) ? "" : createNewsAdminView.CreateNews.Promotion.ToString()), "createNewsAdminView.CreateNews.promotion");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.DateCreated.ToString()) ? "" : createNewsAdminView.CreateNews.DateCreated.ToString()), "createNewsAdminView.CreateNews.DateCreated");
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.DateActiveForm.ToString()) ? "" : createNewsAdminView.CreateNews.DateActiveForm.ToString()), "createNewsAdminView.CreateNews.dateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.DateTimeActiveTo.ToString()) ? "" : createNewsAdminView.CreateNews.DateTimeActiveTo.ToString()), "createNewsAdminView.CreateNews.dateTimeActiveTo");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.Alias) ? "" : createNewsAdminView.CreateNewsTranslation.Alias.ToString()), "createNewsAdminView.CreateNewsTranslation.alias");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.MetaDesc.ToString()) ? "" : createNewsAdminView.CreateNewsTranslation.MetaDesc.ToString()), "createNewsAdminView.CreateNewsTranslation.metaDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.MetaDesc) ? "" : createNewsAdminView.CreateNewsTranslation.MetaDesc), "createNewsAdminView.CreateNewsTranslation.metaDesc");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.MetaKey.ToString()) ? "" : createNewsAdminView.CreateNewsTranslation.MetaKey.ToString()), "createNewsAdminView.CreateNewsTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNewsTranslation.MetaKey) ? "" : createNewsAdminView.CreateNewsTranslation.MetaKey), "createNewsAdminView.CreateNewsTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(createNewsAdminView.CreateNews.UserName) ? "" : createNewsAdminView.CreateNews.UserName), "createNewsAdminView.CreateNews.userName");
 
             var response = await client.PostAsync($"/api/Newss/", requestContent);
 
@@ -157,24 +157,25 @@ namespace BJ.ApiConnection.Services
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.Title) ? "" : updateNewsAdminView.UpdateNewsTranslation.Title.ToString()), "updateNewsAdminView.UpdateNewsTranslation.Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.ShortDesc) ? "" : updateNewsAdminView.UpdateNewsTranslation.ShortDesc.ToString()), "updateNewsAdminView.UpdateNewsTranslation.shortDesc");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.Description) ? "" : updateNewsAdminView.UpdateNewsTranslation.Description.ToString()), "updateNewsAdminView.UpdateNewsTranslation.description");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.DateUpdated.ToString()) ? "" : updateNewsAdminView.UpdateNews.DateUpdated.ToString()), "updateNewsAdminView.UpdateNews.DateUpdated");
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.DateActiveForm.ToString()) ? "" : updateNewsAdminView.UpdateNews.DateActiveForm.ToString()), "updateNewsAdminView.UpdateNews.dateActiveForm");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.DateTimeActiveTo.ToString()) ? "" : updateNewsAdminView.UpdateNews.DateTimeActiveTo.ToString()), "updateNewsAdminView.UpdateNews.dateTimeActiveTo");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Active.ToString()) ? "" : updateNewsAdminView.UpdateNews.Active.ToString()), "updateNewsAdminView.UpdateNews.active");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Popular.ToString()) ? "" : updateNewsAdminView.UpdateNews.Popular.ToString()), "updateNewsAdminView.UpdateNews.popular");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Home.ToString()) ? "" : updateNewsAdminView.UpdateNews.Home.ToString()), "updateNewsAdminView.UpdateNews.Home");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.Promotion.ToString()) ? "" : updateNewsAdminView.UpdateNews.Promotion.ToString()), "updateNewsAdminView.UpdateNews.promotion");
 
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.MetaDesc.ToString()) ? "" : updateNewsAdminView.UpdateNewsTranslation.MetaDesc.ToString()), "updateNewsAdminView.UpdateNewsTranslation.metaDesc");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.MetaDesc) ? "" : updateNewsAdminView.UpdateNewsTranslation.MetaDesc), "updateNewsAdminView.UpdateNewsTranslation.metaDesc");
 
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.MetaKey.ToString()) ? "" : updateNewsAdminView.UpdateNewsTranslation.MetaKey.ToString()), "updateNewsAdminView.UpdateNewsTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNewsTranslation.MetaKey) ? "" : updateNewsAdminView.UpdateNewsTranslation.MetaKey), "updateNewsAdminView.UpdateNewsTranslation.metaKey");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(updateNewsAdminView.UpdateNews.UserName) ? "" : updateNewsAdminView.UpdateNews.UserName), "updateNewsAdminView.UpdateNews.userName");
 
             var response = await client.PutAsync($"/api/Newss/{id}?culture={culture}", requestContent);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<NewsTranslationDto> GetNewsTranslationnById(Guid id)
+        public async Task<NewsTranslationDto> GetNewsTranslationById(Guid id)
         {
             return await GetAsync<NewsTranslationDto>($"/api/Newss/language/{id}");
         }
@@ -193,12 +194,12 @@ namespace BJ.ApiConnection.Services
 
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync($"/api/Newss/language/create", httpContent);
+            var response = await client.PostAsync($"/api/Newss/language", httpContent);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateNewsTranslationn(Guid languageId, UpdateNewsTranslationDto updateNewsTranslationDto)
+        public async Task<bool> UpdateNewsTranslation(Guid languageId, UpdateNewsTranslationDto updateNewsTranslationDto)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 

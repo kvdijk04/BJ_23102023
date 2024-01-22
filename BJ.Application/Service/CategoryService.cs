@@ -2,14 +2,21 @@
 using BJ.Application.Helper;
 using BJ.Application.Ultities;
 using BJ.Contract.Category;
+using BJ.Contract.StoreLocation;
 using BJ.Contract.SubCategory;
+using BJ.Contract.Translation.Blog;
 using BJ.Contract.Translation.Category;
+using BJ.Contract.Translation.News;
+using BJ.Contract.Translation.Product;
 using BJ.Contract.Translation.SubCategory;
+using BJ.Contract.ViewModel;
 using BJ.Domain.Entities;
 using BJ.Persistence.ApplicationContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BJ.Application.Service
 {
@@ -22,28 +29,28 @@ namespace BJ.Application.Service
         Task<PagedViewModel<CategoryDto>> GetPagingCategory([FromQuery] GetListPagingRequest getListPagingRequest);
         Task<PagedViewModel<SubCategoryDto>> GetPagingSubCategory([FromQuery] GetListPagingRequest getListPagingRequest);
 
-        Task CreateCategory(CreateCategoryDto createCategoryDto);
+        Task CreateCategory(CreateCategoryAdminView createCategoryAdminView);
 
-        Task CreateSubCategory(CreateSubCategoryDto createSubCategoryDto);
+        Task CreateSubCategory(CreateSubCategoryAdminView createSubCategoryAdminView);
 
         Task CreateSubCategorySpecific(CreateSubCategorySpecificDto createSubCategorySpecificDto);
 
-        Task UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto);
-        Task UpdateSubCategory(int id, UpdateSubCategoryDto updateSubCategoryDto);
+        Task UpdateCategory(Guid id, UpdateCategoryAdminView updateCategoryAdminView);
+        Task UpdateSubCategory(int id, UpdateSubCategoryAdminView updateSubCategoryAdminView);
 
         Task<CategoryDto> GetCategoryById(Guid id);
         Task<SubCategoryDto> GetSubCategoryById(int id);
 
-        Task<CategoryTranslationDto> GetCategoryTransalationById(Guid id);
+        Task<CategoryTranslationDto> GetCategoryTranslationById(Guid id);
 
         Task CreateTranslateCategory(CreateCategoryTranslationDto createCategoryTranslationDto);
-        Task UpdateTranslateCategory(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto);
+        Task UpdateTranslateCategory(Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto);
 
 
-        Task<SubCategoryTranslationDto> GetSubCategoryTransalationById(Guid id);
+        Task<SubCategoryTranslationDto> GetSubCategoryTranslationById(Guid id);
 
         Task CreateSubCategoryTranslate(CreateSubCategoryTranslationDto createSubCategoryTranslationDto);
-        Task UpdateSubCategoryTranslate(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto);
+        Task UpdateSubCategoryTranslate(Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto);
 
         Task<Guid> GetIdOfCategorỵ(string code);
 
@@ -62,13 +69,13 @@ namespace BJ.Application.Service
             _configuration = configuration;
         }
 
-        public async Task CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task CreateCategory(CreateCategoryAdminView createCategoryAdminView)
         {
             using var transaction = _context.Database.BeginTransaction();
 
-            createCategoryDto.Id = Guid.NewGuid();
+            createCategoryAdminView.CreateCategoryDto.Id = Guid.NewGuid();
 
-            createCategoryDto.Alias = Utilities.SEOUrl(createCategoryDto.CatName);
+            createCategoryAdminView.CreateCategoryTranslationDto.Alias = Utilities.SEOUrl(createCategoryAdminView.CreateCategoryTranslationDto.CatName);
 
             var code = _configuration.GetValue<string>("Code:Category");
 
@@ -78,7 +85,7 @@ namespace BJ.Application.Service
             string s = null;
             var codeLimit = _configuration.GetValue<string>("LimitCode");
 
-            if (total.Count == 0) { createCategoryDto.Code = code + codeLimit; }
+            if (total.Count == 0) { createCategoryAdminView.CreateCategoryDto.Code = code + codeLimit; }
 
             else if (total.Count > 0)
             {
@@ -104,53 +111,52 @@ namespace BJ.Application.Service
                     s += total[0].Code.Substring(code.Length, codeLimit.Length - 9);
                 s += k.ToString();
 
-                createCategoryDto.Code = code + s;
+                createCategoryAdminView.CreateCategoryDto.Code = code + s;
             }
-            if (createCategoryDto.Image != null)
+            if (createCategoryAdminView.Image != null)
             {
-                string extension = Path.GetExtension(createCategoryDto.Image.FileName);
+                string extension = Path.GetExtension(createCategoryAdminView.Image.FileName);
 
-                string image = Utilities.SEOUrl(createCategoryDto.CatName) + extension;
+                string image = Utilities.SEOUrl(createCategoryAdminView.CreateCategoryTranslationDto.CatName) + extension;
 
-                createCategoryDto.ImagePath = await Utilities.UploadFile(createCategoryDto.Image, "ImageCategory", image);
+                createCategoryAdminView.CreateCategoryDto.ImagePath = await Utilities.UploadFile(createCategoryAdminView.Image, "ImageCategory", image);
             }
 
+            if (createCategoryAdminView.CreateCategoryDto.Sort == null)
+            {
+                var currentSort = await _context.Categories.OrderByDescending(x => x.Sort).AsNoTracking().ToListAsync();
 
-            createCategoryDto.DateCreated = DateTime.Now;
-            createCategoryDto.DateUpdated = DateTime.Now;
-            Category category = _mapper.Map<Category>(createCategoryDto);
+                createCategoryAdminView.CreateCategoryDto.Sort = currentSort[0].Sort + 1;
+            }
+
+            createCategoryAdminView.CreateCategoryDto.DateCreated = DateTime.Now;
+            Category category = _mapper.Map<Category>(createCategoryAdminView.CreateCategoryDto);
 
             _context.Add(category);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createCategoryAdminView.CreateCategoryDto.UserName);
 
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
-            CreateCategoryTranslationDto createCategoryTranslationDto = new()
-            {
-                Id = Guid.NewGuid(),
-                CategoryId = createCategoryDto.Id,
-                CatName = createCategoryDto.CatName,
-                Alias = Utilities.SEOUrl(createCategoryDto.CatName),
-                Description = createCategoryDto.Description,
-                MetaDesc = createCategoryDto.MetaDesc,
-                LanguageId = defaultLanguage,
-            };
-            CategoryTranslation categoryTranslation = _mapper.Map<CategoryTranslation>(createCategoryTranslationDto);
+            createCategoryAdminView.CreateCategoryTranslationDto.CategoryId = createCategoryAdminView.CreateCategoryDto.Id;
+            createCategoryAdminView.CreateCategoryTranslationDto.Alias = Utilities.SEOUrl(createCategoryAdminView.CreateCategoryTranslationDto.Alias);
+            createCategoryAdminView.CreateCategoryTranslationDto.LanguageId = defaultLanguage;
+            createCategoryAdminView.CreateCategoryTranslationDto.DateCreated = DateTime.Now;
+
+           
+            CategoryTranslation categoryTranslation = _mapper.Map<CategoryTranslation>(createCategoryAdminView.CreateCategoryTranslationDto);
 
             _context.Add(categoryTranslation);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createCategoryAdminView.CreateCategoryDto.UserName);
 
             await transaction.CommitAsync();
         }
 
-        public async Task CreateSubCategory(CreateSubCategoryDto createSubCategoryDto)
+        public async Task CreateSubCategory(CreateSubCategoryAdminView createSubCategoryAdminView)
         {
             using var transaction = _context.Database.BeginTransaction();
 
-            createSubCategoryDto.DateCreated = DateTime.Now;
-
-            createSubCategoryDto.DateUpdated = DateTime.Now;
+            createSubCategoryAdminView.CreateSubCategoryDto.DateCreated = DateTime.Now;
 
             var code = _configuration.GetValue<string>("Code:SubCategory");
 
@@ -159,7 +165,7 @@ namespace BJ.Application.Service
             string s = null;
             var codeLimit = _configuration.GetValue<string>("LimitCode");
 
-            if (total.Count == 0) { createSubCategoryDto.Code = code + codeLimit; }
+            if (total.Count == 0) { createSubCategoryAdminView.CreateSubCategoryDto.Code = code + codeLimit; }
 
             else if (total.Count > 0)
             {
@@ -185,42 +191,38 @@ namespace BJ.Application.Service
                     s += total[0].Code.Substring(code.Length, codeLimit.Length - 9);
                 s += k.ToString();
 
-                createSubCategoryDto.Code = code + s;
+                createSubCategoryAdminView.CreateSubCategoryDto.Code = code + s;
 
             }
-            if (createSubCategoryDto.Image != null)
+            if (createSubCategoryAdminView.Image != null)
             {
-                string extension = Path.GetExtension(createSubCategoryDto.Image.FileName);
+                string extension = Path.GetExtension(createSubCategoryAdminView.Image.FileName);
 
-                string image = Utilities.SEOUrl(createSubCategoryDto.SubCatName) + extension;
+                string image = Utilities.SEOUrl(createSubCategoryAdminView.CreateSubCategoryTranslationDto.SubCatName) + extension;
 
-                createSubCategoryDto.ImagePath = await Utilities.UploadFile(createSubCategoryDto.Image, "ImageSubCategory", image);
+                createSubCategoryAdminView.CreateSubCategoryDto.ImagePath = await Utilities.UploadFile(createSubCategoryAdminView.Image, "ImageSubCategory", image);
             }
 
 
 
-            SubCategory category = _mapper.Map<SubCategory>(createSubCategoryDto);
+            SubCategory category = _mapper.Map<SubCategory>(createSubCategoryAdminView.CreateSubCategoryDto);
 
             _context.Add(category);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createSubCategoryAdminView.CreateSubCategoryDto.UserName);
 
             var defaultLanguage = _configuration.GetValue<string>("DefaultLanguageId");
 
-            CreateSubCategoryTranslationDto createSubCategoryTranslationDto = new()
-            {
-                Id = Guid.NewGuid(),
-                SubCategoryId = category.Id,
-                SubCatName = createSubCategoryDto.SubCatName,
-                Description = createSubCategoryDto.Description,
-                LanguageId = defaultLanguage,
+            createSubCategoryAdminView.CreateSubCategoryTranslationDto.Id = Guid.NewGuid();
+            createSubCategoryAdminView.CreateSubCategoryTranslationDto.SubCategoryId = category.Id;
+            createSubCategoryAdminView.CreateSubCategoryTranslationDto.DateCreated = DateTime.Now;
+            createSubCategoryAdminView.CreateSubCategoryTranslationDto.LanguageId = defaultLanguage;
 
-            };
-            SubCategoryTranslation categoryTranslation = _mapper.Map<SubCategoryTranslation>(createSubCategoryTranslationDto);
+            SubCategoryTranslation categoryTranslation = _mapper.Map<SubCategoryTranslation>(createSubCategoryAdminView.CreateSubCategoryTranslationDto);
 
             _context.Add(categoryTranslation);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createSubCategoryAdminView.CreateSubCategoryDto.UserName);
 
             await transaction.CommitAsync();
         }
@@ -237,32 +239,76 @@ namespace BJ.Application.Service
 
         public async Task CreateTranslateCategory(CreateCategoryTranslationDto createCategoryTranslationDto)
         {
+            var exist = _context.CategoryTranslations.Any(x => x.CategoryId.Equals(createCategoryTranslationDto.CategoryId) && x.LanguageId == createCategoryTranslationDto.LanguageId);
+            if (exist) return;
             createCategoryTranslationDto.Id = Guid.NewGuid();
 
             createCategoryTranslationDto.Alias = Utilities.SEOUrl(createCategoryTranslationDto.CatName);
 
+            createCategoryTranslationDto.DateCreated = DateTime.Now;
             CategoryTranslation transaltecategory = _mapper.Map<CategoryTranslation>(createCategoryTranslationDto);
 
             _context.Add(transaltecategory);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createCategoryTranslationDto.UserName);
         }
 
         public async Task<CategoryDto> GetCategoryById(Guid id)
         {
-            var cat = await _context.Categories.Include(x => x.CategoryTranslations).FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var item = await _context.Categories.FindAsync(id);
 
-            if (cat == null) return null;
+            if (item == null) return null;
 
-            return _mapper.Map<CategoryDto>(cat);
+            var culture = _configuration.GetValue<string>("DefaultLanguageId");
+
+            var categoryTranslation = await _context.CategoryTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.LanguageId == culture && x.CategoryId.Equals(id));
+
+            var subCat = new CategoryDto()
+            {
+                Id = item.Id,
+                DateCreated = item.DateCreated,
+                Description = categoryTranslation != null ? categoryTranslation.Description : null,
+                CatName = categoryTranslation != null ? categoryTranslation.CatName : null,
+                Alias = categoryTranslation != null ? categoryTranslation.Alias : null,
+                Code = item.Code,
+                DateUpdated = item.DateUpdated,
+                Active = item.Active,
+                ImagePath = item != null ? item.ImagePath : null,
+                Sort = item.Sort,
+                DateActiveForm = item != null ? item.DateActiveForm : null,
+                DateTimeActiveTo = item != null ? item.DateTimeActiveTo : null,
+                CategoryTranslationDtos = _mapper.Map<List<CategoryTranslationDto>>
+                (await _context.CategoryTranslations.Where(x => x.CategoryId.Equals(id)).Select(x => new CategoryTranslation
+                {
+                    LanguageId = x.LanguageId,
+                    Id = x.Id,
+                    CatName = x.CatName
+
+                }).ToListAsync())
+            };
+            return subCat;
         }
 
         public async Task<IEnumerable<CategoryDto>> GetCategoryDtos()
         {
-            var category = await _context.Categories.Include(x => x.Products.Where(x => x.BestSeller == true)).AsNoTracking().ToListAsync();
-            var categoryDto = _mapper.Map<List<CategoryDto>>(category);
+            var languageId = _configuration.GetValue<string>("DefaultLanguageId");
 
-            return categoryDto;
+            var query = from c in _context.Categories
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
+                        from ct in cl.DefaultIfEmpty()
+                        where ct.LanguageId == languageId
+                        select new { c, ct };
+            var cat = await query.Select(x => new CategoryDto()
+            {
+                CatName = x.ct.CatName,
+                Active = x.c.Active,
+                ImagePath = x.c.ImagePath,
+                Id = x.c.Id,
+
+
+            }).ToListAsync();
+
+            return cat;
         }
 
         public async Task<PagedViewModel<CategoryDto>> GetPagingCategory([FromQuery] GetListPagingRequest getListPagingRequest)
@@ -272,11 +318,19 @@ namespace BJ.Application.Service
                 getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSize:Category"));
             }
             var pageResult = getListPagingRequest.PageSize;
-            var pageCount = Math.Ceiling(_context.Categories.Count() / (double)pageResult);
-            var query = _context.Categories.OrderByDescending(x => x.DateCreated).AsQueryable();
+
+            getListPagingRequest.LanguageId = _configuration.GetValue<string>("DefaultLanguageId");
+
+            var query = from c in _context.Categories.OrderBy(x => x.Sort).ThenByDescending(x => x.DateCreated)
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into cl
+                        from ct in cl.DefaultIfEmpty()
+                        where ct.LanguageId == getListPagingRequest.LanguageId 
+                        select new { c, ct };
+            var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
+
             if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
             {
-                query = query.Where(x => x.CatName.Contains(getListPagingRequest.Keyword) || x.Code.Contains(getListPagingRequest.Keyword));
+                query = query.Where(x => x.ct.CatName.Contains(getListPagingRequest.Keyword) || x.c.Code.Contains(getListPagingRequest.Keyword));
                 pageCount = Math.Ceiling(query.Count() / (double)pageResult);
             }
 
@@ -286,11 +340,14 @@ namespace BJ.Application.Service
                                     .Take(pageResult)
                                     .Select(x => new CategoryDto()
                                     {
-                                        Id = x.Id,
-                                        CatName = x.CatName,
-                                        Code = x.Code,
-                                        Active = x.Active,
-                                        ImagePath = x.ImagePath,
+                                        Id = x.c.Id,
+                                        CatName = x.ct.CatName,
+                                        Code = x.c.Code,
+                                        Active = x.c.Active,
+                                        ImagePath = x.c.ImagePath,
+                                        Sort = x.c.Sort,
+                                        DateActiveForm = x.c.DateActiveForm,
+                                        DateTimeActiveTo = x.c.DateTimeActiveTo,
                                     }).ToListAsync();
             var categoryResponse = new PagedViewModel<CategoryDto>
             {
@@ -308,11 +365,19 @@ namespace BJ.Application.Service
                 getListPagingRequest.PageSize = Convert.ToInt32(_configuration.GetValue<float>("PageSize:SubCategory"));
             }
             var pageResult = getListPagingRequest.PageSize;
-            var pageCount = Math.Ceiling(_context.SubCategories.Count() / (double)pageResult);
-            var query = _context.SubCategories.OrderByDescending(x => x.DateCreated).AsNoTracking().AsQueryable();
+
+            getListPagingRequest.LanguageId = _configuration.GetValue<string>("DefaultLanguageId");
+
+            var query = from sc in _context.SubCategories
+                        join sct in _context.SubCategoryTranslations on sc.Id equals sct.SubCategoryId into cl
+                        from sct in cl.DefaultIfEmpty()
+                        where sct.LanguageId == getListPagingRequest.LanguageId
+                        select new { sc, sct };
+            var pageCount = Math.Ceiling(await query.CountAsync() / (double)pageResult);
+
             if (!string.IsNullOrEmpty(getListPagingRequest.Keyword))
             {
-                query = query.Where(x => x.SubCatName.Contains(getListPagingRequest.Keyword));
+                query = query.Where(x => x.sct.SubCatName.Contains(getListPagingRequest.Keyword));
                 pageCount = Math.Ceiling(query.Count() / (double)pageResult);
             }
 
@@ -322,10 +387,10 @@ namespace BJ.Application.Service
                                     .Take(pageResult)
                                     .Select(x => new SubCategoryDto()
                                     {
-                                        Id = x.Id,
-                                        SubCatName = x.SubCatName,
-                                        Active = x.Active,
-                                        ImagePath = x.ImagePath,
+                                        Id = x.sc.Id,
+                                        SubCatName = x.sct.SubCatName,
+                                        Active = x.sc.Active,
+                                        ImagePath = x.sc.ImagePath,
                                     }).ToListAsync();
             var subCategoryResponse = new PagedViewModel<SubCategoryDto>
             {
@@ -339,21 +404,61 @@ namespace BJ.Application.Service
 
         public async Task<SubCategoryDto> GetSubCategoryById(int id)
         {
-            var subCat = await _context.SubCategories.Include(x => x.SubCategoryTranslations).FirstOrDefaultAsync(x => x.Id.Equals(id));
-            if (subCat == null) return null;
+            var item = await _context.SubCategories.FindAsync(id);
 
-            return _mapper.Map<SubCategoryDto>(subCat);
+            if(item == null) return null;
+
+            var culture = _configuration.GetValue<string>("DefaultLanguageId");
+
+            var subCategoryTranslation = await _context.SubCategoryTranslations.FirstOrDefaultAsync(x => x.LanguageId == culture && x.SubCategoryId.Equals(id));
+
+            var subCat = new SubCategoryDto()
+            {
+                Id = item.Id,
+                DateCreated = item.DateCreated,
+                Description = subCategoryTranslation != null ? subCategoryTranslation.Description : null,
+                SubCatName = subCategoryTranslation != null ? subCategoryTranslation.SubCatName : null,
+                Code = item.Code,
+                DateUpdated = item.DateUpdated,
+                Active = item.Active,
+                ImagePath = item != null ? item.ImagePath : null,
+                SubCategoryTranslationDtos = _mapper.Map<List<SubCategoryTranslationDto>>
+                (await _context.SubCategoryTranslations.Where(x => x.SubCategoryId.Equals(id)).Select(x => new SubCategoryTranslationDto
+                {
+                    LanguageId = x.LanguageId,
+                    Id = x.Id,
+                    SubCatName = x.SubCatName
+
+                }).ToListAsync())
+
+            };
+            return subCat;
+
         }
 
         public async Task<IEnumerable<SubCategoryDto>> GetSubCategoryDtos()
         {
-            var subCategory = await _context.SubCategories.Where(x => x.Active == true).AsNoTracking().ToListAsync();
-            var subCategoryDto = _mapper.Map<List<SubCategoryDto>>(subCategory);
+            var  languageId = _configuration.GetValue<string>("DefaultLanguageId");
 
-            return subCategoryDto;
+            var query = from sc in _context.SubCategories
+                        join sct in _context.SubCategoryTranslations on sc.Id equals sct.SubCategoryId into cl
+                        from sct in cl.DefaultIfEmpty()
+                        where sct.LanguageId == languageId
+                        select new { sc, sct };
+            var cat = await query.Select(x => new SubCategoryDto()
+            {
+                SubCatName = x.sct.SubCatName,
+                Active = x.sc.Active,
+                ImagePath = x.sc.ImagePath,
+                Id = x.sc.Id,
+                
+
+            }).ToListAsync();
+
+            return cat;
         }
 
-        public async Task<CategoryTranslationDto> GetCategoryTransalationById(Guid id)
+        public async Task<CategoryTranslationDto> GetCategoryTranslationById(Guid id)
         {
             var categoryTranslate = await _context.CategoryTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             var categoryTranslateDto = _mapper.Map<CategoryTranslationDto>(categoryTranslate);
@@ -383,7 +488,7 @@ namespace BJ.Application.Service
             return cat;
         }
 
-        public async Task UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto)
+        public async Task UpdateCategory(Guid id, UpdateCategoryAdminView updateCategoryAdminView)
         {
             var item = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
@@ -391,13 +496,13 @@ namespace BJ.Application.Service
             {
                 using var transaction = _context.Database.BeginTransaction();
 
-                updateCategoryDto.Alias = Utilities.SEOUrl(updateCategoryDto.CatName);
+                updateCategoryAdminView.UpdateCategoryTranslationDto.Alias = Utilities.SEOUrl(updateCategoryAdminView.UpdateCategoryTranslationDto.CatName);
 
-                if (updateCategoryDto.Image != null)
+                if (updateCategoryAdminView.Image != null)
                 {
-                    string extension = Path.GetExtension(updateCategoryDto.Image.FileName);
+                    string extension = Path.GetExtension(updateCategoryAdminView.Image.FileName);
 
-                    string image = Utilities.SEOUrl(updateCategoryDto.CatName) + extension;
+                    string image = Utilities.SEOUrl(updateCategoryAdminView.UpdateCategoryTranslationDto.CatName) + extension;
 
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "ImageCategory", image);
 
@@ -408,44 +513,50 @@ namespace BJ.Application.Service
                         File.Delete(imagePath);
 
                     }
-                    updateCategoryDto.ImagePath = await Utilities.UploadFile(updateCategoryDto.Image, "ImageCategory", image);
+                    updateCategoryAdminView.UpdateCategory.ImagePath = await Utilities.UploadFile(updateCategoryAdminView.Image, "ImageCategory", image);
 
                 }
 
+                if (updateCategoryAdminView.UpdateCategory.Sort == null)
+                {
+                    var currentSort = await _context.Categories.OrderByDescending(x => x.Sort).AsNoTracking().ToListAsync();
+
+                    updateCategoryAdminView.UpdateCategory.Sort = currentSort[1].Sort + 1;
+                }
+                
 
 
-                updateCategoryDto.DateUpdated = DateTime.Now;
+                updateCategoryAdminView.UpdateCategory.DateUpdated = DateTime.Now;
 
 
+                _context.Entry(item).CurrentValues.SetValues(updateCategoryAdminView.UpdateCategory);
 
-                _context.Update(_mapper.Map(updateCategoryDto, item));
-
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateCategoryAdminView.UpdateCategory.UserName);
 
                 var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
-                var translate = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId.Equals(id) && x.LanguageId == culture);
+                var translate = await _context.CategoryTranslations.FirstOrDefaultAsync(x => x.CategoryId.Equals(id) && x.LanguageId == culture);
 
                 if (translate != null)
                 {
-                    var updateTranslate = new UpdateCategoryTranslationDto()
-                    {
-                        CatName = updateCategoryDto.CatName,
-                        Description = updateCategoryDto.Description,
-                        MetaDesc = updateCategoryDto.MetaDesc,
-                        Alias = Utilities.SEOUrl(updateCategoryDto.CatName),
+                    updateCategoryAdminView.UpdateCategoryTranslationDto.Alias = Utilities.SEOUrl(updateCategoryAdminView.UpdateCategoryTranslationDto.CatName);
 
-                    };
-                    _context.Update(_mapper.Map(updateTranslate, translate));
+                    updateCategoryAdminView.UpdateCategoryTranslationDto.DateUpdated = DateTime.Now;
 
-                    await _context.SaveChangesAsync();
+                    _context.Entry(translate).CurrentValues.SetValues(updateCategoryAdminView.UpdateCategoryTranslationDto);
+
+                    await _context.SaveChangesAsync(updateCategoryAdminView.UpdateCategory.UserName);
                 }
+
+                
+
+
                 await transaction.CommitAsync();
             }
 
         }
 
-        public async Task UpdateSubCategory(int id, UpdateSubCategoryDto updateSubCategoryDto)
+        public async Task UpdateSubCategory(int id, UpdateSubCategoryAdminView updateSubCategoryAdminView)
         {
             var item = await _context.SubCategories.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
@@ -453,11 +564,11 @@ namespace BJ.Application.Service
             {
                 using var transaction = _context.Database.BeginTransaction();
 
-                if (updateSubCategoryDto.Image != null)
+                if (updateSubCategoryAdminView.Image != null)
                 {
-                    string extension = Path.GetExtension(updateSubCategoryDto.Image.FileName);
+                    string extension = Path.GetExtension(updateSubCategoryAdminView.Image.FileName);
 
-                    string image = Utilities.SEOUrl(updateSubCategoryDto.SubCatName) + extension;
+                    string image = Utilities.SEOUrl(updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.SubCatName) + extension;
 
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "ImageSubCategory", image);
 
@@ -470,15 +581,15 @@ namespace BJ.Application.Service
                     }
 
 
-                    updateSubCategoryDto.ImagePath = await Utilities.UploadFile(updateSubCategoryDto.Image, "ImageSubCategory", image);
+                    updateSubCategoryAdminView.UpdateSubCategoryDto.ImagePath = await Utilities.UploadFile(updateSubCategoryAdminView.UpdateSubCategoryDto.Image, "ImageSubCategory", image);
                 }
 
 
-                updateSubCategoryDto.DateUpdated = DateTime.Now;
+                updateSubCategoryAdminView.UpdateSubCategoryDto.DateUpdated = DateTime.Now;
 
-                _context.Update(_mapper.Map(updateSubCategoryDto, item));
+                _context.Entry(item).CurrentValues.SetValues(updateSubCategoryAdminView.UpdateSubCategoryDto);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(updateSubCategoryAdminView.UpdateSubCategoryDto.UserName);
 
                 var culture = _configuration.GetValue<string>("DefaultLanguageId");
 
@@ -486,21 +597,17 @@ namespace BJ.Application.Service
 
                 if (translate != null)
                 {
-                    var updateSubCategoryTranslate = new UpdateSubCategoryTranslationDto()
-                    {
-                        SubCatName = updateSubCategoryDto.SubCatName,
-                        Description = updateSubCategoryDto.Description,
+                    updateSubCategoryAdminView.UpdateSubCategoryTranslationDto.DateUpdated = DateTime.Now;
 
-                    };
-                    _context.Update(_mapper.Map(updateSubCategoryTranslate, translate));
+                    _context.Entry(translate).CurrentValues.SetValues(updateSubCategoryAdminView.UpdateSubCategoryTranslationDto);
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(updateSubCategoryAdminView.UpdateSubCategoryDto.UserName);
                 }
                 await transaction.CommitAsync();
             }
         }
 
-        public async Task UpdateTranslateCategory(Guid catId, Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
+        public async Task UpdateTranslateCategory(Guid id, UpdateCategoryTranslationDto updateCategoryTranslationDto)
         {
             var item = await _context.CategoryTranslations.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
@@ -508,41 +615,18 @@ namespace BJ.Application.Service
             if (item != null)
             {
 
-                using var transaction = _context.Database.BeginTransaction();
-
                 updateCategoryTranslationDto.Alias = Utilities.SEOUrl(updateCategoryTranslationDto.CatName);
 
-                _context.Update(_mapper.Map(updateCategoryTranslationDto, item));
+                updateCategoryTranslationDto.DateUpdated = DateTime.Now;
 
-                await _context.SaveChangesAsync();
+                _context.Entry(item).CurrentValues.SetValues(updateCategoryTranslationDto);
 
-                var culture = _configuration.GetValue<string>("DefaultLanguageId");
+                await _context.SaveChangesAsync(updateCategoryTranslationDto.UserName);
 
-                if (item.LanguageId == culture)
-                {
-                    var category = await _context.Categories.FindAsync(catId);
-
-                    var updateCategoryDto = new UpdateCategoryDto()
-                    {
-                        Active = category.Active,
-                        Alias = updateCategoryTranslationDto.CatName,
-                        Description = updateCategoryTranslationDto.Description,
-                        ImagePath = category.ImagePath,
-                        DateUpdated = DateTime.Now,
-                        MetaDesc = updateCategoryTranslationDto.MetaDesc,
-                        MetaKey = category.MetaKey,
-                        CatName = updateCategoryTranslationDto.CatName,
-                    };
-                    _context.Update(_mapper.Map(updateCategoryDto, category));
-
-                    await _context.SaveChangesAsync();
-                }
-
-                await transaction.CommitAsync();
             }
         }
 
-        public async Task<SubCategoryTranslationDto> GetSubCategoryTransalationById(Guid id)
+        public async Task<SubCategoryTranslationDto> GetSubCategoryTranslationById(Guid id)
         {
             var subCategoryTranslate = await _context.SubCategoryTranslations.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             var subCategoryTranslateDto = _mapper.Map<SubCategoryTranslationDto>(subCategoryTranslate);
@@ -552,48 +636,34 @@ namespace BJ.Application.Service
 
         public async Task CreateSubCategoryTranslate(CreateSubCategoryTranslationDto createSubCategoryTranslationDto)
         {
+            var exist = _context.SubCategoryTranslations.Any(x => x.SubCategoryId.Equals(createSubCategoryTranslationDto.SubCategoryId) && x.LanguageId == createSubCategoryTranslationDto.LanguageId);
+            
+            if (exist) return;
+
             createSubCategoryTranslationDto.Id = Guid.NewGuid();
 
+            createSubCategoryTranslationDto.DateCreated = DateTime.Now;
 
             SubCategoryTranslation transaltecategory = _mapper.Map<SubCategoryTranslation>(createSubCategoryTranslationDto);
 
             _context.Add(transaltecategory);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(createSubCategoryTranslationDto.UserName);
         }
 
-        public async Task UpdateSubCategoryTranslate(int subCatId, Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
+        public async Task UpdateSubCategoryTranslate(Guid id, UpdateSubCategoryTranslationDto updateSubCategoryTranslationDto)
         {
             var item = await _context.SubCategoryTranslations.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
 
             if (item != null)
             {
-                using var transaction = _context.Database.BeginTransaction();
+                updateSubCategoryTranslationDto.DateUpdated = DateTime.Now;
 
+                _context.Entry(item).CurrentValues.SetValues(updateSubCategoryTranslationDto);
 
-                _context.Update(_mapper.Map(updateSubCategoryTranslationDto, item));
+                await _context.SaveChangesAsync(updateSubCategoryTranslationDto.UserName);
 
-                await _context.SaveChangesAsync();
-                var culture = _configuration.GetValue<string>("DefaultLanguageId");
-
-                if (item.LanguageId == culture)
-                {
-                    var subCategory = await _context.SubCategories.FindAsync(subCatId);
-                    var updateSubCategoryDto = new UpdateSubCategoryDto()
-                    {
-                        Active = subCategory.Active,
-                        Description = updateSubCategoryTranslationDto.Description,
-                        ImagePath = subCategory.ImagePath,
-                        DateUpdated = DateTime.Now,
-                        SubCatName = updateSubCategoryTranslationDto.SubCatName,
-                    };
-                    _context.Update(_mapper.Map(updateSubCategoryDto, subCategory));
-
-                    await _context.SaveChangesAsync();
-                }
-
-                await transaction.CommitAsync();
             }
         }
 
